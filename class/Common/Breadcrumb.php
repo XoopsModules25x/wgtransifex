@@ -31,7 +31,7 @@ namespace XoopsModules\Wgtransifex\Common;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
+\defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
 
 /**
  * Class Breadcrumb
@@ -43,7 +43,7 @@ class Breadcrumb
 
     public function __construct()
     {
-        $this->dirname = basename(dirname(dirname(__DIR__)));
+        $this->dirname = \basename(\dirname(\dirname(__DIR__)));
     }
 
     /**
@@ -65,7 +65,7 @@ class Breadcrumb
      */
     public function render()
     {
-        if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
+        if (!isset($GLOBALS['xoTheme']) || !\is_object($GLOBALS['xoTheme'])) {
             require $GLOBALS['xoops']->path('class/theme.php');
             $GLOBALS['xoTheme'] = new \xos_opal_Theme();
         }

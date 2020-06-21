@@ -131,7 +131,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
         $crSettings = new \CriteriaCompo();
         $crSettings->setLimit(1);
         $settingsAll = $this->getAll($crSettings);
-        foreach (array_keys($settingsAll) as $i) {
+        foreach (\array_keys($settingsAll) as $i) {
             $setting['user'] = $settingsAll[$i]->getVar('set_username');
             $setting['pwd']  = $settingsAll[$i]->getVar('set_password');
         }

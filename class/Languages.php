@@ -25,7 +25,7 @@ namespace XoopsModules\Wgtransifex;
 
 use XoopsModules\Wgtransifex;
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+\defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Object Languages
@@ -39,16 +39,16 @@ class Languages extends \XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('lang_id', XOBJ_DTYPE_INT);
-        $this->initVar('lang_name', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('lang_code', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('lang_iso_639_1', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('lang_iso_639_2', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('lang_iso_639_1', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('lang_folder', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('lang_flag', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('lang_date', XOBJ_DTYPE_INT);
-        $this->initVar('lang_submitter', XOBJ_DTYPE_INT);
+        $this->initVar('lang_id', \XOBJ_DTYPE_INT);
+        $this->initVar('lang_name', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('lang_code', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('lang_iso_639_1', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('lang_iso_639_2', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('lang_iso_639_1', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('lang_folder', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('lang_flag', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('lang_date', \XOBJ_DTYPE_INT);
+        $this->initVar('lang_submitter', \XOBJ_DTYPE_INT);
     }
 
     /**
@@ -86,27 +86,27 @@ class Languages extends \XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
-        $title = $this->isNew() ? sprintf(_AM_WGTRANSIFEX_LANGUAGE_ADD) : sprintf(_AM_WGTRANSIFEX_LANGUAGE_EDIT);
+        $title = $this->isNew() ? \sprintf(\_AM_WGTRANSIFEX_LANGUAGE_ADD) : \sprintf(\_AM_WGTRANSIFEX_LANGUAGE_EDIT);
         // Get Theme Form
-        xoops_load('XoopsFormLoader');
+        \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         // Form Text langName
-        $form->addElement(new \XoopsFormText(_AM_WGTRANSIFEX_LANGUAGE_NAME, 'lang_name', 50, 255, $this->getVar('lang_name')), true);
+        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_LANGUAGE_NAME, 'lang_name', 50, 255, $this->getVar('lang_name')), true);
         // Form Text langCode
-        $form->addElement(new \XoopsFormText(_AM_WGTRANSIFEX_LANGUAGE_CODE, 'lang_code', 50, 255, $this->getVar('lang_code')));
+        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_LANGUAGE_CODE, 'lang_code', 50, 255, $this->getVar('lang_code')));
         // Form Text langIso_639_1
-        $form->addElement(new \XoopsFormText(_AM_WGTRANSIFEX_LANGUAGE_ISO_639_1, 'lang_iso_639_1', 50, 255, $this->getVar('lang_iso_639_1')));
+        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_LANGUAGE_ISO_639_1, 'lang_iso_639_1', 50, 255, $this->getVar('lang_iso_639_1')));
         // Form Text langIso_639_2
-        $form->addElement(new \XoopsFormText(_AM_WGTRANSIFEX_LANGUAGE_ISO_639_2, 'lang_iso_639_2', 50, 255, $this->getVar('lang_iso_639_2')));
+        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_LANGUAGE_ISO_639_2, 'lang_iso_639_2', 50, 255, $this->getVar('lang_iso_639_2')));
         // Form Text langFolder
-        $form->addElement(new \XoopsFormText(_AM_WGTRANSIFEX_LANGUAGE_FOLDER, 'lang_folder', 50, 255, $this->getVar('lang_folder')));
+        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_LANGUAGE_FOLDER, 'lang_folder', 50, 255, $this->getVar('lang_folder')));
         // Form Frameworks Images langFlag: Select Uploaded Image
         $getLangFlag    = $this->getVar('lang_flag');
         $langFlag       = $getLangFlag ?: 'blank.gif';
         $imageDirectory = '/modules/wgtransifex/assets/images/flags';
-        $imageTray      = new \XoopsFormElementTray(_AM_WGTRANSIFEX_LANGUAGE_FLAG, '<br>');
-        $imageSelect    = new \XoopsFormSelect(sprintf(_AM_WGTRANSIFEX_LANGUAGE_FLAG_UPLOADS, ".{$imageDirectory}/"), 'lang_flag', $langFlag, 5);
+        $imageTray      = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_LANGUAGE_FLAG, '<br>');
+        $imageSelect    = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_LANGUAGE_FLAG_UPLOADS, ".{$imageDirectory}/"), 'lang_flag', $langFlag, 5);
         $imageArray     = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
         foreach ($imageArray as $image1) {
             $imageSelect->addOption((string)($image1), $image1);
@@ -116,18 +116,18 @@ class Languages extends \XoopsObject
         $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $imageDirectory . '/' . $langFlag . "' id='imglabel_lang_flag' alt='' style='max-width:100px' />"));
         // Form Frameworks Images langFlag: Upload new image
         $fileSelectTray = new \XoopsFormElementTray('', '<br>');
-        $fileSelectTray->addElement(new \XoopsFormFile(_AM_WGTRANSIFEX_FORM_UPLOAD_NEW, 'lang_flag', $helper->getConfig('maxsize_image')));
+        $fileSelectTray->addElement(new \XoopsFormFile(\_AM_WGTRANSIFEX_FORM_UPLOAD_NEW, 'lang_flag', $helper->getConfig('maxsize_image')));
         $fileSelectTray->addElement(new \XoopsFormLabel(''));
         $imageTray->addElement($fileSelectTray);
         $form->addElement($imageTray);
         // Form Text Date Select langDate
         $langDate = $this->isNew() ? 0 : $this->getVar('lang_date');
-        $form->addElement(new \XoopsFormTextDateSelect(_AM_WGTRANSIFEX_LANGUAGE_DATE, 'lang_date', '', $langDate));
+        $form->addElement(new \XoopsFormTextDateSelect(\_AM_WGTRANSIFEX_LANGUAGE_DATE, 'lang_date', '', $langDate));
         // Form Select User langSubmitter
-        $form->addElement(new \XoopsFormSelectUser(_AM_WGTRANSIFEX_LANGUAGE_SUBMITTER, 'lang_submitter', false, $this->getVar('lang_submitter')));
+        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_LANGUAGE_SUBMITTER, 'lang_submitter', false, $this->getVar('lang_submitter')));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
-        $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
         return $form;
     }
 
@@ -146,7 +146,7 @@ class Languages extends \XoopsObject
         $ret['code']      = $this->getVar('lang_code');
         $ret['folder']    = $this->getVar('lang_folder');
         $ret['flag']      = $this->getVar('lang_flag');
-        $ret['date']      = formatTimestamp($this->getVar('lang_date'), 's');
+        $ret['date']      = \formatTimestamp($this->getVar('lang_date'), 's');
         $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('lang_submitter'));
         $ret['iso_639_1'] = $this->getVar('lang_iso_639_1');
         $ret['iso_639_2'] = $this->getVar('lang_iso_639_2');
@@ -162,7 +162,7 @@ class Languages extends \XoopsObject
     {
         $ret  = [];
         $vars = $this->getVars();
-        foreach (array_keys($vars) as $var) {
+        foreach (\array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
         return $ret;

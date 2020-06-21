@@ -93,14 +93,14 @@ class Transifex
             } else {
                 $projectsObj = $projectsHandler->create();
             }
-            if (is_object($projectsObj)) {
+            if (\is_object($projectsObj)) {
                 // Set Vars
                 $projectsObj->setVar('pro_description', $item['description']);
                 $projectsObj->setVar('pro_source_language_code', $item['source_language_code']);
                 $projectsObj->setVar('pro_slug', $item['slug']);
                 $projectsObj->setVar('pro_name', $item['name']);
                 $projectsObj->setVar('pro_status', Constants::STATUS_READTX);
-                $projectsObj->setVar('pro_date', time());
+                $projectsObj->setVar('pro_date', \time());
                 $projectsObj->setVar('pro_submitter', $xoopsUser->getVar('uid'));
                 // Insert Data
                 if ($projectsHandler->insert($projectsObj)) {
@@ -111,12 +111,12 @@ class Transifex
             }
         }
         if ($count_err > 0) {
-            return _AM_WGTRANSIFEX_READTX_ERROR;
+            return \_AM_WGTRANSIFEX_READTX_ERROR;
         }
         if ($count_ok > 0) {
-            return _AM_WGTRANSIFEX_READTX_OK;
+            return \_AM_WGTRANSIFEX_READTX_OK;
         }
-        return _AM_WGTRANSIFEX_READTX_NODATA;
+        return \_AM_WGTRANSIFEX_READTX_NODATA;
     }
 
     /**
@@ -164,7 +164,7 @@ class Transifex
             } else {
                 $resourcesObj = $resourcesHandler->create();
             }
-            if (is_object($resourcesObj)) {
+            if (\is_object($resourcesObj)) {
                 // Set Vars
                 $resourcesObj->setVar('res_source_language_code', $item['source_language_code']);
                 $resourcesObj->setVar('res_name', $item['name']);
@@ -175,7 +175,7 @@ class Transifex
                 $resourcesObj->setVar('res_metadata', $item['metadata']);
                 $resourcesObj->setVar('res_pro_id', $proId);
                 $resourcesObj->setVar('res_status', Constants::STATUS_READTX);
-                $resourcesObj->setVar('res_date', time());
+                $resourcesObj->setVar('res_date', \time());
                 $resourcesObj->setVar('res_submitter', $xoopsUser->getVar('uid'));
                 // Insert Data
                 if ($resourcesHandler->insert($resourcesObj)) {
@@ -186,12 +186,12 @@ class Transifex
             }
         }
         if ($count_err > 0) {
-            return _AM_WGTRANSIFEX_READTX_ERROR;
+            return \_AM_WGTRANSIFEX_READTX_ERROR;
         }
         if ($count_ok > 0) {
-            return _AM_WGTRANSIFEX_READTX_OK;
+            return \_AM_WGTRANSIFEX_READTX_OK;
         }
-        return _AM_WGTRANSIFEX_READTX_NODATA;
+        return \_AM_WGTRANSIFEX_READTX_NODATA;
     }
 
     /**
@@ -233,7 +233,7 @@ class Transifex
 
             $resourcesAll = $resourcesHandler->getAll($crResources);
 
-            foreach (array_keys($resourcesAll) as $i) {
+            foreach (\array_keys($resourcesAll) as $i) {
                 $resId         = $resourcesAll[$i]->getVar('res_id');
                 $resource      = $resourcesAll[$i]->getVar('res_slug');
                 $resName       = $resourcesAll[$i]->getVar('res_name');
@@ -257,7 +257,7 @@ class Transifex
                 } else {
                     $translationsObj = $translationsHandler->create();
                 }
-                if (is_object($translationsObj)) {
+                if (\is_object($translationsObj)) {
                     $stats = $transifexLib->getStats($project, $resource, $language);
                     // Set Vars
                     $translationsObj->setVar('tra_content', $item['content']);
@@ -276,11 +276,11 @@ class Transifex
                     $translationsObj->setVar('tra_translated_entities', $stats['translated_entities']);
                     $translationsObj->setVar('tra_translated_words', $stats['translated_words']);
                     $translationsObj->setVar('tra_untranslated_entities', $stats['untranslated_entities']);
-                    $translationsObj->setVar('tra_last_update', strtotime($stats['last_update']));
+                    $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
 
                     $translationsObj->setVar('tra_local', $this->getLocal($resName, $langFolder, $langShort));
                     $translationsObj->setVar('tra_status', Constants::STATUS_READTX);
-                    $translationsObj->setVar('tra_date', time());
+                    $translationsObj->setVar('tra_date', \time());
                     $translationsObj->setVar('tra_submitter', $xoopsUser->getVar('uid'));
                     // Insert Data
                     if ($translationsHandler->insert($translationsObj)) {
@@ -293,12 +293,12 @@ class Transifex
         }
 
         if ($count_err > 0) {
-            return _AM_WGTRANSIFEX_READTX_ERROR;
+            return \_AM_WGTRANSIFEX_READTX_ERROR;
         }
         if ($count_ok > 0) {
-            return _AM_WGTRANSIFEX_READTX_OK;
+            return \_AM_WGTRANSIFEX_READTX_OK;
         }
-        return _AM_WGTRANSIFEX_READTX_NODATA;
+        return \_AM_WGTRANSIFEX_READTX_NODATA;
     }
 
     /**
@@ -327,7 +327,7 @@ class Transifex
             $transifexLib->password = $setting['pwd'];
 
             $translationsAll = $translationsHandler->getAll();
-            foreach (array_keys($translationsAll) as $i) {
+            foreach (\array_keys($translationsAll) as $i) {
                 $projectsObj = $projectsHandler->get($translationsAll[$i]->getVar('tra_pro_id'));
                 $project     = $projectsObj->getVar('pro_slug');
                 $resourceObj = $resourcesHandler->get($translationsAll[$i]->getVar('tra_res_id'));
@@ -337,7 +337,7 @@ class Transifex
                 $language     = $languagesObj->getVar('lang_code');
                 //$item          = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
                 $stats         = $transifexLib->getStats($project, $resource, $language);
-                $traLastUpdate = strtotime($stats['last_update']);
+                $traLastUpdate = \strtotime($stats['last_update']);
                 if ($traLastUpdate > $translationsAll[$i]->getVar('tra_date')) {
                     $translationsObj = $translationsHandler->get($translationsAll[$i]->getVar('tra_id'));
                     $translationsObj->setVar('tra_status', Constants::STATUS_OUTDATED);
@@ -353,15 +353,15 @@ class Transifex
             }
         }
         if ($count_err > 0) {
-            return _AM_WGTRANSIFEX_READTX_ERROR;
+            return \_AM_WGTRANSIFEX_READTX_ERROR;
         }
         if ($count_ok > 0) {
-            $ret = _AM_WGTRANSIFEX_READTX_OK . '<br>';
-            $ret .= _AM_WGTRANSIFEX_CHECKTX_TRANSLATION_OK . $count_ok . '<br>';
-            $ret .= _AM_WGTRANSIFEX_CHECKTX_TRANSLATION_OUTDATED . $count_update . '<br>';
+            $ret = \_AM_WGTRANSIFEX_READTX_OK . '<br>';
+            $ret .= \_AM_WGTRANSIFEX_CHECKTX_TRANSLATION_OK . $count_ok . '<br>';
+            $ret .= \_AM_WGTRANSIFEX_CHECKTX_TRANSLATION_OUTDATED . $count_update . '<br>';
             return $ret;
         }
-        return _AM_WGTRANSIFEX_READTX_NODATA;
+        return \_AM_WGTRANSIFEX_READTX_NODATA;
     }
 
     /**
@@ -374,8 +374,8 @@ class Transifex
         $helper          = \XoopsModules\Wgtransifex\Helper::getInstance();
         $settingsHandler = $helper->getHandler('Settings');
         $setting         = $settingsHandler->getPrimarySetting();
-        if (0 == count($setting)) {
-            redirect_header('settings.php', 3, _AM_WGTRANSIFEX_THEREARENT_SETTINGS);
+        if (0 == \count($setting)) {
+            \redirect_header('settings.php', 3, \_AM_WGTRANSIFEX_THEREARENT_SETTINGS);
         }
         return $setting;
     }
@@ -391,23 +391,23 @@ class Transifex
     private function getLocal($toConvert, $langFolder, $langShort)
     {
         $ret = $toConvert;
-        if ('html.txt' == substr($ret, -8)) {
-            $ret = substr($ret, 0, strlen($ret) - 4);
+        if ('html.txt' == \substr($ret, -8)) {
+            $ret = \substr($ret, 0, \strlen($ret) - 4);
         }
-        if ('php.txt' == substr($ret, -7)) {
-            $ret = substr($ret, 0, strlen($ret) - 4);
+        if ('php.txt' == \substr($ret, -7)) {
+            $ret = \substr($ret, 0, \strlen($ret) - 4);
         }
-        if ('tpl.txt' == substr($ret, -7)) {
-            $ret = substr($ret, 0, strlen($ret) - 4);
+        if ('tpl.txt' == \substr($ret, -7)) {
+            $ret = \substr($ret, 0, \strlen($ret) - 4);
         }
-        if ('js.txt' == substr($ret, -6)) {
-            $ret = substr($ret, 0, strlen($ret) - 4);
+        if ('js.txt' == \substr($ret, -6)) {
+            $ret = \substr($ret, 0, \strlen($ret) - 4);
         }
-        $ret = str_replace('[', '', $ret);
-        $ret = str_replace(']', '/', $ret);
-        $ret = str_replace('-', '/', $ret);
-        $ret = str_replace('yourlang', $langFolder, $ret);
-        $ret = str_replace('yourshortlang', $langShort, $ret);
+        $ret = \str_replace('[', '', $ret);
+        $ret = \str_replace(']', '/', $ret);
+        $ret = \str_replace('-', '/', $ret);
+        $ret = \str_replace('yourlang', $langFolder, $ret);
+        $ret = \str_replace('yourshortlang', $langShort, $ret);
         return $ret;
     }
 }

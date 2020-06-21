@@ -51,7 +51,7 @@ class Configurator
         //        require dirname(dirname(__DIR__)) . '/config/config.php';
         //        $config = getConfig();
 
-        $config = include dirname(dirname(__DIR__)) . '/config/config.php';
+        $config = include \dirname(\dirname(__DIR__)) . '/config/config.php';
 
         $this->name            = $config->name;
         $this->paths           = $config->paths;

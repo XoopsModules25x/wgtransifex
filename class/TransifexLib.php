@@ -190,8 +190,8 @@ class TransifexLib
     public function putTranslation($project, $resource, $language, $file)
     {
         $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource . '/translation/' . $language;
-        if (function_exists('curl_file_create') && function_exists('mime_content_type')) {
-            $body = ['file' => curl_file_create($file, $this->_getMimeType($file), pathinfo($file, PATHINFO_BASENAME))];
+        if (\function_exists('curl_file_create') && \function_exists('mime_content_type')) {
+            $body = ['file' => \curl_file_create($file, $this->_getMimeType($file), \pathinfo($file, \PATHINFO_BASENAME))];
         } else {
             $body = ['file' => '@' . $file];
         }
@@ -202,12 +202,12 @@ class TransifexLib
             /* Handling a very specific exception due to a Transifex bug */
 
             // Exception is thrown maybe just because the file only has empty translations
-            if (false !== strpos($e->getMessage(), "We're not able to extract any string from the file uploaded for language")) {
+            if (false !== \strpos($e->getMessage(), "We're not able to extract any string from the file uploaded for language")) {
                 $catalog = I18n::loadPo($file);
                 unset($catalog['']);
 
-                if (count($catalog)) {
-                    if (0 === count(array_filter($catalog))) {
+                if (\count($catalog)) {
+                    if (0 === \count(\array_filter($catalog))) {
                         // PO file contains empty translations
                         // In that case Transifex throws an error although its not.
 
@@ -220,9 +220,9 @@ class TransifexLib
                         ];
                     }
 
-                    throw new RuntimeException(sprintf('Could not extract any string from %s. Whereas file contains non-empty translation(s) for following key(s): %s.', $file, '"' . implode('", "', array_keys(array_filter($catalog))) . '"'));
+                    throw new RuntimeException(\sprintf('Could not extract any string from %s. Whereas file contains non-empty translation(s) for following key(s): %s.', $file, '"' . \implode('", "', \array_keys(\array_filter($catalog))) . '"'));
                 } else {
-                    throw new RuntimeException(sprintf('Could not extract any string from %s. File seems empty.', $file));
+                    throw new RuntimeException(\sprintf('Could not extract any string from %s. File seems empty.', $file));
                 }
             } else {
                 throw $e;
@@ -241,8 +241,8 @@ class TransifexLib
     public function putResource($project, $resource, $file)
     {
         $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource . '/content';
-        if (function_exists('curl_file_create')) {
-            $body = ['file' => curl_file_create($file, $this->_getMimeType($file), pathinfo($file, PATHINFO_BASENAME))];
+        if (\function_exists('curl_file_create')) {
+            $body = ['file' => \curl_file_create($file, $this->_getMimeType($file), \pathinfo($file, \PATHINFO_BASENAME))];
         } else {
             $body = ['file' => '@' . $file];
         }
@@ -268,8 +268,8 @@ class TransifexLib
             'i18n_type' => 'PO',
         ];
 
-        if (function_exists('curl_file_create')) {
-            $body['file'] = curl_file_create($file, $this->_getMimeType($file), pathinfo($file, PATHINFO_BASENAME));
+        if (\function_exists('curl_file_create')) {
+            $body['file'] = \curl_file_create($file, $this->_getMimeType($file), \pathinfo($file, \PATHINFO_BASENAME));
         } else {
             $body['file'] = '@' . $file;
         }
@@ -283,14 +283,14 @@ class TransifexLib
      */
     protected function _getMimeType($file)
     {
-        if (!function_exists('finfo_open')) {
-            if (!function_exists('mime_content_type')) {
+        if (!\function_exists('finfo_open')) {
+            if (!\function_exists('mime_content_type')) {
                 throw new InternalErrorException('At least one of finfo or mime_content_type() needs to be available');
             }
-            return mime_content_type($file);
+            return \mime_content_type($file);
         }
-        $finfo    = finfo_open(FILEINFO_MIME);
-        $mimetype = finfo_file($finfo, $file);
+        $finfo    = \finfo_open(\FILEINFO_MIME);
+        $mimetype = \finfo_file($finfo, $file);
         return $mimetype;
     }
 
@@ -304,48 +304,48 @@ class TransifexLib
     protected function _get($url)
     {
         $error = false;
-        $ch    = curl_init();
+        $ch    = \curl_init();
 
         //set the url, number of POST vars, POST data
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERPWD, $this->user . ':' . $this->password);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 25);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 25);
+        \curl_setopt($ch, \CURLOPT_URL, $url);
+        \curl_setopt($ch, \CURLOPT_USERPWD, $this->user . ':' . $this->password);
+        \curl_setopt($ch, \CURLOPT_CUSTOMREQUEST, 'GET');
+        \curl_setopt($ch, \CURLOPT_RETURNTRANSFER, true);
+        \curl_setopt($ch, \CURLOPT_CONNECTTIMEOUT, 25);
+        \curl_setopt($ch, \CURLOPT_TIMEOUT, 25);
         if ($this->debug) {
-            curl_setopt($ch, CURLOPT_VERBOSE, true);
+            \curl_setopt($ch, \CURLOPT_VERBOSE, true);
         }
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POST, 1);
+        \curl_setopt($ch, \CURLOPT_SSL_VERIFYHOST, false);
+        \curl_setopt($ch, \CURLOPT_SSL_VERIFYPEER, false);
+        \curl_setopt($ch, \CURLOPT_POST, 1);
 
-        $result = curl_exec($ch);
-        $info   = curl_getinfo($ch);
+        $result = \curl_exec($ch);
+        $info   = \curl_getinfo($ch);
 
-        if (($errMsg = curl_error($ch)) || !in_array((int)$info['http_code'], [200, 201])) {
+        if (($errMsg = \curl_error($ch)) || !\in_array((int)$info['http_code'], [200, 201])) {
             $error = true;
         }
 
-        curl_close($ch);
+        \curl_close($ch);
 
         if ($error) {
             echo $url;
             switch ((int)$info['http_code']) {
                 case 404:
-                    throw new \RuntimeException('"' . _AM_WGTRANSIFEX_READTX_ERROR_API_404 . '"');
+                    throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_404 . '"');
                     break;
                 case 405:
-                    throw new \RuntimeException('"' . _AM_WGTRANSIFEX_READTX_ERROR_API_405 . '"');
+                    throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_405 . '"');
                     break;
                 case 0:
                 default:
-                    throw new \RuntimeException('"' . _AM_WGTRANSIFEX_READTX_ERROR_API . $errMsg . '"');
+                    throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API . $errMsg . '"');
                     break;
             }
         }
 
-        return json_decode($result, true);
+        return \json_decode($result, true);
     }
 
     /**
@@ -358,31 +358,31 @@ class TransifexLib
     protected function _post($url, $data, $requestType = 'POST')
     {
         $error = false;
-        $ch    = curl_init();
+        $ch    = \curl_init();
         //curl_setopt($ch, CURLOPT_URL, Text::insert($url, $this->settings, ['before' => '{', 'after' => '}']));
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERPWD, $this->user . ':' . $this->password);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $requestType);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        \curl_setopt($ch, \CURLOPT_URL, $url);
+        \curl_setopt($ch, \CURLOPT_USERPWD, $this->user . ':' . $this->password);
+        \curl_setopt($ch, \CURLOPT_CUSTOMREQUEST, $requestType);
+        \curl_setopt($ch, \CURLOPT_POST, 1);
+        \curl_setopt($ch, \CURLOPT_POSTFIELDS, $data);
+        \curl_setopt($ch, \CURLOPT_RETURNTRANSFER, 1);
+        \curl_setopt($ch, \CURLOPT_SSL_VERIFYPEER, false);
         if ($this->debug) {
-            curl_setopt($ch, CURLOPT_VERBOSE, true);
+            \curl_setopt($ch, \CURLOPT_VERBOSE, true);
         }
-        $result = curl_exec($ch);
-        $info   = curl_getinfo($ch);
+        $result = \curl_exec($ch);
+        $info   = \curl_getinfo($ch);
 
-        if (($errMsg = curl_error($ch)) || !in_array((int)$info['http_code'], [200, 201])) {
+        if (($errMsg = \curl_error($ch)) || !\in_array((int)$info['http_code'], [200, 201])) {
             $error = true;
         }
 
-        curl_close($ch);
+        \curl_close($ch);
 
         if ($error) {
-            throw new \RuntimeException(_AM_WGTRANSIFEX_READTX_ERROR_API . $errMsg);
+            throw new \RuntimeException(\_AM_WGTRANSIFEX_READTX_ERROR_API . $errMsg);
         }
 
-        return json_decode($result, true);
+        return \json_decode($result, true);
     }
 }
