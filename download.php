@@ -22,7 +22,7 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtranisfex\Constants;
+use XoopsModules\Wgtransifex\Constants;
 
 require __DIR__ . '/header.php';
 
