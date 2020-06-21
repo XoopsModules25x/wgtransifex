@@ -259,7 +259,7 @@ function clearDir($dir, $pattern = '*')
 function zip_files($source, $destination)
 {
     $zip = new ZipArchive();
-    if ($zip->open($destination, ZIPARCHIVE::CREATE) === true) {
+    if ($zip->open($destination, ZipArchive::CREATE) === true) {
         $source = realpath($source);
         if (is_dir($source)) {
             $iterator = new RecursiveDirectoryIterator($source);

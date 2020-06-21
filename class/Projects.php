@@ -138,7 +138,7 @@ class Projects extends \XoopsObject
         $ret['name']                 = $this->getVar('pro_name');
         $ret['resources']            = $this->getVar('pro_resources');
         $ret['translations']         = $this->getVar('pro_translations');
-        $ret['date']                 = formatTimeStamp($this->getVar('pro_date'), 'm');
+        $ret['date']                 = formatTimestamp($this->getVar('pro_date'), 'm');
         $ret['submitter']            = \XoopsUser::getUnameFromId($this->getVar('pro_submitter'));
         $status                      = $this->getVar('pro_status');
         $ret['status']               = $status;

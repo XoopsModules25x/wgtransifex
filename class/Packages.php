@@ -198,7 +198,7 @@ class Packages extends \XoopsObject
         $ret['lang_flag'] = $languagesObj->getVar('lang_flag');
         $ret['zip']       = $this->getVar('pkg_zip');
         $ret['logo']      = $this->getVar('pkg_logo');
-        $ret['date']      = formatTimeStamp($this->getVar('pkg_date'), 'm');
+        $ret['date']      = formatTimestamp($this->getVar('pkg_date'), 'm');
         $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('pkg_submitter'));
         $status           = $this->getVar('pkg_status');
         $ret['status']    = $status;

@@ -229,7 +229,7 @@ class Translations extends \XoopsObject
         $ret['mimetype']              = $this->getVar('tra_mimetype');
         $ret['local']                 = $this->getVar('tra_local');
         $ret['status']                = $this->getVar('tra_status');
-        $ret['date']                  = formatTimeStamp($this->getVar('tra_date'), 'm');
+        $ret['date']                  = formatTimestamp($this->getVar('tra_date'), 'm');
         $ret['submitter']             = \XoopsUser::getUnameFromId($this->getVar('tra_submitter'));
         $ret['proofread']             = $this->getVar('tra_proofread');
         $ret['proofread_percentage']  = $this->getVar('tra_proofread_percentage');
@@ -241,7 +241,7 @@ class Translations extends \XoopsObject
         $ret['untranslated_entities'] = $this->getVar('tra_untranslated_entities');
         $ret['completed']             = $this->getVar('tra_completed');
         //$ret['last_commiter']        = $this->getVar('tra_last_commiter');
-        $ret['last_update'] = formatTimeStamp($this->getVar('tra_last_update'), 'm');
+        $ret['last_update'] = formatTimestamp($this->getVar('tra_last_update'), 'm');
         return $ret;
     }
 

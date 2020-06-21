@@ -125,7 +125,7 @@ class Settings extends \XoopsObject
         $ret['options']       = strip_tags($this->getVar('set_options', 'e'));
         $editorMaxchar        = $helper->getConfig('editor_maxchar');
         $ret['options_short'] = $utility::truncateHtml($ret['options'], $editorMaxchar);
-        $ret['date']          = formatTimeStamp($this->getVar('set_date'), 's');
+        $ret['date']          = formatTimestamp($this->getVar('set_date'), 's');
         $ret['submitter']     = \XoopsUser::getUnameFromId($this->getVar('set_submitter'));
         $ret['primary']       = (int)$this->getVar('set_primary') > 0 ? _YES : _NO;
         return $ret;

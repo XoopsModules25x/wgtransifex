@@ -146,7 +146,7 @@ class Languages extends \XoopsObject
         $ret['code']      = $this->getVar('lang_code');
         $ret['folder']    = $this->getVar('lang_folder');
         $ret['flag']      = $this->getVar('lang_flag');
-        $ret['date']      = formatTimeStamp($this->getVar('lang_date'), 's');
+        $ret['date']      = formatTimestamp($this->getVar('lang_date'), 's');
         $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('lang_submitter'));
         $ret['iso_639_1'] = $this->getVar('lang_iso_639_1');
         $ret['iso_639_2'] = $this->getVar('lang_iso_639_2');

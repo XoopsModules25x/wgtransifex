@@ -184,7 +184,7 @@ class Resources extends \XoopsObject
         $editorMaxchar               = $helper->getConfig('editor_maxchar');
         $ret['metadata_short']       = $utility::truncateHtml($ret['metadata'], $editorMaxchar);
         $ret['translations']         = $this->getVar('res_translations');
-        $ret['date']                 = formatTimeStamp($this->getVar('res_date'), 'm');
+        $ret['date']                 = formatTimestamp($this->getVar('res_date'), 'm');
         $ret['submitter']            = \XoopsUser::getUnameFromId($this->getVar('res_submitter'));
         $status                      = $this->getVar('res_status');
         $ret['status']               = $status;
