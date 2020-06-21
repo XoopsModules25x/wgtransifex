@@ -32,9 +32,9 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
-     *
      * @param \XoopsDatabase $db
      */
+
     public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, 'wgtransifex_languages', Languages::class, 'lang_id', 'lang_name');
@@ -45,6 +45,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
      *
      * @return object
      */
+
     public function create($isNew = true)
     {
         return parent::create($isNew);
@@ -53,10 +54,11 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int $i field id
-     * @param null fields
+     * @param int        $i field id
+     * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
+
     public function get($i = null, $fields = null)
     {
         return parent::get($i, $fields);
@@ -68,6 +70,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
      * @param null
      * @return int reference to the {@link Get} object
      */
+
     public function getInsertId()
     {
         return $this->db->getInsertId();
@@ -81,10 +84,13 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
+
     public function getCountLanguages($start = 0, $limit = 0, $sort = 'lang_id ASC, lang_name', $order = 'ASC')
     {
         $crCountLanguages = new \CriteriaCompo();
+
         $crCountLanguages = $this->getLanguagesCriteria($crCountLanguages, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountLanguages);
     }
 
@@ -96,10 +102,13 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return array
      */
+
     public function getAllLanguages($start = 0, $limit = 0, $sort = 'lang_id ASC, lang_name', $order = 'ASC')
     {
         $crAllLanguages = new \CriteriaCompo();
+
         $crAllLanguages = $this->getLanguagesCriteria($crAllLanguages, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllLanguages);
     }
 
@@ -112,12 +121,17 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
+
     private function getLanguagesCriteria($crLanguages, $start, $limit, $sort, $order)
     {
         $crLanguages->setStart($start);
+
         $crLanguages->setLimit($limit);
+
         $crLanguages->setSort($sort);
+
         $crLanguages->setOrder($order);
+
         return $crLanguages;
     }
 }

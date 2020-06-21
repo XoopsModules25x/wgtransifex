@@ -29,12 +29,12 @@ require __DIR__ . '/header.php';
 $templateMain = 'wgtransifex_admin_index.tpl';
 
 // Count elements
-$countProjects     = $projectsHandler->getCount();
-$countResources    = $resourcesHandler->getCount();
-$countPackages     = $packagesHandler->getCount();
+$countProjects = $projectsHandler->getCount();
+$countResources = $resourcesHandler->getCount();
+$countPackages = $packagesHandler->getCount();
 $countTranslations = $translationsHandler->getCount();
-$countSettings     = $settingsHandler->getCount();
-$countLanguages    = $languagesHandler->getCount();
+$countSettings = $settingsHandler->getCount();
+$countLanguages = $languagesHandler->getCount();
 
 // InfoBox Statistics
 $adminObject->addInfoBox(_AM_WGTRANSIFEX_STATISTICS);
@@ -56,6 +56,7 @@ if ($configurator->uploadFolders && is_array($configurator->uploadFolders)) {
 // Uploads Folders Created
 foreach (array_keys($folder) as $i) {
     $adminObject->addConfigBoxLine($folder[$i], 'folder');
+
     $adminObject->addConfigBoxLine([$folder[$i], '777'], 'chmod');
 }
 
@@ -64,10 +65,15 @@ $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('inde
 // Test Data
 if ($helper->getConfig('displaySampleButton')) {
     xoops_loadLanguage('admin/modulesadmin', 'system');
+
     include_once dirname(__DIR__) . '/testdata/index.php';
+
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
+
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save', 'add');
+
     //	$adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');
+
     $adminObject->displayButton('left');
 }
 $GLOBALS['xoopsTpl']->assign('index', $adminObject->displayIndex());

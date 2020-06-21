@@ -26,23 +26,30 @@ namespace XoopsModules\Wgtransifex;
 class TransifexLib
 {
     public const BASE_URL = 'https://www.transifex.com/api/2/';
+
     /**
      * @var string
      */
+
     public $user;
+
     /**
      * @var string
      */
+
     public $password;
+
     /**
      * Verbose debugging for curl (when putting)
      * @var bool
      */
+
     public $debug = false;
 
     /**
      * TransifexLib::__construct()
      */
+
     public function __construct()
     {
     }
@@ -52,9 +59,11 @@ class TransifexLib
      *
      * @return array
      */
+
     public function getProjects()
     {
         $url = static::BASE_URL . 'projects';
+
         return $this->_get($url);
     }
 
@@ -64,9 +73,11 @@ class TransifexLib
      * @param $project
      * @return array
      */
+
     public function getProject($project)
     {
         $url = static::BASE_URL . 'project/' . $project . '/?details';
+
         return $this->_get($url);
     }
 
@@ -76,9 +87,11 @@ class TransifexLib
      * @param $project
      * @return array
      */
+
     public function getResources($project)
     {
         $url = static::BASE_URL . 'project/' . $project . '/resources/';
+
         return $this->_get($url);
     }
 
@@ -89,12 +102,15 @@ class TransifexLib
      * @param mixed $resource
      * @return array
      */
+
     public function getResource($project, $resource)
     {
         if ($resource) {
             $resource .= '/';
         }
+
         $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource;
+
         return $this->_get($url);
     }
 
@@ -105,9 +121,11 @@ class TransifexLib
      * @param $project
      * @return array
      */
+
     public function getLanguages($project)
     {
         $url = static::BASE_URL . 'project/' . $project . '/languages/';
+
         return $this->_get($url);
     }
 
@@ -118,9 +136,11 @@ class TransifexLib
      * @param string $language
      * @return array
      */
+
     public function getLanguage($project, $language)
     {
         $url = static::BASE_URL . 'project/' . $project . '/language/' . $language . '/?details';
+
         return $this->_get($url);
     }
 
@@ -130,9 +150,11 @@ class TransifexLib
      * @param string $language
      * @return array
      */
+
     public function getLanguageInfo($language)
     {
         $url = static::BASE_URL . 'language/' . $language . '/';
+
         return $this->_get($url);
     }
 
@@ -146,6 +168,7 @@ class TransifexLib
      * @param bool   $reviewedOnly
      * @return array
      */
+
     public function getTranslation($project, $resource, $language, $language_source, $reviewedOnly = false)
     {
         if ($language == $language_source) {
@@ -169,12 +192,15 @@ class TransifexLib
      * @param string|null $language
      * @return array
      */
+
     public function getStats($project, $resource, $language = null)
     {
         if ($language) {
             $language .= '/';
         }
+
         $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource . '/stats/' . $language;
+
         return $this->_get($url);
     }
 
@@ -187,9 +213,11 @@ class TransifexLib
      * @param string $file
      * @return mixed
      */
+
     public function putTranslation($project, $resource, $language, $file)
     {
         $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource . '/translation/' . $language;
+
         if (\function_exists('curl_file_create') && \function_exists('mime_content_type')) {
             $body = ['file' => \curl_file_create($file, $this->_getMimeType($file), \pathinfo($file, \PATHINFO_BASENAME))];
         } else {
@@ -202,8 +230,10 @@ class TransifexLib
             /* Handling a very specific exception due to a Transifex bug */
 
             // Exception is thrown maybe just because the file only has empty translations
-            if (false !== \strpos($e->getMessage(), "We're not able to extract any string from the file uploaded for language")) {
-                $catalog = \I18n::loadPo($file);
+
+            if (false !== \mb_strpos($e->getMessage(), "We're not able to extract any string from the file uploaded for language")) {
+                $catalog = I18n::loadPo($file);
+
                 unset($catalog['']);
 
                 if (\count($catalog)) {
@@ -213,20 +243,21 @@ class TransifexLib
 
                         // Then we could just append one non empty translation to that file and send it again
                         // But apart from successfully sending this file again, it wont affect the remote translations
+
                         return [
-                            'strings_added'   => 0,
+                            'strings_added' => 0,
                             'strings_updated' => 0,
-                            'strings_delete'  => 0,
+                            'strings_delete' => 0,
                         ];
                     }
 
                     throw new \RuntimeException(\sprintf('Could not extract any string from %s. Whereas file contains non-empty translation(s) for following key(s): %s.', $file, '"' . \implode('", "', \array_keys(\array_filter($catalog))) . '"'));
-                } else {
-                    throw new \RuntimeException(\sprintf('Could not extract any string from %s. File seems empty.', $file));
-                }
-            } else {
-                throw $e;
-            }
+                }  
+
+                throw new \RuntimeException(\sprintf('Could not extract any string from %s. File seems empty.', $file));
+            }  
+
+            throw $e;
         }
     }
 
@@ -238,9 +269,11 @@ class TransifexLib
      * @param string $file
      * @return mixed
      */
+
     public function putResource($project, $resource, $file)
     {
         $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource . '/content';
+
         if (\function_exists('curl_file_create')) {
             $body = ['file' => \curl_file_create($file, $this->_getMimeType($file), \pathinfo($file, \PATHINFO_BASENAME))];
         } else {
@@ -258,13 +291,14 @@ class TransifexLib
      * @param string $file
      * @return mixed
      */
+
     public function createResource($project, $resource, $file)
     {
         $url = static::BASE_URL . 'project/' . $project . '/resources';
 
         $body = [
-            'name'      => $resource,
-            'slug'      => \Text::slug($resource),
+            'name' => $resource,
+            'slug' => Text::slug($resource),
             'i18n_type' => 'PO',
         ];
 
@@ -281,15 +315,16 @@ class TransifexLib
      * @param string $file
      * @return string
      */
+
     protected function _getMimeType($file)
     {
         if (!\function_exists('finfo_open')) {
             if (!\function_exists('mime_content_type')) {
-                throw new \InternalErrorException('At least one of finfo or mime_content_type() needs to be available');
+                throw new InternalErrorException('At least one of finfo or mime_content_type() needs to be available');
             }
             return \mime_content_type($file);
         }
-        $finfo    = \finfo_open(\FILEINFO_MIME);
+        $finfo = \finfo_open(\FILEINFO_MIME);
         $mimetype = \finfo_file($finfo, $file);
         return $mimetype;
     }
@@ -298,9 +333,10 @@ class TransifexLib
      * TransifexLib::_get()
      *
      * @param string $url
-     * @return array
      * @throws \RuntimeException Exception.
+     * @return array
      */
+
     protected function _get($url)
     {
         $error = false;
@@ -352,9 +388,10 @@ class TransifexLib
      * @param string $url
      * @param mixed  $data
      * @param string $requestType
-     * @return mixed
      * @throws \RuntimeException
+     * @return mixed
      */
+
     protected function _post($url, $data, $requestType = 'POST')
     {
         $error = false;

@@ -32,9 +32,9 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
-     *
      * @param \XoopsDatabase $db
      */
+
     public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, 'wgtransifex_packages', Packages::class, 'pkg_id', 'pkg_name');
@@ -45,6 +45,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
      *
      * @return object
      */
+
     public function create($isNew = true)
     {
         return parent::create($isNew);
@@ -53,10 +54,11 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int $i field id
-     * @param null fields
+     * @param int        $i field id
+     * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
+
     public function get($i = null, $fields = null)
     {
         return parent::get($i, $fields);
@@ -68,6 +70,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
      * @param null
      * @return int reference to the {@link Get} object
      */
+
     public function getInsertId()
     {
         return $this->db->getInsertId();
@@ -81,10 +84,13 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
+
     public function getCountPackages($start = 0, $limit = 0, $sort = 'pkg_id ASC, pkg_name', $order = 'ASC')
     {
         $crCountPackages = new \CriteriaCompo();
+
         $crCountPackages = $this->getPackagesCriteria($crCountPackages, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountPackages);
     }
 
@@ -96,10 +102,13 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return array
      */
+
     public function getAllPackages($start = 0, $limit = 0, $sort = 'pkg_id ASC, pkg_name', $order = 'ASC')
     {
         $crAllPackages = new \CriteriaCompo();
+
         $crAllPackages = $this->getPackagesCriteria($crAllPackages, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllPackages);
     }
 
@@ -112,12 +121,17 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
+
     private function getPackagesCriteria($crPackages, $start, $limit, $sort, $order)
     {
         $crPackages->setStart($start);
+
         $crPackages->setLimit($limit);
+
         $crPackages->setSort($sort);
+
         $crPackages->setOrder($order);
+
         return $crPackages;
     }
 }

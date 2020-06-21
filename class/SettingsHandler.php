@@ -32,9 +32,9 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
-     *
      * @param \XoopsDatabase $db
      */
+
     public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, 'wgtransifex_settings', Settings::class, 'set_id', 'set_username');
@@ -45,6 +45,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
      *
      * @return object
      */
+
     public function create($isNew = true)
     {
         return parent::create($isNew);
@@ -53,10 +54,11 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int $i field id
-     * @param null fields
+     * @param int        $i field id
+     * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
+
     public function get($i = null, $fields = null)
     {
         return parent::get($i, $fields);
@@ -68,6 +70,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
      * @param null
      * @return int reference to the {@link Get} object
      */
+
     public function getInsertId()
     {
         return $this->db->getInsertId();
@@ -81,10 +84,13 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
+
     public function getCountSettings($start = 0, $limit = 0, $sort = 'set_id ASC, set_username', $order = 'ASC')
     {
         $crCountSettings = new \CriteriaCompo();
+
         $crCountSettings = $this->getSettingsCriteria($crCountSettings, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountSettings);
     }
 
@@ -96,10 +102,13 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return array
      */
+
     public function getAllSettings($start = 0, $limit = 0, $sort = 'set_id ASC, set_username', $order = 'ASC')
     {
         $crAllSettings = new \CriteriaCompo();
+
         $crAllSettings = $this->getSettingsCriteria($crAllSettings, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllSettings);
     }
 
@@ -112,12 +121,17 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
+
     private function getSettingsCriteria($crSettings, $start, $limit, $sort, $order)
     {
         $crSettings->setStart($start);
+
         $crSettings->setLimit($limit);
+
         $crSettings->setSort($sort);
+
         $crSettings->setOrder($order);
+
         return $crSettings;
     }
 
@@ -125,16 +139,23 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
      * Get Primary Setting
      * @return array
      */
+
     public function getPrimarySetting()
     {
-        $setting    = [];
+        $setting = [];
+
         $crSettings = new \CriteriaCompo();
+
         $crSettings->setLimit(1);
+
         $settingsAll = $this->getAll($crSettings);
+
         foreach (\array_keys($settingsAll) as $i) {
             $setting['user'] = $settingsAll[$i]->getVar('set_username');
-            $setting['pwd']  = $settingsAll[$i]->getVar('set_password');
+
+            $setting['pwd'] = $settingsAll[$i]->getVar('set_password');
         }
+
         return $setting;
     }
 }

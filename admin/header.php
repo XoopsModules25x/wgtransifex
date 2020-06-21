@@ -22,24 +22,25 @@
 include dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 include_once dirname(__DIR__) . '/include/common.php';
 
-$sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
-$sysPathIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
+$sysPathIcon16 = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
+$sysPathIcon32 = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16   = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
-$modPathIcon32   = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
+$modPathIcon16 = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
+$modPathIcon32 = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
 
 // Get instance of module
-$helper              = \XoopsModules\Wgtransifex\Helper::getInstance();
-$projectsHandler     = $helper->getHandler('Projects');
-$resourcesHandler    = $helper->getHandler('Resources');
-$settingsHandler     = $helper->getHandler('Settings');
-$languagesHandler    = $helper->getHandler('Languages');
+$helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+$projectsHandler = $helper->getHandler('Projects');
+$resourcesHandler = $helper->getHandler('Resources');
+$settingsHandler = $helper->getHandler('Settings');
+$languagesHandler = $helper->getHandler('Languages');
 $translationsHandler = $helper->getHandler('Translations');
-$packagesHandler     = $helper->getHandler('Packages');
-$myts                = MyTextSanitizer::getInstance();
-// 
+$packagesHandler = $helper->getHandler('Packages');
+$myts = MyTextSanitizer::getInstance();
+
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
     include_once XOOPS_ROOT_PATH . '/class/template.php';
+
     $xoopsTpl = new \XoopsTpl();
 }
 
@@ -63,4 +64,4 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 
 $adminObject = \Xmf\Module\Admin::getInstance();
-$style       = WGTRANSIFEX_URL . '/assets/css/admin/style.css';
+$style = WGTRANSIFEX_URL . '/assets/css/admin/style.css';

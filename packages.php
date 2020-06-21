@@ -22,17 +22,17 @@
 
 use Xmf\Request;
 use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Constants;
 use XoopsModules\Wgtransifex\Common;
+use XoopsModules\Wgtransifex\Constants;
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_packages.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 
-$op     = Request::getCmd('op', 'list');
-$start  = Request::getInt('start', 0);
-$limit  = Request::getInt('limit', $helper->getConfig('userpager'));
-$pkgId  = Request::getInt('pkg_id', 0);
+$op = Request::getCmd('op', 'list');
+$start = Request::getInt('start', 0);
+$limit = Request::getInt('limit', $helper->getConfig('userpager'));
+$pkgId = Request::getInt('pkg_id', 0);
 $langId = Request::getInt('lang_id', 0);
 
 // Define Stylesheet
@@ -64,21 +64,33 @@ switch ($op) {
         $packagesAll = $packagesHandler->getAll($crPackages);
         if ($packagesCount > 0) {
             $packages = [];
+
             // Get All Packages
+
             foreach (array_keys($packagesAll) as $i) {
                 $packages[$i] = $packagesAll[$i]->getValuesPackages();
+
                 $keywords[$i] = $packagesAll[$i]->getVar('pkg_name');
             }
+
             $GLOBALS['xoopsTpl']->assign('packages', $packages);
+
             unset($packages);
+
             // Display Navigation
+
             if ($packagesCount > $limit) {
                 include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
+
             $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
+
             $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
+
             $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
         }
         break;
@@ -88,12 +100,14 @@ switch ($op) {
             redirect_header('packages.php?op=list', 3, _MA_WGTRANSIFEX_INVALID_PARAM);
         }
         $packagesObj = $packagesHandler->get($pkgId);
-        $pkgName     = $packagesObj->getVar('pkg_name');
+        $pkgName = $packagesObj->getVar('pkg_name');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('packages.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
+
             $packagesObj->setVar('pkg_status', Constants::STATUS_BROKEN);
+
             if ($packagesHandler->insert($packagesObj)) {
                 redirect_header('packages.php', 3, _MA_WGTRANSIFEX_FORM_OK);
             } else {
@@ -101,9 +115,13 @@ switch ($op) {
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'pkg_id' => $pkgId, 'op' => 'broken'], $_SERVER['REQUEST_URI'], sprintf(_MA_WGTRANSIFEX_FORM_SURE_BROKEN, $packagesObj->getVar('pkg_name'))
+                ['ok' => 1, 'pkg_id' => $pkgId, 'op' => 'broken'],
+                $_SERVER['REQUEST_URI'],
+                sprintf(_MA_WGTRANSIFEX_FORM_SURE_BROKEN, $packagesObj->getVar('pkg_name'))
             );
-            $form         = $xoopsconfirm->getFormXoopsConfirm();
+
+            $form = $xoopsconfirm->getFormXoopsConfirm();
+
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;

@@ -22,9 +22,11 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access.');
 class WgtransifexCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
+
     /**
      * @param $args
      */
+
     public static function eventCoreIncludeCommonEnd($args)
     {
         include __DIR__ . '/autoloader.php';

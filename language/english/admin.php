@@ -19,7 +19,6 @@
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
-
 include_once __DIR__ . '/common.php';
 include_once __DIR__ . '/main.php';
 
