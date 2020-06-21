@@ -198,12 +198,12 @@ class TransifexLib
 
         try {
             return $this->_post($url, $body, 'PUT');
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             /* Handling a very specific exception due to a Transifex bug */
 
             // Exception is thrown maybe just because the file only has empty translations
             if (false !== \strpos($e->getMessage(), "We're not able to extract any string from the file uploaded for language")) {
-                $catalog = I18n::loadPo($file);
+                $catalog = \I18n::loadPo($file);
                 unset($catalog['']);
 
                 if (\count($catalog)) {
@@ -220,9 +220,9 @@ class TransifexLib
                         ];
                     }
 
-                    throw new RuntimeException(\sprintf('Could not extract any string from %s. Whereas file contains non-empty translation(s) for following key(s): %s.', $file, '"' . \implode('", "', \array_keys(\array_filter($catalog))) . '"'));
+                    throw new \RuntimeException(\sprintf('Could not extract any string from %s. Whereas file contains non-empty translation(s) for following key(s): %s.', $file, '"' . \implode('", "', \array_keys(\array_filter($catalog))) . '"'));
                 } else {
-                    throw new RuntimeException(\sprintf('Could not extract any string from %s. File seems empty.', $file));
+                    throw new \RuntimeException(\sprintf('Could not extract any string from %s. File seems empty.', $file));
                 }
             } else {
                 throw $e;
@@ -264,7 +264,7 @@ class TransifexLib
 
         $body = [
             'name'      => $resource,
-            'slug'      => Text::slug($resource),
+            'slug'      => \Text::slug($resource),
             'i18n_type' => 'PO',
         ];
 
@@ -285,7 +285,7 @@ class TransifexLib
     {
         if (!\function_exists('finfo_open')) {
             if (!\function_exists('mime_content_type')) {
-                throw new InternalErrorException('At least one of finfo or mime_content_type() needs to be available');
+                throw new \InternalErrorException('At least one of finfo or mime_content_type() needs to be available');
             }
             return \mime_content_type($file);
         }
