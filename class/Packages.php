@@ -146,7 +146,7 @@ class Packages extends \XoopsObject
         $imageSelect    = new \XoopsFormSelect(sprintf(_AM_WGTRANSIFEX_PKG_LOGO_UPLOADS, ".{$imageDirectory}/"), 'pkg_logo', $pkgLogo, 5);
         $imageArray     = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
         foreach ($imageArray as $image1) {
-            $imageSelect->addOption("{$image1}", $image1);
+            $imageSelect->addOption((string)($image1), $image1);
         }
         $imageSelect->setExtra("onchange='showImgSelected(\"imglabel_pkg_logo\", \"pkg_logo\", \"" . $imageDirectory . '", "", "' . XOOPS_URL . "\")'");
         $imageTray->addElement($imageSelect, false);
