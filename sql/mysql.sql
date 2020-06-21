@@ -114,7 +114,7 @@ CREATE TABLE `wgtransifex_languages` (
 CREATE TABLE `wgtransifex_packages` (
   `pkg_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pkg_name` VARCHAR(255) NOT NULL DEFAULT '',
-  `pkg_desc` TEXT NOT NULL DEFAULT '',
+  `pkg_desc` TEXT NULL,
   `pkg_pro_id` VARCHAR(10) NOT NULL DEFAULT '',
   `pkg_lang_id` VARCHAR(10) NOT NULL DEFAULT '',
   `pkg_status` INT(11) NOT NULL DEFAULT '0',

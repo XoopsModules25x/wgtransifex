@@ -12,3 +12,4 @@ Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.0
  - added download language package (goffy)
  - added flags (goffy)
  - fixed problems in renaming file (goffy)
+ - fixed sql problems (alain/goffy)

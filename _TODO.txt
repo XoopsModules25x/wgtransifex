@@ -1,13 +1,3 @@
-löschen überprüfen
-
-
-anzeige je language in indexseite
-
-menupunkt je sprache
-
-delete existing ja/nein vor einlesen
-
-copy logos test folder bei import funktioniert nicht
 
 
 request language pack
