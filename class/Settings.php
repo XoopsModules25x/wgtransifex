@@ -78,7 +78,7 @@ class Settings extends \XoopsObject
      */
     public function getFormSettings($action = false)
     {
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title

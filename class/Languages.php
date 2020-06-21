@@ -82,7 +82,7 @@ class Languages extends \XoopsObject
     public function getFormLanguages($action = false)
     {
         $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title

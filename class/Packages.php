@@ -82,7 +82,7 @@ class Packages extends \XoopsObject
     public function getFormPackages($action = false)
     {
         $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         $isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());

@@ -81,7 +81,7 @@ class Projects extends \XoopsObject
      */
     public function getFormProjects($action = false)
     {
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title

@@ -85,7 +85,7 @@ class Resources extends \XoopsObject
     public function getFormResources($action = false)
     {
         $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
@@ -141,7 +141,7 @@ class Resources extends \XoopsObject
     public function getFormResourcesTx($action = false)
     {
         $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title

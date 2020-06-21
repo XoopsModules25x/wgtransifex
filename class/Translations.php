@@ -94,7 +94,7 @@ class Translations extends \XoopsObject
     public function getFormTranslations($action = false)
     {
         $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
@@ -162,7 +162,7 @@ class Translations extends \XoopsObject
     public function getFormTranslationsTx($action = false)
     {
         $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
-        if (false === $action) {
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
