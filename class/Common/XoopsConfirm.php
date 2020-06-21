@@ -15,7 +15,7 @@ namespace XoopsModules\Wgtransifex\Common;
 /**
  * My Module module for xoops
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
  * @package        Wgtransifex
  * @since          1.0
@@ -32,18 +32,18 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class XoopsConfirm
 {
-    private $hiddens  = [];
-    private $action   = '';
-    private $title    = '';
-    private $label    = '';
-    private $object   = '';
+    private $hiddens = [];
+    private $action  = '';
+    private $title   = '';
+    private $label   = '';
+    private $object  = '';
 
     /**
      * @public function constructor class
      *
-     * @param $hiddens
-     * @param $action
-     * @param $object
+     * @param        $hiddens
+     * @param        $action
+     * @param        $object
      * @param string $title
      * @param string $label
      */
@@ -74,7 +74,6 @@ class XoopsConfirm
             $this->title = CO__WGTRANSIFEX_DELETE_CONFIRM;
         }
         if ('' === $this->label) {
-
             $this->label = CO__WGTRANSIFEX_DELETE_LABEL;
         }
 

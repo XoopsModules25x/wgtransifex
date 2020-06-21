@@ -23,7 +23,7 @@ require dirname(__DIR__) . '/preloads/autoloader.php';
 
 $op = \Xmf\Request::getCmd('op', '');
 
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $helper = Wgtransifex\Helper::getInstance();
@@ -54,7 +54,7 @@ function loadSampleData()
 {
     global $xoopsConfig;
 
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
     $utility      = new Wgtransifex\Utility();
@@ -67,14 +67,14 @@ function loadSampleData()
         $language = $xoopsConfig['language'] . '/';
     }
 
-	// load module tables
+    // load module tables
     foreach ($tables as $table) {
         $tabledata = \Xmf\Yaml::readWrapped($language . $table . '.yml');
         \Xmf\Database\TableLoad::truncateTable($table);
         \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
     }
-	
-	// load permissions
+
+    // load permissions
     $table     = 'group_permission';
     $tabledata = \Xmf\Yaml::readWrapped($language . $table . '.yml');
     $mid       = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
@@ -95,33 +95,33 @@ function loadSampleData()
 function saveSampleData()
 {
     global $xoopsConfig;
-    
+
     $configurator = new Common\Configurator();
 
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
     $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
 
     $languageFolder = __DIR__ . '/' . $xoopsConfig['language'];
     if (!file_exists($languageFolder . '/')) {
-       Utility::createFolder($languageFolder . '/');
+        Utility::createFolder($languageFolder . '/');
     }
     $exportFolder = $languageFolder . '/Exports-' . date('Y-m-d-H-i-s') . '/';
     Utility::createFolder($exportFolder);
 
-	// save module tables
+    // save module tables
     foreach ($tables as $table) {
         \Xmf\Database\TableLoad::saveTableToYamlFile($table, $exportFolder . $table . '.yml');
     }
-	
-	// save permissions
-	$criteria = new \CriteriaCompo();
+
+    // save permissions
+    $criteria = new \CriteriaCompo();
     $criteria->add(new \Criteria('gperm_modid', \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid')));
     $skipColumns[] = 'gperm_id';
     \Xmf\Database\TableLoad::saveTableToYamlFile('group_permission', $exportFolder . 'group_permission.yml', $criteria, $skipColumns);
     unset($criteria);
-    
+
     //  ---  COPY test folder files ---------------
     if (is_array($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
         foreach (array_keys($configurator->copyTestFolders) as $i) {
@@ -144,11 +144,9 @@ function exportSchema()
         //        $migrate->saveCurrentSchema();
         //
         //        redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
         exit(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR'));
     }
-
 }
 
 /**

@@ -23,7 +23,7 @@ trait ModuleStats
 {
     /**
      * @param \XoopsModules\Wgtransifex\Common\Configurator $configurator
-     * @param array                                       $moduleStats
+     * @param array                                         $moduleStats
      * @return array
      */
     public static function getModuleStats($configurator, $moduleStats)

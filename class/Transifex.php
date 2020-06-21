@@ -25,8 +25,8 @@ namespace XoopsModules\Wgtransifex;
  */
 class Transifex
 {
-    const MASK_NO_TRIM    = 1;
-    const MASK_ALLOW_RAW  = 2;
+    const MASK_NO_TRIM = 1;
+    const MASK_ALLOW_RAW = 2;
     const MASK_ALLOW_HTML = 4;
 
     /**
@@ -66,16 +66,15 @@ class Transifex
         global $xoopsUser;
 
         $helper          = \XoopsModules\Wgtransifex\Helper::getInstance();
-		$projectsHandler = $helper->getHandler('Projects');
-		$count_ok        = 0;
+        $projectsHandler = $helper->getHandler('Projects');
+        $count_ok        = 0;
         $count_err       = 0;
 
-
-		//request data from transifex
-		$transifexLib = new \XoopsModules\Wgtransifex\TransifexLib;
-        $transifexLib->user = $setting['user'];
+        //request data from transifex
+        $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib;
+        $transifexLib->user     = $setting['user'];
         $transifexLib->password = $setting['pwd'];
-        $items = $transifexLib->getProjects();
+        $items                  = $transifexLib->getProjects();
 
         foreach ($items as $item) {
             $projectsObj = null;
@@ -141,12 +140,11 @@ class Transifex
         $count_ok         = 0;
         $count_err        = 0;
 
-
         //request data from transifex
-        $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib;
-        $transifexLib->user = $setting['user'];
+        $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib;
+        $transifexLib->user     = $setting['user'];
         $transifexLib->password = $setting['pwd'];
-        $items = $transifexLib->getResources($project);
+        $items                  = $transifexLib->getResources($project);
 
         foreach ($items as $item) {
             $resourcesObj = null;
@@ -229,13 +227,13 @@ class Transifex
         $resourcesCount = $resourcesHandler->getCount($crResources);
         if ($resourcesCount > 0) {
             //request data from transifex
-            $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib;
-            $transifexLib->user = $setting['user'];
+            $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib;
+            $transifexLib->user     = $setting['user'];
             $transifexLib->password = $setting['pwd'];
 
             $resourcesAll = $resourcesHandler->getAll($crResources);
 
-            foreach(array_keys($resourcesAll) as $i) {
+            foreach (array_keys($resourcesAll) as $i) {
                 $resId         = $resourcesAll[$i]->getVar('res_id');
                 $resource      = $resourcesAll[$i]->getVar('res_slug');
                 $resName       = $resourcesAll[$i]->getVar('res_name');
@@ -324,21 +322,21 @@ class Transifex
         $translationsCount = $translationsHandler->getCount();
         if ($translationsCount > 0) {
             //request data from transifex
-            $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib;
-            $transifexLib->user = $setting['user'];
+            $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib;
+            $transifexLib->user     = $setting['user'];
             $transifexLib->password = $setting['pwd'];
 
             $translationsAll = $translationsHandler->getAll();
-            foreach(array_keys($translationsAll) as $i) {
-                $projectsObj   = $projectsHandler->get($translationsAll[$i]->getVar('tra_pro_id'));
-                $project       = $projectsObj->getVar('pro_slug');
-                $resourceObj   = $resourcesHandler->get($translationsAll[$i]->getVar('tra_res_id'));
-                $resource      = $resourceObj->getVar('res_slug');
+            foreach (array_keys($translationsAll) as $i) {
+                $projectsObj = $projectsHandler->get($translationsAll[$i]->getVar('tra_pro_id'));
+                $project     = $projectsObj->getVar('pro_slug');
+                $resourceObj = $resourcesHandler->get($translationsAll[$i]->getVar('tra_res_id'));
+                $resource    = $resourceObj->getVar('res_slug');
                 //$resSourceLang = $resourceObj->getVar('res_source_language_code');
-                $languagesObj  = $languagesHandler->get($translationsAll[$i]->getVar('tra_lang_id'));
-                $language      = $languagesObj->getVar('lang_code');
+                $languagesObj = $languagesHandler->get($translationsAll[$i]->getVar('tra_lang_id'));
+                $language     = $languagesObj->getVar('lang_code');
                 //$item          = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
-                $stats = $transifexLib->getStats($project, $resource, $language);
+                $stats         = $transifexLib->getStats($project, $resource, $language);
                 $traLastUpdate = strtotime($stats['last_update']);
                 if ($traLastUpdate > $translationsAll[$i]->getVar('tra_date')) {
                     $translationsObj = $translationsHandler->get($translationsAll[$i]->getVar('tra_id'));
@@ -375,7 +373,7 @@ class Transifex
     {
         $helper          = \XoopsModules\Wgtransifex\Helper::getInstance();
         $settingsHandler = $helper->getHandler('Settings');
-        $setting = $settingsHandler->getPrimarySetting();
+        $setting         = $settingsHandler->getPrimarySetting();
         if (count($setting) == 0) {
             redirect_header('settings.php', 3, _AM_WGTRANSIFEX_THEREARENT_SETTINGS);
         }

@@ -12,7 +12,7 @@
 /**
  * wgTransifex module for xoops
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
  * @package        wgtransifex
  * @since          1.0
@@ -20,7 +20,7 @@
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
 if (count($xoBreadcrumbs) > 1) {
-	$GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
+    $GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
 }
 $GLOBALS['xoopsTpl']->assign('adv', $helper->getConfig('advertise'));
 // 

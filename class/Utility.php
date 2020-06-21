@@ -23,7 +23,7 @@ namespace XoopsModules\Wgtransifex;
  * @copyright    https://xoops.org 2001-2017 &copy; XOOPS Project
  * @author       ZySpec <owners@zyspec.com>
  * @author       Mamba <mambax7@gmail.com>
- * @since        
+ * @since
  */
 
 use XoopsModules\Wgtransifex;
@@ -33,11 +33,17 @@ use XoopsModules\Wgtransifex;
  */
 class Utility
 {
-    use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+    use Common\VersionChecks;
 
-    use Common\ServerStats; // getServerStats Trait
+    //checkVerXoops, checkVerPhp Traits
 
-    use Common\FilesManagement; // Files Management Trait
+    use Common\ServerStats;
+
+    // getServerStats Trait
+
+    use Common\FilesManagement;
+
+    // Files Management Trait
 
     /**
      * truncateHtml can truncate a string up to a number of characters while preserving whole words and HTML tags

@@ -12,7 +12,7 @@
 /**
  * wgTransifex module for xoops
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
  * @package        wgtransifex
  * @since          1.0
@@ -29,18 +29,18 @@ $modPathIcon16   = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('mod
 $modPathIcon32   = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
 
 // Get instance of module
-$helper = \XoopsModules\Wgtransifex\Helper::getInstance();
-$projectsHandler = $helper->getHandler('Projects');
-$resourcesHandler = $helper->getHandler('Resources');
-$settingsHandler = $helper->getHandler('Settings');
-$languagesHandler = $helper->getHandler('Languages');
+$helper              = \XoopsModules\Wgtransifex\Helper::getInstance();
+$projectsHandler     = $helper->getHandler('Projects');
+$resourcesHandler    = $helper->getHandler('Resources');
+$settingsHandler     = $helper->getHandler('Settings');
+$languagesHandler    = $helper->getHandler('Languages');
 $translationsHandler = $helper->getHandler('Translations');
-$packagesHandler = $helper->getHandler('Packages');
-$myts = MyTextSanitizer::getInstance();
+$packagesHandler     = $helper->getHandler('Packages');
+$myts                = MyTextSanitizer::getInstance();
 // 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
-	include_once XOOPS_ROOT_PATH . '/class/template.php';
-	$xoopsTpl = new \XoopsTpl();
+    include_once XOOPS_ROOT_PATH . '/class/template.php';
+    $xoopsTpl = new \XoopsTpl();
 }
 
 // Load languages
@@ -48,10 +48,10 @@ xoops_loadLanguage('admin');
 xoops_loadLanguage('modinfo');
 
 // Local admin menu class
-if (file_exists($GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php'))) {
-	include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');
+if (file_exists($GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php'))) {
+    include_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
 } else {
-	redirect_header('../../../admin.php', 5, _AM_MODULEADMIN_MISSING);
+    redirect_header('../../../admin.php', 5, _AM_MODULEADMIN_MISSING);
 }
 
 xoops_cp_header();
@@ -63,4 +63,4 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 
 $adminObject = \Xmf\Module\Admin::getInstance();
-$style = WGTRANSIFEX_URL . '/assets/css/admin/style.css';
+$style       = WGTRANSIFEX_URL . '/assets/css/admin/style.css';

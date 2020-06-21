@@ -24,7 +24,7 @@ trait VersionChecks
      * @static
      *
      * @param \XoopsModule|null $module
-     * @param null|string $requiredVer
+     * @param null|string       $requiredVer
      * @return bool true if meets requirements, false if not
      */
     public static function checkVerXoops(\XoopsModule $module = null, $requiredVer = null)

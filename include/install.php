@@ -57,8 +57,7 @@ function xoops_module_install_wgtransifex(\XoopsModule $module)
 {
     require dirname(__DIR__) . '/preloads/autoloader.php';
 
-    /** @var Wgtransifex\Helper $helper */ 
-    /** @var Wgtransifex\Utility $utility */
+    /** @var Wgtransifex\Helper $helper */ /** @var Wgtransifex\Utility $utility */
     /** @var Common\Configurator $configurator */
     $helper       = Wgtransifex\Helper::getInstance();
     $utility      = new Wgtransifex\Utility();
@@ -84,7 +83,7 @@ function xoops_module_install_wgtransifex(\XoopsModule $module)
             $dest = $configurator->copyBlankFiles[$i] . '/blank.gif';
             $utility::copyFile($file, $dest);
         }
-		$file = dirname(__DIR__) . '/assets/images/blank.png';
+        $file = dirname(__DIR__) . '/assets/images/blank.png';
         foreach (array_keys($configurator->copyBlankFiles) as $i) {
             $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
             $utility::copyFile($file, $dest);
