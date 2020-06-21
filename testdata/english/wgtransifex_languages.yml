@@ -1,0 +1,30 @@
+-
+    lang_id: '1'
+    lang_name: English
+    lang_code: en_GB
+    lang_folder: english
+    lang_date: '1592129154'
+    lang_submitter: '1'
+    lang_iso_639_1: en
+    lang_iso_639_2: eng
+    lang_flag: english.gif
+-
+    lang_id: '2'
+    lang_name: German
+    lang_code: de_DE
+    lang_folder: german
+    lang_date: '1592137535'
+    lang_submitter: '1'
+    lang_iso_639_1: de
+    lang_iso_639_2: deu
+    lang_flag: german.gif
+-
+    lang_id: '3'
+    lang_name: French
+    lang_code: fr_FR
+    lang_folder: french
+    lang_date: '1592137568'
+    lang_submitter: '1'
+    lang_iso_639_1: fr
+    lang_iso_639_2: fra
+    lang_flag: french.gif

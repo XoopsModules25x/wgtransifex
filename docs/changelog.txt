@@ -1,0 +1,14 @@
+==============================================================
+Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.0
+==============================================================
+ - Original release wgtransifex (goffy)
+ - added translation statistics (goffy)
+ - preparation for creation of language packages (goffy)
+ - added version check package (goffy)
+ - added version check comparing transifex (goffy)
+ - added output translations as language package (goffy)
+ - added zip creation of language package (goffy)
+ - added language package description (goffy)
+ - added download language package (goffy)
+ - added flags (goffy)
+ - fixed problems in renaming file (goffy)

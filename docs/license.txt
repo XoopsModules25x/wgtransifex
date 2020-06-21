@@ -1,0 +1,66 @@
+End User License Agreement for Xoops Modules
+
+IMPORTANT NOTICE Read and understand this License 
+Agreement carefully before installing and using this Software.
+It contains extremely important information.
+
+BY USING THIS SOFTWARE IN ANY WAY YOU ACKNOWLEDGE
+THAT YOU HAVE READ, UNDERSTAND AND AGREE TO THE
+TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO
+THESE TERMS, DO NOT USE THIS SOFTWARE IN ANY WAY,
+AND PROMPTLY RETURN IT OR DELETE ANY COPIES OF
+THIS SOFTWARE IN YOUR POSSESSION.
+
+LICENSE GRANT the copyright holder grants you a non-exclusive 
+license to use this software, and any associated documentation 
+("The Software"), as indicated herein.
+
+You may install and use the Software on two computers for your use 
+only.
+
+RESTRICTIONS You MAY NOT: (a) sell or distribute this Software 
+package without prior written approval (b) cause or permit reverse
+engineering, disassembly, decompilation or alteration of this 
+Software; (c) remove any product identification, copyright notices,
+or other notices or proprietary restrictions from this Software;
+
+TERM: This License is effective until terminated. You may terminate 
+it at any time by destroying the Software, together with all copies 
+thereof. This License will also terminate if you fail to comply with any 
+term or condition of this Agreement. Upon such termination, you 
+agree to destroy the Software, together with all copies thereof.
+
+COPYRIGHT/OWNERSHIP This Software and its source
+code are proprietary products of Pablo Software Solutions 
+and are protected by copyright, trade secret and other intellectual 
+property laws.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
+HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
+OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+This software was created to be free of defects and is designed to
+function on PC computers only. While this software has been tested 
+and proven to run accurately, in the unlikely event of any user or 
+computer incompatibility issues, the end user assumes complete 
+liability of usage. This software contains no adware, scumware or 
+spyware. The maker of this software does not support any 
+questionable forms of use where this software could be misused in 
+any way. 
+
+http://www.txmodxoops.org
+https://xoops.org
