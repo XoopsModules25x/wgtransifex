@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @return object
+ */
 function getIcons()
 {
     $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);

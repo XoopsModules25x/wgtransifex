@@ -385,6 +385,7 @@ class Transifex
      *
      * @param $toConvert
      * @param $langFolder
+     * @param $langShort
      * @return bool
      */
     private function getLocal($toConvert, $langFolder, $langShort)

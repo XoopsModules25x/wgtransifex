@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @return object
+ */
 function getPaths()
 {
     $moduleDirName = basename(dirname(__DIR__));
