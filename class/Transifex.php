@@ -71,7 +71,7 @@ class Transifex
         $count_err       = 0;
 
         //request data from transifex
-        $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib;
+        $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib();
         $transifexLib->user     = $setting['user'];
         $transifexLib->password = $setting['pwd'];
         $items                  = $transifexLib->getProjects();
@@ -141,7 +141,7 @@ class Transifex
         $count_err        = 0;
 
         //request data from transifex
-        $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib;
+        $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib();
         $transifexLib->user     = $setting['user'];
         $transifexLib->password = $setting['pwd'];
         $items                  = $transifexLib->getResources($project);
@@ -227,7 +227,7 @@ class Transifex
         $resourcesCount = $resourcesHandler->getCount($crResources);
         if ($resourcesCount > 0) {
             //request data from transifex
-            $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib;
+            $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib();
             $transifexLib->user     = $setting['user'];
             $transifexLib->password = $setting['pwd'];
 
@@ -322,7 +322,7 @@ class Transifex
         $translationsCount = $translationsHandler->getCount();
         if ($translationsCount > 0) {
             //request data from transifex
-            $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib;
+            $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib();
             $transifexLib->user     = $setting['user'];
             $transifexLib->password = $setting['pwd'];
 
