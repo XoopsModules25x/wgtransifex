@@ -25,9 +25,9 @@ namespace XoopsModules\Wgtransifex;
  */
 class Transifex
 {
-    const MASK_NO_TRIM = 1;
-    const MASK_ALLOW_RAW = 2;
-    const MASK_ALLOW_HTML = 4;
+    public const MASK_NO_TRIM = 1;
+    public const MASK_ALLOW_RAW = 2;
+    public const MASK_ALLOW_HTML = 4;
 
     /**
      * Constructor

@@ -25,7 +25,7 @@ namespace XoopsModules\Wgtransifex;
  */
 class TransifexLib
 {
-    const BASE_URL = 'https://www.transifex.com/api/2/';
+    public const BASE_URL = 'https://www.transifex.com/api/2/';
     /**
      * @var string
      */
