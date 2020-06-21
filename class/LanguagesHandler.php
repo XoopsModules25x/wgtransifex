@@ -85,7 +85,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
     {
         $crCountLanguages = new \CriteriaCompo();
         $crCountLanguages = $this->getLanguagesCriteria($crCountLanguages, $start, $limit, $sort, $order);
-        return parent::getCount($crCountLanguages);
+        return $this->getCount($crCountLanguages);
     }
 
     /**
@@ -100,7 +100,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
     {
         $crAllLanguages = new \CriteriaCompo();
         $crAllLanguages = $this->getLanguagesCriteria($crAllLanguages, $start, $limit, $sort, $order);
-        return parent::getAll($crAllLanguages);
+        return $this->getAll($crAllLanguages);
     }
 
     /**

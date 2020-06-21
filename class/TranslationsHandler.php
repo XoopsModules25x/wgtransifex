@@ -85,7 +85,7 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
     {
         $crCountTranslations = new \CriteriaCompo();
         $crCountTranslations = $this->getTranslationsCriteria($crCountTranslations, $start, $limit, $sort, $order);
-        return parent::getCount($crCountTranslations);
+        return $this->getCount($crCountTranslations);
     }
 
     /**
@@ -100,7 +100,7 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
     {
         $crAllTranslations = new \CriteriaCompo();
         $crAllTranslations = $this->getTranslationsCriteria($crAllTranslations, $start, $limit, $sort, $order);
-        return parent::getAll($crAllTranslations);
+        return $this->getAll($crAllTranslations);
     }
 
     /**

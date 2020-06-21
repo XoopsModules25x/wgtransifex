@@ -85,7 +85,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
     {
         $crCountPackages = new \CriteriaCompo();
         $crCountPackages = $this->getPackagesCriteria($crCountPackages, $start, $limit, $sort, $order);
-        return parent::getCount($crCountPackages);
+        return $this->getCount($crCountPackages);
     }
 
     /**
@@ -100,7 +100,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
     {
         $crAllPackages = new \CriteriaCompo();
         $crAllPackages = $this->getPackagesCriteria($crAllPackages, $start, $limit, $sort, $order);
-        return parent::getAll($crAllPackages);
+        return $this->getAll($crAllPackages);
     }
 
     /**

@@ -85,7 +85,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
     {
         $crCountResources = new \CriteriaCompo();
         $crCountResources = $this->getResourcesCriteria($crCountResources, $start, $limit, $sort, $order);
-        return parent::getCount($crCountResources);
+        return $this->getCount($crCountResources);
     }
 
     /**
@@ -100,7 +100,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
     {
         $crAllResources = new \CriteriaCompo();
         $crAllResources = $this->getResourcesCriteria($crAllResources, $start, $limit, $sort, $order);
-        return parent::getAll($crAllResources);
+        return $this->getAll($crAllResources);
     }
 
     /**

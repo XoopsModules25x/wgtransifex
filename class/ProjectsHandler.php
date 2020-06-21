@@ -85,7 +85,7 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
     {
         $crCountProjects = new \CriteriaCompo();
         $crCountProjects = $this->getProjectsCriteria($crCountProjects, $start, $limit, $sort, $order);
-        return parent::getCount($crCountProjects);
+        return $this->getCount($crCountProjects);
     }
 
     /**
@@ -100,7 +100,7 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
     {
         $crAllProjects = new \CriteriaCompo();
         $crAllProjects = $this->getProjectsCriteria($crAllProjects, $start, $limit, $sort, $order);
-        return parent::getAll($crAllProjects);
+        return $this->getAll($crAllProjects);
     }
 
     /**

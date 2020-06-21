@@ -85,7 +85,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
     {
         $crCountSettings = new \CriteriaCompo();
         $crCountSettings = $this->getSettingsCriteria($crCountSettings, $start, $limit, $sort, $order);
-        return parent::getCount($crCountSettings);
+        return $this->getCount($crCountSettings);
     }
 
     /**
@@ -100,7 +100,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
     {
         $crAllSettings = new \CriteriaCompo();
         $crAllSettings = $this->getSettingsCriteria($crAllSettings, $start, $limit, $sort, $order);
-        return parent::getAll($crAllSettings);
+        return $this->getAll($crAllSettings);
     }
 
     /**
@@ -130,7 +130,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
         $setting    = [];
         $crSettings = new \CriteriaCompo();
         $crSettings->setLimit(1);
-        $settingsAll = parent::getAll($crSettings);
+        $settingsAll = $this->getAll($crSettings);
         foreach (array_keys($settingsAll) as $i) {
             $setting['user'] = $settingsAll[$i]->getVar('set_username');
             $setting['pwd']  = $settingsAll[$i]->getVar('set_password');
