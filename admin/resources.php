@@ -51,7 +51,7 @@ switch ($op) {
         $start_res = Request::getInt('start_res', 0);
         $limit     = Request::getInt('limit', $helper->getConfig('adminpager'));
 
-        if ($proId == 0) {
+        if (0 == $proId) {
             $crProjects = new \CriteriaCompo();
             $crProjects->add(new \Criteria('pro_resources', 0, '>'));
             $projectsCount = $projectsHandler->getCount($crProjects);

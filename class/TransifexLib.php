@@ -202,12 +202,12 @@ class TransifexLib
             /* Handling a very specific exception due to a Transifex bug */
 
             // Exception is thrown maybe just because the file only has empty translations
-            if (strpos($e->getMessage(), "We're not able to extract any string from the file uploaded for language") !== false) {
+            if (false !== strpos($e->getMessage(), "We're not able to extract any string from the file uploaded for language")) {
                 $catalog = I18n::loadPo($file);
                 unset($catalog['']);
 
                 if (count($catalog)) {
-                    if (count(array_filter($catalog)) === 0) {
+                    if (0 === count(array_filter($catalog))) {
                         // PO file contains empty translations
                         // In that case Transifex throws an error although its not.
 

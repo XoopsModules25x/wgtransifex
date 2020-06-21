@@ -50,7 +50,7 @@ switch ($op) {
         $start_tra = Request::getInt('start_tra', 0);
         $limit     = Request::getInt('limit', $helper->getConfig('adminpager'));
 
-        if ($proId == 0) {
+        if (0 == $proId) {
             $crTranslations    = new \CriteriaCompo();
             $translationsCount = $translationsHandler->getCount($crTranslations);
             if ($translationsCount > 0) {

@@ -98,7 +98,7 @@ function wgtransifex_RewriteUrl($module, $array, $type = 'content')
     $lenght_id   = $helper->getConfig('lenght_id');
     $rewrite_url = $helper->getConfig('rewrite_url');
 
-    if ($lenght_id != 0) {
+    if (0 != $lenght_id) {
         $id = $array['content_id'];
         while (strlen($id) < $lenght_id) {
             $id = '0' . $id;
@@ -136,10 +136,10 @@ function wgtransifex_RewriteUrl($module, $array, $type = 'content')
             $page = $array['content_alias'];
             $type .= '/';
             $id   .= '/';
-            if ($type === 'content/') {
+            if ('content/' === $type) {
                 $type = '';
             }
-            if ($type === 'comment-edit/' || $type === 'comment-reply/' || $type === 'comment-delete/') {
+            if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
                 return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
             }
 
@@ -158,10 +158,10 @@ function wgtransifex_RewriteUrl($module, $array, $type = 'content')
             }
             $page = $array['content_alias'];
             $type .= '/';
-            if ($type === 'content/') {
+            if ('content/' === $type) {
                 $type = '';
             }
-            if ($type === 'comment-edit/' || $type === 'comment-reply/' || $type === 'comment-delete/') {
+            if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
                 return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
             }
 
@@ -190,6 +190,6 @@ function wgtransifex_Filter($url, $type = '')
     $url .= htmlentities($url, ENT_COMPAT, 'utf-8');
     $url .= preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', "\1", $url);
     $url .= preg_replace([$regular_expression, '`[-]+`'], '-', $url);
-    $url = ($url == '') ? $type : strtolower(trim($url, '-'));
+    $url = ('' == $url) ? $type : strtolower(trim($url, '-'));
     return $url;
 }

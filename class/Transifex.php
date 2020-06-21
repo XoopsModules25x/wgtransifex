@@ -374,7 +374,7 @@ class Transifex
         $helper          = \XoopsModules\Wgtransifex\Helper::getInstance();
         $settingsHandler = $helper->getHandler('Settings');
         $setting         = $settingsHandler->getPrimarySetting();
-        if (count($setting) == 0) {
+        if (0 == count($setting)) {
             redirect_header('settings.php', 3, _AM_WGTRANSIFEX_THEREARENT_SETTINGS);
         }
         return $setting;
