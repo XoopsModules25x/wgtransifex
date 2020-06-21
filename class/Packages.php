@@ -140,7 +140,7 @@ class Packages extends \XoopsObject
         }
         // Form Frameworks Images langFlag: Select Uploaded Image
         $getPkg_logo    = $this->getVar('pkg_logo');
-        $pkgLogo        = $getPkg_logo ? $getPkg_logo : 'blank.gif';
+        $pkgLogo        = $getPkg_logo ?: 'blank.gif';
         $imageDirectory = '/uploads/wgtransifex/logos';
         $imageTray      = new \XoopsFormElementTray(_AM_WGTRANSIFEX_PKG_LOGO, '<br>');
         $imageSelect    = new \XoopsFormSelect(sprintf(_AM_WGTRANSIFEX_PKG_LOGO_UPLOADS, ".{$imageDirectory}/"), 'pkg_logo', $pkgLogo, 5);

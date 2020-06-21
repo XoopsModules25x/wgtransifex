@@ -103,7 +103,7 @@ class Languages extends \XoopsObject
         $form->addElement(new \XoopsFormText(_AM_WGTRANSIFEX_LANGUAGE_FOLDER, 'lang_folder', 50, 255, $this->getVar('lang_folder')));
         // Form Frameworks Images langFlag: Select Uploaded Image
         $getLangFlag    = $this->getVar('lang_flag');
-        $langFlag       = $getLangFlag ? $getLangFlag : 'blank.gif';
+        $langFlag       = $getLangFlag ?: 'blank.gif';
         $imageDirectory = '/modules/wgtransifex/assets/images/flags';
         $imageTray      = new \XoopsFormElementTray(_AM_WGTRANSIFEX_LANGUAGE_FLAG, '<br>');
         $imageSelect    = new \XoopsFormSelect(sprintf(_AM_WGTRANSIFEX_LANGUAGE_FLAG_UPLOADS, ".{$imageDirectory}/"), 'lang_flag', $langFlag, 5);
