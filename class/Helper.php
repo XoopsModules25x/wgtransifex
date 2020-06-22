@@ -11,7 +11,6 @@ namespace XoopsModules\Wgtransifex;
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
-
 /**
  * @copyright    XOOPS Project https://xoops.org/
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -49,7 +48,6 @@ class Helper extends \Xmf\Module\Helper
         if (null === $instance) {
             $instance = new static($debug);
         }
-
         return $instance;
     }
 
@@ -79,7 +77,6 @@ class Helper extends \Xmf\Module\Helper
         $helper = self::getInstance();
         $ret    = new $class($db, $helper);
         $this->addLog("Getting handler '{$name}'");
-
         return $ret;
     }
 }

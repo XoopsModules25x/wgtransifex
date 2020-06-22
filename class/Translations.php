@@ -49,7 +49,6 @@ class Translations extends \XoopsObject
         $this->initVar('tra_status', \XOBJ_DTYPE_INT);
         $this->initVar('tra_date', \XOBJ_DTYPE_INT);
         $this->initVar('tra_submitter', \XOBJ_DTYPE_INT);
-
         $this->initVar('tra_proofread', \XOBJ_DTYPE_INT);
         $this->initVar('tra_proofread_percentage', \XOBJ_DTYPE_INT);
         $this->initVar('tra_reviewed_percentage', \XOBJ_DTYPE_INT);
@@ -124,7 +123,6 @@ class Translations extends \XoopsObject
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_MIMETYPE, 'tra_mimetype', 50, 255, $this->getVar('tra_mimetype')));
         // Form Text traMimetype
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_LOCAL, 'tra_local', 50, 255, $this->getVar('tra_local')));
-
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD, 'tra_proofread', 50, 255, $this->getVar('tra_proofread')));
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD_PERC, 'tra_proofread_percentage', 50, 255, $this->getVar('tra_proofread_percentage')));
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED, 'tra_reviewed', 50, 255, $this->getVar('tra_reviewed')));
@@ -135,7 +133,6 @@ class Translations extends \XoopsObject
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_TRANSLATED_WORDS, 'tra_translated_words', 50, 255, $this->getVar('tra_translated_words')));
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_ENT, 'tra_untranslated_entities', 50, 255, $this->getVar('tra_untranslated_entities')));
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_TRANSLATION_LAST_UPDATE, 'tra_last_update', '', $this->getVar('tra_last_update')));
-
         // Form Select Status traStatus
         $traStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_STATUS, 'tra_status', $this->getVar('tra_status'));
         $traStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);

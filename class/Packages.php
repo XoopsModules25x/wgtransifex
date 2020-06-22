@@ -128,7 +128,6 @@ class Packages extends \XoopsObject
             }
         }
         $form->addElement($pkgPro_idSelect, true);
-
         // Form Table languages
         $languagesHandler = $helper->getHandler('Languages');
         $pkgLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_LANG_ID, 'pkg_lang_id', $this->getVar('pkg_lang_id'));
@@ -168,7 +167,6 @@ class Packages extends \XoopsObject
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PACKAGE_DATE, 'pkg_date', '', $pkgDate));
         // Form Select User pkgSubmitter
         $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_PACKAGE_SUBMITTER, 'pkg_submitter', false, $this->getVar('pkg_submitter')));
-
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));

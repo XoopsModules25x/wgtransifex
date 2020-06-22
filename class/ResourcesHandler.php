@@ -34,7 +34,6 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      * Constructor
      * @param \XoopsDatabase $db
      */
-
     public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, 'wgtransifex_resources', Resources::class, 'res_id', 'res_slug');
@@ -45,7 +44,6 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      *
      * @return object
      */
-
     public function create($isNew = true)
     {
         return parent::create($isNew);
@@ -58,7 +56,6 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
-
     public function get($i = null, $fields = null)
     {
         return parent::get($i, $fields);
@@ -70,7 +67,6 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      * @param null
      * @return int reference to the {@link Get} object
      */
-
     public function getInsertId()
     {
         return $this->db->getInsertId();
@@ -84,13 +80,10 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
-
     public function getCountResources($start = 0, $limit = 0, $sort = 'res_id ASC, res_slug', $order = 'ASC')
     {
         $crCountResources = new \CriteriaCompo();
-
         $crCountResources = $this->getResourcesCriteria($crCountResources, $start, $limit, $sort, $order);
-
         return $this->getCount($crCountResources);
     }
 
@@ -102,13 +95,10 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return array
      */
-
     public function getAllResources($start = 0, $limit = 0, $sort = 'res_id ASC, res_slug', $order = 'ASC')
     {
         $crAllResources = new \CriteriaCompo();
-
         $crAllResources = $this->getResourcesCriteria($crAllResources, $start, $limit, $sort, $order);
-
         return $this->getAll($crAllResources);
     }
 
@@ -121,17 +111,12 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
-
     private function getResourcesCriteria($crResources, $start, $limit, $sort, $order)
     {
         $crResources->setStart($start);
-
         $crResources->setLimit($limit);
-
         $crResources->setSort($sort);
-
         $crResources->setOrder($order);
-
         return $crResources;
     }
 }

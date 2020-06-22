@@ -19,7 +19,6 @@ use XoopsModules\Wgtransifex;
 function xoops_module_pre_uninstall_wgtransifex(\XoopsModule $module)
 {
     // Do some synchronization
-
     return true;
 }
 
@@ -32,22 +31,17 @@ function xoops_module_pre_uninstall_wgtransifex(\XoopsModule $module)
 function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
 {
     //    return true;
-
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
     /** @var Wgtransifex\Helper $helper */
     $helper = Wgtransifex\Helper::getInstance();
-
     /** @var Wgtransifex\Utility $utility */
     $utility = new Wgtransifex\Utility();
-
     $success = true;
     $helper->loadLanguage('admin');
-
     //------------------------------------------------------------------
     // Remove uploads folder (and all subfolders) if they exist
     //------------------------------------------------------------------
-
     $old_directories = [$GLOBALS['xoops']->path("uploads/{$moduleDirName}")];
     foreach ($old_directories as $old_dir) {
         $dirInfo = new \SplFileInfo($old_dir);
@@ -60,7 +54,6 @@ function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
         }
         unset($dirInfo);
     }
-
     /*
     //------------ START ----------------
     //------------------------------------------------------------------
@@ -74,7 +67,6 @@ function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
     }
 //    return $success && $delOk; // use this if you're using this routine
 */
-
     return $success;
     //------------ END  ----------------
 }

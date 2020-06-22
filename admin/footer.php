@@ -21,8 +21,6 @@
  */
 if (isset($templateMain)) {
     $GLOBALS['xoopsTpl']->assign('maintainedby', $helper->getConfig('maintainedby'));
-
     $GLOBALS['xoopsTpl']->display("db:{$templateMain}");
 }
-
 xoops_cp_footer();
