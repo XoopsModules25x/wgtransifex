@@ -34,7 +34,6 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
      * Constructor
      * @param \XoopsDatabase $db
      */
-
     public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, 'wgtransifex_translations', Translations::class, 'tra_id', 'tra_pro_id');
@@ -45,7 +44,6 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
      *
      * @return object
      */
-
     public function create($isNew = true)
     {
         return parent::create($isNew);
@@ -58,7 +56,6 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
-
     public function get($i = null, $fields = null)
     {
         return parent::get($i, $fields);
@@ -70,7 +67,6 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
      * @param null
      * @return int reference to the {@link Get} object
      */
-
     public function getInsertId()
     {
         return $this->db->getInsertId();
@@ -84,13 +80,10 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
-
     public function getCountTranslations($start = 0, $limit = 0, $sort = 'tra_id ASC, tra_pro_id', $order = 'ASC')
     {
         $crCountTranslations = new \CriteriaCompo();
-
         $crCountTranslations = $this->getTranslationsCriteria($crCountTranslations, $start, $limit, $sort, $order);
-
         return $this->getCount($crCountTranslations);
     }
 
@@ -102,13 +95,10 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return array
      */
-
     public function getAllTranslations($start = 0, $limit = 0, $sort = 'tra_id ASC, tra_pro_id', $order = 'ASC')
     {
         $crAllTranslations = new \CriteriaCompo();
-
         $crAllTranslations = $this->getTranslationsCriteria($crAllTranslations, $start, $limit, $sort, $order);
-
         return $this->getAll($crAllTranslations);
     }
 
@@ -121,17 +111,12 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
-
     private function getTranslationsCriteria($crTranslations, $start, $limit, $sort, $order)
     {
         $crTranslations->setStart($start);
-
         $crTranslations->setLimit($limit);
-
         $crTranslations->setSort($sort);
-
         $crTranslations->setOrder($order);
-
         return $crTranslations;
     }
 }

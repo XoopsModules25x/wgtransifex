@@ -21,7 +21,6 @@
  */
 include_once __DIR__ . '/common.php';
 include_once __DIR__ . '/main.php';
-
 // ---------------- Admin Index ----------------
 define('_AM_WGTRANSIFEX_STATISTICS', 'Statistics');
 // There are
@@ -215,7 +214,6 @@ define('_AM_WGTRANSIFEX_STATUS_CREATED', 'Package created');
 // ---------------- Admin Others ----------------
 define('_AM_WGTRANSIFEX_MAINTAINEDBY', ' is maintained by ');
 // ---------------- End ----------------
-
 define('_AM_WGTRANSIFEX_ABOUT_MAKE_DONATION', 'Make a Donation to support this module');
 define('_AM_WGTRANSIFEX_MAINTAINED', '<strong>%s</strong> is maintained by the ');
 define('_AM_WGTRANSIFEX_SUPPORT_FORUM', 'Support Forum');

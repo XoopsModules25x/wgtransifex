@@ -26,7 +26,6 @@ trait ModuleStats
      * @param array                                         $moduleStats
      * @return array
      */
-
     public static function getModuleStats($configurator, $moduleStats)
     {
         if (\count($configurator->moduleStats) > 0) {
@@ -34,7 +33,6 @@ trait ModuleStats
                 $moduleStats[$i] = $configurator->moduleStats[$i];
             }
         }
-
         return $moduleStats;
     }
 }

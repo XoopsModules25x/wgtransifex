@@ -34,7 +34,6 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
      * Constructor
      * @param \XoopsDatabase $db
      */
-
     public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, 'wgtransifex_projects', Projects::class, 'pro_id', 'pro_slug');
@@ -45,7 +44,6 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
      *
      * @return object
      */
-
     public function create($isNew = true)
     {
         return parent::create($isNew);
@@ -58,7 +56,6 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
-
     public function get($i = null, $fields = null)
     {
         return parent::get($i, $fields);
@@ -70,7 +67,6 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
      * @param null
      * @return int reference to the {@link Get} object
      */
-
     public function getInsertId()
     {
         return $this->db->getInsertId();
@@ -84,13 +80,10 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
-
     public function getCountProjects($start = 0, $limit = 0, $sort = 'pro_id ASC, pro_slug', $order = 'ASC')
     {
         $crCountProjects = new \CriteriaCompo();
-
         $crCountProjects = $this->getProjectsCriteria($crCountProjects, $start, $limit, $sort, $order);
-
         return $this->getCount($crCountProjects);
     }
 
@@ -102,13 +95,10 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return array
      */
-
     public function getAllProjects($start = 0, $limit = 0, $sort = 'pro_id ASC, pro_slug', $order = 'ASC')
     {
         $crAllProjects = new \CriteriaCompo();
-
         $crAllProjects = $this->getProjectsCriteria($crAllProjects, $start, $limit, $sort, $order);
-
         return $this->getAll($crAllProjects);
     }
 
@@ -121,17 +111,12 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
-
     private function getProjectsCriteria($crProjects, $start, $limit, $sort, $order)
     {
         $crProjects->setStart($start);
-
         $crProjects->setLimit($limit);
-
         $crProjects->setSort($sort);
-
         $crProjects->setOrder($order);
-
         return $crProjects;
     }
 }

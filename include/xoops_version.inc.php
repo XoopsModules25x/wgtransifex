@@ -17,7 +17,6 @@
  * @author       XOOPS Development Team
  * @param mixed $val
  */
-
 /**
  * @param $val
  * @return float|int

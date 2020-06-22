@@ -11,7 +11,6 @@ namespace XoopsModules\Wgtransifex;
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
-
 /**
  * wgTransifex module for xoops
  *

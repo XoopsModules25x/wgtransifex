@@ -20,7 +20,6 @@
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
 include_once __DIR__ . '/admin.php';
-
 // ---------------- Main ----------------
 define('_MA_WGTRANSIFEX_INDEX', 'Home');
 define('_MA_WGTRANSIFEX_TITLE', 'wgTransifex');

@@ -23,26 +23,25 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 include __DIR__ . '/include/common.php';
 $moduleDirName = basename(__DIR__);
 // Breadcrumbs
-$xoBreadcrumbs = [];
+$xoBreadcrumbs   = [];
 $xoBreadcrumbs[] = ['title' => _MA_WGTRANSIFEX_TITLE, 'link' => WGTRANSIFEX_URL . '/'];
 // Get instance of module
-$helper = \XoopsModules\Wgtransifex\Helper::getInstance();
-$projectsHandler = $helper->getHandler('Projects');
-$resourcesHandler = $helper->getHandler('Resources');
-$settingsHandler = $helper->getHandler('Settings');
-$languagesHandler = $helper->getHandler('Languages');
+$helper              = \XoopsModules\Wgtransifex\Helper::getInstance();
+$projectsHandler     = $helper->getHandler('Projects');
+$resourcesHandler    = $helper->getHandler('Resources');
+$settingsHandler     = $helper->getHandler('Settings');
+$languagesHandler    = $helper->getHandler('Languages');
 $translationsHandler = $helper->getHandler('Translations');
-$packagesHandler = $helper->getHandler('Packages');
-
-$myts = MyTextSanitizer::getInstance();
+$packagesHandler     = $helper->getHandler('Packages');
+$myts                = MyTextSanitizer::getInstance();
 // Default Css Style
 $style = WGTRANSIFEX_URL . '/assets/css/style.css';
 // Smarty Default
-$sysPathIcon16 = $GLOBALS['xoopsModule']->getInfo('sysicons16');
-$sysPathIcon32 = $GLOBALS['xoopsModule']->getInfo('sysicons32');
+$sysPathIcon16   = $GLOBALS['xoopsModule']->getInfo('sysicons16');
+$sysPathIcon32   = $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16 = $GLOBALS['xoopsModule']->getInfo('modicons16');
-$modPathIcon32 = $GLOBALS['xoopsModule']->getInfo('modicons16');
+$modPathIcon16   = $GLOBALS['xoopsModule']->getInfo('modicons16');
+$modPathIcon32   = $GLOBALS['xoopsModule']->getInfo('modicons16');
 // Load Languages
 xoops_loadLanguage('main');
 xoops_loadLanguage('modinfo');
