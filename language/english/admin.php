@@ -12,16 +12,15 @@
 /**
  * wgTransifex module for xoops
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
  * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
-
-include_once 'common.php';
-include_once 'main.php';
+include_once __DIR__ . '/common.php';
+include_once __DIR__ . '/main.php';
 
 // ---------------- Admin Index ----------------
 define('_AM_WGTRANSIFEX_STATISTICS', 'Statistics');
@@ -216,3 +215,8 @@ define('_AM_WGTRANSIFEX_STATUS_CREATED', 'Package created');
 // ---------------- Admin Others ----------------
 define('_AM_WGTRANSIFEX_MAINTAINEDBY', ' is maintained by ');
 // ---------------- End ----------------
+
+define('_AM_WGTRANSIFEX_ABOUT_MAKE_DONATION', 'Make a Donation to support this module');
+define('_AM_WGTRANSIFEX_MAINTAINED', '<strong>%s</strong> is maintained by the ');
+define('_AM_WGTRANSIFEX_SUPPORT_FORUM', 'Support Forum');
+define('_AM_WGTRANSIFEX_DONATION_AMOUNT', 'Donation Amount');

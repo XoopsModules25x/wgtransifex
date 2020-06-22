@@ -26,6 +26,7 @@ class WgtransifexCorePreload extends \XoopsPreloadItem
     /**
      * @param $args
      */
+
     public static function eventCoreIncludeCommonEnd($args)
     {
         include __DIR__ . '/autoloader.php';

@@ -12,7 +12,7 @@
 /**
  * wgTransifex module for xoops
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
  * @package        wgtransifex
  * @since          1.0
@@ -33,7 +33,7 @@ $settingsHandler = $helper->getHandler('Settings');
 $languagesHandler = $helper->getHandler('Languages');
 $translationsHandler = $helper->getHandler('Translations');
 $packagesHandler = $helper->getHandler('Packages');
-// 
+
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style
 $style = WGTRANSIFEX_URL . '/assets/css/style.css';

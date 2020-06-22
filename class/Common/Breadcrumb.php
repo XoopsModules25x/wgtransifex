@@ -31,19 +31,20 @@ namespace XoopsModules\Wgtransifex\Common;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
+\defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
 
 /**
  * Class Breadcrumb
  */
 class Breadcrumb
 {
-    public  $dirname;
+    public $dirname;
+
     private $bread = [];
 
     public function __construct()
     {
-        $this->dirname = basename(dirname(dirname(__DIR__)));
+        $this->dirname = \basename(\dirname(\dirname(__DIR__)));
     }
 
     /**
@@ -52,10 +53,11 @@ class Breadcrumb
      * @param string $title
      * @param string $link
      */
+
     public function addLink($title = '', $link = '')
     {
         $this->bread[] = [
-            'link'  => $link,
+            'link' => $link,
             'title' => $title,
         ];
     }
@@ -63,17 +65,23 @@ class Breadcrumb
     /**
      * Render BreadCrumb
      */
+
     public function render()
     {
-        if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
+        if (!isset($GLOBALS['xoTheme']) || !\is_object($GLOBALS['xoTheme'])) {
             require $GLOBALS['xoops']->path('class/theme.php');
+
             $GLOBALS['xoTheme'] = new \xos_opal_Theme();
         }
 
         require $GLOBALS['xoops']->path('class/template.php');
+
         $breadcrumbTpl = new \XoopsTpl();
+
         $breadcrumbTpl->assign('breadcrumb', $this->bread);
+
         $html = $breadcrumbTpl->fetch('db:' . $this->dirname . '_common_breadcrumb.tpl');
+
         unset($breadcrumbTpl);
 
         return $html;

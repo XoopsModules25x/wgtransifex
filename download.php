@@ -22,24 +22,22 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtranisfex\Constants;
 
 require __DIR__ . '/header.php';
 
-$op    = Request::getString('op', 'list');
+$op = Request::getString('op', 'list');
 $pkgId = Request::getInt('pkg_id');
 
 switch ($op) {
-
     case 'package':
     default:
         // download package
         $packagesObj = $packagesHandler->get($pkgId);
-        $package     = $packagesObj->getValuesPackages();
+        $package = $packagesObj->getValuesPackages();
         $file = $package['pkg_zip'];
 
         if ('' === $file) {
-            redirect_header('packages.php?op=list&amp;pkg_id=' .$pkgId, 3, _MA_WGTRANSIFEX_DOWNLOAD_ERR_NOFILE);
+            redirect_header('packages.php?op=list&amp;pkg_id=' . $pkgId, 3, _MA_WGTRANSIFEX_DOWNLOAD_ERR_NOFILE);
         }
 
         $fp = fopen($file, 'rb');

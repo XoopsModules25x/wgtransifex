@@ -29,7 +29,7 @@
  *
  * @return bool|null
  */
-function xoops_module_update_wgtransifex(&$module, $prev_version = null)
+function xoops_module_update_wgtransifex($module, $prev_version = null)
 {
     $ret = null;
     if ($prev_version < 10) {
@@ -38,7 +38,7 @@ function xoops_module_update_wgtransifex(&$module, $prev_version = null)
     wgtransifex_check_db($module);
 
     //check upload directory
-	include_once __DIR__ . '/install.php';
+    include_once __DIR__ . '/install.php';
     $ret = xoops_module_install_wgtransifex($module);
 
     $errors = $module->getErrors();
@@ -47,7 +47,6 @@ function xoops_module_update_wgtransifex(&$module, $prev_version = null)
     }
 
     return $ret;
-
 }
 
 // irmtfan bug fix: solve templates duplicate issue
@@ -112,8 +111,7 @@ function update_wgtransifex_v10($module)
 function wgtransifex_check_db($module)
 {
     $ret = true;
-	//insert here code for database check
-
+    //insert here code for database check
 
     // Example: update table (add new field)
     $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_packages');

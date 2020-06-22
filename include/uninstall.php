@@ -19,6 +19,7 @@ use XoopsModules\Wgtransifex;
 function xoops_module_pre_uninstall_wgtransifex(\XoopsModule $module)
 {
     // Do some synchronization
+
     return true;
 }
 
@@ -32,7 +33,7 @@ function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
 {
     //    return true;
 
-    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirName = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
     /** @var Wgtransifex\Helper $helper */
     $helper = Wgtransifex\Helper::getInstance();
@@ -59,6 +60,7 @@ function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
         }
         unset($dirInfo);
     }
+
     /*
     //------------ START ----------------
     //------------------------------------------------------------------

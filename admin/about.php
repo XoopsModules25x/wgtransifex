@@ -12,7 +12,7 @@
 /**
  * wgTransifex module for xoops
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
  * @package        wgtransifex
  * @since          1.0
@@ -22,6 +22,6 @@
 require __DIR__ . '/header.php';
 $templateMain = 'wgtransifex_admin_about.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('about.php'));
-$adminObject->setPaypal('6KJ7RW5DR3VTJ');
+$adminObject::setPaypal('6KJ7RW5DR3VTJ');
 $GLOBALS['xoopsTpl']->assign('about', $adminObject->renderAbout(false));
 require __DIR__ . '/footer.php';
