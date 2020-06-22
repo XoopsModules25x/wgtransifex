@@ -22,7 +22,6 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access.');
 class WgtransifexCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
-
     /**
      * @param $args
      */

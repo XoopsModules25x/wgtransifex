@@ -21,7 +21,6 @@
  */
 $moduleDirName      = basename(dirname(dirname(__DIR__)));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-
 define('CO_' . $moduleDirNameUpper . '_' . 'FB_FORM_TITLE', 'Send a feedback');
 define('CO_' . $moduleDirNameUpper . '_' . 'FB_RECIPIENT', 'Recipient');
 define('CO_' . $moduleDirNameUpper . '_' . 'FB_NAME', 'Name');

@@ -11,11 +11,10 @@ namespace XoopsModules\Wgtransifex;
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
-
 /**
  * wgTransifex module for xoops
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
  * @package        wgtransifex
  * @since          1.0
@@ -28,20 +27,19 @@ namespace XoopsModules\Wgtransifex;
  */
 interface Constants
 {
-	// Constants for tables
-	const TABLE_PROJECTS = 0;
-	const TABLE_RESOURCES = 1;
-	const TABLE_SETTINGS = 2;
-	const TABLE_LANGUAGES = 3;
-	const TABLE_TRANSLATIONS = 4;
-
-	// Constants for status
-	const STATUS_NONE      = 0;
-	const STATUS_OFFLINE   = 1;
-	const STATUS_SUBMITTED = 2;
-	const STATUS_APPROVED  = 3;
-	const STATUS_READTX    = 4;
-    const STATUS_BROKEN    = 5;
-    const STATUS_CREATED   = 6;
-    const STATUS_OUTDATED  = 7;
+    // Constants for tables
+    public const TABLE_PROJECTS = 0;
+    public const TABLE_RESOURCES = 1;
+    public const TABLE_SETTINGS = 2;
+    public const TABLE_LANGUAGES = 3;
+    public const TABLE_TRANSLATIONS = 4;
+    // Constants for status
+    public const STATUS_NONE = 0;
+    public const STATUS_OFFLINE = 1;
+    public const STATUS_SUBMITTED = 2;
+    public const STATUS_APPROVED = 3;
+    public const STATUS_READTX = 4;
+    public const STATUS_BROKEN = 5;
+    public const STATUS_CREATED = 6;
+    public const STATUS_OUTDATED = 7;
 }

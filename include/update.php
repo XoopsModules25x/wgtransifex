@@ -22,32 +22,27 @@
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
  */
-
 /**
  * @param      $module
  * @param null $prev_version
  *
  * @return bool|null
  */
-function xoops_module_update_wgtransifex(&$module, $prev_version = null)
+function xoops_module_update_wgtransifex($module, $prev_version = null)
 {
     $ret = null;
     if ($prev_version < 10) {
         update_wgtransifex_v10($module);
     }
     wgtransifex_check_db($module);
-
     //check upload directory
-	include_once __DIR__ . '/install.php';
-    $ret = xoops_module_install_wgtransifex($module);
-
+    include_once __DIR__ . '/install.php';
+    $ret    = xoops_module_install_wgtransifex($module);
     $errors = $module->getErrors();
     if (!empty($errors)) {
         print_r($errors);
     }
-
     return $ret;
-
 }
 
 // irmtfan bug fix: solve templates duplicate issue
@@ -69,7 +64,6 @@ function update_wgtransifex_v10($module)
     if (count($tplids) > 0) {
         $tplfileHandler  = xoops_getHandler('tplfile');
         $duplicate_files = $tplfileHandler->getObjects(new \Criteria('tpl_id', '(' . implode(',', $tplids) . ')', 'IN'));
-
         if (count($duplicate_files) > 0) {
             foreach (array_keys($duplicate_files) as $i) {
                 $tplfileHandler->delete($duplicate_files[$i]);
@@ -79,7 +73,6 @@ function update_wgtransifex_v10($module)
     $sql = 'SHOW INDEX FROM ' . $xoopsDB->prefix('tplfile') . " WHERE KEY_NAME = 'tpl_refid_module_set_file_type'";
     if (!$result = $xoopsDB->queryF($sql)) {
         xoops_error($xoopsDB->error() . '<br>' . $sql);
-
         return false;
     }
     $ret = [];
@@ -88,22 +81,18 @@ function update_wgtransifex_v10($module)
     }
     if (!empty($ret)) {
         $module->setErrors("'tpl_refid_module_set_file_type' unique index is exist. Note: check 'tplfile' table to be sure this index is UNIQUE because XOOPS CORE need it.");
-
         return true;
     }
     $sql = 'ALTER TABLE ' . $xoopsDB->prefix('tplfile') . ' ADD UNIQUE tpl_refid_module_set_file_type ( tpl_refid, tpl_module, tpl_tplset, tpl_file, tpl_type )';
     if (!$result = $xoopsDB->queryF($sql)) {
         xoops_error($xoopsDB->error() . '<br>' . $sql);
         $module->setErrors("'tpl_refid_module_set_file_type' unique index is not added to 'tplfile' table. Warning: do not use XOOPS until you add this unique index.");
-
         return false;
     }
-
     return true;
 }
 
 // irmtfan bug fix: solve templates duplicate issue
-
 /**
  * @param $module
  *
@@ -112,9 +101,7 @@ function update_wgtransifex_v10($module)
 function wgtransifex_check_db($module)
 {
     $ret = true;
-	//insert here code for database check
-
-
+    //insert here code for database check
     // Example: update table (add new field)
     $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_packages');
     $field   = 'pkg_logo';
@@ -128,7 +115,6 @@ function wgtransifex_check_db($module)
             $ret = false;
         }
     }
-
     /*
     // Example: create new table
     $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_categories');

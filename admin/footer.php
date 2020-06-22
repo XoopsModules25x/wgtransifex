@@ -12,7 +12,7 @@
 /**
  * wgTransifex module for xoops
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
  * @package        wgtransifex
  * @since          1.0
@@ -20,8 +20,7 @@
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
 if (isset($templateMain)) {
-	$GLOBALS['xoopsTpl']->assign('maintainedby', $helper->getConfig('maintainedby'));
-	$GLOBALS['xoopsTpl']->display("db:{$templateMain}");
+    $GLOBALS['xoopsTpl']->assign('maintainedby', $helper->getConfig('maintainedby'));
+    $GLOBALS['xoopsTpl']->display("db:{$templateMain}");
 }
-
 xoops_cp_footer();

@@ -12,7 +12,7 @@ namespace XoopsModules\Wgtransifex\Common;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use \XoopsModules\Wgtransifex\Common;
+use XoopsModules\Wgtransifex\Common;
 
 /**
  * Class Migrate synchronize existing tables with target schema
@@ -23,7 +23,6 @@ use \XoopsModules\Wgtransifex\Common;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      https://xoops.org
  */
-
 class Migrate extends \Xmf\Database\Migrate
 {
     private $renameTables;
@@ -38,8 +37,7 @@ class Migrate extends \Xmf\Database\Migrate
     {
         if (null !== $configurator) {
             $this->renameTables = $configurator->renameTables;
-
-            $moduleDirName = basename(dirname(dirname(__DIR__)));
+            $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
             parent::__construct($moduleDirName);
         }
     }
