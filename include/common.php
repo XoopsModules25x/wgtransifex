@@ -17,7 +17,7 @@
  * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
- * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
+ * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 if (!defined('XOOPS_ICONS32_PATH')) {
     define('XOOPS_ICONS32_PATH', XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/icons/32');

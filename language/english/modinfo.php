@@ -17,7 +17,7 @@
  * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
- * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
+ * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 include_once __DIR__ . '/common.php';
 // ---------------- Admin Main ----------------
@@ -44,66 +44,20 @@ define('_MI_WGTRANSIFEX_USER_PAGER_DESC', 'User per page list');
 define('_MI_WGTRANSIFEX_SMNAME1', 'All language packages');
 define('_MI_WGTRANSIFEX_SMNAME2', '%s language packages');
 // Blocks
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK', 'Projects block');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_DESC', 'Projects block description');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_PROJECT', 'Projects block  PROJECT');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_PROJECT_DESC', 'Projects block  PROJECT description');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_LAST', 'Projects block last');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_LAST_DESC', 'Projects block last description');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_NEW', 'Projects block new');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_NEW_DESC', 'Projects block new description');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_HITS', 'Projects block hits');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_HITS_DESC', 'Projects block hits description');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_TOP', 'Projects block top');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_TOP_DESC', 'Projects block top description');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_RANDOM', 'Projects block random');
-define('_MI_WGTRANSIFEX_PROJECTS_BLOCK_RANDOM_DESC', 'Projects block random description');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK', 'Resources block');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_DESC', 'Resources block description');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_RESOURCE', 'Resources block  RESOURCE');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_RESOURCE_DESC', 'Resources block  RESOURCE description');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_LAST', 'Resources block last');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_LAST_DESC', 'Resources block last description');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_NEW', 'Resources block new');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_NEW_DESC', 'Resources block new description');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_HITS', 'Resources block hits');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_HITS_DESC', 'Resources block hits description');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_TOP', 'Resources block top');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_TOP_DESC', 'Resources block top description');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_RANDOM', 'Resources block random');
-define('_MI_WGTRANSIFEX_RESOURCES_BLOCK_RANDOM_DESC', 'Resources block random description');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK', 'Settings block');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_DESC', 'Settings block description');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_SETTING', 'Settings block  SETTING');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_SETTING_DESC', 'Settings block  SETTING description');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_LAST', 'Settings block last');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_LAST_DESC', 'Settings block last description');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_NEW', 'Settings block new');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_NEW_DESC', 'Settings block new description');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_HITS', 'Settings block hits');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_HITS_DESC', 'Settings block hits description');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_TOP', 'Settings block top');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_TOP_DESC', 'Settings block top description');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_RANDOM', 'Settings block random');
-define('_MI_WGTRANSIFEX_SETTINGS_BLOCK_RANDOM_DESC', 'Settings block random description');
-define('_MI_WGTRANSIFEX_LANGUAGES_BLOCK', 'Languages block');
-define('_MI_WGTRANSIFEX_LANGUAGES_BLOCK_DESC', 'Languages block description');
-define('_MI_WGTRANSIFEX_LANGUAGES_BLOCK_LANGUAGE', 'Languages block LANGUAGE');
-define('_MI_WGTRANSIFEX_LANGUAGES_BLOCK_LANGUAGE_DESC', 'Languages block LANGUAGE description');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK', 'Translations block');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_DESC', 'Translations block description');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_TRANSLATION', 'Translations block  TRANSLATION');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_TRANSLATION_DESC', 'Translations block  TRANSLATION description');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_LAST', 'Translations block last');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_LAST_DESC', 'Translations block last description');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_NEW', 'Translations block new');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_NEW_DESC', 'Translations block new description');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_HITS', 'Translations block hits');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_HITS_DESC', 'Translations block hits description');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_TOP', 'Translations block top');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_TOP_DESC', 'Translations block top description');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_RANDOM', 'Translations block random');
-define('_MI_WGTRANSIFEX_TRANSLATIONS_BLOCK_RANDOM_DESC', 'Translations block random description');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK', 'Packages block');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_DESC', 'Packages block description');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_PACKAGE', 'Packages block  PACKAGE');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_PACKAGE_DESC', 'Packages block  PACKAGE description');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST', 'Packages block last');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST_DESC', 'Packages block last description');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW', 'Packages block new');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW_DESC', 'Packages block new description');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_HITS', 'Packages block hits');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_HITS_DESC', 'Packages block hits description');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP', 'Packages block top');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP_DESC', 'Packages block top description');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM', 'Packages block random');
+define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM_DESC', 'Packages block random description');
 // Config
 define('_MI_WGTRANSIFEX_EDITOR_ADMIN', 'Editor admin');
 define('_MI_WGTRANSIFEX_EDITOR_ADMIN_DESC', 'Select the editor which should be used in admin area for text area fields');

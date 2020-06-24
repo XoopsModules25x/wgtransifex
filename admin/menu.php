@@ -17,7 +17,7 @@
  * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
- * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
+ * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 $dirname       = basename(dirname(__DIR__));
 $moduleHandler = xoops_getHandler('module');

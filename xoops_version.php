@@ -17,7 +17,7 @@
  * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
- * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
+ * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 $moduleDirName      = basename(__DIR__);
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
@@ -142,6 +142,47 @@ if ($currdirname == $moduleDirName) {
         ];
     }
 }
+// ------------------- Blocks ------------------- //
+// Packages last
+$modversion['blocks'][] = [
+    'file'        => 'packages.php',
+    'name'        => _MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST,
+    'description' => _MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST_DESC,
+    'show_func'   => 'b_wgtransifex_packages_show',
+    'edit_func'   => 'b_wgtransifex_packages_edit',
+    'template'    => 'wgtransifex_block_packages.tpl',
+    'options'     => 'last|5|25|0',
+];
+// Packages new
+$modversion['blocks'][] = [
+    'file'        => 'packages.php',
+    'name'        => _MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW,
+    'description' => _MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW_DESC,
+    'show_func'   => 'b_wgtransifex_packages_show',
+    'edit_func'   => 'b_wgtransifex_packages_edit',
+    'template'    => 'wgtransifex_block_packages.tpl',
+    'options'     => 'new|5|25|0',
+];
+// Packages top
+$modversion['blocks'][] = [
+    'file'        => 'packages.php',
+    'name'        => _MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP,
+    'description' => _MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP_DESC,
+    'show_func'   => 'b_wgtransifex_packages_show',
+    'edit_func'   => 'b_wgtransifex_packages_edit',
+    'template'    => 'wgtransifex_block_packages.tpl',
+    'options'     => 'top|5|25|0',
+];
+// Packages random
+$modversion['blocks'][] = [
+    'file'        => 'packages.php',
+    'name'        => _MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM,
+    'description' => _MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM_DESC,
+    'show_func'   => 'b_wgtransifex_packages_show',
+    'edit_func'   => 'b_wgtransifex_packages_edit',
+    'template'    => 'wgtransifex_block_packages.tpl',
+    'options'     => 'random|5|25|0',
+];
 // ------------------- Config ------------------- //
 // Editor Admin
 xoops_load('xoopseditorhandler');
