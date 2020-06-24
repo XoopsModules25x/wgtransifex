@@ -17,7 +17,7 @@
  * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
- * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
+ * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
 use Xmf\Request;
@@ -50,6 +50,7 @@ switch ($op) {
         }
         if ($langId > 0) {
             $crPackages->add(new \Criteria('pkg_lang_id', $langId));
+            $GLOBALS['xoopsTpl']->assign('lang_id', $langId);
         }
         $packagesCount = $packagesHandler->getCount($crPackages);
         $GLOBALS['xoopsTpl']->assign('packagesCount', $packagesCount);

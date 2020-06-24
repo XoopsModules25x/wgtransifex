@@ -13,3 +13,6 @@ Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.0
  - added flags (goffy)
  - fixed problems in renaming file (goffy)
  - fixed sql problems (alain/goffy)
+ - updated creation xoops_version for blocks (goffy)
+ - updated creation modinfo for blocks (goffy)
+ - added blocks (goffy)

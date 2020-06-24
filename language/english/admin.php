@@ -17,7 +17,7 @@
  * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
- * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
+ * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 include_once __DIR__ . '/common.php';
 include_once __DIR__ . '/main.php';
@@ -210,7 +210,7 @@ define('_AM_WGTRANSIFEX_STATUS_SUBMITTED', 'Submitted');
 define('_AM_WGTRANSIFEX_STATUS_APPROVED', 'Approved');
 define('_AM_WGTRANSIFEX_STATUS_READTX', 'Read from Transifex');
 define('_AM_WGTRANSIFEX_STATUS_BROKEN', 'Broken');
-define('_AM_WGTRANSIFEX_STATUS_CREATED', 'Package created');
+define('_AM_WGTRANSIFEX_STATUS_CREATED', 'Package available');
 // ---------------- Admin Others ----------------
 define('_AM_WGTRANSIFEX_MAINTAINEDBY', ' is maintained by ');
 // ---------------- End ----------------
