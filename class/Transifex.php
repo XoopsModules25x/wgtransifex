@@ -110,7 +110,7 @@ class Transifex
                 if ($projectsHandler->insert($projectsObj)) {
                     $count_ok++;
                 } else {
-                    $count_err++;die;
+                    $count_err++;
                 }
             }
         }

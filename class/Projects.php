@@ -151,6 +151,7 @@ class Projects extends \XoopsObject
         $ret['last_updated']         = \formatTimestamp($this->getVar('pro_last_updated'), 'm');
         $teams       = '';
         $teams_short = '';
+        $key         = 0;
         $teams_arr   = \json_decode(html_entity_decode($this->getVar('pro_teams')), true);
         foreach ($teams_arr as $key => $value) {
             $teams .= $value . '<br>';
@@ -161,14 +162,14 @@ class Projects extends \XoopsObject
         if ($key > 3) {
             $teams_short .= '...';
         }
-        $ret['teams']                = $teams;
-        $ret['teams_short']          = $teams_short;
-        $ret['resources']            = $this->getVar('pro_resources');
-        $ret['translations']         = $this->getVar('pro_translations');
-        $ret['date']                 = \formatTimestamp($this->getVar('pro_date'), 'm');
-        $ret['submitter']            = \XoopsUser::getUnameFromId($this->getVar('pro_submitter'));
-        $status                      = $this->getVar('pro_status');
-        $ret['status']               = $status;
+        $ret['teams']        = $teams;
+        $ret['teams_short']  = $teams_short;
+        $ret['resources']    = $this->getVar('pro_resources');
+        $ret['translations'] = $this->getVar('pro_translations');
+        $ret['date']         = \formatTimestamp($this->getVar('pro_date'), 'm');
+        $ret['submitter']    = \XoopsUser::getUnameFromId($this->getVar('pro_submitter'));
+        $status              = $this->getVar('pro_status');
+        $ret['status']       = $status;
         switch ($status) {
             case Constants::STATUS_NONE:
             default:

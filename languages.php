@@ -89,7 +89,7 @@ wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $ke
 unset($keywords);
 
 // Description
-wgtransifexMetaDescription(_MA_WGTRANSIFEX_LANGUAGES_DESC);
+wgtransifexMetaDescription(_MA_WGTRANSIFEX_LANGUAGES);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL.'/languages.php');
 $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
 
