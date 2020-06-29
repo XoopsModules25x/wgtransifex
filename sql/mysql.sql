@@ -109,6 +109,8 @@ CREATE TABLE `wgtransifex_languages` (
     `lang_iso_639_1` VARCHAR(2)      NOT NULL DEFAULT '',
     `lang_iso_639_2` VARCHAR(3)      NOT NULL DEFAULT '',
     `lang_flag`      VARCHAR(255)    NOT NULL DEFAULT '',
+    `lang_primary`   INT(1)         NOT NULL DEFAULT '0',
+    `lang_online`    INT(1)         NOT NULL DEFAULT '0',
     `lang_date`      INT(11)         NOT NULL DEFAULT '0',
     `lang_submitter` INT(10)         NOT NULL DEFAULT '0',
     PRIMARY KEY (`lang_id`)

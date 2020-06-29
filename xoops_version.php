@@ -387,16 +387,3 @@ $modversion['config'][] = [
     'valuetype'   => 'text',
     'default'     => 'https://xoops.org/modules/newbb',
 ];
-
-$helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
-$languagesHandler = $helper->getHandler('Languages');
-$default_lang     = $languagesHandler->getListXV();
-$modversion['config'][] = [
-    'name'        => 'default_lang',
-    'title'       => '_MI_WGTRANSIFEX_DEFAULT_LANG',
-    'description' => '_MI_WGTRANSIFEX_DEFAULT_LANG_DESC',
-    'formtype'    => 'select',
-    'valuetype'   => 'int',
-    'default'     => '1',
-    'options'     => $default_lang,
-];

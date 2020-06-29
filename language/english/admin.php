@@ -43,6 +43,7 @@ define('_AM_WGTRANSIFEX_FORM_OK', 'Successfully saved');
 define('_AM_WGTRANSIFEX_FORM_DELETE_OK', 'Successfully deleted');
 define('_AM_WGTRANSIFEX_FORM_SURE_DELETE', "Are you sure to delete: <b><span style='color : Red;'>%s </span></b>");
 define('_AM_WGTRANSIFEX_FORM_SURE_RENEW', "Are you sure to update: <b><span style='color : Red;'>%s </span></b>");
+define('_AM_WGTRANSIFEX_INVALID_PARAM', 'Invalid parameter');
 //Transifex
 define('_AM_WGTRANSIFEX_READTX', 'Read data from Transifex');
 define('_AM_WGTRANSIFEX_READTX_PROJECTS', 'Read all projects from Transifex');
@@ -142,6 +143,11 @@ define('_AM_WGTRANSIFEX_LANGUAGE_ISO_639_1', 'Iso 639 1');
 define('_AM_WGTRANSIFEX_LANGUAGE_ISO_639_2', 'Iso 639 2');
 define('_AM_WGTRANSIFEX_LANGUAGE_FLAG', 'Flag');
 define('_AM_WGTRANSIFEX_LANGUAGE_FLAG_UPLOADS', 'Existing flags in upload directory: %s');
+define('_AM_WGTRANSIFEX_LANGUAGE_PRIMARY', 'Primary Language');
+define('_AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY', 'Set as Primary Language');
+define('_AM_WGTRANSIFEX_LANGUAGE_ONLINE', 'Language Online');
+define('_AM_WGTRANSIFEX_LANGUAGE_SETONLINE', 'Set Online');
+define('_AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE', 'Set Offline');
 define('_AM_WGTRANSIFEX_LANGUAGE_MENU', '%s language packages');
 // Translation add/edit
 define('_AM_WGTRANSIFEX_TRANSLATION_ADD', 'Add Translation');

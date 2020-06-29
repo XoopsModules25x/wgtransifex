@@ -1,0 +1,11 @@
+-
+    pkg_id: '1'
+    pkg_name: contact
+    pkg_desc: 'English language package for module contact'
+    pkg_pro_id: '2'
+    pkg_lang_id: '1'
+    pkg_status: '6'
+    pkg_zip: 'C:/Homepages/wamp/www/wgtransifex/htdocs/uploads/wgtransifex/translations/contact/contact_english.zip'
+    pkg_logo: contact.png
+    pkg_date: '1593461150'
+    pkg_submitter: '1'

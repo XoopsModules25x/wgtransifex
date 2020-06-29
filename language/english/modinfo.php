@@ -97,6 +97,4 @@ define('_MI_WGTRANSIFEX_FACEBOOK_COMMENTS', 'Facebook comments');
 define('_MI_WGTRANSIFEX_FACEBOOK_COMMENTS_DESC', 'Allow Facebook comments in the single page');
 define('_MI_WGTRANSIFEX_DISQUS_COMMENTS', 'Disqus comments');
 define('_MI_WGTRANSIFEX_DISQUS_COMMENTS_DESC', 'Allow Disqus comments in the single page');
-define('_MI_WGTRANSIFEX_DEFAULT_LANG', 'Default language');
-define('_MI_WGTRANSIFEX_DEFAULT_LANG_DESC', 'Select your default language');
 // ---------------- End ----------------

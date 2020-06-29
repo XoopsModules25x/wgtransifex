@@ -87,11 +87,16 @@ switch ($op) {
         $languagesObj->setVar('lang_name', Request::getString('lang_name', ''));
         $languagesObj->setVar('lang_code', Request::getString('lang_code', ''));
         $languagesObj->setVar('lang_folder', \mb_strtolower(Request::getString('lang_folder', '')));
-        $languageDate = date_create_from_format(_SHORTDATESTRING, Request::getString('lang_date'));
-        $languagesObj->setVar('lang_date', $languageDate->getTimestamp());
-        $languagesObj->setVar('lang_submitter', Request::getInt('lang_submitter', 0));
         $languagesObj->setVar('lang_iso_639_1', Request::getString('lang_iso_639_1', ''));
         $languagesObj->setVar('lang_iso_639_2', Request::getString('lang_iso_639_2', ''));
+        $langPrimary = Request::getInt('lang_primary', 0);
+        if ($langPrimary > 0) {
+            $languagesHandler->resetPrimary();
+            $languagesObj->setVar('lang_primary', 1);
+        } else {
+            $languagesObj->setVar('lang_primary', 0);
+        }
+        $languagesObj->setVar('lang_online', Request::getInt('lang_online', 0));
         // Set Var lang_flag
         include_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $uploader = new \XoopsMediaUploader(
@@ -109,6 +114,9 @@ switch ($op) {
         } else {
             $languagesObj->setVar('lang_flag', Request::getString('lang_flag'));
         }
+        $languageDate = date_create_from_format(_SHORTDATESTRING, Request::getString('lang_date'));
+        $languagesObj->setVar('lang_date', $languageDate->getTimestamp());
+        $languagesObj->setVar('lang_submitter', Request::getInt('lang_submitter', 0));
         // Insert Data
         if ($languagesHandler->insert($languagesObj)) {
             redirect_header('languages.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
@@ -150,6 +158,35 @@ switch ($op) {
             $form         = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
+        break;
+    case 'setonline':
+        if ($langId > 0) {
+            $languagesObj = $languagesHandler->get($langId);
+        } else {
+            redirect_header('languages.php', 3, implode(',', _AM_WGTRANSIFEX_INVALID_PARAM));
+        }
+        // Set Vars
+        $languagesObj->setVar('lang_online', Request::getInt('lang_online', 0));
+        // Insert Data
+        if ($languagesHandler->insert($languagesObj)) {
+            redirect_header('languages.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
+        }
+        $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
+        break;
+    case 'setprimary':
+        if ($langId > 0) {
+            $languagesObj = $languagesHandler->get($langId);
+        } else {
+            redirect_header('languages.php', 3, implode(',', _AM_WGTRANSIFEX_INVALID_PARAM));
+        }
+        $languagesHandler->resetPrimary();
+        // Set Vars
+        $languagesObj->setVar('lang_primary', 1);
+        // Insert Data
+        if ($languagesHandler->insert($languagesObj)) {
+            redirect_header('languages.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
+        }
+        $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
         break;
 }
 require __DIR__ . '/footer.php';

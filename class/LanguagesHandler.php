@@ -121,19 +121,30 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * Get List of Languages for xoops_version.php
+     * Get primary language
      * @return array
      */
-    public function getListXV()
+    public function getPrimaryLang()
     {
         $crLanguages = new \CriteriaCompo();
-        $crLanguages->setSort('lang_name');
-        $crLanguages->setOrder('ASC');
+        $crLanguages->add(new \Criteria('lang_primary', 1));
         $languagesAll = $this->getAll($crLanguages);
-        $list = [];
+        $primary = 0;
         foreach (array_keys($languagesAll) as $i) {
-            $list[$languagesAll[$i]->getVar('lang_name')] = $i;
+            $primary = $languagesAll[$i]->getVar('lang_id');
         }
-        return $list;
+        return $primary;
+    }
+
+    /**
+     * Reset all language to primary none
+     * @return bool
+     */
+    public function resetPrimary()
+    {
+        $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wgtransifex_languages') . "` SET `lang_primary` = '0'";
+        $GLOBALS['xoopsDB']->queryF($sql);
+
+        return true;
     }
 }

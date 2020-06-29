@@ -11,6 +11,8 @@
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_ISO_639_1}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_FOLDER}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_FLAG}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_PRIMARY}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_ONLINE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_DATE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SUBMITTER}></th>
 				<th class="center width5"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
@@ -25,8 +27,19 @@
 				<td class='center'><{$language.code}></td>
 				<td class='center'><{$language.iso_639_1}></td>
 				<td class='center'><{$language.folder}></td>
+				<td class='center'><img src="<{$modPathIconFlags}><{$language.flag}>" alt="<{$language.name}>" title="<{$language.name}>" /></td>
 				<td class='center'>
-				<img src="<{$modPathIconFlags}><{$language.flag}>" alt="<{$language.name}>" title="<{$language.name}>" />
+					<a href="languages.php?op=setprimary&amp;lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>">
+						<img src="<{$modPathIcon16}><{$language.primary}>.png" alt="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>"</a>
+				</td>
+				<td class='center'>
+					<{if $language.online}>
+						<a href="languages.php?op=setonline&amp;lang_online=0&amp;lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE}>">
+							<img src="<{$modPathIcon16}><{$language.online}>.png" alt="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE}>"</a>
+					<{else}>
+						<a href="languages.php?op=setonline&amp;lang_online=1&amp;lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE}>">
+							<img src="<{$modPathIcon16}><{$language.online}>.png" alt="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE}>"</a>
+					<{/if}>
 				</td>
 				<td class='center'><{$language.date}></td>
 				<td class='center'><{$language.submitter}></td>

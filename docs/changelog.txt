@@ -17,6 +17,7 @@ Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.0
  - updated creation modinfo for blocks (goffy)
  - added blocks (goffy)
  - added more languages (goffy)
- - added preference default language (goffy)
  - added more details for tx projects (goffy)
  - added list languages (goffy)
+ - added language primary (goffy)
+ - added language online (goffy)

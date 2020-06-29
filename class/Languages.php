@@ -47,6 +47,8 @@ class Languages extends \XoopsObject
         $this->initVar('lang_iso_639_1', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('lang_folder', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('lang_flag', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('lang_primary', \XOBJ_DTYPE_INT);
+        $this->initVar('lang_online', \XOBJ_DTYPE_INT);
         $this->initVar('lang_date', \XOBJ_DTYPE_INT);
         $this->initVar('lang_submitter', \XOBJ_DTYPE_INT);
     }
@@ -120,6 +122,12 @@ class Languages extends \XoopsObject
         $fileSelectTray->addElement(new \XoopsFormLabel(''));
         $imageTray->addElement($fileSelectTray);
         $form->addElement($imageTray);
+        // Form Radio Yes/No langPrimary
+        $langPrimary = $this->isNew() ? 0 : $this->getVar('lang_primary');
+        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_LANGUAGE_PRIMARY, 'lang_primary', $langPrimary) );
+        // Form Radio Yes/No langOnline
+        $langOnline = $this->isNew() ? 1 : $this->getVar('lang_online');
+        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_LANGUAGE_ONLINE, 'lang_online', $langOnline) );
         // Form Text Date Select langDate
         $langDate = $this->isNew() ? 0 : $this->getVar('lang_date');
         $form->addElement(new \XoopsFormTextDateSelect(\_AM_WGTRANSIFEX_LANGUAGE_DATE, 'lang_date', '', $langDate));
@@ -140,16 +148,21 @@ class Languages extends \XoopsObject
      */
     public function getValuesLanguages($keys = null, $format = null, $maxDepth = null)
     {
-        $ret              = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']        = $this->getVar('lang_id');
-        $ret['name']      = $this->getVar('lang_name');
-        $ret['code']      = $this->getVar('lang_code');
-        $ret['folder']    = $this->getVar('lang_folder');
-        $ret['flag']      = $this->getVar('lang_flag');
-        $ret['date']      = \formatTimestamp($this->getVar('lang_date'), 's');
-        $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('lang_submitter'));
-        $ret['iso_639_1'] = $this->getVar('lang_iso_639_1');
-        $ret['iso_639_2'] = $this->getVar('lang_iso_639_2');
+        $ret                 = $this->getValues($keys, $format, $maxDepth);
+        $ret['id']           = $this->getVar('lang_id');
+        $ret['name']         = $this->getVar('lang_name');
+        $ret['code']         = $this->getVar('lang_code');
+        $ret['iso_639_1']    = $this->getVar('lang_iso_639_1');
+        $ret['iso_639_2']    = $this->getVar('lang_iso_639_2');
+        $ret['folder']       = $this->getVar('lang_folder');
+        $ret['flag']         = $this->getVar('lang_flag');
+        $ret['primary']      = $this->getVar('lang_primary');
+        $ret['primary_text'] = (1 == $this->getVar('lang_primary')) ? _YES : _NO;
+        $ret['online']       = $this->getVar('lang_online');
+        $ret['online_text']  = (1 == $this->getVar('lang_online')) ? _YES : _NO;
+        $ret['date']         = \formatTimestamp($this->getVar('lang_date'), 's');
+        $ret['submitter']    = \XoopsUser::getUnameFromId($this->getVar('lang_submitter'));
+
         return $ret;
     }
 
