@@ -9,7 +9,6 @@
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_NAME}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_CODE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_ISO_639_1}></th>
-				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_ISO_639_2}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_FOLDER}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_FLAG}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_DATE}></th>
@@ -25,7 +24,6 @@
 				<td class='center'><{$language.name}></td>
 				<td class='center'><{$language.code}></td>
 				<td class='center'><{$language.iso_639_1}></td>
-				<td class='center'><{$language.iso_639_2}></td>
 				<td class='center'><{$language.folder}></td>
 				<td class='center'>
 				<img src="<{$modPathIconFlags}><{$language.flag}>" alt="<{$language.name}>" title="<{$language.name}>" />

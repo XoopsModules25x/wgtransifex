@@ -54,6 +54,14 @@ define('_MA_WGTRANSIFEX_PACKAGE_SUBMITTER', 'Submitter');
 define('_MA_WGTRANSIFEX_PACKAGE_STATUS', 'Status');
 define('_MA_WGTRANSIFEX_INDEX_THEREARE', 'There are %s Packages');
 define('_MA_WGTRANSIFEX_INDEX_LATEST_LIST', 'Last updated language packages');
+// Languages
+define('_MA_WGTRANSIFEX_LANGUAGES', 'Languages');
+define('_MA_WGTRANSIFEX_LANGUAGES_TITLE', 'List of current languages in database');
+define('_MA_WGTRANSIFEX_LANGUAGE_FLAG', 'Flag');
+define('_MA_WGTRANSIFEX_LANGUAGE_NAME', 'Language name');
+define('_MA_WGTRANSIFEX_LANGUAGE_CODE', 'Language code');
+define('_MA_WGTRANSIFEX_LANGUAGE_ISO_639_1', 'Language code short');
+define('_MA_WGTRANSIFEX_LANGUAGE_FOLDER', 'Language Folder Name');
 // download
 define('_MA_WGTRANSIFEX_DOWNLOAD_PACKAGE', 'Download package');
 define('_MA_WGTRANSIFEX_DOWNLOAD_ERR_NOFILE', 'Error: download file not found');

@@ -80,7 +80,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
-    public function getCountLanguages($start = 0, $limit = 0, $sort = 'lang_id ASC, lang_name', $order = 'ASC')
+    public function getCountLanguages($start = 0, $limit = 0, $sort = 'lang_name', $order = 'ASC')
     {
         $crCountLanguages = new \CriteriaCompo();
         $crCountLanguages = $this->getLanguagesCriteria($crCountLanguages, $start, $limit, $sort, $order);
@@ -95,7 +95,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return array
      */
-    public function getAllLanguages($start = 0, $limit = 0, $sort = 'lang_id ASC, lang_name', $order = 'ASC')
+    public function getAllLanguages($start = 0, $limit = 0, $sort = 'lang_name', $order = 'ASC')
     {
         $crAllLanguages = new \CriteriaCompo();
         $crAllLanguages = $this->getLanguagesCriteria($crAllLanguages, $start, $limit, $sort, $order);
@@ -118,5 +118,22 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
         $crLanguages->setSort($sort);
         $crLanguages->setOrder($order);
         return $crLanguages;
+    }
+
+    /**
+     * Get List of Languages for xoops_version.php
+     * @return array
+     */
+    public function getListXV()
+    {
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->setSort('lang_name');
+        $crLanguages->setOrder('ASC');
+        $languagesAll = $this->getAll($crLanguages);
+        $list = [];
+        foreach (array_keys($languagesAll) as $i) {
+            $list[$languagesAll[$i]->getVar('lang_name')] = $i;
+        }
+        return $list;
     }
 }

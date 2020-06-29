@@ -84,21 +84,9 @@ $modversion['templates'] = [
     // User templates
     ['file' => 'wgtransifex_header.tpl', 'description' => ''],
     ['file' => 'wgtransifex_index.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_projects.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_projects_list.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_projects_item.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_resources.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_resources_list.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_resources_item.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_settings.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_settings_list.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_settings_item.tpl', 'description' => ''],
     ['file' => 'wgtransifex_languages.tpl', 'description' => ''],
     ['file' => 'wgtransifex_languages_list.tpl', 'description' => ''],
     ['file' => 'wgtransifex_languages_item.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_translations.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_translations_list.tpl', 'description' => ''],
-    ['file' => 'wgtransifex_translations_item.tpl', 'description' => ''],
     ['file' => 'wgtransifex_packages.tpl', 'description' => ''],
     ['file' => 'wgtransifex_packages_list.tpl', 'description' => ''],
     ['file' => 'wgtransifex_packages_item.tpl', 'description' => ''],
@@ -141,6 +129,11 @@ if ($currdirname == $moduleDirName) {
             'url'  => 'packages.php',
         ];
     }
+    // Sub languages
+	$modversion['sub'][] = [
+		'name' => _MI_WGTRANSIFEX_SMNAME3,
+		'url'  => 'languages.php',
+	];
 }
 // ------------------- Blocks ------------------- //
 // Packages last
@@ -344,7 +337,7 @@ $modversion['config'][] = [
     'title'       => '_MI_WGTRANSIFEX_TABLE_TYPE',
     'description' => '_MI_WGTRANSIFEX_DIVIDEBY_DESC',
     'formtype'    => 'select',
-    'valuetype'   => 'int',
+    'valuetype'   => 'text',
     'default'     => 'bordered',
     'options'     => ['bordered' => 'bordered', 'striped' => 'striped', 'hover' => 'hover', 'condensed' => 'condensed'],
 ];
@@ -393,4 +386,17 @@ $modversion['config'][] = [
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
     'default'     => 'https://xoops.org/modules/newbb',
+];
+
+$helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
+$languagesHandler = $helper->getHandler('Languages');
+$default_lang     = $languagesHandler->getListXV();
+$modversion['config'][] = [
+    'name'        => 'default_lang',
+    'title'       => '_MI_WGTRANSIFEX_DEFAULT_LANG',
+    'description' => '_MI_WGTRANSIFEX_DEFAULT_LANG_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'int',
+    'default'     => '1',
+    'options'     => $default_lang,
 ];

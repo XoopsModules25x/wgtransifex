@@ -28,6 +28,7 @@ require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
 $op    = Request::getCmd('op', 'list');
 $proId = Request::getInt('pro_id');
+
 switch ($op) {
     case 'list':
     default:
@@ -92,6 +93,11 @@ switch ($op) {
         $projectsObj->setVar('pro_source_language_code', Request::getString('pro_source_language_code', ''));
         $projectsObj->setVar('pro_slug', Request::getString('pro_slug', ''));
         $projectsObj->setVar('pro_name', Request::getString('pro_name', ''));
+        $projectsObj->setVar('pro_txresources', Request::getInt('pro_txresources', 0));
+        $projectLastupdatedArr = Request::getArray('pro_date');
+        $projectLastupdated    = strtotime($projectLastupdatedArr['date']) + (int)$projectLastupdatedArr['time'];
+        $projectsObj->setVar('pro_last_updated', $projectLastupdated);
+        $projectsObj->setVar('pro_teams', Request::getString('pro_teams', ''));
         $projectDateArr = Request::getArray('pro_date');
         $projectDate    = strtotime($projectDateArr['date']) + (int)$projectDateArr['time'];
         $projectsObj->setVar('pro_date', $projectDate);

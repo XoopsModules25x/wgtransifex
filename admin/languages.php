@@ -38,8 +38,8 @@ switch ($op) {
         $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wgtransifex_admin_languages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('languages.php'));
-        //$adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_LANGUAGE, 'languages.php?op=new', 'add');
-        //$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        $adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_LANGUAGE, 'languages.php?op=new', 'add');
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $languagesCount = $languagesHandler->getCountLanguages();
         $languagesAll   = $languagesHandler->getAllLanguages($start, $limit);
         $GLOBALS['xoopsTpl']->assign('languages_count', $languagesCount);
@@ -86,7 +86,7 @@ switch ($op) {
         // Set Vars
         $languagesObj->setVar('lang_name', Request::getString('lang_name', ''));
         $languagesObj->setVar('lang_code', Request::getString('lang_code', ''));
-        $languagesObj->setVar('lang_folder', Request::getString('lang_folder', ''));
+        $languagesObj->setVar('lang_folder', \mb_strtolower(Request::getString('lang_folder', '')));
         $languageDate = date_create_from_format(_SHORTDATESTRING, Request::getString('lang_date'));
         $languagesObj->setVar('lang_date', $languageDate->getTimestamp());
         $languagesObj->setVar('lang_submitter', Request::getInt('lang_submitter', 0));

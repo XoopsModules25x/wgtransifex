@@ -113,9 +113,12 @@ class Translations extends \XoopsObject
         $traRes_idSelect->addOptionArray($resourcesHandler->getList());
         $form->addElement($traRes_idSelect, true);
         // Form Table languages
+        $langId = $this->isNew() ? $helper->getConfig('default_lang') : $this->getVar('tra_lang_id');
         $languagesHandler = $helper->getHandler('Languages');
-        $traLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'tra_lang_id', $this->getVar('tra_lang_id'));
-        $traLang_idSelect->addOptionArray($languagesHandler->getList());
+        $traLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'tra_lang_id', $langId);
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->setSort('lang_name');
+        $traLang_idSelect->addOptionArray($languagesHandler->getList($crLanguages));
         $form->addElement($traLang_idSelect);
         // Form Editor TextArea traContent
         $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_TRANSLATION_CONTENT, 'tra_content', $this->getVar('tra_content', 'e'), 20, 47));

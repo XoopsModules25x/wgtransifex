@@ -129,9 +129,12 @@ class Packages extends \XoopsObject
         }
         $form->addElement($pkgPro_idSelect, true);
         // Form Table languages
+        $langId = $this->isNew() ? $helper->getConfig('default_lang') : $this->getVar('pkg_lang_id');
         $languagesHandler = $helper->getHandler('Languages');
-        $pkgLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_LANG_ID, 'pkg_lang_id', $this->getVar('pkg_lang_id'));
-        $pkgLang_idSelect->addOptionArray($languagesHandler->getList());
+        $pkgLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_LANG_ID, 'pkg_lang_id', $langId);
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->setSort('lang_name');
+        $pkgLang_idSelect->addOptionArray($languagesHandler->getList($crLanguages));
         $form->addElement($pkgLang_idSelect, true);
         $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_PACKAGE_ZIPFILE, 'pkg_zipfile', 1), true);
         if (!$this->isNew()) {

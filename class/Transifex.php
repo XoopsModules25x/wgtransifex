@@ -89,19 +89,28 @@ class Transifex
                 $projectsObj = $projectsHandler->create();
             }
             if (\is_object($projectsObj)) {
+                $project = $transifexLib->getProject($item['slug'], true);
                 // Set Vars
-                $projectsObj->setVar('pro_description', $item['description']);
-                $projectsObj->setVar('pro_source_language_code', $item['source_language_code']);
-                $projectsObj->setVar('pro_slug', $item['slug']);
-                $projectsObj->setVar('pro_name', $item['name']);
+                $projectsObj->setVar('pro_description', $project['description']);
+                $projectsObj->setVar('pro_source_language_code', $project['source_language_code']);
+                $projectsObj->setVar('pro_slug', $project['slug']);
+                $projectsObj->setVar('pro_name', $project['name']);
                 $projectsObj->setVar('pro_status', Constants::STATUS_READTX);
+                $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
+                $txresources = $transifexLib->getResources($project['slug']);
+                $projectsObj->setVar('pro_txresources', \count($txresources));
+
+                $teams = \json_encode($project['teams'], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+                //str_replace(']', '', $teams);
+                $projectsObj->setVar('pro_teams', $teams);
+
                 $projectsObj->setVar('pro_date', \time());
                 $projectsObj->setVar('pro_submitter', $xoopsUser->getVar('uid'));
                 // Insert Data
                 if ($projectsHandler->insert($projectsObj)) {
                     $count_ok++;
                 } else {
-                    $count_err++;
+                    $count_err++;die;
                 }
             }
         }

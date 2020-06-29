@@ -43,6 +43,7 @@ define('_MI_WGTRANSIFEX_USER_PAGER_DESC', 'User per page list');
 // Submenu
 define('_MI_WGTRANSIFEX_SMNAME1', 'All language packages');
 define('_MI_WGTRANSIFEX_SMNAME2', '%s language packages');
+define('_MI_WGTRANSIFEX_SMNAME3', 'Show language list');
 // Blocks
 define('_MI_WGTRANSIFEX_PACKAGES_BLOCK', 'Packages block');
 define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_DESC', 'Packages block description');
@@ -96,4 +97,6 @@ define('_MI_WGTRANSIFEX_FACEBOOK_COMMENTS', 'Facebook comments');
 define('_MI_WGTRANSIFEX_FACEBOOK_COMMENTS_DESC', 'Allow Facebook comments in the single page');
 define('_MI_WGTRANSIFEX_DISQUS_COMMENTS', 'Disqus comments');
 define('_MI_WGTRANSIFEX_DISQUS_COMMENTS_DESC', 'Allow Disqus comments in the single page');
+define('_MI_WGTRANSIFEX_DEFAULT_LANG', 'Default language');
+define('_MI_WGTRANSIFEX_DEFAULT_LANG_DESC', 'Select your default language');
 // ---------------- End ----------------

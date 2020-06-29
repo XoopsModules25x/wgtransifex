@@ -49,42 +49,29 @@ switch ($op) {
         // Table view packages
         if ($packagesCount > 0) {
             $countOutdated = 0;
-
             foreach (array_keys($packagesAll) as $i) {
                 $package = $packagesAll[$i]->getValuesPackages();
-
                 $crTranslations = new \CriteriaCompo();
-
                 $crTranslations->add(new \Criteria('tra_pro_id', $packagesAll[$i]->getVar('pkg_pro_id')));
-
                 $crTranslations->add(new \Criteria('tra_lang_id', $packagesAll[$i]->getVar('pkg_lang_id')));
-
                 $translationsCount = $translationsHandler->getCount($crTranslations);
-
                 if ($translationsCount > 0) {
                     $translationsAll = $translationsHandler->getAll($crTranslations);
-
                     foreach (array_keys($translationsAll) as $t) {
                         if ($packagesAll[$i]->getVar('pkg_date') < $translationsAll[$t]->getVar('tra_last_update')) {
                             $countOutdated++;
                         }
                     }
                 }
-
                 $package['outdated'] = ($countOutdated > 0);
-
                 $GLOBALS['xoopsTpl']->append('packages_list', $package);
-
                 unset($package);
             }
 
             // Display Navigation
-
             if ($packagesCount > $limit) {
                 include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
         } else {
@@ -135,28 +122,19 @@ switch ($op) {
         $translationsCount = $translationsHandler->getCount($crTranslations);
         if ($translationsCount > 0) {
             $crTranslations->setSort('tra_local');
-
             $crTranslations->setOrder('ASC');
-
             $translationsAll = $translationsHandler->getAll($crTranslations);
-
             foreach (array_keys($translationsAll) as $i) {
                 $dst_path = $pkg_path;
-
                 $files = explode('/', $translationsAll[$i]->getVar('tra_local'));
-
                 foreach (array_keys($files) as $f) {
                     if (array_key_last($files) == $f) {
                         $content = $translationsAll[$i]->getVar('tra_content', 'n');
-
                         $dst_file = $dst_path . '/' . $files[$f];
-
                         unlink($dst_file);
-
                         file_put_contents($dst_file, $content);
                     } else {
                         $dst_path .= '/' . $files[$f];
-
                         @mkdir($dst_path);
                     }
                 }
@@ -169,7 +147,6 @@ switch ($op) {
         unlink($zipcreate);
         if (1 == Request::getInt('pkg_zipfile', 0)) {
             $pkg_path = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $langFolder;
-
             zip_files($pkg_path, $zipcreate);
         }
 
@@ -198,13 +175,8 @@ switch ($op) {
             null
         );
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-            //$uploader->setPrefix(lang_flag_);
-
-            //$uploader->fetchMedia($_POST['xoops_upload_file'][0]);
-
             if (!$uploader->upload()) {
                 $errors = $uploader->getErrors();
-
                 redirect_header('javascript:history.go(-1).php', 3, $errors);
             } else {
                 $packagesObj->setVar('pkg_logo', $uploader->getSavedFileName());
@@ -253,9 +225,7 @@ switch ($op) {
                 $_SERVER['REQUEST_URI'],
                 sprintf(_AM_WGTRANSIFEX_FORM_SURE_DELETE, $packagesObj->getVar('pkg_name'))
             );
-
             $form = $xoopsconfirm->getFormXoopsConfirm();
-
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
@@ -269,21 +239,16 @@ require __DIR__ . '/footer.php';
 function clearDir($dir, $pattern = '*')
 {
     // Find all files and folders matching pattern
-
     $files = glob($dir . "/$pattern");
 
     // Interate thorugh the files and folders
-
     foreach ($files as $file) {
         // if it's a directory then re-call clearDir function to delete files inside this directory
-
         if (is_dir($file) && !in_array($file, ['..', '.'])) {
             // Remove the directory itself
-
             clearDir($file, $pattern);
         } elseif ((__FILE__ != $file) && is_file($file)) {
             // Make sure you don't delete the current script
-
             unlink($file);
         }
     }
@@ -305,17 +270,12 @@ function zip_files($source, $destination)
 
     if (true === $zip->open($destination, ZipArchive::CREATE)) {
         $source = realpath($source);
-
         if (is_dir($source)) {
             $iterator = new RecursiveDirectoryIterator($source);
-
             $iterator->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
-
             $files = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
-
             foreach ($files as $file) {
                 $file = realpath($file);
-
                 if (is_dir($file)) {
                     $zip->addEmptyDir(str_replace($source . DIRECTORY_SEPARATOR, '', $file . DIRECTORY_SEPARATOR));
                 } elseif (is_file($file)) {
