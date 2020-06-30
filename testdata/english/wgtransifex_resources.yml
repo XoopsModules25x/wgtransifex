@@ -1,0 +1,56 @@
+-
+    res_id: '1'
+    res_source_language_code: en_GB
+    res_name: admin.php
+    res_i18n_type: PHP_DEFINE
+    res_priority: '0'
+    res_slug: adminphp
+    res_categories: ''
+    res_metadata: ''
+    res_translations: '0'
+    res_date: '1593461085'
+    res_submitter: '1'
+    res_status: '4'
+    res_pro_id: '2'
+-
+    res_id: '2'
+    res_source_language_code: en_GB
+    res_name: '[help]help.html.txt'
+    res_i18n_type: TXT
+    res_priority: '0'
+    res_slug: helphelphtmltxt
+    res_categories: ''
+    res_metadata: ''
+    res_translations: '0'
+    res_date: '1593461085'
+    res_submitter: '1'
+    res_status: '4'
+    res_pro_id: '2'
+-
+    res_id: '3'
+    res_source_language_code: en_GB
+    res_name: main.php
+    res_i18n_type: PHP_DEFINE
+    res_priority: '0'
+    res_slug: mainphp
+    res_categories: ''
+    res_metadata: ''
+    res_translations: '0'
+    res_date: '1593461085'
+    res_submitter: '1'
+    res_status: '4'
+    res_pro_id: '2'
+-
+    res_id: '4'
+    res_source_language_code: en_GB
+    res_name: modinfo.php
+    res_i18n_type: PHP_DEFINE
+    res_priority: '0'
+    res_slug: modinfophp
+    res_categories: ''
+    res_metadata: ''
+    res_translations: '0'
+    res_date: '1593461085'
+    res_submitter: '1'
+    res_status: '4'
+    res_pro_id: '2'

@@ -80,7 +80,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return int
      */
-    public function getCountLanguages($start = 0, $limit = 0, $sort = 'lang_id ASC, lang_name', $order = 'ASC')
+    public function getCountLanguages($start = 0, $limit = 0, $sort = 'lang_name', $order = 'ASC')
     {
         $crCountLanguages = new \CriteriaCompo();
         $crCountLanguages = $this->getLanguagesCriteria($crCountLanguages, $start, $limit, $sort, $order);
@@ -95,7 +95,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
      * @param string $order
      * @return array
      */
-    public function getAllLanguages($start = 0, $limit = 0, $sort = 'lang_id ASC, lang_name', $order = 'ASC')
+    public function getAllLanguages($start = 0, $limit = 0, $sort = 'lang_name', $order = 'ASC')
     {
         $crAllLanguages = new \CriteriaCompo();
         $crAllLanguages = $this->getLanguagesCriteria($crAllLanguages, $start, $limit, $sort, $order);
@@ -118,5 +118,33 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
         $crLanguages->setSort($sort);
         $crLanguages->setOrder($order);
         return $crLanguages;
+    }
+
+    /**
+     * Get primary language
+     * @return array
+     */
+    public function getPrimaryLang()
+    {
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->add(new \Criteria('lang_primary', 1));
+        $languagesAll = $this->getAll($crLanguages);
+        $primary = 0;
+        foreach (\array_keys($languagesAll) as $i) {
+            $primary = $languagesAll[$i]->getVar('lang_id');
+        }
+        return $primary;
+    }
+
+    /**
+     * Reset all language to primary none
+     * @return bool
+     */
+    public function resetPrimary()
+    {
+        $sql = 'UPDATE `' . $GLOBALS['xoopsDB']->prefix('wgtransifex_languages') . "` SET `lang_primary` = '0'";
+        $GLOBALS['xoopsDB']->queryF($sql);
+
+        return true;
     }
 }

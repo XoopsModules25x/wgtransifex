@@ -1,0 +1,518 @@
+-
+    pro_id: '1'
+    pro_description: 'contact 1.81'
+    pro_source_language_code: en_GB
+    pro_slug: contact-181-1
+    pro_name: 'contact 1.81'
+    pro_teams: '["ar_SA","zh_TW","hr_HR","da_DK","nl_NL","fr_FR","de_DE","it_IT","ja_JP","ko_KR","fa_IR","pl_PL","pt_BR","ru_RU","sk_SK","sl","es_ES","sv_SE"]'
+    pro_last_updated: '1565218452'
+    pro_txresources: '5'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461033'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '2'
+    pro_description: 'Contact 2.52 for Xoops 2.5.8'
+    pro_source_language_code: en_GB
+    pro_slug: contact-252
+    pro_name: 'Contact 2.52'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1565297841'
+    pro_txresources: '4'
+    pro_resources: '4'
+    pro_translations: '4'
+    pro_date: '1593461034'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '3'
+    pro_description: 'Extcal 2.40 RC1'
+    pro_source_language_code: en_GB
+    pro_slug: extcal-240-rc1
+    pro_name: 'Extcal 2.40 RC1'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1593389884'
+    pro_txresources: '12'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461035'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '4'
+    pro_description: 'eXtGallery 1.12 Beta 2'
+    pro_source_language_code: en_GB
+    pro_slug: extgallery
+    pro_name: eXtGallery
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592142365'
+    pro_txresources: '12'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461035'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '5'
+    pro_description: 'gwiki 1.0 RC4'
+    pro_source_language_code: en_GB
+    pro_slug: gwiki-10-rc4
+    pro_name: 'gwiki 1.0 RC4'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592059892'
+    pro_txresources: '14'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461036'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '6'
+    pro_description: 'Lexikon 1.52 Module for Xoops 2.5.8 and 2.5.9'
+    pro_source_language_code: en_GB
+    pro_slug: lexikon-152
+    pro_name: 'Lexikon 1.52'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1565219472'
+    pro_txresources: '13'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461036'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '7'
+    pro_description: 'MyLinks 3.11 RC5'
+    pro_source_language_code: en_GB
+    pro_slug: mylinks
+    pro_name: MyLinks
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1565219473'
+    pro_txresources: '14'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461037'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '8'
+    pro_description: 'MyPoints 1.02 Beta 1'
+    pro_source_language_code: en_GB
+    pro_slug: mypoints
+    pro_name: MyPoints
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592232766'
+    pro_txresources: '6'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461038'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '9'
+    pro_description: 'Newbb 5.0 Final'
+    pro_source_language_code: en_GB
+    pro_slug: newbb-50-final
+    pro_name: 'Newbb 5.0 Final'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru","ru_RU","sr_RS","sk_SK","sl_SI","es","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592257407'
+    pro_txresources: '18'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461038'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '10'
+    pro_description: 'Publisher 1.02 Beta 3'
+    pro_source_language_code: en_GB
+    pro_slug: publisher-1
+    pro_name: Publisher
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","oc","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1565219495'
+    pro_txresources: '13'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461039'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '11'
+    pro_description: 'Publisher 1.07 RC1'
+    pro_source_language_code: en_GB
+    pro_slug: publisher-107-rc1
+    pro_name: 'Publisher 1.07 RC1'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592258384'
+    pro_txresources: '17'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461039'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '12'
+    pro_description: 'Soapbox 1.61 for Xoops 2.5.7.2'
+    pro_source_language_code: en_GB
+    pro_slug: soapbox-161
+    pro_name: 'Soapbox 1.61'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1565218656'
+    pro_txresources: '11'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461040'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '13'
+    pro_description: suico
+    pro_source_language_code: en_GB
+    pro_slug: suico
+    pro_name: 'suico 3.5 beta 2'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1589800480'
+    pro_txresources: '16'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461041'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '14'
+    pro_description: 'Tag 2.33 for Xoops 2.5.8'
+    pro_source_language_code: en_GB
+    pro_slug: tag-233
+    pro_name: 'Tag 2.33'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592060565'
+    pro_txresources: '5'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461041'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '15'
+    pro_description: 'TDMCreate 1.91 Alpha 3.4'
+    pro_source_language_code: en_GB
+    pro_slug: tdmcreate-191-alpha-34
+    pro_name: 'TDMCreate 1.91 Alpha 3.4'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1565250416'
+    pro_txresources: '3'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461042'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '16'
+    pro_description: 'TDMDownloads 1.63 Beta 3'
+    pro_source_language_code: en_GB
+    pro_slug: tdmdownloads
+    pro_name: TDMDownloads
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1589832597'
+    pro_txresources: '4'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461042'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '17'
+    pro_description: 'TDMDownloads 1.65 Final for Xoops 2.5.9'
+    pro_source_language_code: en_GB
+    pro_slug: tdmdownloads-165-final-for-xoops-259
+    pro_name: 'TDMDownloads 1.65 Final for Xoops 2.5.9'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1589832827'
+    pro_txresources: '13'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461043'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '18'
+    pro_description: 'wfdownloads 3.23 RC5'
+    pro_source_language_code: en_GB
+    pro_slug: wfdownloads
+    pro_name: wfdownloads
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592142350'
+    pro_txresources: '26'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461044'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '19'
+    pro_description: 'wfdownloads 3.23 RC5 for Xoops 2.5.7.1'
+    pro_source_language_code: en_GB
+    pro_slug: wfdownloads-323-rc5
+    pro_name: 'wfdownloads 3.23 RC5'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592142350'
+    pro_txresources: '26'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461045'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '20'
+    pro_description: 'wgSitenotice 1.24 beta 1'
+    pro_source_language_code: en_GB
+    pro_slug: wgsitenotice-124-beta-1
+    pro_name: 'wgSitenotice 1.24 beta 1'
+    pro_teams: '["ar","ar_SA","bs_BA","bg_BG","my","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_CA","fr_FR","de_DE","el_GR","he_IL","hu_HU","id_ID","it_IT","ja_JP","ko_KR","ku","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","th_TH","tr_TR","uk","vi","vi_VN"]'
+    pro_last_updated: '1589832827'
+    pro_txresources: '5'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461045'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '21'
+    pro_description: 'wgtimelines 1.09 RC3 for Xoops 2.5.7 +'
+    pro_source_language_code: en_GB
+    pro_slug: wgtimelines-109-rc3
+    pro_name: 'wgtimelines 1.09 RC3'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1593098371'
+    pro_txresources: '10'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461046'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '22'
+    pro_description: 'wgtimelines 1.10 RC2'
+    pro_source_language_code: en_GB
+    pro_slug: wgtimelines-110-rc2
+    pro_name: 'wgtimelines 1.10 RC2'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1593098371'
+    pro_txresources: '10'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461047'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '23'
+    pro_description: 'xLanguage 3.0.5 beta 1'
+    pro_source_language_code: en_GB
+    pro_slug: xlanguage
+    pro_name: xLanguage
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1577387242'
+    pro_txresources: '4'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461047'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '24'
+    pro_description: 'Xlanguage 3.1 RC 1'
+    pro_source_language_code: en_GB
+    pro_slug: xlanguage-31-rc-1
+    pro_name: 'Xlanguage 3.1 RC 1'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1593379660'
+    pro_txresources: '9'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461048'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '25'
+    pro_description: 'xmcontent 0.21 Final for Xoops 2.5.8'
+    pro_source_language_code: en_GB
+    pro_slug: xmcontent-021-final-for-xoops-258
+    pro_name: 'xmcontent 0.21 Final'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1565535459'
+    pro_txresources: '4'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461049'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '26'
+    pro_description: 'xNewsletter 1.2'
+    pro_source_language_code: en_GB
+    pro_slug: xnewsletter-12
+    pro_name: 'xNewsletter 1.2'
+    pro_teams: '["ar_SA","zh_TW","da_DK","nl_NL","fr_FR","de_DE","it_IT","ja_JP","fa_IR","pl_PL","pt_BR","ru_RU","sk_SK","es_ES"]'
+    pro_last_updated: '1565219531'
+    pro_txresources: '11'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461049'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '27'
+    pro_description: 'Xoops 2.5.7 beta'
+    pro_source_language_code: en_US
+    pro_slug: xoopsnew
+    pro_name: 'Xoops 2.5.7 beta'
+    pro_teams: '["ar_SA","zh","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_CA","fr_FR","de_DE","el_GR","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ru_RU","sk_SK","sl_SI","es_ES","sv_SE","th_TH","tr_TR","vi_VN"]'
+    pro_last_updated: '1506196347'
+    pro_txresources: '104'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461050'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '28'
+    pro_description: 'Xoops 2.5.7 final'
+    pro_source_language_code: en_US
+    pro_slug: xoops
+    pro_name: 'Xoops 2.5.7 final'
+    pro_teams: '["ar_SA","zh","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_CA","fr_FR","de_DE","el_GR","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ru_RU","sk_SK","sl_SI","es_ES","sv_SE","th_TH","tr_TR","vi_VN"]'
+    pro_last_updated: '1506197863'
+    pro_txresources: '105'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461052'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '29'
+    pro_description: 'Xoops 2.5.8'
+    pro_source_language_code: en_GB
+    pro_slug: xoops-258
+    pro_name: 'Xoops 2.5.8'
+    pro_teams: '["ar","ar_SA","bs_BA","bg_BG","my","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_CA","en_US","fr","fr_FR","de_DE","el_GR","he_IL","hu_HU","id_ID","it_IT","ja_JP","ko_KR","ku","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","th_TH","tr_TR","uk","vi","vi_VN"]'
+    pro_last_updated: '1583103366'
+    pro_txresources: '129'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461053'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '30'
+    pro_description: 'Xoops 2.5.9'
+    pro_source_language_code: en_GB
+    pro_slug: xoops-259
+    pro_name: 'Xoops 2.5.9'
+    pro_teams: '["ar","ar_SA","bs_BA","bg_BG","my","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_CA","en_US","fr","fr_CA","fr_FR","de_DE","el_GR","he_IL","hu_HU","id_ID","it_IT","ja_JP","ko_KR","ku","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","th_TH","tr_TR","uk","vi","vi_VN"]'
+    pro_last_updated: '1583320283'
+    pro_txresources: '126'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461054'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '31'
+    pro_description: 'Xoops 2.6.0 beta'
+    pro_source_language_code: en_GB
+    pro_slug: xoops-260-beta
+    pro_name: 'Xoops 2.6.0 beta'
+    pro_teams: '["ar","ar_SA","bs_BA","bg_BG","my","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_CA","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","id_ID","it_IT","ja_JP","ko_KR","ku","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","th_TH","tr_TR","uk","vi","vi_VN"]'
+    pro_last_updated: '1592235076'
+    pro_txresources: '2'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461055'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '32'
+    pro_description: 'XoopsFaq 1.25 RC1'
+    pro_source_language_code: en_GB
+    pro_slug: xoopsfaq-125-rc1
+    pro_name: 'XoopsFaq 1.25 RC1'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592062917'
+    pro_txresources: '6'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461056'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '33'
+    pro_description: 'XoopsMembers 1.02'
+    pro_source_language_code: en_GB
+    pro_slug: xoopsmembers-102
+    pro_name: 'XoopsMembers 1.02'
+    pro_teams: '["ar_SA","zh_TW","da_DK","nl_NL","fr_FR","de_DE","it_IT","ja_JP","fa_IR","pl_PL","pt_BR","ru_RU","sk_SK","es_ES"]'
+    pro_last_updated: '1519410782'
+    pro_txresources: '4'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461056'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '34'
+    pro_description: 'Translating XOOPS 2.5/2.6 Modules'
+    pro_source_language_code: en_GB
+    pro_slug: xoops-mods-i18n
+    pro_name: 'XOOPS Modules'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1593004917'
+    pro_txresources: '297'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461058'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '35'
+    pro_description: 'XOOPS Web Application Platform'
+    pro_source_language_code: en_US
+    pro_slug: xoopsold
+    pro_name: 'XOOPS Old Core'
+    pro_teams: '["ar","ar_SA","bs_BA","bg_BG","my","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_CA","fr_FR","de_DE","el_GR","he_IL","hu_HU","id_ID","it_IT","ja_JP","ko_KR","ku","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","th_TH","tr_TR","uk","vi","vi_VN"]'
+    pro_last_updated: '1506195013'
+    pro_txresources: '171'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461060'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '36'
+    pro_description: 'XoopsPoll 1.40 RC1'
+    pro_source_language_code: en_GB
+    pro_slug: xoopspoll
+    pro_name: XoopsPoll
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1565219460'
+    pro_txresources: '7'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461060'
+    pro_submitter: '1'
+    pro_status: '4'
+-
+    pro_id: '37'
+    pro_description: XoopsTube
+    pro_source_language_code: en_GB
+    pro_slug: xoopstube
+    pro_name: 'XoopsTube 1.06 Final'
+    pro_teams: '["ar_SA","bs","bs_BA","bg_BG","my_MM","ca_ES","zh_CN","zh_TW","hr_HR","cs_CZ","da_DK","nl_NL","en_US","fr_FR","de_DE","el_GR","he_IL","hu_HU","it_IT","ja_JP","ko_KR","ms_MY","nb","no_NO","fa_IR","pl_PL","pt_BR","pt_PT","ps","ro_RO","ru_RU","sr_RS","sk_SK","sl_SI","es_ES","sv_SE","tl_PH","th_TH","tr_TR","uk","uk_UA","ur_PK","vi_VN"]'
+    pro_last_updated: '1592255865'
+    pro_txresources: '15'
+    pro_resources: '0'
+    pro_translations: '0'
+    pro_date: '1593461061'
+    pro_submitter: '1'
+    pro_status: '4'

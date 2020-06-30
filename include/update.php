@@ -61,11 +61,11 @@ function update_wgtransifex_v10($module)
     while (false !== (list($tplid) = $xoopsDB->fetchRow($result))) {
         $tplids[] = $tplid;
     }
-    if (count($tplids) > 0) {
+    if (\count($tplids) > 0) {
         $tplfileHandler  = xoops_getHandler('tplfile');
         $duplicate_files = $tplfileHandler->getObjects(new \Criteria('tpl_id', '(' . implode(',', $tplids) . ')', 'IN'));
-        if (count($duplicate_files) > 0) {
-            foreach (array_keys($duplicate_files) as $i) {
+        if (\count($duplicate_files) > 0) {
+            foreach (\array_keys($duplicate_files) as $i) {
                 $tplfileHandler->delete($duplicate_files[$i]);
             }
         }
@@ -102,19 +102,85 @@ function wgtransifex_check_db($module)
 {
     $ret = true;
     //insert here code for database check
-    // Example: update table (add new field)
+    // update table (add new field)
     $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_packages');
     $field   = 'pkg_logo';
     $check   = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
     if (!$numRows) {
-        $sql = "ALTER TABLE `$table` ADD `$field` TEXT NULL AFTER `pkg_zip`;";
+        $sql = "ALTER TABLE `$table` ADD `$field` VARCHAR(255) NOT NULL DEFAULT '' AFTER `pkg_zip`;";
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
             $module->setErrors("Error when adding '$field' to table '$table'.");
             $ret = false;
         }
     }
+    // update table (add new field)
+    $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_projects');
+    $field   = 'pro_teams';
+    $check   = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if (!$numRows) {
+        $sql = "ALTER TABLE `$table` ADD `$field` TEXT NULL AFTER `pro_name`;";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding '$field' to table '$table'.");
+            $ret = false;
+        }
+    }
+    // update table (add new field)
+    $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_projects');
+    $field   = 'pro_last_updated';
+    $check   = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if (!$numRows) {
+        $sql = "ALTER TABLE `$table` ADD `$field` INT(10) NOT NULL DEFAULT '0' AFTER `pro_name`;";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding '$field' to table '$table'.");
+            $ret = false;
+        }
+    }
+    // update table (add new field)
+    $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_projects');
+    $field   = 'pro_txresources';
+    $check   = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if (!$numRows) {
+        $sql = "ALTER TABLE `$table` ADD `$field` INT(10) NOT NULL DEFAULT '0' AFTER `pro_name`;";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding '$field' to table '$table'.");
+            $ret = false;
+        }
+    }
+    // update table (add new field)
+    $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_languages');
+    $field   = 'lang_primary';
+    $check   = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if (!$numRows) {
+        $sql = "ALTER TABLE `$table` ADD `$field` INT(1) NOT NULL DEFAULT '0' AFTER `lang_flag`;";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding '$field' to table '$table'.");
+            $ret = false;
+        }
+    }
+    // update table (add new field)
+    $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_languages');
+    $field   = 'lang_online';
+    $check   = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if (!$numRows) {
+        $sql = "ALTER TABLE `$table` ADD `$field` INT(1) NOT NULL DEFAULT '0' AFTER `lang_flag`;";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding '$field' to table '$table'.");
+            $ret = false;
+        }
+    }
+
     /*
     // Example: create new table
     $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_categories');

@@ -28,5 +28,6 @@ define('_MB_WGTRANSIFEX_ALLCAT', 'All Categories');
 define('_MB_WGTRANSIFEX_PACKAGES_TO_DISPLAY', 'Packages to Display');
 define('_MB_WGTRANSIFEX_ALL_PACKAGES', 'All Packages');
 define('_MB_WGTRANSIFEX_PKG_NAME', 'Name');
-define('_MB_WGTRANSIFEX_PKG_LANG_ID', 'Lang_id');
+define('_MB_WGTRANSIFEX_PKG_LOGO', 'Logo');
+define('_MB_WGTRANSIFEX_PKG_LANG_ID', 'Language');
 // ---------------- End ----------------

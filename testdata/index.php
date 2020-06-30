@@ -18,11 +18,11 @@ use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
 use XoopsModules\Wgtransifex\Utility;
 
-require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-require dirname(__DIR__) . '/preloads/autoloader.php';
+require_once \dirname(\dirname(\dirname(__DIR__))) . '/include/cp_header.php';
+require \dirname(__DIR__) . '/preloads/autoloader.php';
 $op                 = \Xmf\Request::getCmd('op', '');
-$moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$moduleDirName      = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 $helper             = Wgtransifex\Helper::getInstance();
 // Load language files
 $helper->loadLanguage('common');
@@ -30,12 +30,12 @@ switch ($op) {
     case 'load':
         if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('../admin/index.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+                redirect_header('../admin/index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             loadSampleData();
         } else {
             xoops_cp_header();
-            xoops_confirm(['ok' => 1, 'op' => 'load'], 'index.php', sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA_OK')), constant('CO_' . $moduleDirNameUpper . '_' . 'CONFIRM'), true);
+            xoops_confirm(['ok' => 1, 'op' => 'load'], 'index.php', \sprintf(\constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA_OK')), \constant('CO_' . $moduleDirNameUpper . '_' . 'CONFIRM'), true);
             xoops_cp_footer();
         }
         break;
@@ -47,13 +47,13 @@ switch ($op) {
 function loadSampleData()
 {
     global $xoopsConfig;
-    $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     $utility            = new Wgtransifex\Utility();
     $configurator       = new Common\Configurator();
     $tables             = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
     $language           = 'english/';
-    if (is_dir(__DIR__ . '/' . $xoopsConfig['language'])) {
+    if (\is_dir(__DIR__ . '/' . $xoopsConfig['language'])) {
         $language = $xoopsConfig['language'] . '/';
     }
     // load module tables
@@ -68,29 +68,29 @@ function loadSampleData()
     $mid       = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
     loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
     //  ---  COPY test folder files ---------------
-    if (is_array($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
+    if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
         //        $file = __DIR__ . '/../testdata/images/';
-        foreach (array_keys($configurator->copyTestFolders) as $i) {
+        foreach (\array_keys($configurator->copyTestFolders) as $i) {
             $src  = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];
             $utility::rcopy($src, $dest);
         }
     }
-    redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
+    redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
 }
 
 function saveSampleData()
 {
     global $xoopsConfig;
     $configurator       = new Common\Configurator();
-    $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     $tables             = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
     $languageFolder     = __DIR__ . '/' . $xoopsConfig['language'];
     if (!file_exists($languageFolder . '/')) {
         Utility::createFolder($languageFolder . '/');
     }
-    $exportFolder = $languageFolder . '/Exports-' . date('Y-m-d-H-i-s') . '/';
+    $exportFolder = $languageFolder . '/Exports-' . \date('Y-m-d-H-i-s') . '/';
     Utility::createFolder($exportFolder);
     // save module tables
     foreach ($tables as $table) {
@@ -103,8 +103,8 @@ function saveSampleData()
     \Xmf\Database\TableLoad::saveTableToYamlFile('group_permission', $exportFolder . 'group_permission.yml', $criteria, $skipColumns);
     unset($criteria);
     //  ---  COPY test folder files ---------------
-    if (is_array($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
-        foreach (array_keys($configurator->copyTestFolders) as $i) {
+    if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
+        foreach (\array_keys($configurator->copyTestFolders) as $i) {
             $src  = $configurator->copyTestFolders[$i][1];
             $dest = $configurator->copyTestFolders[$i][0];
             Utility::rcopy($src, $dest);
@@ -115,8 +115,8 @@ function saveSampleData()
 
 function exportSchema()
 {
-    $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     try {
         // TODO set exportSchema
         //        $migrate = new Wgtransifex\Migrate($moduleDirName);
@@ -124,7 +124,7 @@ function exportSchema()
         //
         //        redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
     } catch (\Exception $e) {
-        exit(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR'));
+        exit(\constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR'));
     }
 }
 

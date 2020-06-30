@@ -37,12 +37,12 @@ switch ($op) {
         $GLOBALS['xoTheme']->addStylesheet($style, null);
         $templateMain = 'wgtransifex_admin_translations.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
-        //$adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_TRANSLATION, 'translations.php?op=new', 'add');
+        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_TRANSLATION, 'translations.php?op=new', 'add');
         if ($proId > 0) {
-            $adminObject->addItemButton(_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
         }
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx', 'add');
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $start_pro = Request::getInt('start_pro', 0);
         $start_tra = Request::getInt('start_tra', 0);
@@ -57,7 +57,7 @@ switch ($op) {
                 $translationsCount = $translationsHandler->getCount($crTranslations);
                 $translationsAll   = $translationsHandler->getAll($crTranslations);
                 // Table view projects
-                foreach (array_keys($translationsAll) as $i) {
+                foreach (\array_keys($translationsAll) as $i) {
                     $proId           = $translationsAll[$i]->getVar('tra_pro_id');
                     $project         = $projectsHandler->get($proId)->getValuesProjects();
                     $languages       = [];
@@ -65,7 +65,7 @@ switch ($op) {
                     $crTranslations2->add(new \Criteria('tra_pro_id', $proId));
                     $crTranslations2->setGroupBy('`tra_pro_id`, `tra_lang_id`');
                     $translationsAll2 = $translationsHandler->getAll($crTranslations2);
-                    foreach (array_keys($translationsAll2) as $l) {
+                    foreach (\array_keys($translationsAll2) as $l) {
                         $langId                = $translationsAll2[$l]->getVar('tra_lang_id');
                         $languages[$l]['id']   = $langId;
                         $languages[$l]['name'] = $languagesHandler->get($langId)->getVar('lang_name');
@@ -81,7 +81,7 @@ switch ($op) {
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
             } else {
-                $GLOBALS['xoopsTpl']->assign('error', _AM_WGTRANSIFEX_THEREARENT_TRANSLATIONS);
+                $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_TRANSLATIONS);
             }
         } else {
             $crTranslations = new \CriteriaCompo();
@@ -96,7 +96,7 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
             // Table view translations
             if ($translationsCount > 0) {
-                foreach (array_keys($translationsAll) as $i) {
+                foreach (\array_keys($translationsAll) as $i) {
                     $translation = $translationsAll[$i]->getValuesTranslations();
                     $GLOBALS['xoopsTpl']->append('translations_list', $translation);
                     unset($translation);
@@ -108,14 +108,14 @@ switch ($op) {
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
             } else {
-                $GLOBALS['xoopsTpl']->assign('error', _AM_WGTRANSIFEX_THEREARENT_TRANSLATIONS);
+                $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_TRANSLATIONS);
             }
         }
         break;
     case 'readtx':
         $templateMain = 'wgtransifex_admin_translations.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $translationsObj = $translationsHandler->create();
@@ -143,7 +143,7 @@ switch ($op) {
     case 'new':
         $templateMain = 'wgtransifex_admin_translations.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $translationsObj = $translationsHandler->create();
@@ -153,7 +153,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('translations.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header('translations.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if ($traId > 0) {
             $translationsObj = $translationsHandler->get($traId);
@@ -185,7 +185,7 @@ switch ($op) {
         $translationsObj->setVar('tra_submitter', Request::getInt('tra_submitter', 0));
         // Insert Data
         if ($translationsHandler->insert($translationsObj)) {
-            redirect_header('translations.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
+            redirect_header('translations.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $translationsObj->getHtmlErrors());
@@ -195,8 +195,8 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wgtransifex_admin_translations.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
-        //$adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_TRANSLATION, 'translations.php?op=new', 'add');
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
+        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_TRANSLATION, 'translations.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $translationsObj = $translationsHandler->get($traId);
@@ -210,16 +210,16 @@ switch ($op) {
         $traPro_id       = $translationsObj->getVar('tra_pro_id');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('translations.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                redirect_header('translations.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($translationsHandler->delete($translationsObj)) {
-                redirect_header('translations.php', 3, _AM_WGTRANSIFEX_FORM_DELETE_OK);
+                redirect_header('translations.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $translationsObj->getHtmlErrors());
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'tra_id' => $traId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_WGTRANSIFEX_FORM_SURE_DELETE, $translationsObj->getVar('tra_pro_id'))
+                ['ok' => 1, 'tra_id' => $traId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $translationsObj->getVar('tra_pro_id'))
             );
             $form         = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());

@@ -1,0 +1,88 @@
+-
+    tra_id: '1'
+    tra_pro_id: '2'
+    tra_res_id: '1'
+    tra_lang_id: '1'
+    tra_content: "<?php\n// index\ndefine('_AM_CONTACT_INDEX_ADMENU1', 'Messages');\ndefine('_AM_CONTACT_INDEX_TOTAL', \"There are <span class='green'>%s</span> Messages in our database\");\n// Contact\ndefine('_AM_CONTACT_ID', 'Id');\ndefine('_AM_CONTACT_SUBJECT', 'Subject');\ndefine('_AM_CONTACT_DEPARTMENT', 'Department');\ndefine('_AM_CONTACT_SUBMITTER', 'Submitter');\ndefine('_AM_CONTACT_DATE', 'Date Submitted');\ndefine('_AM_CONTACT_MESSAGE', 'Message');\ndefine('_AM_CONTACT_EMAIL', 'Email');\ndefine('_AM_CONTACT_URL', 'URL');\ndefine('_AM_CONTACT_VIEWURL', 'View URL');\ndefine('_AM_CONTACT_ICQ', 'Skype');\ndefine('_AM_CONTACT_COMPANY', 'Company');\ndefine('_AM_CONTACT_LOCATION', 'Location');\ndefine('_AM_CONTACT_IP', 'IP');\ndefine('_AM_CONTACT_PHONE', 'Phone');\ndefine('_AM_CONTACT_ADDRESS', 'Address');\ndefine('_AM_CONTACT_ACTION', 'Action');\ndefine('_AM_CONTACT_VIEW', 'View');\ndefine('_AM_CONTACT_REPLY', 'Reply');\ndefine('_AM_CONTACT_HAVEREPLY', 'Replied');\ndefine('_AM_CONTACT_HAVENTREPLY', 'Not Replied');\ndefine('_AM_CONTACT_FROM', 'From');\ndefine('_AM_CONTACT_NAMEFROM', 'Name');\ndefine('_AM_CONTACT_MAILFROM', 'Email');\ndefine('_AM_CONTACT_TO', 'To');\ndefine('_AM_CONTACT_NAMETO', 'Name');\ndefine('_AM_CONTACT_MAILTO', 'Email');\ndefine('_AM_CONTACT_TITLE', 'Title');\ndefine('_AM_CONTACT_INFO', 'Information');\ndefine('_AM_CONTACT_MSG_EXIST', 'Selected Message does not exist');\ndefine('_AM_CONTACT_MSG_DELETE', 'Are you sure to delete this message and all replies?');\ndefine('_AM_CONTACT_MSG_DELETED', 'Your selected message has been deleted');\ndefine('_AM_CONTACT_MSG_DELETEERROR', 'Error in deleting message');\ndefine('_AM_CONTACT_MSG_PRUNE_DELETED', '%s messages deleted');\ndefine('_AM_CONTACT_TOOLS_PRUNE', 'Delete Messages');\ndefine('_AM_CONTACT_TOOLS_PRUNE_BEFORE', 'Delete messages that were published before');\ndefine('_AM_CONTACT_TOOLS_PRUNE_REPLYONLY', 'Delete only messages with replies');\ndefine('_AM_CONTACT_LOGS_FORM', 'Log form');\ndefine('_AM_CONTACT_LOGS_COLUMN', 'Select the required column');\ndefine('_AM_CONTACT_LOGS_COLUMN_PHONE', 'Phone');\ndefine('_AM_CONTACT_LOGS_COLUMN_URL', 'URL');\ndefine('_AM_CONTACT_LOGS_COLUMN_MAIL', 'Email');\n//2.25\ndefine('_AM_CONTACT_CANTREPLY', 'Can not reply');\n"
+    tra_mimetype: text/plain
+    tra_proofread: '0'
+    tra_proofread_percentage: '0'
+    tra_reviewed_percentage: '0'
+    tra_completed: '100'
+    tra_untranslated_words: '0'
+    tra_last_commiter: '0'
+    tra_reviewed: '0'
+    tra_translated_entities: '44'
+    tra_translated_words: '93'
+    tra_untranslated_entities: '0'
+    tra_last_update: '1506173457'
+    tra_local: admin.php
+    tra_status: '4'
+    tra_date: '1593461095'
+    tra_submitter: '1'
+-
+    tra_id: '2'
+    tra_pro_id: '2'
+    tra_res_id: '2'
+    tra_lang_id: '1'
+    tra_content: "<div id=\"help-template\" class=\"outer\">\n    <h1 class=\"head\">Help:\n        <a class=\"ui-corner-all tooltip\" href=\"<{$xoops_url}>/modules/contact/admin/index.php\"\n           title=\"Back to the administration of Contact\"> Contact\n            <img src=\"<{xoAdminIcons home.png}>\"\n                 alt=\"Back to the Administration of Contact\"/>\n        </a></h1>\n\n    <h4 class=\"odd\">DESCRIPTION</h4><br/>\n\n    'Contact Us' is a very simple module. It provides a Main Menu link to a\n    contact form that visitors can use to email the website Administrator.\n\n\n    You can set the content of the Contact Us form in 'Preferences'<br/><br/>\n\n    <h4 class=\"odd\">INSTALL/UNINSTALL</h4><br/>\n\n    No special measures necessary, follow the standard installation process –\n    extract the /contact folder into the ../modules directory. Install the\n    module through Admin -> System Module -> Modules. <br/><br/>\n    Detailed instructions on installing modules are available in the\n    <a href=\"http://goo.gl/adT2i\">XOOPS Operations Manual</a><br/><br/>\n\n\n    <h4 class=\"odd\">OPERATING INSTRUCTIONS</h4><br>\n    There is nothing really to do on the Admin site, except setting preferences.<br/><br/>\n    \n    <h4 class=\"odd\">TUTORIAL - Module preferences</h4>\n    \n    <h5 class=\"even\">Options for Captcha</h5>\n    <p>\n    Here you can define, whether you want use Google reCaptcha or not.<br><br>\n    If you want to use reCaptcha, you have to register your website at Google first.\n    In order to get the necessary website-key, do following steps:\n    <ul>\n        <li>If you are not registered at Google, you have to register yourself first</li>\n        <li>Goto website https://www.google.com/recaptcha/admin</li>\n        <li>Simply enter your corresponding website (label and domain):<br>\n        <img src=\"<{$xoops_url}>/modules/contact/assets/images/help/recaptcha_01_en.jpg\" alt=\"recaptcha01\" title=\"recaptcha01\" />\n        </li>\n        <li>After clicking on \"Register\" you get a new site with the required website-key:<br>\n        <img src=\"<{$xoops_url}>/modules/contact/assets/images/help/recaptcha_02_en.jpg\" alt=\"recaptcha02\" title=\"recaptcha02\" />\n        </li>\n        <li>Copy the website-key and paste it to module preferences</li>\n        <li>done</li>        \n    </ul>\n    <br><br>\n    More about Google reCaptcha under https://www.google.com/recaptcha.<br><br>\n    </p>\n    \n    <h5 class=\"odd\">Form options</h5>\n    <p>\n    Here you can define, which additional fields you want provide in your contact form.<br><br></p>\n    \n    <h5 class=\"odd\">Options for usage of departments/recipients</h5>\n    <p>\n    This option allow you to define a department/email combination.<br>\n    Users selecting from a defined department will have their contact information sent to the corresponding email address you define.<br><br>\n    Define each department/email as follows:<br>\n    \"dept1,email1|dept2,email2|dept3,email3\" etc. - each department and email must be separated by a comma ',', and each department email combination must be separated by a pipe '|'<br><br>\n    If no department/recipient is defined, than the mail will be sent to standard email address.<br>\n    This option will be only used, if the option \"Show select Departments\" is set \"yes\".<br><br>\n    With the options \"Add Department as Prefix?\" and \"Additional Email's Subject Prefix\" you can define, that the selected department with the additional text will be used before the subject text, given by the contacting person, e.g. \"[Contact dept1]: Subject text original\".  this will also only used, if the option \"Show select Departments\" is set \"yes\".<br><br>\n    If no department is defined or the option \"Show select Departments\" is set \"no\", the contact mail will be automatically sent only to standard email address.<br><br></p>\n    \n    <h5 class=\"odd\">Options Information</h5>\n    <h6 class=\"odd\">Header contact form</h6>\n    <p>\n    Here you can define a welcome or information text, which will be shown on the top of the contact form. You can use html-code.<br><br></p>\n    \n    <h6 class=\"odd\">Embed google maps</h6>\n    <p>\n    If you want to embed your location with google maps, than you must paste the corresponding code for the iframe here.\n    To get the correct iframe-code, do following steps:\n    <ul>\n        <li>Search the location in google maps</li>\n        <li>Click on \"Settings\":<br>\n        <img src=\"<{$xoops_url}>/modules/contact/assets/images/help/maps_01_en.jpg\" alt=\"maps01\" title=\"maps01\" />\n        </li>\n        <li>After click on \"Share or embed map\" select tab \"Embed map\":<br>\n        <img src=\"<{$xoops_url}>/modules/contact/assets/images/help/maps_02_en.jpg\" alt=\"maps02\" title=\"maps02\" />\n        </li>\n        <li>Copy the iframe-Code  and paste it in module preferences</li>\n        <li>If necessary, change width of iframe to 100 %.</li>\n        <li>done</li>        \n    </ul>\n    <br><br></p>\n \n    <h5 class=\"odd\">Misc options</h5>\n    <h6 class=\"odd\">Standard recipient</h6>\n    <p>\n    Each contact will be sent to this email address. If no email address is defined, the contact mails will be sent to site webmaster (Admin email address in xoops general settings).<br><br></p>\n    \n    <h6 class=\"odd\">Send confirmation mail?</h6>\n    <p>\n    You can define that automatically a confirmation mail is sent to the email, given by the contact form. This confirmation mail contains the given subject and mail content. You can change this text in language file main.php under _MD_CONTACT_MAILCONFIRM_BODY.\n    <br><br></p>\n\n</div>"
+    tra_mimetype: text/plain
+    tra_proofread: '0'
+    tra_proofread_percentage: '0'
+    tra_reviewed_percentage: '0'
+    tra_completed: '100'
+    tra_untranslated_words: '0'
+    tra_last_commiter: '0'
+    tra_reviewed: '0'
+    tra_translated_entities: '70'
+    tra_translated_words: '628'
+    tra_untranslated_entities: '0'
+    tra_last_update: '1506173457'
+    tra_local: help/help.html
+    tra_status: '4'
+    tra_date: '1593461096'
+    tra_submitter: '1'
+-
+    tra_id: '3'
+    tra_pro_id: '2'
+    tra_res_id: '3'
+    tra_lang_id: '1'
+    tra_content: "<?php\ndefine('_MD_CONTACT_FORM', 'Contact Form');\ndefine('_MD_CONTACT_NAME', 'Name');\ndefine('_MD_CONTACT_MAIL', 'Email');\ndefine('_MD_CONTACT_URL', 'URL');\ndefine('_MD_CONTACT_ICQ', 'ICQ');\ndefine('_MD_CONTACT_SKYPE', 'Skype');\ndefine('_MD_CONTACT_COMPANY', 'Company');\ndefine('_MD_CONTACT_LOCATION', 'Location');\ndefine('_MD_CONTACT_PHONE', 'Phone');\ndefine('_MD_CONTACT_ADDRESS', 'Address');\ndefine('_MD_CONTACT_SUBJECT', 'Subject');\ndefine('_MD_CONTACT_MESSAGE', 'Comment');\ndefine('_MD_CONTACT_DEPARTMENT', 'Department');\ndefine('_MD_CONTACT_DEFULTDEP', 'Default recipient');\ndefine('_MD_CONTACT_MES_SEND', 'Thank you for contacting us');\ndefine('_MD_CONTACT_MES_NOVALIDEMAIL', 'Your Email is not Valid');\ndefine('_MD_CONTACT_MES_NOTSAVE', 'Sorry, your Message was not saved in our DB');\ndefine('_MD_CONTACT_MES_SAVEINDB', 'Your Message has been saved in our DB');\ndefine('_MD_CONTACT_MES_SENDERROR', 'Error in sending Message');\ndefine('_MD_CONTACT_MES_ERROR', 'Error');\ndefine('_MD_CONTACT_MES_NOCAPTCHA', 'Captcha is required!');\ndefine('_MD_CONTACT_MES_CAPTCHAINCORRECT', 'Captcha not correct!');\n//2.1\ndefine('_MD_CONTACT_ICQ_NAME', 'ICQ');\ndefine('_MD_CONTACT_ICQ_INFO', 'Enter ICQ');\ndefine('_MD_CONTACT_SKYPE_NAME', 'Skype Name');\ndefine('_MD_CONTACT_SUBMIT', 'Submit');\ndefine('_MD_CONTACT_NAME_INFO', 'Enter name');\ndefine('_MD_CONTACT_MAIL_INFO', 'Enter e-mail');\ndefine('_MD_CONTACT_URL_INFO', 'Enter website');\ndefine('_MD_CONTACT_COMPANY_INFO', 'Enter company');\ndefine('_MD_CONTACT_ADDRESS_INFO', 'Enter address');\ndefine('_MD_CONTACT_LOCATION_INFO', 'Enter city');\ndefine('_MD_CONTACT_PHONE_INFO', 'Enter phone');\ndefine('_MD_CONTACT_SKYPE_NAME_INFO', 'Enter skype name');\ndefine('_MD_CONTACT_SUBJECT_INFO', 'Enter subject');\ndefine('_MD_CONTACT_MESSAGE_INFO', 'Enter message');\n//2.21\ndefine('_MD_CONTACT_MAILCONFIRM_SUBJECT', 'Confirmation mail');\ndefine('_MD_CONTACT_MAILCONFIRM_BODY', '\nDear {NAME}\n\nWe confirm the receipt of your mail\n\nSubject:{SUBJECT}\nMessage: \n{BODY}\n\nWe will contact you as soon as possible.\n');\n"
+    tra_mimetype: text/plain
+    tra_proofread: '0'
+    tra_proofread_percentage: '0'
+    tra_reviewed_percentage: '0'
+    tra_completed: '100'
+    tra_untranslated_words: '0'
+    tra_last_commiter: '0'
+    tra_reviewed: '0'
+    tra_translated_entities: '38'
+    tra_translated_words: '103'
+    tra_untranslated_entities: '0'
+    tra_last_update: '1506173458'
+    tra_local: main.php
+    tra_status: '4'
+    tra_date: '1593461097'
+    tra_submitter: '1'
+-
+    tra_id: '4'
+    tra_pro_id: '2'
+    tra_res_id: '4'
+    tra_lang_id: '1'
+    tra_content: "<?php\n// Module Info\n// The name of this module\ndefine('_MI_CONTACT_NAME', 'Contact us');\ndefine('_MI_CONTACT_DESC', 'Contact module with email and database storage');\n// Admin menu\ndefine('_MI_CONTACT_MENU_HOME', 'Home');\ndefine('_MI_CONTACT_MENU_HOME_DESC', 'Go back to homepage');\ndefine('_MI_CONTACT_MENU_CONTACT', 'Messages');\ndefine('_MI_CONTACT_MENU_CONTACT_DESC', 'List of messages');\ndefine('_MI_CONTACT_MENU_TOOLS', 'Purge');\ndefine('_MI_CONTACT_MENU_TOOLS_DESC', 'Purge Tools');\ndefine('_MI_CONTACT_MENU_LOGS', 'Logs');\ndefine('_MI_CONTACT_MENU_LOGS_DESC', 'Get Logs');\ndefine('_MI_CONTACT_MENU_ABOUT', 'About');\ndefine('_MI_CONTACT_MENU_ABOUT_DESC', 'About this module');\ndefine('_MI_CONTACT_MENU_HELP', 'Help');\ndefine('_MI_CONTACT_MENU_HELP_DESC', 'Module help');\n// Module Settings\ndefine('_MI_CONTACT_FORM_URL', 'Get URL');\ndefine('_MI_CONTACT_FORM_URL_DESC', '');\ndefine('_MI_CONTACT_FORM_ICQ', 'Get ICQ');\ndefine('_MI_CONTACT_FORM_ICQ_DESC', '');\ndefine('_MI_CONTACT_FORM_COMPANY', 'Get Company');\ndefine('_MI_CONTACT_FORM_COMPANY_DESC', '');\ndefine('_MI_CONTACT_FORM_LOCATION', 'Get Location');\ndefine('_MI_CONTACT_FORM_LOCATION_DESC', '');\ndefine('_MI_CONTACT_FORM_PHONE', 'Get Phone');\ndefine('_MI_CONTACT_FORM_PHONE_DESC', '');\ndefine('_MI_CONTACT_FORM_ADDRESS', 'Get Address');\ndefine('_MI_CONTACT_FORM_ADDRESS_DESC', '');\ndefine('_MI_CONTACT_FORM_DEPT', 'Show select Departments');\ndefine('_MI_CONTACT_FORM_DEPT_DESC', '');\ndefine('_MI_CONTACT_DEPT', 'Departments/Receipients');\ndefine('_MI_CONTACT_DEPT_DESC', 'Departments allow you to define a department/email combination.<br>'\n                                . 'Users selecting from a defined department will have their contact information sent to the corresponding email address you define.<br><br>'\n                                . 'Define each department/email as follows:<br><br>'\n                                . 'dept1,email1|dept2,email2|dept3,email3 etc. - each department and email must be separated<br>'\n                                . \"by a comma ',', and each department email combination must be separated by a pipe '|'<br><br>\"\n                                . 'If no department/recipient is defined, than the mail will be sent to standard e-mail-address.');\ndefine('_MI_CONTACT_PERPAGE', 'Messages per page');\ndefine('_MI_CONTACT_PERPAGE_DESC', '');\ndefine('_MI_CONTACT_TOPINFO', 'Header contact form');\ndefine('_MI_CONTACT_TOPINFO_DESC', 'Set HTML codes to show in contact page');\ndefine('_MI_CONTACT_HEAD_OPTIONS', 'Form Options');\ndefine('_MI_CONTACT_HEAD_ADMIN', 'Admin setting');\ndefine('_MI_CONTACT_HEAD_INFO', 'Information');\n//1.81\ndefine('_MI_CONTACT_MAP', 'Embed google maps');\ndefine('_MI_CONTACT_MAP_DESC', \"Embed Google Maps iframe <br> change iframe width to '100%'\");\n//2.1\ndefine('_MI_CONTACT_FORM_SKYPE', 'Get Skype');\ndefine('_MI_CONTACT_FORM_SKYPE_DESC', '');\n\ndefine('_MI_CONTACT_SUBJECT_PREFIX', 'Add Department as Prefix?');\ndefine('_MI_CONTACT_SUBJECT_PREFIX_DESC', 'If yes, the name of the Department will be used as Prefix for the email Subject');\ndefine('_MI_CONTACT_PREFIX_TEXT', \"Additional Email's Subject Prefix\");\ndefine('_MI_CONTACT_PREFIX_TEXT_DESC', \"This text will be included before the Department in the email's subject prefix\");\ndefine('_MI_CONTACT_PREFIX_TEXT_DEFAULT', 'Contact');\n//2.21\ndefine('_MI_CONTACT_HEAD_CAPTCHA', 'Options for Captcha');\ndefine('_MI_CONTACT_FORM_RECAPTCHA_USE', 'Use Google reCaptcha?');\ndefine('_MI_CONTACT_FORM_RECAPTCHA_USE_DESC', 'Select <em>Yes</em> to use Google reCaptcha in the submit form.<br>Default: <em>No</em>');\ndefine('_MI_CONTACT_FORM_RECAPTCHA_KEY', 'Your reCaptcha website key');\ndefine('_MI_CONTACT_FORM_RECAPTCHA_KEY_DESC', \"More info: <a href='https://www.google.com/recaptcha' target='_blank'>Google reCaptcha</a> under 'Resources'.<br>For localhost testing only you can use this key: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI\");\ndefine('_MI_CONTACT_HEAD_DEPT', 'Options for usage of departments/recipients');\ndefine('_MI_CONTACT_HEAD_MISC', 'Misc options');\ndefine('_MI_CONTACT_MAIL_CONFIRM', 'Send confirmation email?');\ndefine('_MI_CONTACT_MAIL_CONFIRM_DESC', 'If yes, a short confirmation email with the basic information will be sent to given email-address.');\ndefine('_MI_CONTACT_RECIPIENT_STD', 'Standard recipient');\ndefine('_MI_CONTACT_RECIPIENT_STD_DESC', 'Each contact request will be sent to this e-mail-address');\n\n//2.23\ndefine('_MI_B_CONTACT_FORM', 'Contact form');\ndefine('_MI_B_CONTACT_FORM_DESC', 'Show contact form as XOOPS block');\ndefine('_MI_B_CONTACT_MAP', 'Location');\ndefine('_MI_B_CONTACT_MAP_DESC', 'Show defined location in Google Maps as XOOPS block');\ndefine('_MI_B_CONTACT_FORM_MAP', 'Contact form and location');\ndefine('_MI_B_CONTACT_FORM_MAP_DESC', 'Show contact form together with defined location in Google Maps as block');\n\ndefine('_MI_CONTACT_DEFAULT', 'Default contact info');\ndefine('_MI_CONTACT_DEFAULT_DESC', 'Here you can define additional information, which should be shown beside contact form (e.g name, address , phone number,...');\n"
+    tra_mimetype: text/plain
+    tra_proofread: '0'
+    tra_proofread_percentage: '0'
+    tra_reviewed_percentage: '0'
+    tra_completed: '100'
+    tra_untranslated_words: '0'
+    tra_last_commiter: '0'
+    tra_reviewed: '0'
+    tra_translated_entities: '55'
+    tra_translated_words: '250'
+    tra_untranslated_entities: '0'
+    tra_last_update: '1506173458'
+    tra_local: modinfo.php
+    tra_status: '4'
+    tra_date: '1593461097'
+    tra_submitter: '1'

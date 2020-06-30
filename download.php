@@ -34,14 +34,14 @@ switch ($op) {
         $package     = $packagesObj->getValuesPackages();
         $file        = $package['pkg_zip'];
         if ('' === $file) {
-            redirect_header('packages.php?op=list&amp;pkg_id=' . $pkgId, 3, _MA_WGTRANSIFEX_DOWNLOAD_ERR_NOFILE);
+            redirect_header('packages.php?op=list&amp;pkg_id=' . $pkgId, 3, \_MA_WGTRANSIFEX_DOWNLOAD_ERR_NOFILE);
         }
-        $fp = fopen($file, 'rb');
-        header('Content-type: application/zip');
-        header('Content-Length: ' . filesize($file));
-        header('Content-Disposition: attachment; filename=' . basename($file));
-        header('Content-Transfer-Encoding: binary');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        fpassthru($fp);
+        $fp = \fopen($file, 'rb');
+        \header('Content-type: application/zip');
+        \header('Content-Length: ' . filesize($file));
+        \header('Content-Disposition: attachment; filename=' . basename($file));
+        \header('Content-Transfer-Encoding: binary');
+        \header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        \fpassthru($fp);
         break;
 }

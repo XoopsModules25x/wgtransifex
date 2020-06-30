@@ -44,9 +44,9 @@ function b_wgtransifex_packages_show($options)
 	$helper           = Helper::getInstance();
 	$packagesHandler  = $helper->getHandler('Packages');
     $languagesHandler = $helper->getHandler('Languages');
-	array_shift($options);
-	array_shift($options);
-	array_shift($options);
+	\array_shift($options);
+	\array_shift($options);
+	\array_shift($options);
 
     $crPackages = new \CriteriaCompo();
 	switch($typeBlock) {
@@ -58,8 +58,8 @@ function b_wgtransifex_packages_show($options)
 		break;
 		case 'new':
 			// For the block: packages new
-			$crPackages->add( new \Criteria( 'pkg_date', strtotime(date(\_SHORTDATESTRING)), '>=' ) );
-			$crPackages->add( new \Criteria( 'pkg_date', strtotime(date(\_SHORTDATESTRING))+86400, '<=' ) );
+			$crPackages->add( new \Criteria( 'pkg_date', \strtotime(date(\_SHORTDATESTRING)), '>=' ) );
+			$crPackages->add( new \Criteria( 'pkg_date', \strtotime(date(\_SHORTDATESTRING))+86400, '<=' ) );
 			$crPackages->setSort( 'pkg_date' );
 			$crPackages->setOrder( 'ASC' );
 		break;
@@ -70,13 +70,13 @@ function b_wgtransifex_packages_show($options)
 		break;
 		case 'top':
 			// For the block: packages top
-			$crPackages->add( new \Criteria( 'pkg_date', strtotime(date(\_SHORTDATESTRING))+86400, '<=' ) );
+			$crPackages->add( new \Criteria( 'pkg_date', \strtotime(date(\_SHORTDATESTRING))+86400, '<=' ) );
 			$crPackages->setSort( 'pkg_top' );
 			$crPackages->setOrder( 'ASC' );
 		break;
 		case 'random':
 			// For the block: packages random
-			$crPackages->add( new \Criteria( 'pkg_date', strtotime(date(\_SHORTDATESTRING))+86400, '<=' ) );
+			$crPackages->add( new \Criteria( 'pkg_date', \strtotime(date(\_SHORTDATESTRING))+86400, '<=' ) );
 			$crPackages->setSort( 'RAND()' );
 		break;
 	}
@@ -84,8 +84,8 @@ function b_wgtransifex_packages_show($options)
 	$crPackages->setLimit( $limit );
 	$packagesAll = $packagesHandler->getAll($crPackages);
 	unset($crPackages);
-	if (count($packagesAll) > 0) {
-		foreach(array_keys($packagesAll) as $i) {
+	if (\count($packagesAll) > 0) {
+		foreach(\array_keys($packagesAll) as $i) {
 			$block[$i]['name']      = $myts->htmlSpecialChars($packagesAll[$i]->getVar('pkg_name'));
             $languagesObj           = $languagesHandler->get($packagesAll[$i]->getVar('pkg_lang_id'));
 			$block[$i]['lang_flag'] = $languagesObj->getVar('lang_flag');
@@ -112,9 +112,9 @@ function b_wgtransifex_packages_edit($options)
 	$form .= "<input type='hidden' name='options[0]' value='".$options[0]."' />";
 	$form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
 	$form .= \_MB_WGTRANSIFEX_TITLE_LENGTH . " : <input type='text' name='options[2]' size='5' maxlength='255' value='" . $options[2] . "' /><br><br>";
-	array_shift($options);
-	array_shift($options);
-	array_shift($options);
+	\array_shift($options);
+	\array_shift($options);
+	\array_shift($options);
 
 	$crPackages = new \CriteriaCompo();
 	$crPackages->add( new \Criteria( 'pkg_id', 0, '!=' ) );
@@ -124,7 +124,7 @@ function b_wgtransifex_packages_edit($options)
 	unset($crPackages);
 	$form .= \_MB_WGTRANSIFEX_PACKAGES_TO_DISPLAY . "<br><select name='options[]' multiple='multiple' size='5'>";
 	$form .= "<option value='0' " . (in_array(0, $options) == false ? '' : "selected='selected'") . '>' . \_MB_WGTRANSIFEX_ALL_PACKAGES . '</option>';
-	foreach(array_keys($packagesAll) as $i) {
+	foreach(\array_keys($packagesAll) as $i) {
 		$pkg_id = $packagesAll[$i]->getVar('pkg_id');
 		$form .= "<option value='" . $pkg_id . "' " . (in_array($pkg_id, $options) == false ? '' : "selected='selected'") . '>' . $packagesAll[$i]->getVar('pkg_name') . '</option>';
 	}

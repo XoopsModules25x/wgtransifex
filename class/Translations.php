@@ -92,7 +92,10 @@ class Translations extends \XoopsObject
      */
     public function getFormTranslations($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $projectsHandler  = $helper->getHandler('Projects');
+        $resourcesHandler = $helper->getHandler('Resources');
+        $languagesHandler = $helper->getHandler('Languages');
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -103,19 +106,20 @@ class Translations extends \XoopsObject
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         // Form Table projects
-        $projectsHandler = $helper->getHandler('Projects');
         $traPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_PRO_ID, 'tra_pro_id', $this->getVar('tra_pro_id'));
         $traPro_idSelect->addOptionArray($projectsHandler->getList());
         $form->addElement($traPro_idSelect, true);
         // Form Table resources
-        $resourcesHandler = $helper->getHandler('Resources');
         $traRes_idSelect  = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_RES_ID, 'tra_res_id', $this->getVar('tra_res_id'));
         $traRes_idSelect->addOptionArray($resourcesHandler->getList());
         $form->addElement($traRes_idSelect, true);
         // Form Table languages
-        $languagesHandler = $helper->getHandler('Languages');
-        $traLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'tra_lang_id', $this->getVar('tra_lang_id'));
-        $traLang_idSelect->addOptionArray($languagesHandler->getList());
+        $langId = $this->isNew() ? $languagesHandler->getPrimaryLang() : $this->getVar('tra_lang_id');
+        $traLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'tra_lang_id', $langId);
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->add(new \Criteria('lang_online', 1));
+        $crLanguages->setSort('lang_name');
+        $traLang_idSelect->addOptionArray($languagesHandler->getList($crLanguages));
         $form->addElement($traLang_idSelect);
         // Form Editor TextArea traContent
         $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_TRANSLATION_CONTENT, 'tra_content', $this->getVar('tra_content', 'e'), 20, 47));

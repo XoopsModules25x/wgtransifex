@@ -60,12 +60,16 @@ class TransifexLib
     /**
      * TransifexLib::getProject()
      *
-     * @param $project
+     * @param      $project
+     * @param bool $details
      * @return array
      */
-    public function getProject($project)
+    public function getProject($project, $details = false)
     {
-        $url = static::BASE_URL . 'project/' . $project . '/?details';
+        $url = static::BASE_URL . 'project/' . $project . '/';
+        if ($details) {
+            $url .= '?details';
+        }
         return $this->_get($url);
     }
 
@@ -311,8 +315,15 @@ class TransifexLib
         }
         \curl_close($ch);
         if ($error) {
-            echo $url;
+            //echo $url;
+            //catch common errors
             switch ((int)$info['http_code']) {
+                case 401:
+                    throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_401 . '"');
+                    break;
+                case 403:
+                    throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_403 . '"');
+                    break;
                 case 404:
                     throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_404 . '"');
                     break;

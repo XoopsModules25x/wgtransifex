@@ -17,6 +17,9 @@ CREATE TABLE `wgtransifex_projects` (
     `pro_source_language_code` VARCHAR(255)    NOT NULL DEFAULT '',
     `pro_slug`                 VARCHAR(255)    NOT NULL DEFAULT '',
     `pro_name`                 VARCHAR(255)    NOT NULL DEFAULT '',
+    `pro_txresources`          INT(10)         NOT NULL DEFAULT '0',
+    `pro_last_updated`         INT(10)         NOT NULL DEFAULT '0',
+    `pro_teams`                TEXT            NOT NULL,
     `pro_resources`            INT(10)         NOT NULL DEFAULT '0',
     `pro_translations`         INT(10)         NOT NULL DEFAULT '0',
     `pro_date`                 INT(11)         NOT NULL DEFAULT '0',
@@ -106,6 +109,8 @@ CREATE TABLE `wgtransifex_languages` (
     `lang_iso_639_1` VARCHAR(2)      NOT NULL DEFAULT '',
     `lang_iso_639_2` VARCHAR(3)      NOT NULL DEFAULT '',
     `lang_flag`      VARCHAR(255)    NOT NULL DEFAULT '',
+    `lang_primary`   INT(1)         NOT NULL DEFAULT '0',
+    `lang_online`    INT(1)         NOT NULL DEFAULT '0',
     `lang_date`      INT(11)         NOT NULL DEFAULT '0',
     `lang_submitter` INT(10)         NOT NULL DEFAULT '0',
     PRIMARY KEY (`lang_id`)

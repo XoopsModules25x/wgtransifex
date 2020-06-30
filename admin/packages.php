@@ -39,7 +39,7 @@ switch ($op) {
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wgtransifex_admin_packages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $packagesCount = $packagesHandler->getCountPackages();
         $packagesAll = $packagesHandler->getAllPackages($start, $limit);
@@ -49,52 +49,39 @@ switch ($op) {
         // Table view packages
         if ($packagesCount > 0) {
             $countOutdated = 0;
-
-            foreach (array_keys($packagesAll) as $i) {
+            foreach (\array_keys($packagesAll) as $i) {
                 $package = $packagesAll[$i]->getValuesPackages();
-
                 $crTranslations = new \CriteriaCompo();
-
                 $crTranslations->add(new \Criteria('tra_pro_id', $packagesAll[$i]->getVar('pkg_pro_id')));
-
                 $crTranslations->add(new \Criteria('tra_lang_id', $packagesAll[$i]->getVar('pkg_lang_id')));
-
                 $translationsCount = $translationsHandler->getCount($crTranslations);
-
                 if ($translationsCount > 0) {
                     $translationsAll = $translationsHandler->getAll($crTranslations);
-
-                    foreach (array_keys($translationsAll) as $t) {
+                    foreach (\array_keys($translationsAll) as $t) {
                         if ($packagesAll[$i]->getVar('pkg_date') < $translationsAll[$t]->getVar('tra_last_update')) {
                             $countOutdated++;
                         }
                     }
                 }
-
                 $package['outdated'] = ($countOutdated > 0);
-
                 $GLOBALS['xoopsTpl']->append('packages_list', $package);
-
                 unset($package);
             }
 
             // Display Navigation
-
             if ($packagesCount > $limit) {
                 include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_WGTRANSIFEX_THEREARENT_PACKAGES);
+            $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_PACKAGES);
         }
         break;
     case 'new':
         $templateMain = 'wgtransifex_admin_packages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_PACKAGES_LIST, 'packages.php', 'list');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_PACKAGES_LIST, 'packages.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $packagesObj = $packagesHandler->create();
@@ -104,7 +91,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('packages.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header('packages.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $pkgName = Request::getString('pkg_name');
         $pkgProId = Request::getInt('pkg_pro_id', 0);
@@ -135,41 +122,31 @@ switch ($op) {
         $translationsCount = $translationsHandler->getCount($crTranslations);
         if ($translationsCount > 0) {
             $crTranslations->setSort('tra_local');
-
             $crTranslations->setOrder('ASC');
-
             $translationsAll = $translationsHandler->getAll($crTranslations);
-
-            foreach (array_keys($translationsAll) as $i) {
+            foreach (\array_keys($translationsAll) as $i) {
                 $dst_path = $pkg_path;
-
                 $files = explode('/', $translationsAll[$i]->getVar('tra_local'));
-
-                foreach (array_keys($files) as $f) {
-                    if (array_key_last($files) == $f) {
+                foreach (\array_keys($files) as $f) {
+                    if (\array_key_last($files) == $f) {
                         $content = $translationsAll[$i]->getVar('tra_content', 'n');
-
                         $dst_file = $dst_path . '/' . $files[$f];
-
-                        unlink($dst_file);
-
-                        file_put_contents($dst_file, $content);
+                        \unlink($dst_file);
+                        \file_put_contents($dst_file, $content);
                     } else {
                         $dst_path .= '/' . $files[$f];
-
                         @mkdir($dst_path);
                     }
                 }
             }
         } else {
-            redirect_header('packages.php?op=list', 5, _AM_WGTRANSIFEX_PACKAGE_ERROR_NODATA);
+            redirect_header('packages.php?op=list', 5, \_AM_WGTRANSIFEX_PACKAGE_ERROR_NODATA);
         }
 
         $zipcreate = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $pkgName . '_' . $langFolder . '.zip';
-        unlink($zipcreate);
+        \unlink($zipcreate);
         if (1 == Request::getInt('pkg_zipfile', 0)) {
             $pkg_path = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $langFolder;
-
             zip_files($pkg_path, $zipcreate);
         }
 
@@ -198,13 +175,8 @@ switch ($op) {
             null
         );
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-            //$uploader->setPrefix(lang_flag_);
-
-            //$uploader->fetchMedia($_POST['xoops_upload_file'][0]);
-
             if (!$uploader->upload()) {
                 $errors = $uploader->getErrors();
-
                 redirect_header('javascript:history.go(-1).php', 3, $errors);
             } else {
                 $packagesObj->setVar('pkg_logo', $uploader->getSavedFileName());
@@ -214,7 +186,7 @@ switch ($op) {
         }
         // Insert Data
         if ($packagesHandler->insert($packagesObj)) {
-            redirect_header('packages.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
+            redirect_header('packages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $packagesObj->getHtmlErrors());
@@ -224,8 +196,8 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wgtransifex_admin_packages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_PACKAGES_LIST, 'packages.php', 'list');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_PACKAGES_LIST, 'packages.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $packagesObj = $packagesHandler->get($pkgId);
@@ -239,11 +211,11 @@ switch ($op) {
         $pkgName = $packagesObj->getVar('pkg_name');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('packages.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                redirect_header('packages.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
 
             if ($packagesHandler->delete($packagesObj)) {
-                redirect_header('packages.php', 3, _AM_WGTRANSIFEX_FORM_DELETE_OK);
+                redirect_header('packages.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $packagesObj->getHtmlErrors());
             }
@@ -251,11 +223,9 @@ switch ($op) {
             $xoopsconfirm = new Common\XoopsConfirm(
                 ['ok' => 1, 'pkg_id' => $pkgId, 'op' => 'delete'],
                 $_SERVER['REQUEST_URI'],
-                sprintf(_AM_WGTRANSIFEX_FORM_SURE_DELETE, $packagesObj->getVar('pkg_name'))
+                \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $packagesObj->getVar('pkg_name'))
             );
-
             $form = $xoopsconfirm->getFormXoopsConfirm();
-
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
@@ -269,27 +239,22 @@ require __DIR__ . '/footer.php';
 function clearDir($dir, $pattern = '*')
 {
     // Find all files and folders matching pattern
-
-    $files = glob($dir . "/$pattern");
+    $files = \glob($dir . "/$pattern");
 
     // Interate thorugh the files and folders
-
     foreach ($files as $file) {
         // if it's a directory then re-call clearDir function to delete files inside this directory
-
-        if (is_dir($file) && !in_array($file, ['..', '.'])) {
+        if (\is_dir($file) && !\in_array($file, ['..', '.'])) {
             // Remove the directory itself
-
             clearDir($file, $pattern);
         } elseif ((__FILE__ != $file) && is_file($file)) {
             // Make sure you don't delete the current script
-
-            unlink($file);
+            \unlink($file);
         }
     }
 
-    if (is_dir($dir)) {
-        rmdir($dir);
+    if (\is_dir($dir)) {
+        \rmdir($dir);
     }
 }
 
@@ -304,25 +269,20 @@ function zip_files($source, $destination)
     $zip = new ZipArchive();
 
     if (true === $zip->open($destination, ZipArchive::CREATE)) {
-        $source = realpath($source);
-
-        if (is_dir($source)) {
+        $source = \realpath($source);
+        if (\is_dir($source)) {
             $iterator = new RecursiveDirectoryIterator($source);
-
             $iterator->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
-
             $files = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
-
             foreach ($files as $file) {
-                $file = realpath($file);
-
+                $file = \realpath($file);
                 if (is_dir($file)) {
-                    $zip->addEmptyDir(str_replace($source . DIRECTORY_SEPARATOR, '', $file . DIRECTORY_SEPARATOR));
-                } elseif (is_file($file)) {
-                    $zip->addFile($file, str_replace($source . DIRECTORY_SEPARATOR, '', $file));
+                    $zip->addEmptyDir(\str_replace($source . DIRECTORY_SEPARATOR, '', $file . DIRECTORY_SEPARATOR));
+                } elseif (\is_file($file)) {
+                    $zip->addFile($file, \str_replace($source . DIRECTORY_SEPARATOR, '', $file));
                 }
             }
-        } elseif (is_file($source)) {
+        } elseif (\is_file($source)) {
             $zip->addFile($source, basename($source));
         }
     }

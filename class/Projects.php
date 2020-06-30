@@ -44,6 +44,9 @@ class Projects extends \XoopsObject
         $this->initVar('pro_source_language_code', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('pro_slug', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('pro_name', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('pro_txresources', \XOBJ_DTYPE_INT);
+        $this->initVar('pro_last_updated', \XOBJ_DTYPE_INT);
+        $this->initVar('pro_teams', \XOBJ_DTYPE_TXTAREA);
         $this->initVar('pro_resources', \XOBJ_DTYPE_INT);
         $this->initVar('pro_translations', \XOBJ_DTYPE_INT);
         $this->initVar('pro_date', \XOBJ_DTYPE_INT);
@@ -98,6 +101,13 @@ class Projects extends \XoopsObject
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_PROJECT_SLUG, 'pro_slug', 50, 255, $this->getVar('pro_slug')));
         // Form Text proName
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_PROJECT_NAME, 'pro_name', 50, 255, $this->getVar('pro_name')));
+        // Form Text proTxresources
+        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_PROJECT_TXRESOURCES, 'pro_txresources', 50, 255, $this->getVar('pro_txresources')));
+        // Form Text Date Select proLastupdated
+        $proLastupdated = $this->isNew() ? 0 : $this->getVar('pro_last_updated');
+        $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PROJECT_LAST_UPDATED, 'pro_last_updated', '', $proLastupdated));
+        // Form Text proTeams
+        $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_PROJECT_TEAMS, 'pro_teams', $this->getVar('pro_teams', 'e'), 4, 47) );
         // Form Select Status proStatus
         $proStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PROJECT_STATUS, 'pro_status', $this->getVar('pro_status'));
         $proStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
@@ -130,18 +140,36 @@ class Projects extends \XoopsObject
      */
     public function getValuesProjects($keys = null, $format = null, $maxDepth = null)
     {
+        $utility = new \XoopsModules\Wgtransifex\Utility();
         $ret                         = $this->getValues($keys, $format, $maxDepth);
         $ret['id']                   = $this->getVar('pro_id');
         $ret['description']          = $this->getVar('pro_description');
         $ret['source_language_code'] = $this->getVar('pro_source_language_code');
         $ret['slug']                 = $this->getVar('pro_slug');
         $ret['name']                 = $this->getVar('pro_name');
-        $ret['resources']            = $this->getVar('pro_resources');
-        $ret['translations']         = $this->getVar('pro_translations');
-        $ret['date']                 = \formatTimestamp($this->getVar('pro_date'), 'm');
-        $ret['submitter']            = \XoopsUser::getUnameFromId($this->getVar('pro_submitter'));
-        $status                      = $this->getVar('pro_status');
-        $ret['status']               = $status;
+        $ret['txresources']          = $this->getVar('pro_txresources');
+        $ret['last_updated']         = \formatTimestamp($this->getVar('pro_last_updated'), 'm');
+        $teams       = '';
+        $teams_short = '';
+        $key         = 0;
+        $teams_arr   = \json_decode(html_entity_decode($this->getVar('pro_teams')), true);
+        foreach ($teams_arr as $key => $value) {
+            $teams .= $value . '<br>';
+            if ($key < 4) {
+                $teams_short .= $value . '<br>';
+            }
+        }
+        if ($key > 3) {
+            $teams_short .= '...';
+        }
+        $ret['teams']        = $teams;
+        $ret['teams_short']  = $teams_short;
+        $ret['resources']    = $this->getVar('pro_resources');
+        $ret['translations'] = $this->getVar('pro_translations');
+        $ret['date']         = \formatTimestamp($this->getVar('pro_date'), 'm');
+        $ret['submitter']    = \XoopsUser::getUnameFromId($this->getVar('pro_submitter'));
+        $status              = $this->getVar('pro_status');
+        $ret['status']       = $status;
         switch ($status) {
             case Constants::STATUS_NONE:
             default:

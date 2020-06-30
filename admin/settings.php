@@ -38,7 +38,7 @@ switch ($op) {
         $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wgtransifex_admin_settings.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('settings.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_SETTING, 'settings.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_SETTING, 'settings.php?op=new', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $settingsCount = $settingsHandler->getCountSettings();
         $settingsAll   = $settingsHandler->getAllSettings($start, $limit);
@@ -47,7 +47,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
         // Table view settings
         if ($settingsCount > 0) {
-            foreach (array_keys($settingsAll) as $i) {
+            foreach (\array_keys($settingsAll) as $i) {
                 $setting = $settingsAll[$i]->getValuesSettings();
                 $GLOBALS['xoopsTpl']->append('settings_list', $setting);
                 unset($setting);
@@ -59,13 +59,13 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_WGTRANSIFEX_THEREARENT_SETTINGS);
+            $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_SETTINGS);
         }
         break;
     case 'new':
         $templateMain = 'wgtransifex_admin_settings.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('settings.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_SETTINGS_LIST, 'settings.php', 'list');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_SETTINGS_LIST, 'settings.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $settingsObj = $settingsHandler->create();
@@ -75,7 +75,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('settings.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header('settings.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if ($setId > 0) {
             $settingsObj = $settingsHandler->get($setId);
@@ -86,13 +86,13 @@ switch ($op) {
         $settingsObj->setVar('set_username', Request::getString('set_username', ''));
         $settingsObj->setVar('set_password', Request::getString('set_password', ''));
         $settingsObj->setVar('set_options', Request::getString('set_options', ''));
-        $settingDate = date_create_from_format(_SHORTDATESTRING, Request::getString('set_date'));
+        $settingDate = \date_create_from_format(_SHORTDATESTRING, Request::getString('set_date'));
         $settingsObj->setVar('set_date', $settingDate->getTimestamp());
         $settingsObj->setVar('set_submitter', Request::getInt('set_submitter', 0));
         $settingsObj->setVar('set_primary', Request::getInt('set_primary', 0));
         // Insert Data
         if ($settingsHandler->insert($settingsObj)) {
-            redirect_header('settings.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
+            redirect_header('settings.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $settingsObj->getHtmlErrors());
@@ -102,8 +102,8 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wgtransifex_admin_settings.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('settings.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_SETTING, 'settings.php?op=new', 'add');
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_SETTINGS_LIST, 'settings.php', 'list');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_SETTING, 'settings.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_SETTINGS_LIST, 'settings.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $settingsObj = $settingsHandler->get($setId);
@@ -117,16 +117,16 @@ switch ($op) {
         $setUsername = $settingsObj->getVar('set_username');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('settings.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                redirect_header('settings.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($settingsHandler->delete($settingsObj)) {
-                redirect_header('settings.php', 3, _AM_WGTRANSIFEX_FORM_DELETE_OK);
+                redirect_header('settings.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $settingsObj->getHtmlErrors());
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'set_id' => $setId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_WGTRANSIFEX_FORM_SURE_DELETE, $settingsObj->getVar('set_username'))
+                ['ok' => 1, 'set_id' => $setId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $settingsObj->getVar('set_username'))
             );
             $form         = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());

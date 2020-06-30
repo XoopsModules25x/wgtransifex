@@ -19,7 +19,7 @@
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
-if (count($xoBreadcrumbs) > 1) {
+if (\count($xoBreadcrumbs) > 1) {
     $GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
 }
 $GLOBALS['xoopsTpl']->assign('adv', $helper->getConfig('advertise'));

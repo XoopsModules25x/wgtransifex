@@ -81,7 +81,10 @@ class Packages extends \XoopsObject
      */
     public function getFormPackages($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $projectsHandler  = $helper->getHandler('Projects');
+        $resourcesHandler = $helper->getHandler('Resources');
+        $languagesHandler = $helper->getHandler('Languages');
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -110,8 +113,6 @@ class Packages extends \XoopsObject
         $editorConfigs['editor'] = $editor;
         $form->addElement(new \XoopsFormEditor(\_AM_WGTRANSIFEX_PACKAGE_DESC, 'pkg_desc', $editorConfigs));
         // Form Table projects
-        $projectsHandler  = $helper->getHandler('Projects');
-        $resourcesHandler = $helper->getHandler('Resources');
         $pkgPro_idSelect  = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_PRO_ID, 'pkg_pro_id', $this->getVar('pkg_pro_id'));
         $projectsCount    = $projectsHandler->getCountProjects();
         if ($projectsCount > 0) {
@@ -129,9 +130,12 @@ class Packages extends \XoopsObject
         }
         $form->addElement($pkgPro_idSelect, true);
         // Form Table languages
-        $languagesHandler = $helper->getHandler('Languages');
-        $pkgLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_LANG_ID, 'pkg_lang_id', $this->getVar('pkg_lang_id'));
-        $pkgLang_idSelect->addOptionArray($languagesHandler->getList());
+        $langId = $this->isNew() ? $languagesHandler->getPrimaryLang() : $this->getVar('pkg_lang_id');
+        $pkgLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_LANG_ID, 'pkg_lang_id', $langId);
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->add(new \Criteria('lang_online', 1));
+        $crLanguages->setSort('lang_name');
+        $pkgLang_idSelect->addOptionArray($languagesHandler->getList($crLanguages));
         $form->addElement($pkgLang_idSelect, true);
         $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_PACKAGE_ZIPFILE, 'pkg_zipfile', 1), true);
         if (!$this->isNew()) {

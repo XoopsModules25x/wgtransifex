@@ -19,12 +19,12 @@
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+include \dirname(\dirname(__DIR__)) . '/mainfile.php';
 include __DIR__ . '/include/common.php';
-$moduleDirName = basename(__DIR__);
+$moduleDirName = \basename(__DIR__);
 // Breadcrumbs
 $xoBreadcrumbs   = [];
-$xoBreadcrumbs[] = ['title' => _MA_WGTRANSIFEX_TITLE, 'link' => WGTRANSIFEX_URL . '/'];
+$xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_TITLE, 'link' => WGTRANSIFEX_URL . '/'];
 // Get instance of module
 $helper              = \XoopsModules\Wgtransifex\Helper::getInstance();
 $projectsHandler     = $helper->getHandler('Projects');
@@ -43,5 +43,5 @@ $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
 $modPathIcon16   = $GLOBALS['xoopsModule']->getInfo('modicons16');
 $modPathIcon32   = $GLOBALS['xoopsModule']->getInfo('modicons16');
 // Load Languages
-xoops_loadLanguage('main');
-xoops_loadLanguage('modinfo');
+\xoops_loadLanguage('main');
+\xoops_loadLanguage('modinfo');
