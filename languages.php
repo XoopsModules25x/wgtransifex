@@ -29,9 +29,9 @@ require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_languages.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 
-$op    = Request::getCmd('op', 'list');
-$start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $helper->getConfig('userpager'));
+$op     = Request::getCmd('op', 'list');
+$start  = Request::getInt('start', 0);
+$limit  = Request::getInt('limit', $helper->getConfig('userpager'));
 $langId = Request::getInt('lang_id', 0);
 
 // Define Stylesheet
@@ -40,10 +40,9 @@ $GLOBALS['xoTheme']->addStylesheet($style, null);
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
 $GLOBALS['xoopsTpl']->assign('modPathIconFlags', WGTRANSIFEX_IMAGE_URL . '/flags/');
+$GLOBALS['xoopsTpl']->assign('showItem', $langId > 0);
 
 $keywords = [];
-
-$GLOBALS['xoopsTpl']->assign('showItem', $langId > 0);
 
 switch ($op) {
 	case 'show':
@@ -62,7 +61,7 @@ switch ($op) {
 		if ($languagesCount > 0) {
 			$languages = [];
 			// Get All Languages
-			foreach (array_keys($languagesAll) as $i) {
+			foreach (\array_keys($languagesAll) as $i) {
 				$languages[$i] = $languagesAll[$i]->getValuesLanguages();
 				$keywords[$i] = $languagesAll[$i]->getVar('lang_name');
 			}
@@ -82,14 +81,14 @@ switch ($op) {
 }
 
 // Breadcrumbs
-$xoBreadcrumbs[] = ['title' => _MA_WGTRANSIFEX_LANGUAGES];
+$xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_LANGUAGES];
 
 // Keywords
 wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $keywords));
 unset($keywords);
 
 // Description
-wgtransifexMetaDescription(_MA_WGTRANSIFEX_LANGUAGES);
+wgtransifexMetaDescription(\_MA_WGTRANSIFEX_LANGUAGES);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL.'/languages.php');
 $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
 

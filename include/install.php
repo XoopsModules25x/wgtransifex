@@ -29,7 +29,7 @@ use XoopsModules\Wgtransifex\Common;
  */
 function xoops_module_pre_install_wgtransifex(\XoopsModule $module)
 {
-    require dirname(__DIR__) . '/preloads/autoloader.php';
+    require \dirname(__DIR__) . '/preloads/autoloader.php';
     /** @var Wgtransifex\Utility $utility */
     $utility = new Wgtransifex\Utility();
     //check for minimum XOOPS version
@@ -63,20 +63,20 @@ function xoops_module_install_wgtransifex(\XoopsModule $module)
     $helper->loadLanguage('common');
     //  ---  CREATE FOLDERS ---------------
     if ($configurator->uploadFolders && is_array($configurator->uploadFolders)) {
-        //    foreach (array_keys($GLOBALS['uploadFolders']) as $i) {
-        foreach (array_keys($configurator->uploadFolders) as $i) {
+        //    foreach (\array_keys($GLOBALS['uploadFolders']) as $i) {
+        foreach (\array_keys($configurator->uploadFolders) as $i) {
             $utility::createFolder($configurator->uploadFolders[$i]);
         }
     }
     //  ---  COPY blank.gif FILES ---------------
     if ($configurator->copyBlankFiles && is_array($configurator->copyBlankFiles)) {
         $file = dirname(__DIR__) . '/assets/images/blank.gif';
-        foreach (array_keys($configurator->copyBlankFiles) as $i) {
+        foreach (\array_keys($configurator->copyBlankFiles) as $i) {
             $dest = $configurator->copyBlankFiles[$i] . '/blank.gif';
             $utility::copyFile($file, $dest);
         }
         $file = dirname(__DIR__) . '/assets/images/blank.png';
-        foreach (array_keys($configurator->copyBlankFiles) as $i) {
+        foreach (\array_keys($configurator->copyBlankFiles) as $i) {
             $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
             $utility::copyFile($file, $dest);
         }

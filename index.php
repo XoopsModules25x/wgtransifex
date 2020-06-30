@@ -41,10 +41,10 @@ if ($packagesCount > 0) {
     $packagesAll = $packagesHandler->getAllPackages($start, $limit, 'pkg_date', 'DESC');
     // Get All Packages
     $packages = [];
-    foreach (array_keys($packagesAll) as $i) {
+    foreach (\array_keys($packagesAll) as $i) {
         $package    = $packagesAll[$i]->getValuesPackages();
         $acount     = ['count', $count];
-        $packages[] = array_merge($package, $acount);
+        $packages[] = \array_merge($package, $acount);
         $keywords[] = $packagesAll[$i]->getVar('pkg_name');
         ++$count;
     }
@@ -56,19 +56,19 @@ if ($packagesCount > 0) {
         $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
         $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
     }
-    $GLOBALS['xoopsTpl']->assign('lang_thereare', sprintf(_MA_WGTRANSIFEX_INDEX_THEREARE, $packagesCount));
+    $GLOBALS['xoopsTpl']->assign('lang_thereare', \sprintf(\_MA_WGTRANSIFEX_INDEX_THEREARE, $packagesCount));
     $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
     $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
 }
 unset($count);
 $GLOBALS['xoopsTpl']->assign('table_type', $helper->getConfig('table_type'));
 // Breadcrumbs
-$xoBreadcrumbs[] = ['title' => _MA_WGTRANSIFEX_INDEX];
+$xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_INDEX];
 // Keywords
 wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $keywords));
 unset($keywords);
 // Description
-wgtransifexMetaDescription(_MA_WGTRANSIFEX_INDEX_DESC);
+wgtransifexMetaDescription(\_MA_WGTRANSIFEX_INDEX_DESC);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL . '/index.php');
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);

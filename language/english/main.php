@@ -32,7 +32,7 @@ As you can see, you have created a page with a list of links at the top to navig
 define('_MA_WGTRANSIFEX_DETAILS', 'Show details');
 define('_MA_WGTRANSIFEX_BROKEN', 'Notify broken');
 define('_MA_WGTRANSIFEX_INVALID_PARAM', 'Invalid parameter');
-//define('_MA_WGTRANSIFEX_FORM_OK', 'Successfully saved');
+define('_MA_WGTRANSIFEX_FORM_OK', 'Successfully saved');
 //define('_MA_WGTRANSIFEX_FORM_DELETE_OK', 'Successfully deleted');
 //define('_MA_WGTRANSIFEX_FORM_SURE_DELETE', "Are you sure to delete: <b><span style='color : Red;'>%s </span></b>");
 //define('_MA_WGTRANSIFEX_FORM_SURE_RENEW', "Are you sure to update: <b><span style='color : Red;'>%s </span></b>");

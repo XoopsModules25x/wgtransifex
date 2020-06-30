@@ -157,9 +157,9 @@ class Languages extends \XoopsObject
         $ret['folder']       = $this->getVar('lang_folder');
         $ret['flag']         = $this->getVar('lang_flag');
         $ret['primary']      = $this->getVar('lang_primary');
-        $ret['primary_text'] = (1 == $this->getVar('lang_primary')) ? _YES : _NO;
+        $ret['primary_text'] = (1 == $this->getVar('lang_primary')) ? \_YES : \_NO;
         $ret['online']       = $this->getVar('lang_online');
-        $ret['online_text']  = (1 == $this->getVar('lang_online')) ? _YES : _NO;
+        $ret['online_text']  = (1 == $this->getVar('lang_online')) ? \_YES : \_NO;
         $ret['date']         = \formatTimestamp($this->getVar('lang_date'), 's');
         $ret['submitter']    = \XoopsUser::getUnameFromId($this->getVar('lang_submitter'));
 

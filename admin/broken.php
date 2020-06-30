@@ -36,12 +36,12 @@ $crPackages = new \CriteriaCompo();
 $crPackages->add(new \Criteria('pkg_status', Constants::STATUS_BROKEN));
 $packagesCount = $packagesHandler->getCount($crPackages);
 $GLOBALS['xoopsTpl']->assign('packages_count', $packagesCount);
-$GLOBALS['xoopsTpl']->assign('packages_result', sprintf(_AM_WGTRANSIFEX_BROKEN_RESULT, 'Packages'));
+$GLOBALS['xoopsTpl']->assign('packages_result', \sprintf(\_AM_WGTRANSIFEX_BROKEN_RESULT, 'Packages'));
 $crPackages->setStart($start);
 $crPackages->setLimit($limit);
 if ($packagesCount > 0) {
     $packagesAll = $packagesHandler->getAll($crPackages);
-    foreach (array_keys($packagesAll) as $i) {
+    foreach (\array_keys($packagesAll) as $i) {
         $package['table']  = 'Packages';
         $package['key']    = 'pkg_id';
         $package['keyval'] = $packagesAll[$i]->getVar('pkg_id');
@@ -55,7 +55,7 @@ if ($packagesCount > 0) {
         $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
     }
 } else {
-    $GLOBALS['xoopsTpl']->assign('nodataPackages', sprintf(_AM_WGTRANSIFEX_BROKEN_NODATA, 'Packages'));
+    $GLOBALS['xoopsTpl']->assign('nodataPackages', \sprintf(\_AM_WGTRANSIFEX_BROKEN_NODATA, 'Packages'));
 }
 unset($crPackages);
 require __DIR__ . '/footer.php';

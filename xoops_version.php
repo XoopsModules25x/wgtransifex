@@ -19,13 +19,13 @@
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
-$moduleDirName      = basename(__DIR__);
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$moduleDirName      = \basename(__DIR__);
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
-    'name'                => _MI_WGTRANSIFEX_NAME,
+    'name'                => \_MI_WGTRANSIFEX_NAME,
     'version'             => 1.0,
-    'description'         => _MI_WGTRANSIFEX_DESC,
+    'description'         => \_MI_WGTRANSIFEX_DESC,
     'author'              => 'TDM XOOPS',
     'author_mail'         => 'info@email.com',
     'author_website_url'  => 'http://xoops.org',
@@ -105,33 +105,33 @@ $modversion['tables'] = [
     'wgtransifex_packages',
 ];
 // ------------------- Menu ------------------- //
-$currdirname = isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
+$currdirname = isset($GLOBALS['xoopsModule']) && \is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
 if ($currdirname == $moduleDirName) {
     $helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
     $languagesHandler = $helper->getHandler('Languages');
     $packagesHandler  = $helper->getHandler('Packages');
     $languagesAll     = $languagesHandler->getAll();
     if ($languagesHandler->getCount() > 0) {
-        foreach (array_keys($languagesAll) as $l) {
+        foreach (\array_keys($languagesAll) as $l) {
             $langId     = $languagesAll[$l]->getVar('lang_id');
             $crPackages = new \CriteriaCompo();
             $crPackages->add(new \Criteria('pkg_lang_id', $langId));
             if ($packagesHandler->getCount($crPackages) > 0) {
                 $modversion['sub'][] = [
-                    'name' => sprintf(_MI_WGTRANSIFEX_SMNAME2, $languagesAll[$l]->getVar('lang_name')),
+                    'name' => \sprintf(\_MI_WGTRANSIFEX_SMNAME2, $languagesAll[$l]->getVar('lang_name')),
                     'url'  => 'packages.php?lang_id=' . $languagesAll[$l]->getVar('lang_id'),
                 ];
             }
         }
     } else {
         $modversion['sub'][] = [
-            'name' => _MI_WGTRANSIFEX_SMNAME1,
+            'name' => \_MI_WGTRANSIFEX_SMNAME1,
             'url'  => 'packages.php',
         ];
     }
     // Sub languages
 	$modversion['sub'][] = [
-		'name' => _MI_WGTRANSIFEX_SMNAME3,
+		'name' => \_MI_WGTRANSIFEX_SMNAME3,
 		'url'  => 'languages.php',
 	];
 }
@@ -139,8 +139,8 @@ if ($currdirname == $moduleDirName) {
 // Packages last
 $modversion['blocks'][] = [
     'file'        => 'packages.php',
-    'name'        => _MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST,
-    'description' => _MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST_DESC,
+    'name'        => \_MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST,
+    'description' => \_MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST_DESC,
     'show_func'   => 'b_wgtransifex_packages_show',
     'edit_func'   => 'b_wgtransifex_packages_edit',
     'template'    => 'wgtransifex_block_packages.tpl',
@@ -149,8 +149,8 @@ $modversion['blocks'][] = [
 // Packages new
 $modversion['blocks'][] = [
     'file'        => 'packages.php',
-    'name'        => _MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW,
-    'description' => _MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW_DESC,
+    'name'        => \_MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW,
+    'description' => \_MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW_DESC,
     'show_func'   => 'b_wgtransifex_packages_show',
     'edit_func'   => 'b_wgtransifex_packages_edit',
     'template'    => 'wgtransifex_block_packages.tpl',
@@ -159,8 +159,8 @@ $modversion['blocks'][] = [
 // Packages top
 $modversion['blocks'][] = [
     'file'        => 'packages.php',
-    'name'        => _MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP,
-    'description' => _MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP_DESC,
+    'name'        => \_MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP,
+    'description' => \_MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP_DESC,
     'show_func'   => 'b_wgtransifex_packages_show',
     'edit_func'   => 'b_wgtransifex_packages_edit',
     'template'    => 'wgtransifex_block_packages.tpl',
@@ -169,8 +169,8 @@ $modversion['blocks'][] = [
 // Packages random
 $modversion['blocks'][] = [
     'file'        => 'packages.php',
-    'name'        => _MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM,
-    'description' => _MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM_DESC,
+    'name'        => \_MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM,
+    'description' => \_MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM_DESC,
     'show_func'   => 'b_wgtransifex_packages_show',
     'edit_func'   => 'b_wgtransifex_packages_edit',
     'template'    => 'wgtransifex_block_packages.tpl',
@@ -178,34 +178,34 @@ $modversion['blocks'][] = [
 ];
 // ------------------- Config ------------------- //
 // Editor Admin
-xoops_load('xoopseditorhandler');
+\xoops_load('xoopseditorhandler');
 $editorHandler          = XoopsEditorHandler::getInstance();
 $modversion['config'][] = [
     'name'        => 'editor_admin',
-    'title'       => '_MI_WGTRANSIFEX_EDITOR_ADMIN',
-    'description' => '_MI_WGTRANSIFEX_EDITOR_ADMIN_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_EDITOR_ADMIN',
+    'description' => '\_MI_WGTRANSIFEX_EDITOR_ADMIN_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => 'dhtml',
-    'options'     => array_flip($editorHandler->getList()),
+    'options'     => \array_flip($editorHandler->getList()),
 ];
 // Editor User
-xoops_load('xoopseditorhandler');
+\xoops_load('xoopseditorhandler');
 $editorHandler          = XoopsEditorHandler::getInstance();
 $modversion['config'][] = [
     'name'        => 'editor_user',
-    'title'       => '_MI_WGTRANSIFEX_EDITOR_USER',
-    'description' => '_MI_WGTRANSIFEX_EDITOR_USER_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_EDITOR_USER',
+    'description' => '\_MI_WGTRANSIFEX_EDITOR_USER_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => 'dhtml',
-    'options'     => array_flip($editorHandler->getList()),
+    'options'     => \array_flip($editorHandler->getList()),
 ];
 // Editor : max characters admin area
 $modversion['config'][] = [
     'name'        => 'editor_maxchar',
-    'title'       => '_MI_WGTRANSIFEX_EDITOR_MAXCHAR',
-    'description' => '_MI_WGTRANSIFEX_EDITOR_MAXCHAR_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_EDITOR_MAXCHAR',
+    'description' => '\_MI_WGTRANSIFEX_EDITOR_MAXCHAR_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 50,
@@ -214,7 +214,7 @@ $modversion['config'][] = [
 include_once __DIR__ . '/include/xoops_version.inc.php';
 $iniPostMaxSize       = wgtransifexReturnBytes(ini_get('post_max_size'));
 $iniUploadMaxFileSize = wgtransifexReturnBytes(ini_get('upload_max_filesize'));
-$maxSize              = min($iniPostMaxSize, $iniUploadMaxFileSize);
+$maxSize              = \min($iniPostMaxSize, $iniUploadMaxFileSize);
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;
 }
@@ -245,14 +245,14 @@ if ($maxSize <= 25 * 1048576) {
 $optionMaxsize = [];
 $i             = $increment;
 while ($i * 1048576 <= $maxSize) {
-    $optionMaxsize[$i . ' ' . _MI_WGTRANSIFEX_SIZE_MB] = $i * 1048576;
+    $optionMaxsize[$i . ' ' . \_MI_WGTRANSIFEX_SIZE_MB] = $i * 1048576;
     $i                                                 += $increment;
 }
 // Uploads : maxsize of image
 $modversion['config'][] = [
     'name'        => 'maxsize_image',
-    'title'       => '_MI_WGTRANSIFEX_MAXSIZE_IMAGE',
-    'description' => '_MI_WGTRANSIFEX_MAXSIZE_IMAGE_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_MAXSIZE_IMAGE',
+    'description' => '\_MI_WGTRANSIFEX_MAXSIZE_IMAGE_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 3145728,
@@ -261,8 +261,8 @@ $modversion['config'][] = [
 // Uploads : mimetypes of image
 $modversion['config'][] = [
     'name'        => 'mimetypes_image',
-    'title'       => '_MI_WGTRANSIFEX_MIMETYPES_IMAGE',
-    'description' => '_MI_WGTRANSIFEX_MIMETYPES_IMAGE_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_MIMETYPES_IMAGE',
+    'description' => '\_MI_WGTRANSIFEX_MIMETYPES_IMAGE_DESC',
     'formtype'    => 'select_multi',
     'valuetype'   => 'array',
     'default'     => ['image/gif', 'image/jpeg', 'image/png'],
@@ -270,16 +270,16 @@ $modversion['config'][] = [
 ];
 $modversion['config'][] = [
     'name'        => 'maxwidth_image',
-    'title'       => '_MI_WGTRANSIFEX_MAXWIDTH_IMAGE',
-    'description' => '_MI_WGTRANSIFEX_MAXWIDTH_IMAGE_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_MAXWIDTH_IMAGE',
+    'description' => '\_MI_WGTRANSIFEX_MAXWIDTH_IMAGE_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 8000,
 ];
 $modversion['config'][] = [
     'name'        => 'maxheight_image',
-    'title'       => '_MI_WGTRANSIFEX_MAXHEIGHT_IMAGE',
-    'description' => '_MI_WGTRANSIFEX_MAXHEIGHT_IMAGE_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_MAXHEIGHT_IMAGE',
+    'description' => '\_MI_WGTRANSIFEX_MAXHEIGHT_IMAGE_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 8000,
@@ -287,8 +287,8 @@ $modversion['config'][] = [
 // Keywords
 $modversion['config'][] = [
     'name'        => 'keywords',
-    'title'       => '_MI_WGTRANSIFEX_KEYWORDS',
-    'description' => '_MI_WGTRANSIFEX_KEYWORDS_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_KEYWORDS',
+    'description' => '\_MI_WGTRANSIFEX_KEYWORDS_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
     'default'     => 'wgtransifex, projects, resources, settings, languages, translations, packages',
@@ -296,8 +296,8 @@ $modversion['config'][] = [
 // Admin pager
 $modversion['config'][] = [
     'name'        => 'adminpager',
-    'title'       => '_MI_WGTRANSIFEX_ADMIN_PAGER',
-    'description' => '_MI_WGTRANSIFEX_ADMIN_PAGER_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_ADMIN_PAGER',
+    'description' => '\_MI_WGTRANSIFEX_ADMIN_PAGER_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 10,
@@ -305,8 +305,8 @@ $modversion['config'][] = [
 // User pager
 $modversion['config'][] = [
     'name'        => 'userpager',
-    'title'       => '_MI_WGTRANSIFEX_USER_PAGER',
-    'description' => '_MI_WGTRANSIFEX_USER_PAGER_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_USER_PAGER',
+    'description' => '\_MI_WGTRANSIFEX_USER_PAGER_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 10,
@@ -314,8 +314,8 @@ $modversion['config'][] = [
 // Number column
 $modversion['config'][] = [
     'name'        => 'numb_col',
-    'title'       => '_MI_WGTRANSIFEX_NUMB_COL',
-    'description' => '_MI_WGTRANSIFEX_NUMB_COL_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_NUMB_COL',
+    'description' => '\_MI_WGTRANSIFEX_NUMB_COL_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 1,
@@ -324,8 +324,8 @@ $modversion['config'][] = [
 // Divide by
 $modversion['config'][] = [
     'name'        => 'divideby',
-    'title'       => '_MI_WGTRANSIFEX_DIVIDEBY',
-    'description' => '_MI_WGTRANSIFEX_DIVIDEBY_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_DIVIDEBY',
+    'description' => '\_MI_WGTRANSIFEX_DIVIDEBY_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 1,
@@ -334,8 +334,8 @@ $modversion['config'][] = [
 // Table type
 $modversion['config'][] = [
     'name'        => 'table_type',
-    'title'       => '_MI_WGTRANSIFEX_TABLE_TYPE',
-    'description' => '_MI_WGTRANSIFEX_DIVIDEBY_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_TABLE_TYPE',
+    'description' => '\_MI_WGTRANSIFEX_DIVIDEBY_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => 'bordered',
@@ -344,8 +344,8 @@ $modversion['config'][] = [
 // Panel by
 $modversion['config'][] = [
     'name'        => 'panel_type',
-    'title'       => '_MI_WGTRANSIFEX_PANEL_TYPE',
-    'description' => '_MI_WGTRANSIFEX_PANEL_TYPE_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_PANEL_TYPE',
+    'description' => '\_MI_WGTRANSIFEX_PANEL_TYPE_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => 'default',
@@ -354,8 +354,8 @@ $modversion['config'][] = [
 // Advertise
 $modversion['config'][] = [
     'name'        => 'advertise',
-    'title'       => '_MI_WGTRANSIFEX_ADVERTISE',
-    'description' => '_MI_WGTRANSIFEX_ADVERTISE_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_ADVERTISE',
+    'description' => '\_MI_WGTRANSIFEX_ADVERTISE_DESC',
     'formtype'    => 'textarea',
     'valuetype'   => 'text',
     'default'     => '',
@@ -363,8 +363,8 @@ $modversion['config'][] = [
 // Bookmarks
 $modversion['config'][] = [
     'name'        => 'bookmarks',
-    'title'       => '_MI_WGTRANSIFEX_BOOKMARKS',
-    'description' => '_MI_WGTRANSIFEX_BOOKMARKS_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_BOOKMARKS',
+    'description' => '\_MI_WGTRANSIFEX_BOOKMARKS_DESC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
     'default'     => 0,
@@ -381,8 +381,8 @@ $modversion['config'][] = [
 // Maintained by
 $modversion['config'][] = [
     'name'        => 'maintainedby',
-    'title'       => '_MI_WGTRANSIFEX_MAINTAINEDBY',
-    'description' => '_MI_WGTRANSIFEX_MAINTAINEDBY_DESC',
+    'title'       => '\_MI_WGTRANSIFEX_MAINTAINEDBY',
+    'description' => '\_MI_WGTRANSIFEX_MAINTAINEDBY_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
     'default'     => 'https://xoops.org/modules/newbb',

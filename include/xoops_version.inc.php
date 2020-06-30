@@ -23,7 +23,7 @@
  */
 function wgtransifexReturnBytes($val)
 {
-    switch (mb_substr($val, -1)) {
+    switch (\mb_substr($val, -1)) {
         case 'K':
         case 'k':
             return (int)$val * 1024;

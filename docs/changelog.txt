@@ -21,3 +21,4 @@ Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.0
  - added list languages (goffy)
  - added language primary (goffy)
  - added language online (goffy)
+ - fqn replacer (mamba/goffy)

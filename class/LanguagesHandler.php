@@ -130,7 +130,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
         $crLanguages->add(new \Criteria('lang_primary', 1));
         $languagesAll = $this->getAll($crLanguages);
         $primary = 0;
-        foreach (array_keys($languagesAll) as $i) {
+        foreach (\array_keys($languagesAll) as $i) {
             $primary = $languagesAll[$i]->getVar('lang_id');
         }
         return $primary;

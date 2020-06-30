@@ -37,9 +37,9 @@ switch ($op) {
         $templateMain = 'wgtransifex_admin_resources.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('resources.php'));
         if ($proId > 0) {
-            $adminObject->addItemButton(_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php?op=list', 'list');
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php?op=list', 'list');
         }
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_READTX_RESOURCES, 'resources.php?op=readtx', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES, 'resources.php?op=readtx', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
@@ -55,7 +55,7 @@ switch ($op) {
                 $crProjects->setLimit($limit);
                 $projectsAll = $projectsHandler->getAll($crProjects);
                 // Table view projects
-                foreach (array_keys($projectsAll) as $i) {
+                foreach (\array_keys($projectsAll) as $i) {
                     $project = $projectsAll[$i]->getValuesProjects();
                     $GLOBALS['xoopsTpl']->append('projects_list', $project);
                     unset($project);
@@ -67,7 +67,7 @@ switch ($op) {
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
             } else {
-                $GLOBALS['xoopsTpl']->assign('error', _AM_WGTRANSIFEX_THEREARENT_RESOURCES);
+                $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_RESOURCES);
             }
         } else {
             $crResources    = new \CriteriaCompo();
@@ -81,7 +81,7 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('resources_count', $resourcesCount);
             // Table view resources
             if ($resourcesCount > 0) {
-                foreach (array_keys($resourcesAll) as $i) {
+                foreach (\array_keys($resourcesAll) as $i) {
                     $resource = $resourcesAll[$i]->getValuesResources();
                     $GLOBALS['xoopsTpl']->append('resources_list', $resource);
                     unset($resource);
@@ -93,14 +93,14 @@ switch ($op) {
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
             } else {
-                $GLOBALS['xoopsTpl']->assign('error', _AM_WGTRANSIFEX_THEREARENT_RESOURCES);
+                $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_RESOURCES);
             }
         }
         break;
     case 'readtx':
         $templateMain = 'wgtransifex_admin_resources.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('resources.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php', 'list');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $resourcesObj = $resourcesHandler->create();
@@ -123,7 +123,7 @@ switch ($op) {
     case 'new':
         $templateMain = 'wgtransifex_admin_resources.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('resources.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php', 'list');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $resourcesObj = $resourcesHandler->create();
@@ -133,7 +133,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('resources.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header('resources.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if ($resId > 0) {
             $resourcesObj = $resourcesHandler->get($resId);
@@ -148,14 +148,14 @@ switch ($op) {
         $resourcesObj->setVar('res_slug', Request::getString('res_slug', ''));
         $resourcesObj->setVar('res_categories', Request::getString('res_categories', ''));
         $resourcesObj->setVar('res_metadata', Request::getString('res_metadata', ''));
-        $resourceDate = date_create_from_format(_SHORTDATESTRING, Request::getString('res_date'));
+        $resourceDate = \date_create_from_format(_SHORTDATESTRING, Request::getString('res_date'));
         $resourcesObj->setVar('res_date', $resourceDate->getTimestamp());
         $resourcesObj->setVar('res_submitter', Request::getInt('res_submitter', 0));
         $resourcesObj->setVar('res_status', Request::getInt('res_status', 0));
         $resourcesObj->setVar('res_pro_id', Request::getInt('res_pro_id', 0));
         // Insert Data
         if ($resourcesHandler->insert($resourcesObj)) {
-            redirect_header('resources.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
+            redirect_header('resources.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $resourcesObj->getHtmlErrors());
@@ -165,8 +165,8 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wgtransifex_admin_resources.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('resources.php'));
-        //$adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_RESOURCE, 'resources.php?op=new', 'add');
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php', 'list');
+        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_RESOURCE, 'resources.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $resourcesObj = $resourcesHandler->get($resId);
@@ -182,7 +182,7 @@ switch ($op) {
         $success      = false;
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('resources.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                redirect_header('resources.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             $crResources = new \CriteriaCompo();
             $crResources->add(new \Criteria('res_pro_id', $proId));
@@ -227,16 +227,16 @@ switch ($op) {
                 $projectsObj->setVar('pro_resources', $resourcesCount);
                 $projectsObj->setVar('pro_translations', $translationsCount);
                 $projectsHandler->insert($projectsObj);
-                redirect_header('resources.php', 3, _AM_WGTRANSIFEX_FORM_DELETE_OK);
+                redirect_header('resources.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             }
         } else {
             if ('delete_all' == $op) {
                 $xoopsconfirm = new Common\XoopsConfirm(
-                    ['ok' => 1, 'res_pro_id' => $proId, 'op' => 'delete_all'], $_SERVER['REQUEST_URI'], sprintf(_AM_WGTRANSIFEX_RESOURCES_SURE_DELETEALL, $projectsObj->getVar('pro_name'))
+                    ['ok' => 1, 'res_pro_id' => $proId, 'op' => 'delete_all'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_RESOURCES_SURE_DELETEALL, $projectsObj->getVar('pro_name'))
                 );
             } else {
                 $xoopsconfirm = new Common\XoopsConfirm(
-                    ['ok' => 1, 'res_id' => $resId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_WGTRANSIFEX_FORM_SURE_DELETE, $resourcesObj->getVar('res_slug'))
+                    ['ok' => 1, 'res_id' => $resId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $resourcesObj->getVar('res_slug'))
                 );
             }
             $form = $xoopsconfirm->getFormXoopsConfirm();

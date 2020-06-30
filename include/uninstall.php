@@ -31,8 +31,8 @@ function xoops_module_pre_uninstall_wgtransifex(\XoopsModule $module)
 function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
 {
     //    return true;
-    $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     /** @var Wgtransifex\Helper $helper */
     $helper = Wgtransifex\Helper::getInstance();
     /** @var Wgtransifex\Utility $utility */
@@ -48,7 +48,7 @@ function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
         if ($dirInfo->isDir()) {
             // The directory exists so delete it
             if (!$utility::rrmdir($old_dir)) {
-                $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_DEL_PATH'), $old_dir));
+                $module->setErrors(\sprintf(\constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_DEL_PATH'), $old_dir));
                 $success = false;
             }
         }

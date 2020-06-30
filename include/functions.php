@@ -36,11 +36,11 @@ function wgtransifexNumbersOfEntries($mytree, $languages, $entries, $cid)
     $count = 0;
     if (in_array($cid, $languages)) {
         $child = $mytree->getAllChild($cid);
-        foreach (array_keys($entries) as $i) {
+        foreach (\array_keys($entries) as $i) {
             if ($entries[$i]->getVar('lang_id') == $cid) {
                 $count++;
             }
-            foreach (array_keys($child) as $j) {
+            foreach (\array_keys($child) as $j) {
                 if ($entries[$i]->getVar('lang_id') == $j) {
                     $count++;
                 }
