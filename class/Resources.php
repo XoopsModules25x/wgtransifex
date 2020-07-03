@@ -97,7 +97,9 @@ class Resources extends \XoopsObject
         // Form Table projects
         $projectsHandler = $helper->getHandler('Projects');
         $resPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_PRO_ID, 'res_pro_id', $this->getVar('res_pro_id'));
-        $resPro_idSelect->addOptionArray($projectsHandler->getList());
+        $crProjects = new \CriteriaCompo();
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
+        $resPro_idSelect->addOptionArray($projectsHandler->getList($crProjects));
         $form->addElement($resPro_idSelect);
         // Form Text resSource_language_code
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCE_SOURCE_LANGUAGE_CODE, 'res_source_language_code', 50, 255, $this->getVar('res_source_language_code')));
@@ -153,7 +155,11 @@ class Resources extends \XoopsObject
         // Form Table projects
         $projectsHandler = $helper->getHandler('Projects');
         $resPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_PRO_ID, 'res_pro_id', $this->getVar('res_pro_id'));
-        $resPro_idSelect->addOptionArray($projectsHandler->getList());
+        $crProjects = new \CriteriaCompo();
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTXNEW), 'OR');
+        $crProjects->setSort('pro_name');
+        $resPro_idSelect->addOptionArray($projectsHandler->getList($crProjects));
         $form->addElement($resPro_idSelect);
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'savetx'));

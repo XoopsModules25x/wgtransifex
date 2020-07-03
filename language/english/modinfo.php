@@ -44,6 +44,7 @@ define('_MI_WGTRANSIFEX_USER_PAGER_DESC', 'User per page list');
 define('_MI_WGTRANSIFEX_SMNAME1', 'All language packages');
 define('_MI_WGTRANSIFEX_SMNAME2', '%s language packages');
 define('_MI_WGTRANSIFEX_SMNAME3', 'Show language list');
+define('_MI_WGTRANSIFEX_SMNAME4', 'Show project list');
 // Blocks
 define('_MI_WGTRANSIFEX_PACKAGES_BLOCK', 'Packages block');
 define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_DESC', 'Packages block description');

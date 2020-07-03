@@ -49,6 +49,7 @@ class Projects extends \XoopsObject
         $this->initVar('pro_teams', \XOBJ_DTYPE_TXTAREA);
         $this->initVar('pro_resources', \XOBJ_DTYPE_INT);
         $this->initVar('pro_translations', \XOBJ_DTYPE_INT);
+        $this->initVar('pro_archived', \XOBJ_DTYPE_INT);
         $this->initVar('pro_date', \XOBJ_DTYPE_INT);
         $this->initVar('pro_submitter', \XOBJ_DTYPE_INT);
         $this->initVar('pro_status', \XOBJ_DTYPE_INT);
@@ -115,11 +116,15 @@ class Projects extends \XoopsObject
         $proStatusSelect->addOption(Constants::STATUS_SUBMITTED, \_AM_WGTRANSIFEX_STATUS_SUBMITTED);
         $proStatusSelect->addOption(Constants::STATUS_BROKEN, \_AM_WGTRANSIFEX_STATUS_BROKEN);
         $proStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
+        $proStatusSelect->addOption(Constants::STATUS_ARCHIVED, \_AM_WGTRANSIFEX_STATUS_ARCHIVED);
         $form->addElement($proStatusSelect);
         // Form Text proResources
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCES_NB, 'pro_resources', 50, 255, $this->getVar('pro_resources')));
         // Form Text proTranslations
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATIONS_NB, 'pro_translations', 50, 255, $this->getVar('pro_translations')));
+        // Form Radio Yes/No langPrimary
+        $proArchived = $this->isNew() ? 0 : $this->getVar('pro_archived');
+        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_PROJECT_ARCHIVED, 'pro_archived', $proArchived) );
         // Form Text Date Select proDate
         $proDate = $this->isNew() ? 0 : $this->getVar('pro_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PROJECT_DATE, 'pro_date', '', $proDate));
@@ -149,25 +154,28 @@ class Projects extends \XoopsObject
         $ret['name']                 = $this->getVar('pro_name');
         $ret['txresources']          = $this->getVar('pro_txresources');
         $ret['last_updated']         = \formatTimestamp($this->getVar('pro_last_updated'), 'm');
-        $teams       = '';
-        $teams_short = '';
+        $teams       = '<ul>';
+        $teams_short = '<ul>';
         $key         = 0;
         $teams_arr   = \json_decode(html_entity_decode($this->getVar('pro_teams')), true);
         foreach ($teams_arr as $key => $value) {
-            $teams .= $value . '<br>';
+            $teams .= '<li>' . $value . '</li>';
             if ($key < 4) {
-                $teams_short .= $value . '<br>';
+                $teams_short .= '<li>' . $value . '</li>';
             }
         }
         if ($key > 3) {
-            $teams_short .= '...';
+            $teams_short .= '<li>...</li>';;
         }
+        $teams       .= '</ul>';
+        $teams_short .= '</ul>';
         $ret['teams']        = $teams;
         $ret['teams_short']  = $teams_short;
         $ret['resources']    = $this->getVar('pro_resources');
         $ret['translations'] = $this->getVar('pro_translations');
         $ret['date']         = \formatTimestamp($this->getVar('pro_date'), 'm');
         $ret['submitter']    = \XoopsUser::getUnameFromId($this->getVar('pro_submitter'));
+        $ret['archived']    = $this->getVar('pro_archived');
         $status              = $this->getVar('pro_status');
         $ret['status']       = $status;
         switch ($status) {
@@ -186,6 +194,12 @@ class Projects extends \XoopsObject
                 break;
             case Constants::STATUS_READTX:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_READTX;
+                break;
+            case Constants::STATUS_ARCHIVED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_ARCHIVED;
+                break;
+            case Constants::STATUS_READTXNEW:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_READTXNEW;
                 break;
         }
         $ret['status_text'] = $status_text;

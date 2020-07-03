@@ -95,6 +95,7 @@ define('_AM_WGTRANSIFEX_PROJECT_TEAMS', 'Teams on Transifex');
 define('_AM_WGTRANSIFEX_PROJECT_LOCRES', 'Local Resources');
 define('_AM_WGTRANSIFEX_PROJECT_DATE', 'Date');
 define('_AM_WGTRANSIFEX_PROJECT_SUBMITTER', 'Submitter');
+define('_AM_WGTRANSIFEX_PROJECT_ARCHIVED', 'Archived on Transifex');
 define('_AM_WGTRANSIFEX_PROJECT_STATUS', 'Status');
 define('_AM_WGTRANSIFEX_PROJECT_SELECT', 'Please select a project');
 define('_AM_WGTRANSIFEX_PROJECT_RESOURCES', '%p   (%s resources)');
@@ -223,8 +224,11 @@ define('_AM_WGTRANSIFEX_STATUS_APPROVED', 'Approved');
 define('_AM_WGTRANSIFEX_STATUS_READTX', 'Read from Transifex');
 define('_AM_WGTRANSIFEX_STATUS_BROKEN', 'Broken');
 define('_AM_WGTRANSIFEX_STATUS_CREATED', 'Package available');
+define('_AM_WGTRANSIFEX_STATUS_ARCHIVED', 'Project archived on Transifex');
+define('_AM_WGTRANSIFEX_STATUS_READTXNEW', 'New from Transifex');
 // ---------------- Admin Others ----------------
 define('_AM_WGTRANSIFEX_MAINTAINEDBY', ' is maintained by ');
+define('_AM_WGTRANSIFEX_NO_CURL', 'This module needs PHP curl functions. Please activate otherwise download will not work!');
 // ---------------- End ----------------
 define('_AM_WGTRANSIFEX_ABOUT_MAKE_DONATION', 'Make a Donation to support this module');
 define('_AM_WGTRANSIFEX_MAINTAINED', '<strong>%s</strong> is maintained by the ');

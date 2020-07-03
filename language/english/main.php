@@ -38,6 +38,35 @@ define('_MA_WGTRANSIFEX_FORM_OK', 'Successfully saved');
 //define('_MA_WGTRANSIFEX_FORM_SURE_RENEW', "Are you sure to update: <b><span style='color : Red;'>%s </span></b>");
 define('_MA_WGTRANSIFEX_FORM_SURE_BROKEN', "Are you sure to notify as broken: <b><span style='color : Red;'>%s </span></b>");
 // ---------------- Contents ----------------
+
+
+// Project
+define('_MA_WGTRANSIFEX_PROJECT', 'Project');
+define('_MA_WGTRANSIFEX_PROJECTS', 'Projects');
+define('_MA_WGTRANSIFEX_PROJECTS_TITLE', 'Overview of TX Project');
+define('_MA_WGTRANSIFEX_PROJECTS_DESC', 'Overview of projects existing on Transifex');
+define('_MA_WGTRANSIFEX_PROJECTS_LIST', 'List of Projects');
+// Caption of Project
+define('_MA_WGTRANSIFEX_PROJECT_ID', 'Id');
+define('_MA_WGTRANSIFEX_PROJECT_DESCRIPTION', 'Description');
+define('_MA_WGTRANSIFEX_PROJECT_SOURCE_LANGUAGE_CODE', 'Source_language_code');
+define('_MA_WGTRANSIFEX_PROJECT_TXRESOURCES', 'Resources on Transifex');
+define('_MA_WGTRANSIFEX_PROJECT_LAST_UPDATED', 'Last project update on Transifex');
+define('_MA_WGTRANSIFEX_PROJECT_TEAMS', 'Teams on Transifex');
+define('_MA_WGTRANSIFEX_PROJECT_SLUG', 'Slug');
+define('_MA_WGTRANSIFEX_PROJECT_NAME', 'Name');
+define('_MA_WGTRANSIFEX_PROJECT_DATE', 'Date');
+define('_MA_WGTRANSIFEX_PROJECT_SUBMITTER', 'Submitter');
+define('_MA_WGTRANSIFEX_PROJECT_STATUS', 'Status');
+
+
+
+
+
+
+
+
+
 // Package
 define('_MA_WGTRANSIFEX_PACKAGE', 'Package');
 define('_MA_WGTRANSIFEX_PACKAGES', 'Packages');

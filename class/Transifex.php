@@ -85,8 +85,10 @@ class Transifex
                 } else {
                     $projectsObj = $projectsHandler->get($projectsObjExist[0]->getVar('pro_id'));
                 }
+                $projectsObj->setVar('pro_status', Constants::STATUS_READTX);
             } else {
                 $projectsObj = $projectsHandler->create();
+                $projectsObj->setVar('pro_status', Constants::STATUS_READTXNEW);
             }
             if (\is_object($projectsObj)) {
                 $project = $transifexLib->getProject($item['slug'], true);
@@ -95,11 +97,14 @@ class Transifex
                 $projectsObj->setVar('pro_source_language_code', $project['source_language_code']);
                 $projectsObj->setVar('pro_slug', $project['slug']);
                 $projectsObj->setVar('pro_name', $project['name']);
-                $projectsObj->setVar('pro_status', Constants::STATUS_READTX);
+                if ('true' == $project['archived']) {
+                    $projectsObj->setVar('pro_status', Constants::STATUS_ARCHIVED);
+                    $projectsObj->setVar('pro_archived', 1);
+                } else {
+                    $projectsObj->setVar('pro_archived', 0);
+                }
+                $projectsObj->setVar('pro_txresources', \count($project['resources']));
                 $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
-                $txresources = $transifexLib->getResources($project['slug']);
-                $projectsObj->setVar('pro_txresources', \count($txresources));
-
                 $teams = \json_encode($project['teams'], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
                 //str_replace(']', '', $teams);
                 $projectsObj->setVar('pro_teams', $teams);

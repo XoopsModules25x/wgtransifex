@@ -49,11 +49,15 @@ if ($configurator->uploadFolders && is_array($configurator->uploadFolders)) {
         $folder[] = $configurator->uploadFolders[$i];
     }
 }
+if (!function_exists('curl_init')) {
+    $adminObject->addConfigError(\_AM_WGTRANSIFEX_NO_CURL);
+}
 // Uploads Folders Created
 foreach (\array_keys($folder) as $i) {
     $adminObject->addConfigBoxLine($folder[$i], 'folder');
     $adminObject->addConfigBoxLine([$folder[$i], '777'], 'chmod');
 }
+
 // Render Index
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('index.php'));
 // Test Data
@@ -66,5 +70,6 @@ if ($helper->getConfig('displaySampleButton')) {
     $adminObject->displayButton('left');
 }
 $GLOBALS['xoopsTpl']->assign('index', $adminObject->displayIndex());
+
 // End Test Data
 require __DIR__ . '/footer.php';
