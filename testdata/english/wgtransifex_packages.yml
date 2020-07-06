@@ -1,11 +1,22 @@
 -
     pkg_id: '1'
-    pkg_name: contact
-    pkg_desc: 'English language package for module contact'
-    pkg_pro_id: '2'
+    pkg_name: newbb
+    pkg_desc: 'This is the language package for last version of newbb'
+    pkg_pro_id: '8'
     pkg_lang_id: '1'
     pkg_status: '6'
-    pkg_zip: 'C:/Homepages/wamp/www/wgtransifex/htdocs/uploads/wgtransifex/translations/contact/contact_english.zip'
-    pkg_logo: contact.png
-    pkg_date: '1593461150'
+    pkg_zip: 'C:/Homepages/wamp/www/wgtransifex/htdocs/uploads/wgtransifex/translations/newbb/newbb_english.zip'
+    pkg_logo: newbb.png
+    pkg_date: '1594055580'
+    pkg_submitter: '1'
+-
+    pkg_id: '2'
+    pkg_name: wgGallery
+    pkg_desc: 'This is the language pack for wgGallery'
+    pkg_pro_id: '16'
+    pkg_lang_id: '1'
+    pkg_status: '6'
+    pkg_zip: 'C:/Homepages/wamp/www/wgtransifex/htdocs/uploads/wgtransifex/translations/wgGallery/wgGallery_english.zip'
+    pkg_logo: wggallery.png
+    pkg_date: '1594055553'
     pkg_submitter: '1'

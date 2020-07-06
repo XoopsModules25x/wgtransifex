@@ -117,6 +117,7 @@ class Projects extends \XoopsObject
         $proStatusSelect->addOption(Constants::STATUS_BROKEN, \_AM_WGTRANSIFEX_STATUS_BROKEN);
         $proStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
         $proStatusSelect->addOption(Constants::STATUS_ARCHIVED, \_AM_WGTRANSIFEX_STATUS_ARCHIVED);
+        $proStatusSelect->addOption(Constants::STATUS_DELETEDTX, \_AM_WGTRANSIFEX_STATUS_DELETEDTX);
         $form->addElement($proStatusSelect);
         // Form Text proResources
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCES_NB, 'pro_resources', 50, 255, $this->getVar('pro_resources')));
@@ -200,6 +201,9 @@ class Projects extends \XoopsObject
                 break;
             case Constants::STATUS_READTXNEW:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_READTXNEW;
+                break;
+            case Constants::STATUS_DELETEDTX:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_DELETEDTX;
                 break;
         }
         $ret['status_text'] = $status_text;

@@ -2,6 +2,8 @@
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.01
 ==============================================================
  - added projects on user side (goffy)
+ - implemented new status 'deleted on transifex' (goffy)
+ - read only active projects (goffy)
 
 ==============================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.0

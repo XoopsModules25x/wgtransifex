@@ -66,13 +66,16 @@ class Transifex
         $projectsHandler = $helper->getHandler('Projects');
         $count_ok        = 0;
         $count_err       = 0;
+        $txprojects      = [];
         //request data from transifex
         $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib();
         $transifexLib->user     = $setting['user'];
         $transifexLib->password = $setting['pwd'];
         $items                  = $transifexLib->getProjects();
         foreach ($items as $item) {
+            $txprojects[] = $item['slug'];
             $projectsObj = null;
+            $oldProject  = false;
             $crProjects  = new \CriteriaCompo();
             $crProjects->add(new \Criteria('pro_slug', $item['slug']));
             $projectsCount = $projectsHandler->getCount($crProjects);
@@ -86,38 +89,58 @@ class Transifex
                     $projectsObj = $projectsHandler->get($projectsObjExist[0]->getVar('pro_id'));
                 }
                 $projectsObj->setVar('pro_status', Constants::STATUS_READTX);
+                $oldProject = true;
             } else {
                 $projectsObj = $projectsHandler->create();
                 $projectsObj->setVar('pro_status', Constants::STATUS_READTXNEW);
             }
             if (\is_object($projectsObj)) {
                 $project = $transifexLib->getProject($item['slug'], true);
-                // Set Vars
-                $projectsObj->setVar('pro_description', $project['description']);
-                $projectsObj->setVar('pro_source_language_code', $project['source_language_code']);
-                $projectsObj->setVar('pro_slug', $project['slug']);
-                $projectsObj->setVar('pro_name', $project['name']);
-                if ('true' == $project['archived']) {
-                    $projectsObj->setVar('pro_status', Constants::STATUS_ARCHIVED);
-                    $projectsObj->setVar('pro_archived', 1);
-                } else {
-                    $projectsObj->setVar('pro_archived', 0);
-                }
-                $projectsObj->setVar('pro_txresources', \count($project['resources']));
-                $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
-                $teams = \json_encode($project['teams'], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
-                //str_replace(']', '', $teams);
-                $projectsObj->setVar('pro_teams', $teams);
+                $archived = (bool)$project['archived'];
+                if (!$archived || ($archived && $oldProject)) {
+                    // Set Vars
+                    $projectsObj->setVar('pro_description', $project['description']);
+                    $projectsObj->setVar('pro_source_language_code', $project['source_language_code']);
+                    $projectsObj->setVar('pro_slug', $project['slug']);
+                    $projectsObj->setVar('pro_name', $project['name']);
+                    if ((bool)$project['archived']) {
+                        $projectsObj->setVar('pro_status', Constants::STATUS_ARCHIVED);
+                        $projectsObj->setVar('pro_archived', 1);
+                    } else {
+                        $projectsObj->setVar('pro_archived', 0);
+                    }
+                    $projectsObj->setVar('pro_txresources', \count($project['resources']));
+                    $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
+                    $teams = \json_encode($project['teams'], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+                    //str_replace(']', '', $teams);
+                    $projectsObj->setVar('pro_teams', $teams);
 
-                $projectsObj->setVar('pro_date', \time());
-                $projectsObj->setVar('pro_submitter', $xoopsUser->getVar('uid'));
+                    $projectsObj->setVar('pro_date', \time());
+                    $projectsObj->setVar('pro_submitter', $xoopsUser->getVar('uid'));
+                    // Insert Data
+                    if ($projectsHandler->insert($projectsObj)) {
+                        $count_ok++;
+                    } else {
+                        $count_err++;
+                    }
+                }
+            }
+            unset($projectsObj);
+        }
+        //check whether all items from table projects have been in current download
+        $projectsAll = $projectsHandler->getAll();
+        foreach (\array_keys($projectsAll) as $i) {
+            if (!\in_array($projectsAll[$i]->getVar('pro_slug'), $txprojects)) {
+                $projectsObj = $projectsHandler->get($projectsAll[$i]->getVar('pro_id'));
+                $projectsObj->setVar('pro_status', Constants::STATUS_DELETEDTX);
                 // Insert Data
-                if ($projectsHandler->insert($projectsObj)) {
-                    $count_ok++;
-                } else {
+                if (!$projectsHandler->insert($projectsObj)) {
                     $count_err++;
                 }
             }
+            $project = $projectsAll[$i]->getValuesProjects();
+            $GLOBALS['xoopsTpl']->append('projects_list', $project);
+            unset($project);
         }
         if ($count_err > 0) {
             return \_AM_WGTRANSIFEX_READTX_ERROR;

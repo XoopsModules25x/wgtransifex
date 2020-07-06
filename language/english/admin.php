@@ -225,6 +225,7 @@ define('_AM_WGTRANSIFEX_STATUS_READTX', 'Read from Transifex');
 define('_AM_WGTRANSIFEX_STATUS_BROKEN', 'Broken');
 define('_AM_WGTRANSIFEX_STATUS_CREATED', 'Package available');
 define('_AM_WGTRANSIFEX_STATUS_ARCHIVED', 'Project archived on Transifex');
+define('_AM_WGTRANSIFEX_STATUS_DELETEDTX', 'Project not on Transifex');
 define('_AM_WGTRANSIFEX_STATUS_READTXNEW', 'New from Transifex');
 // ---------------- Admin Others ----------------
 define('_AM_WGTRANSIFEX_MAINTAINEDBY', ' is maintained by ');

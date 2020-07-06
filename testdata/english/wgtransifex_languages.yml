@@ -6,8 +6,8 @@
     lang_iso_639_1: en
     lang_iso_639_2: eng
     lang_flag: gb.png
-    lang_online: '1'
     lang_primary: '1'
+    lang_online: '1'
     lang_date: '1592123375'
     lang_submitter: '1'
 -
@@ -18,8 +18,8 @@
     lang_iso_639_1: de
     lang_iso_639_2: deu
     lang_flag: de.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1592123462'
     lang_submitter: '1'
 -
@@ -30,8 +30,8 @@
     lang_iso_639_1: fr
     lang_iso_639_2: fra
     lang_flag: fr.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1592123476'
     lang_submitter: '1'
 -
@@ -42,8 +42,8 @@
     lang_iso_639_1: es
     lang_iso_639_2: spa
     lang_flag: es.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419501'
     lang_submitter: '1'
 -
@@ -54,8 +54,8 @@
     lang_iso_639_1: sk
     lang_iso_639_2: slo
     lang_flag: sk.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419520'
     lang_submitter: '1'
 -
@@ -66,8 +66,8 @@
     lang_iso_639_1: pt
     lang_iso_639_2: por
     lang_flag: br.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419536'
     lang_submitter: '1'
 -
@@ -78,8 +78,8 @@
     lang_iso_639_1: it
     lang_iso_639_2: ita
     lang_flag: it.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419556'
     lang_submitter: '1'
 -
@@ -90,8 +90,8 @@
     lang_iso_639_1: ru
     lang_iso_639_2: rus
     lang_flag: ru.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419569'
     lang_submitter: '1'
 -
@@ -102,8 +102,8 @@
     lang_iso_639_1: nl
     lang_iso_639_2: nld
     lang_flag: nl.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419586'
     lang_submitter: '1'
 -
@@ -114,8 +114,8 @@
     lang_iso_639_1: da
     lang_iso_639_2: dan
     lang_flag: dk.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419599'
     lang_submitter: '1'
 -
@@ -126,8 +126,8 @@
     lang_iso_639_1: tr
     lang_iso_639_2: tur
     lang_flag: tr.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419615'
     lang_submitter: '1'
 -
@@ -138,8 +138,8 @@
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: tw.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419637'
     lang_submitter: '1'
 -
@@ -150,8 +150,8 @@
     lang_iso_639_1: pl
     lang_iso_639_2: pol
     lang_flag: pl.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419651'
     lang_submitter: '1'
 -
@@ -162,8 +162,8 @@
     lang_iso_639_1: fa
     lang_iso_639_2: fas
     lang_flag: ir.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593419665'
     lang_submitter: '1'
 -
@@ -174,8 +174,8 @@
     lang_iso_639_1: ar
     lang_iso_639_2: ''
     lang_flag: blank.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593460998'
     lang_submitter: '1'
 -
@@ -186,8 +186,8 @@
     lang_iso_639_1: ja
     lang_iso_639_2: jpn
     lang_flag: jp.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593421597'
     lang_submitter: '1'
 -
@@ -198,8 +198,8 @@
     lang_iso_639_1: el
     lang_iso_639_2: ''
     lang_flag: gr.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593430124'
     lang_submitter: '1'
 -
@@ -210,8 +210,8 @@
     lang_iso_639_1: bg
     lang_iso_639_2: bul
     lang_flag: bg.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593421764'
     lang_submitter: '1'
 -
@@ -222,8 +222,8 @@
     lang_iso_639_1: ar
     lang_iso_639_2: ''
     lang_flag: sa.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593421899'
     lang_submitter: '1'
 -
@@ -234,8 +234,8 @@
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: cn.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593421973'
     lang_submitter: '1'
 -
@@ -246,8 +246,8 @@
     lang_iso_639_1: hr
     lang_iso_639_2: ''
     lang_flag: hr.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422043'
     lang_submitter: '1'
 -
@@ -258,8 +258,8 @@
     lang_iso_639_1: sv
     lang_iso_639_2: ''
     lang_flag: se.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422107'
     lang_submitter: '1'
 -
@@ -270,8 +270,8 @@
     lang_iso_639_1: cs
     lang_iso_639_2: ''
     lang_flag: cz.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422315'
     lang_submitter: '1'
 -
@@ -282,8 +282,8 @@
     lang_iso_639_1: pt
     lang_iso_639_2: ''
     lang_flag: pt.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423332'
     lang_submitter: '1'
 -
@@ -294,8 +294,8 @@
     lang_iso_639_1: sl
     lang_iso_639_2: ''
     lang_flag: si.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422461'
     lang_submitter: '1'
 -
@@ -306,8 +306,8 @@
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: ca.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422588'
     lang_submitter: '1'
 -
@@ -318,8 +318,8 @@
     lang_iso_639_1: ko
     lang_iso_639_2: ''
     lang_flag: kr.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422655'
     lang_submitter: '1'
 -
@@ -330,8 +330,8 @@
     lang_iso_639_1: vi
     lang_iso_639_2: ''
     lang_flag: vn.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422731'
     lang_submitter: '1'
 -
@@ -342,8 +342,8 @@
     lang_iso_639_1: ms
     lang_iso_639_2: ''
     lang_flag: my.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422796'
     lang_submitter: '1'
 -
@@ -354,8 +354,8 @@
     lang_iso_639_1: hu
     lang_iso_639_2: ''
     lang_flag: hu.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422861'
     lang_submitter: '1'
 -
@@ -366,8 +366,8 @@
     lang_iso_639_1: th
     lang_iso_639_2: ''
     lang_flag: th.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593422907'
     lang_submitter: '1'
 -
@@ -378,8 +378,8 @@
     lang_iso_639_1: bs
     lang_iso_639_2: ''
     lang_flag: ba.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593430107'
     lang_submitter: '1'
 -
@@ -390,8 +390,8 @@
     lang_iso_639_1: he
     lang_iso_639_2: ''
     lang_flag: il.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423047'
     lang_submitter: '1'
 -
@@ -402,8 +402,8 @@
     lang_iso_639_1: ro
     lang_iso_639_2: ''
     lang_flag: ro.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593430158'
     lang_submitter: '1'
 -
@@ -414,8 +414,8 @@
     lang_iso_639_1: sr
     lang_iso_639_2: ''
     lang_flag: rs.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423125'
     lang_submitter: '1'
 -
@@ -426,8 +426,8 @@
     lang_iso_639_1: my
     lang_iso_639_2: ''
     lang_flag: mm.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423182'
     lang_submitter: '1'
 -
@@ -438,8 +438,8 @@
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: blank.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423233'
     lang_submitter: '1'
 -
@@ -450,8 +450,8 @@
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: us.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423287'
     lang_submitter: '1'
 -
@@ -462,8 +462,8 @@
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: ca.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423353'
     lang_submitter: '1'
 -
@@ -474,8 +474,8 @@
     lang_iso_639_1: id
     lang_iso_639_2: ''
     lang_flag: id.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593430138'
     lang_submitter: '1'
 -
@@ -486,8 +486,8 @@
     lang_iso_639_1: 'no'
     lang_iso_639_2: ''
     lang_flag: no.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423465'
     lang_submitter: '1'
 -
@@ -498,8 +498,8 @@
     lang_iso_639_1: tl
     lang_iso_639_2: ''
     lang_flag: ph.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423522'
     lang_submitter: '1'
 -
@@ -510,8 +510,8 @@
     lang_iso_639_1: uk
     lang_iso_639_2: ''
     lang_flag: ua.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593430174'
     lang_submitter: '1'
 -
@@ -522,7 +522,7 @@
     lang_iso_639_1: ur
     lang_iso_639_2: ''
     lang_flag: pk.png
-    lang_online: '1'
     lang_primary: '0'
+    lang_online: '1'
     lang_date: '1593423595'
     lang_submitter: '1'

@@ -42,6 +42,7 @@ interface Constants
     public const STATUS_CREATED = 6;
     public const STATUS_OUTDATED = 7;
     public const STATUS_ARCHIVED = 8;
+    public const STATUS_DELETEDTX = 9;
     public const STATUS_READTX = 10;
     public const STATUS_READTXNEW = 11;
 }
