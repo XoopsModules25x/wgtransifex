@@ -170,7 +170,8 @@ class Packages extends \XoopsObject
         $pkgDate = $this->isNew() ? 0 : $this->getVar('pkg_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PACKAGE_DATE, 'pkg_date', '', $pkgDate));
         // Form Select User pkgSubmitter
-        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_PACKAGE_SUBMITTER, 'pkg_submitter', false, $this->getVar('pkg_submitter')));
+        $pkgSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('pkg_submitter');
+        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_PACKAGE_SUBMITTER, 'pkg_submitter', false, $pkgSubmitter));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));

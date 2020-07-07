@@ -98,6 +98,7 @@ switch ($op) {
         $projectLastupdated    = \strtotime($projectLastupdatedArr['date']) + (int)$projectLastupdatedArr['time'];
         $projectsObj->setVar('pro_last_updated', $projectLastupdated);
         $projectsObj->setVar('pro_teams', Request::getString('pro_teams', ''));
+        $projectsObj->setVar('pro_archived', Request::getInt('pro_archived', 0));
         $projectDateArr = Request::getArray('pro_date');
         $projectDate    = \strtotime($projectDateArr['date']) + (int)$projectDateArr['time'];
         $projectsObj->setVar('pro_date', $projectDate);

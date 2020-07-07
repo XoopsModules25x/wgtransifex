@@ -22,9 +22,10 @@ CREATE TABLE `wgtransifex_projects` (
     `pro_teams`                TEXT            NOT NULL,
     `pro_resources`            INT(10)         NOT NULL DEFAULT '0',
     `pro_translations`         INT(10)         NOT NULL DEFAULT '0',
+    `pro_archived`             INT(1)          NOT NULL DEFAULT '0',
+    `pro_status`               INT(1)          NOT NULL DEFAULT '0',
     `pro_date`                 INT(11)         NOT NULL DEFAULT '0',
     `pro_submitter`            INT(10)         NOT NULL DEFAULT '0',
-    `pro_status`               INT(1)          NOT NULL DEFAULT '0',
     PRIMARY KEY (`pro_id`)
 )
     ENGINE = InnoDB;

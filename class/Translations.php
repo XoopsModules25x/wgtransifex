@@ -148,7 +148,8 @@ class Translations extends \XoopsObject
         $traDate = $this->isNew() ? 0 : $this->getVar('tra_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_TRANSLATION_DATE, 'tra_date', '', $traDate));
         // Form Select User traSubmitter
-        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_TRANSLATION_SUBMITTER, 'tra_submitter', false, $this->getVar('tra_submitter')));
+        $traSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('tra_submitter');
+        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_TRANSLATION_SUBMITTER, 'tra_submitter', false, $traSubmitter));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
@@ -193,8 +194,12 @@ class Translations extends \XoopsObject
         $form->addElement($traPro_idSelect, true);
         // Form Table languages
         $languagesHandler = $helper->getHandler('Languages');
-        $traLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'tra_lang_id', $this->getVar('tra_lang_id'));
-        $traLang_idSelect->addOptionArray($languagesHandler->getList());
+        $langId = $this->isNew() ? $languagesHandler->getPrimaryLang() : $this->getVar('tra_lang_id');
+        $traLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'tra_lang_id', $langId);
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->add(new \Criteria('lang_online', 1));
+        $crLanguages->setSort('lang_name');
+        $traLang_idSelect->addOptionArray($languagesHandler->getList($crLanguages));
         $form->addElement($traLang_idSelect);
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'savetx'));

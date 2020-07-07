@@ -132,7 +132,8 @@ class Languages extends \XoopsObject
         $langDate = $this->isNew() ? 0 : $this->getVar('lang_date');
         $form->addElement(new \XoopsFormTextDateSelect(\_AM_WGTRANSIFEX_LANGUAGE_DATE, 'lang_date', '', $langDate));
         // Form Select User langSubmitter
-        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_LANGUAGE_SUBMITTER, 'lang_submitter', false, $this->getVar('lang_submitter')));
+        $langSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('lang_submitter');
+        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_LANGUAGE_SUBMITTER, 'lang_submitter', false, $langSubmitter));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));

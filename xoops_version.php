@@ -24,7 +24,7 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
     'name'                => \_MI_WGTRANSIFEX_NAME,
-    'version'             => 1.0,
+    'version'             => 1.01,
     'description'         => \_MI_WGTRANSIFEX_DESC,
     'author'              => 'TDM XOOPS',
     'author_mail'         => 'info@email.com',
@@ -84,6 +84,8 @@ $modversion['templates'] = [
     // User templates
     ['file' => 'wgtransifex_header.tpl', 'description' => ''],
     ['file' => 'wgtransifex_index.tpl', 'description' => ''],
+    ['file' => 'wgtransifex_projects.tpl', 'description' => ''],
+	['file' => 'wgtransifex_projects_item.tpl', 'description' => ''],
     ['file' => 'wgtransifex_languages.tpl', 'description' => ''],
     ['file' => 'wgtransifex_languages_list.tpl', 'description' => ''],
     ['file' => 'wgtransifex_languages_item.tpl', 'description' => ''],
@@ -134,6 +136,11 @@ if ($currdirname == $moduleDirName) {
 		'name' => \_MI_WGTRANSIFEX_SMNAME3,
 		'url'  => 'languages.php',
 	];
+    // Sub languages
+    $modversion['sub'][] = [
+        'name' => \_MI_WGTRANSIFEX_SMNAME4,
+        'url'  => 'projects.php',
+    ];
 }
 // ------------------- Blocks ------------------- //
 // Packages last
