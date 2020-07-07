@@ -99,6 +99,7 @@ class Resources extends \XoopsObject
         $resPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_PRO_ID, 'res_pro_id', $this->getVar('res_pro_id'));
         $crProjects = new \CriteriaCompo();
         $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTXNEW), 'OR');
         $resPro_idSelect->addOptionArray($projectsHandler->getList($crProjects));
         $form->addElement($resPro_idSelect);
         // Form Text resSource_language_code
@@ -128,7 +129,8 @@ class Resources extends \XoopsObject
         $resDate = $this->isNew() ? 0 : $this->getVar('res_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_RESOURCE_DATE, 'res_date', '', $resDate));
         // Form Select User resSubmitter
-        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_RESOURCE_SUBMITTER, 'res_submitter', false, $this->getVar('res_submitter')));
+        $resSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('res_submitter');
+        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_RESOURCE_SUBMITTER, 'res_submitter', false, $resSubmitter));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));

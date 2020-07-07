@@ -130,7 +130,8 @@ class Projects extends \XoopsObject
         $proDate = $this->isNew() ? 0 : $this->getVar('pro_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PROJECT_DATE, 'pro_date', '', $proDate));
         // Form Select User proSubmitter
-        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_PROJECT_SUBMITTER, 'pro_submitter', false, $this->getVar('pro_submitter')));
+        $proSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('pro_submitter');
+        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_PROJECT_SUBMITTER, 'pro_submitter', false, $proSubmitter));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));

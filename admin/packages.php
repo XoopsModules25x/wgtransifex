@@ -128,7 +128,8 @@ switch ($op) {
                 $dst_path = $pkg_path;
                 $files = explode('/', $translationsAll[$i]->getVar('tra_local'));
                 foreach (\array_keys($files) as $f) {
-                    if (\array_key_last($files) == $f) {
+                    end( $files );
+                    if (key( $files ) == $f) {
                         $content = $translationsAll[$i]->getVar('tra_content', 'n');
                         $dst_file = $dst_path . '/' . $files[$f];
                         \unlink($dst_file);

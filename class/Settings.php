@@ -100,7 +100,8 @@ class Settings extends \XoopsObject
         $setDate = $this->isNew() ? 0 : $this->getVar('set_date');
         $form->addElement(new \XoopsFormTextDateSelect(\_AM_WGTRANSIFEX_SETTING_DATE, 'set_date', '', $setDate));
         // Form Select User setSubmitter
-        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_SETTING_SUBMITTER, 'set_submitter', false, $this->getVar('set_submitter')));
+        $setSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('set_submitter');
+        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_SETTING_SUBMITTER, 'set_submitter', false, $setSubmitter));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));

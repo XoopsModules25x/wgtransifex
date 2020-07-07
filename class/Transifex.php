@@ -103,7 +103,7 @@ class Transifex
                     $projectsObj->setVar('pro_source_language_code', $project['source_language_code']);
                     $projectsObj->setVar('pro_slug', $project['slug']);
                     $projectsObj->setVar('pro_name', $project['name']);
-                    if ((bool)$project['archived']) {
+                    if ($archived) {
                         $projectsObj->setVar('pro_status', Constants::STATUS_ARCHIVED);
                         $projectsObj->setVar('pro_archived', 1);
                     } else {
