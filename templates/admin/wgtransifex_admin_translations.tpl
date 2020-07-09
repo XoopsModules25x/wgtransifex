@@ -67,7 +67,6 @@
 				<td class='center'><{$translation.lang_id}></td>
 				<td class='center'><{$translation.mimetype}></td>
 				<td class='center'>
-					<{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_PROOFREAD}>: <{$translation.proofread}> (<{$translation.proofread_percentage}>%)<br>
 					<{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_REVIEWED}>: <{$translation.reviewed}> (<{$translation.reviewed_percentage}>%)<br>
 					<{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_TRANSLATED_WORDS}>: <{$translation.translated_words}><br>
 					<{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_WORDS}>: <{$translation.untranslated_words}><br>

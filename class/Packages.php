@@ -137,6 +137,7 @@ class Packages extends \XoopsObject
         $crLanguages->setSort('lang_name');
         $pkgLang_idSelect->addOptionArray($languagesHandler->getList($crLanguages));
         $form->addElement($pkgLang_idSelect, true);
+        //$form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_PACKAGE_DOWNLOAD, 'pkg_download', 0), true);
         $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_PACKAGE_ZIPFILE, 'pkg_zipfile', 1), true);
         if (!$this->isNew()) {
             $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_PACKAGE_ZIP, 'pkg_zip', 100, 255, $this->getVar('pkg_zip')));
@@ -145,8 +146,8 @@ class Packages extends \XoopsObject
         $getPkg_logo    = $this->getVar('pkg_logo');
         $pkgLogo        = $getPkg_logo ?: 'blank.gif';
         $imageDirectory = '/uploads/wgtransifex/logos';
-        $imageTray      = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_PKG_LOGO, '<br>');
-        $imageSelect    = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_PKG_LOGO_UPLOADS, ".{$imageDirectory}/"), 'pkg_logo', $pkgLogo, 5);
+        $imageTray      = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_PACKAGE_LOGO, '<br>');
+        $imageSelect    = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_PACKAGE_LOGO_UPLOADS, ".{$imageDirectory}/"), 'pkg_logo', $pkgLogo, 5);
         $imageArray     = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
         foreach ($imageArray as $image1) {
             $imageSelect->addOption(($image1), $image1);
@@ -160,18 +161,24 @@ class Packages extends \XoopsObject
         $fileSelectTray->addElement(new \XoopsFormLabel(''));
         $imageTray->addElement($fileSelectTray);
         $form->addElement($imageTray);
-        // Form Select Status pkgStatus
-        $pkgStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_STATUS, 'pkg_status', $this->getVar('pkg_status'));
-        $pkgStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
-        $pkgStatusSelect->addOption(Constants::STATUS_CREATED, \_AM_WGTRANSIFEX_STATUS_CREATED);
-        $pkgStatusSelect->addOption(Constants::STATUS_BROKEN, \_AM_WGTRANSIFEX_STATUS_BROKEN);
-        $form->addElement($pkgStatusSelect);
-        // Form Text Date Select pkgDate
-        $pkgDate = $this->isNew() ? 0 : $this->getVar('pkg_date');
-        $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PACKAGE_DATE, 'pkg_date', '', $pkgDate));
-        // Form Select User pkgSubmitter
+
         $pkgSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('pkg_submitter');
-        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_PACKAGE_SUBMITTER, 'pkg_submitter', false, $pkgSubmitter));
+        if ($this->isNew()) {
+            $form->addElement(new \XoopsFormHidden('pkg_submitter', $pkgSubmitter));
+        } else {
+            // Form Select Status pkgStatus
+            $pkgStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_STATUS, 'pkg_status', $this->getVar('pkg_status'));
+            $pkgStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
+            $pkgStatusSelect->addOption(Constants::STATUS_CREATED, \_AM_WGTRANSIFEX_STATUS_CREATED);
+            $pkgStatusSelect->addOption(Constants::STATUS_BROKEN, \_AM_WGTRANSIFEX_STATUS_BROKEN);
+            $form->addElement($pkgStatusSelect);
+            // Form Text Date Select pkgDate
+            $pkgDate = $this->isNew() ? 0 : $this->getVar('pkg_date');
+            $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PACKAGE_DATE, 'pkg_date', '', $pkgDate));
+            // Form Select User pkgSubmitter
+            $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_PACKAGE_SUBMITTER, 'pkg_submitter', false, $pkgSubmitter));
+        }
+
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));

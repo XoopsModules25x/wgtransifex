@@ -196,8 +196,9 @@ define('_AM_WGTRANSIFEX_PACKAGE_VERSION_LAST', 'Last version');
 define('_AM_WGTRANSIFEX_PACKAGE_ERROR_NODATA', 'Requested project/language is not available. Please download first');
 define('_AM_WGTRANSIFEX_PACKAGE_ZIPFILE', 'Create automatically zip file of language package');
 define('_AM_WGTRANSIFEX_PACKAGE_ZIP', 'Zip file name');
-define('_AM_WGTRANSIFEX_PKG_LOGO', 'Logo');
-define('_AM_WGTRANSIFEX_PKG_LOGO_UPLOADS', 'Existing logos in upload directory: %s');
+define('_AM_WGTRANSIFEX_PACKAGE_LOGO', 'Logo');
+define('_AM_WGTRANSIFEX_PACKAGE_LOGO_UPLOADS', 'Existing logos in upload directory: %s');
+define('_AM_WGTRANSIFEX_PACKAGE_DOWNLOAD', 'Do you want to download files from Transifex?<br>Pay attention: existing resources and translations will be overwritten!');
 // Broken
 define('_AM_WGTRANSIFEX_BROKEN_RESULT', 'Broken items in table %s');
 define('_AM_WGTRANSIFEX_BROKEN_NODATA', 'No broken items in table %s');
