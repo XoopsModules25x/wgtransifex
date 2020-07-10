@@ -47,8 +47,14 @@ $keywords = [];
 
 switch ($op) {
     case 'show':
+    case 'show_index':
     case 'list':
     default:
+        if ('show_index' == $op) {
+            $GLOBALS['xoopsTpl']->assign('link_list', 'index.php');
+        } else {
+            $GLOBALS['xoopsTpl']->assign('link_list', 'packages.php');
+        }
         $crPackages = new \CriteriaCompo();
         if ($pkgId > 0) {
             $crPackages->add(new \Criteria('pkg_id', $pkgId));

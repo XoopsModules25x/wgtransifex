@@ -20,6 +20,28 @@
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
 
+ul.menu {
+	list-style: none;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+}
+
+ul.menu > li {
+	display: inline-block;
+}
+
+ul.menu > li + li:before {
+	content: "|\a0";
+}
+
+.printOnly {
+	display: none;
+}
+
+img {
+	max-width: 300px;
+}
+
 .wgt-icon24 {
 	height:24px;
 }
