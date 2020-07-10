@@ -101,6 +101,13 @@ switch ($op) {
             }
             $packagesObj->setVar('pkg_status', Constants::STATUS_BROKEN);
             if ($packagesHandler->insert($packagesObj)) {
+                // Event broken notification
+				$tags = [];
+				$tags['ITEM_NAME'] = $pkgName;
+				$tags['ITEM_URL']  = XOOPS_URL . '/modules/wgtransifex/packages.php?op=show&pkg_id=' . $pkgId;
+				$notificationHandler = xoops_getHandler('notification');
+				$notificationHandler->triggerEvent('global', 0, 'global_broken', $tags);
+				$notificationHandler->triggerEvent('packages', $pkgId, 'package_broken', $tags);
                 redirect_header('packages.php', 3, \_MA_WGTRANSIFEX_FORM_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $packagesObj->getHtmlErrors());

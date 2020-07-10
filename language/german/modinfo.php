@@ -98,4 +98,12 @@ define('_MI_WGTRANSIFEX_FACEBOOK_COMMENTS', 'Facebook comments');
 define('_MI_WGTRANSIFEX_FACEBOOK_COMMENTS_DESC', 'Allow Facebook comments in the single page');
 define('_MI_WGTRANSIFEX_DISQUS_COMMENTS', 'Disqus comments');
 define('_MI_WGTRANSIFEX_DISQUS_COMMENTS_DESC', 'Allow Disqus comments in the single page');
+// Global notifications
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL', 'Globale Benachrichtigungen');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW', 'Neues Sprachpaket');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW_CAPTION', 'Benachrichtige mich über neue Sprachpakete');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW_SUBJECT', 'Benachrichtigung über neues Sprachpaket');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN', 'Fehlerhafte Sprachpakete');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN_CAPTION', 'Benachrichtige mich über fehlerhafte Sprachpakete');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN_SUBJECT', 'Benachrichtigung über fehlerhaftes Sprachpaket');
 // ---------------- End ----------------

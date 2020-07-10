@@ -98,4 +98,12 @@ define('_MI_WGTRANSIFEX_FACEBOOK_COMMENTS', 'Facebook comments');
 define('_MI_WGTRANSIFEX_FACEBOOK_COMMENTS_DESC', 'Allow Facebook comments in the single page');
 define('_MI_WGTRANSIFEX_DISQUS_COMMENTS', 'Disqus comments');
 define('_MI_WGTRANSIFEX_DISQUS_COMMENTS_DESC', 'Allow Disqus comments in the single page');
+// Global notifications
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL', 'Global notification');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW', 'Any new item');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW_CAPTION', 'Notify me about any new item');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW_SUBJECT', 'Notification about new item');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN', 'Any broken item');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN_CAPTION', 'Notify me about any broken item');
+define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN_SUBJECT', 'Notification about broken item');
 // ---------------- End ----------------

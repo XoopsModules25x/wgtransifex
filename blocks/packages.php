@@ -86,8 +86,11 @@ function b_wgtransifex_packages_show($options)
 	unset($crPackages);
 	if (\count($packagesAll) > 0) {
 		foreach(\array_keys($packagesAll) as $i) {
-			$block[$i]['name']      = $myts->htmlSpecialChars($packagesAll[$i]->getVar('pkg_name'));
+            $block[$i]['id']        = $packagesAll[$i]->getVar('pkg_id');
+		    $block[$i]['name']      = $myts->htmlSpecialChars($packagesAll[$i]->getVar('pkg_name'));
+            $block[$i]['desc']      = $myts->htmlSpecialChars($packagesAll[$i]->getVar('pkg_desc'));
             $languagesObj           = $languagesHandler->get($packagesAll[$i]->getVar('pkg_lang_id'));
+            $block[$i]['date']      = \formatTimestamp($packagesAll[$i]->getVar('pkg_date'), 'm');
 			$block[$i]['lang_flag'] = $languagesObj->getVar('lang_flag');
             $block[$i]['logo']      = $packagesAll[$i]->getVar('pkg_logo');
 		}
