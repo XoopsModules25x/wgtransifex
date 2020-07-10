@@ -17,8 +17,8 @@
 				<td class='center'><{$package.table}></td>
 				<td class='center'><{$package.main}></td>
 				<td class='center width5'>
-					<a href='packages.php?op=edit&amp;<{$package.key}>=<{$package.keyval}>' title='<{$smarty.const._EDIT}>'><img src='<{xoModuleIcons16 edit.png}>' alt='packages' /></a>
-					<a href='packages.php?op=delete&amp;<{$package.key}>=<{$package.keyval}>' title='<{$smarty.const._DELETE}>'><img src='<{xoModuleIcons16 delete.png}>' alt='packages' /></a>
+					<a href='packages.php?op=edit&amp;<{$package.key}>=<{$package.keyval}>' title='<{$smarty.const._EDIT}>'><img class="wgt-icon24" src='<{$modPathIcon32}>edit.png' alt='packages' /></a>
+					<a href='packages.php?op=delete&amp;<{$package.key}>=<{$package.keyval}>' title='<{$smarty.const._DELETE}>'><img class="wgt-icon24" src='<{$modPathIcon32}>delete.png' alt='packages' /></a>
 				</td>
 			</tr>
 			<{/foreach}>

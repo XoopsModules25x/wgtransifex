@@ -25,8 +25,8 @@
 				<td class='center'><{$setting.date}></td>
 				<td class='center'><{$setting.submitter}></td>
 				<td class="center  width5">
-					<a href="settings.php?op=edit&amp;set_id=<{$setting.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="<{$smarty.const._EDIT}> settings" /></a>
-					<a href="settings.php?op=delete&amp;set_id=<{$setting.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}> settings" /></a>
+					<a href="settings.php?op=edit&amp;set_id=<{$setting.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> settings" /></a>
+					<a href="settings.php?op=delete&amp;set_id=<{$setting.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> settings" /></a>
 				</td>
 			</tr>
 			<{/foreach}>

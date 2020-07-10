@@ -91,27 +91,52 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('packages.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('packages.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        $pkgName = Request::getString('pkg_name');
-        $pkgProId = Request::getInt('pkg_pro_id', 0);
-        $pkgLangId = Request::getInt('pkg_lang_id', 0);
-        $languagesHandler = $helper->getHandler('Languages');
+        $pkgName     = Request::getString('pkg_name');
+        $pkgProId    = Request::getInt('pkg_pro_id', 0);
+        $pkgLangId   = Request::getInt('pkg_lang_id', 0);
+        $pkgDownload = Request::getInt('pkg_lang_id', 0);
+
+        $projectsHandler     = $helper->getHandler('Projects');
+        $resourcesHandler    = $helper->getHandler('Resources');
+        $translationsHandler = $helper->getHandler('Translations');
+        $languagesHandler    = $helper->getHandler('Languages');
+
+        if ($pkgDownload) {
+            $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+            //read resources
+            $result = $transifex->readResources(0, $pkgProId);
+            //update table projects
+            $crResources = new \CriteriaCompo();
+            $crResources->add(new \Criteria('res_pro_id', $pkgProId));
+            $resourcesCount = $resourcesHandler->getCount($crResources);
+            $projectsObj    = $projectsHandler->get($pkgProId);
+            $projectsObj->setVar('pro_resources', $resourcesCount);
+            $projectsHandler->insert($projectsObj);
+
+            //read translations
+            $result = $transifex->readTranslations(0, $pkgProId, $pkgLangId);
+            //update table projects
+            $crTranslations = new \CriteriaCompo();
+            $crTranslations->add(new \Criteria('tra_pro_id', $pkgProId));
+            $translationsCount = $translationsHandler->getCount($crTranslations);
+            $projectsObj       = $projectsHandler->get($pkgProId);
+            $projectsObj->setVar('pro_translations', $translationsCount);
+            $projectsHandler->insert($projectsObj);
+        }
+
         $languagesObj = $languagesHandler->get($pkgLangId);
-        //$langCode        = $languagesObj->getVar('lang_code');
+        //$langCode   = $languagesObj->getVar('lang_code');
         $langFolder = $languagesObj->getVar('lang_folder');
 
         // Make the destination directory if not exist
         $pkg_path = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName;
-        @mkdir($pkg_path);
+        @\mkdir($pkg_path);
         $pkg_path .= '/' . $langFolder;
-        clearDir($pkg_path);
-        @mkdir($pkg_path);
+        \clearDir($pkg_path);
+        @\mkdir($pkg_path);
 
-        $projectsHandler = $helper->getHandler('Projects');
-        $resourcesHandler = $helper->getHandler('Resources');
-        $translationsHandler = $helper->getHandler('Translations');
-        $languagesHandler = $helper->getHandler('Languages');
         $count_ok = 0;
         $count_err = 0;
 
@@ -126,7 +151,7 @@ switch ($op) {
             $translationsAll = $translationsHandler->getAll($crTranslations);
             foreach (\array_keys($translationsAll) as $i) {
                 $dst_path = $pkg_path;
-                $files = explode('/', $translationsAll[$i]->getVar('tra_local'));
+                $files = \explode('/', $translationsAll[$i]->getVar('tra_local'));
                 foreach (\array_keys($files) as $f) {
                     end( $files );
                     if (key( $files ) == $f) {
@@ -136,12 +161,12 @@ switch ($op) {
                         \file_put_contents($dst_file, $content);
                     } else {
                         $dst_path .= '/' . $files[$f];
-                        @mkdir($dst_path);
+                        @\mkdir($dst_path);
                     }
                 }
             }
         } else {
-            redirect_header('packages.php?op=list', 5, \_AM_WGTRANSIFEX_PACKAGE_ERROR_NODATA);
+            \redirect_header('packages.php?op=list', 5, \_AM_WGTRANSIFEX_PACKAGE_ERROR_NODATA);
         }
 
         $zipcreate = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $pkgName . '_' . $langFolder . '.zip';
@@ -178,7 +203,7 @@ switch ($op) {
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             if (!$uploader->upload()) {
                 $errors = $uploader->getErrors();
-                redirect_header('javascript:history.go(-1).php', 3, $errors);
+                \redirect_header('javascript:history.go(-1).php', 3, $errors);
             } else {
                 $packagesObj->setVar('pkg_logo', $uploader->getSavedFileName());
             }
@@ -187,7 +212,7 @@ switch ($op) {
         }
         // Insert Data
         if ($packagesHandler->insert($packagesObj)) {
-            redirect_header('packages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('packages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $packagesObj->getHtmlErrors());
@@ -212,11 +237,11 @@ switch ($op) {
         $pkgName = $packagesObj->getVar('pkg_name');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('packages.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('packages.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
 
             if ($packagesHandler->delete($packagesObj)) {
-                redirect_header('packages.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
+                \redirect_header('packages.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $packagesObj->getHtmlErrors());
             }

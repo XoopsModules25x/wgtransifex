@@ -88,7 +88,7 @@ define('_AM_WGTRANSIFEX_PROJECT_ID', 'Id');
 define('_AM_WGTRANSIFEX_PROJECT_DESCRIPTION', 'Description');
 define('_AM_WGTRANSIFEX_PROJECT_SOURCE_LANGUAGE_CODE', 'Source language code');
 define('_AM_WGTRANSIFEX_PROJECT_SLUG', 'Slug');
-define('_AM_WGTRANSIFEX_PROJECT_NAME', 'Project Name');
+define('_AM_WGTRANSIFEX_PROJECT_NAME', 'Name');
 define('_AM_WGTRANSIFEX_PROJECT_TXRESOURCES', 'Resources on Transifex');
 define('_AM_WGTRANSIFEX_PROJECT_LAST_UPDATED', 'Last project update on Transifex');
 define('_AM_WGTRANSIFEX_PROJECT_TEAMS', 'Teams on Transifex');
@@ -100,8 +100,6 @@ define('_AM_WGTRANSIFEX_PROJECT_STATUS', 'Status');
 define('_AM_WGTRANSIFEX_PROJECT_SELECT', 'Please select a project');
 define('_AM_WGTRANSIFEX_PROJECT_RESOURCES', '%p   (%s resources)');
 define('_AM_WGTRANSIFEX_PROJECT_LANGUAGES', '%p - %l  (%t translations)');
-define('_AM_WGTRANSIFEX_PROJECT_PKG_FORM', 'Create package directly from Transifex');
-define('_AM_WGTRANSIFEX_PROJECT_PKG', 'Pay attention');
 // Resource add/edit
 define('_AM_WGTRANSIFEX_RESOURCE_ADD', 'Add Resource');
 define('_AM_WGTRANSIFEX_RESOURCE_EDIT', 'Edit Resource');
@@ -205,7 +203,6 @@ define('_AM_WGTRANSIFEX_PACKAGE_DOWNLOAD_DESC', 'Pay attention:
 <ul><li>if yes: non existing resources and translations will be downloaded / existing resources and translations will be overwritten!</li>
 <li>if no: resources and translations must be downloaded before, otherwise package will be incomplete!</li></ul>
 ');
-
 // Broken
 define('_AM_WGTRANSIFEX_BROKEN_RESULT', 'Broken items in table %s');
 define('_AM_WGTRANSIFEX_BROKEN_NODATA', 'No broken items in table %s');

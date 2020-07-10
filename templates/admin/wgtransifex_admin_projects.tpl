@@ -40,12 +40,12 @@
 				<td class='center'><{$project.submitter}></td>
 				<td class="center  width5">
 					<{if $project.archived == 0}>
-						<a href="projects.php?op=savetx&amp;pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_PROJECT}>"><img src="<{$modPathIcon16}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_PROJECT}>" /></a>
+						<a href="projects.php?op=savetx&amp;pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_PROJECT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_PROJECT}>" /></a>
 					<{/if}>
-					<a href="projects.php?op=edit&amp;pro_id=<{$project.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="<{$smarty.const._EDIT}> projects" /></a>
-					<a href="projects.php?op=delete&amp;pro_id=<{$project.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}> projects" /></a>
+					<a href="projects.php?op=edit&amp;pro_id=<{$project.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> projects" /></a>
+					<a href="projects.php?op=delete&amp;pro_id=<{$project.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> projects" /></a>
 					<{if $project.archived == 0}>
-						<a href="resources.php?op=savetx&amp;res_pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCES}>"><img src="<{$modPathIcon16}>resources.png"" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCES}>" /></a>
+						<a href="resources.php?op=savetx&amp;res_pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCES}>"><img class="wgt-icon24" src="<{$modPathIcon32}>resources.png"" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCES}>" /></a>
 					<{/if}>
 				</td>
 			</tr>

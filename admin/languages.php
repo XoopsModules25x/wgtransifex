@@ -25,17 +25,19 @@ use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
 
 require __DIR__ . '/header.php';
-// It recovered the value of argument op in URL$
-$op = Request::getCmd('op', 'list');
-// Request lang_id
+
+$op     = Request::getCmd('op', 'list');
 $langId = Request::getInt('lang_id');
+$start  = Request::getInt('start', 0);
+$limit  = Request::getInt('limit', $helper->getConfig('adminpager'));
+
 switch ($op) {
     case 'list':
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
-        $start        = Request::getInt('start', 0);
-        $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $GLOBALS['xoopsTpl']->assign('start', $start);
+        $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $templateMain = 'wgtransifex_admin_languages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('languages.php'));
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_LANGUAGE, 'languages.php?op=new', 'add');
@@ -184,7 +186,7 @@ switch ($op) {
         $languagesObj->setVar('lang_primary', 1);
         // Insert Data
         if ($languagesHandler->insert($languagesObj)) {
-            redirect_header('languages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+            redirect_header('languages.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
         break;

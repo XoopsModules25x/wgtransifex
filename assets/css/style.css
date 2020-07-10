@@ -19,6 +19,7 @@
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
+
 ul.menu {
 	list-style: none;
 	background-color: #f5f5f5;
@@ -29,8 +30,8 @@ ul.menu > li {
 	display: inline-block;
 }
 
-ul.menu > li + li:before {  
-    content: "|\a0";
+ul.menu > li + li:before {
+	content: "|\a0";
 }
 
 .printOnly {
@@ -39,4 +40,8 @@ ul.menu > li + li:before {
 
 img {
 	max-width: 300px;
+}
+
+.wgt-icon24 {
+	height:24px;
 }
