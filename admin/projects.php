@@ -146,5 +146,40 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
+/*
+    case 'createpkg':
+        $templateMain = 'wgtransifex_admin_packages.tpl';
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
+        $projectsObj = $projectsHandler->get($proId);
+        $langId      = Request::getInt('lang_id');
+        $pkgLogo     = Request::getString('pkg_logo');
+        if ($langId > 0) {
+            $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+            //read resources
+            $result = $transifex->readResources(0, $proId);
+            //update table projects
+            $crResources = new \CriteriaCompo();
+            $crResources->add(new \Criteria('res_pro_id', $proId));
+            $resourcesCount = $resourcesHandler->getCount($crResources);
+            $projectsObj    = $projectsHandler->get($proId);
+            $projectsObj->setVar('pro_resources', $resourcesCount);
+            $projectsHandler->insert($projectsObj);
+
+            //read translations
+            $result = $transifex->readTranslations(0, $proId, $langId);
+            //update table projects
+            $crTranslations = new \CriteriaCompo();
+            $crTranslations->add(new \Criteria('tra_pro_id', $proId));
+            $translationsCount = $translationsHandler->getCount($crTranslations);
+            $projectsObj       = $projectsHandler->get($proId);
+            $projectsObj->setVar('pro_translations', $translationsCount);
+            $projectsHandler->insert($projectsObj);
+
+        } else {
+            $form = $projectsObj->getFormCreatePkg();
+            $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        }
+        break;
+*/
 }
 require __DIR__ . '/footer.php';

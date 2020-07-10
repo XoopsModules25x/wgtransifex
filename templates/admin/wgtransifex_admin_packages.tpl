@@ -39,8 +39,8 @@
 					<{/if}>
 				</td>
 				<td class="center  width5">
-					<a href="packages.php?op=edit&amp;pkg_id=<{$package.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="<{$smarty.const._EDIT}> packages" /></a>
-					<a href="packages.php?op=delete&amp;pkg_id=<{$package.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}> packages" /></a>
+					<a href="packages.php?op=edit&amp;pkg_id=<{$package.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> packages" /></a>
+					<a href="packages.php?op=delete&amp;pkg_id=<{$package.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> packages" /></a>
 				</td>
 			</tr>
 			<{/foreach}>

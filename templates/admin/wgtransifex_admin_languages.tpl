@@ -29,23 +29,23 @@
 				<td class='center'><{$language.folder}></td>
 				<td class='center'><img src="<{$modPathIconFlags}><{$language.flag}>" alt="<{$language.name}>" title="<{$language.name}>" /></td>
 				<td class='center'>
-					<a href="languages.php?op=setprimary&amp;lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>">
+					<a href="languages.php?op=setprimary&amp;lang_id=<{$language.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>">
 						<img src="<{$modPathIcon16}><{$language.primary}>.png" alt="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>"</a>
 				</td>
 				<td class='center'>
 					<{if $language.online}>
-						<a href="languages.php?op=setonline&amp;lang_online=0&amp;lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE}>">
+						<a href="languages.php?op=setonline&amp;lang_online=0&amp;lang_id=<{$language.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE}>">
 							<img src="<{$modPathIcon16}><{$language.online}>.png" alt="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE}>"</a>
 					<{else}>
-						<a href="languages.php?op=setonline&amp;lang_online=1&amp;lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE}>">
+						<a href="languages.php?op=setonline&amp;lang_online=1&amp;lang_id=<{$language.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE}>">
 							<img src="<{$modPathIcon16}><{$language.online}>.png" alt="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE}>"</a>
 					<{/if}>
 				</td>
 				<td class='center'><{$language.date}></td>
 				<td class='center'><{$language.submitter}></td>
 				<td class="center  width5">
-					<a href="languages.php?op=edit&amp;lang_id=<{$language.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="<{$smarty.const._EDIT}> languages" /></a>
-					<a href="languages.php?op=delete&amp;lang_id=<{$language.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}> languages" /></a>
+					<a href="languages.php?op=edit&amp;lang_id=<{$language.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> languages" /></a>
+					<a href="languages.php?op=delete&amp;lang_id=<{$language.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> languages" /></a>
 				</td>
 			</tr>
 			<{/foreach}>

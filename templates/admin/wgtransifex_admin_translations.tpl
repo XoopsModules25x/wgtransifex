@@ -26,7 +26,7 @@
 				<td class='center width20'>
 					<{foreach item=language from=$project.languages}>
 						<a href="translations.php?op=list&amp;tra_pro_id=<{$project.id}>&amp;tra_lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>">
-							<img src="<{$modPathIcon16}>translations.png" alt="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>" />&nbsp;<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}> <{$language.name}></a><br>
+							<img class="wgt-icon24" src="<{$modPathIcon32}>translations.png" alt="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>" />&nbsp;<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}> <{$language.name}></a><br>
 					<{/foreach}>
 				</td>
 			</tr>
@@ -80,9 +80,9 @@
 				<td class='center'><{$translation.date}></td>
 				<td class='center'><{$translation.submitter}></td>
 				<td class="center  width5">
-					<a href="translations.php?op=savetx&amp;tra_id=<{$translation.id}>&amp;tra_pro_id=<{$translation.tra_pro_id}>&amp;tra_res_id=<{$translation.tra_res_id}>&amp;tra_lang_id=<{$translation.tra_lang_id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>"><img src="<{$modPathIcon16}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>" /></a>
-					<a href="translations.php?op=edit&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="<{$smarty.const._EDIT}> translations" /></a>
-					<a href="translations.php?op=delete&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}> translations" /></a>
+					<a href="translations.php?op=savetx&amp;tra_id=<{$translation.id}>&amp;tra_pro_id=<{$translation.tra_pro_id}>&amp;tra_res_id=<{$translation.tra_res_id}>&amp;tra_lang_id=<{$translation.tra_lang_id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>"><img class="wgt-icon24" src="<{$modPathIcon32}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>" /></a>
+					<a href="translations.php?op=edit&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> translations" /></a>
+					<a href="translations.php?op=delete&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> translations" /></a>
 				</td>
 			</tr>
 			<{/foreach}>

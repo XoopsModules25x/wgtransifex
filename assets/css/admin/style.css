@@ -19,6 +19,7 @@
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
-img {
-	max-width: 200px;
+
+.wgt-icon24 {
+	height:24px;
 }

@@ -6,6 +6,7 @@ Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.01
  - read only active projects (goffy)
  - preselect current user in forms (goffy)
  - removed array_key_last (goffy)
+ - implemented quick creation of package (download and creation at once) (goffy)
 
 ==============================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.0
