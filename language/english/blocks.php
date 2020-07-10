@@ -30,4 +30,6 @@ define('_MB_WGTRANSIFEX_ALL_PACKAGES', 'All Packages');
 define('_MB_WGTRANSIFEX_PKG_NAME', 'Name');
 define('_MB_WGTRANSIFEX_PKG_LOGO', 'Logo');
 define('_MB_WGTRANSIFEX_PKG_LANG_ID', 'Language');
+define('_MB_WGTRANSIFEX_PKG_SHOWDETAILS', 'Show details');
+define('_MB_WGTRANSIFEX_PKG_SHOWMORE', 'Show more language packages');
 // ---------------- End ----------------

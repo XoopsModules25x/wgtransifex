@@ -24,7 +24,7 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
     'name'                => \_MI_WGTRANSIFEX_NAME,
-    'version'             => 1.01,
+    'version'             => 1.02,
     'description'         => \_MI_WGTRANSIFEX_DESC,
     'author'              => 'TDM XOOPS',
     'author_mail'         => 'info@email.com',
@@ -105,6 +105,12 @@ $modversion['tables'] = [
     'wgtransifex_languages',
     'wgtransifex_translations',
     'wgtransifex_packages',
+];
+// ------------------- Search ------------------- //
+$modversion['hasSearch'] = 1;
+$modversion['search'] = [
+	'file' => 'include/search.inc.php',
+	'func' => 'wgtransifex_search',
 ];
 // ------------------- Menu ------------------- //
 $currdirname = isset($GLOBALS['xoopsModule']) && \is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
@@ -393,4 +399,41 @@ $modversion['config'][] = [
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
     'default'     => 'https://xoops.org/modules/newbb',
+];
+// ------------------- Notifications ------------------- //
+$modversion['hasNotification'] = 1;
+$modversion['notification'] = [
+	'lookup_file' => 'include/notification.inc.php',
+	'lookup_func' => 'wgtransifex_notify_iteminfo',
+];
+// Categories of notification
+// Global Notify
+$modversion['notification']['category'][] = [
+	'name'           => 'global',
+	'title'          => _MI_WGTRANSIFEX_NOTIFY_GLOBAL,
+	'description'    => '',
+	'subscribe_from' => ['index.php', 'packages.php'],
+];
+// Global events notification
+// GLOBAL_NEW Notify
+$modversion['notification']['event'][] = [
+	'name'          => 'global_new',
+	'category'      => 'global',
+	'admin_only'    => 0,
+	'title'         => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW,
+	'caption'       => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW_CAPTION,
+	'description'   => '',
+	'mail_template' => 'global_new_notify',
+	'mail_subject'  => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW_SUBJECT,
+];
+// GLOBAL_BROKEN Notify
+$modversion['notification']['event'][] = [
+	'name'          => 'global_broken',
+	'category'      => 'global',
+	'admin_only'    => 1,
+	'title'         => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN,
+	'caption'       => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN_CAPTION,
+	'description'   => '',
+	'mail_template' => 'global_broken_notify',
+	'mail_subject'  => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN_SUBJECT,
 ];

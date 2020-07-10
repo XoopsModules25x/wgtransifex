@@ -211,7 +211,18 @@ switch ($op) {
             $packagesObj->setVar('pkg_logo', Request::getString('pkg_logo'));
         }
         // Insert Data
-        if ($packagesHandler->insert($packagesObj)) {
+        if ($packagesHandler->insert($packagesObj)) {           
+            $newPkgId = $pkgId > 0 ? $pkgId : $packagesObj->getNewInsertedIdPackages();
+			// Handle notification
+			$pkgName = $packagesObj->getVar('pkg_name');
+			$pkgStatus = $packagesObj->getVar('pkg_status');
+			$tags = [];
+			$tags['ITEM_NAME'] = $pkgName;
+			$tags['ITEM_URL']  = XOOPS_URL . '/modules/wgtransifex/packages.php?op=show&pkg_id=' . $pkgId;
+			$notificationHandler = \xoops_getHandler('notification');
+            // Event new notification
+            $notificationHandler->triggerEvent('global', 0, 'global_new', $tags);           
+            
             \redirect_header('packages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form

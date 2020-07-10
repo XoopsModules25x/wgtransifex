@@ -83,7 +83,7 @@ class Packages extends \XoopsObject
     {
         $helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
         $projectsHandler  = $helper->getHandler('Projects');
-        $resourcesHandler = $helper->getHandler('Resources');
+        //$resourcesHandler = $helper->getHandler('Resources');
         $languagesHandler = $helper->getHandler('Languages');
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
