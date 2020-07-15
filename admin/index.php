@@ -22,7 +22,7 @@
 
 use XoopsModules\Wgtransifex\Common;
 
-include_once dirname(__DIR__) . '/preloads/autoloader.php';
+include_once \dirname(__DIR__) . '/preloads/autoloader.php';
 require __DIR__ . '/header.php';
 // Template Index
 $templateMain = 'wgtransifex_admin_index.tpl';
@@ -33,6 +33,7 @@ $countPackages     = $packagesHandler->getCount();
 $countTranslations = $translationsHandler->getCount();
 $countSettings     = $settingsHandler->getCount();
 $countLanguages    = $languagesHandler->getCount();
+$countRequests     = $requestsHandler->getCount();
 // InfoBox Statistics
 $adminObject->addInfoBox(\_AM_WGTRANSIFEX_STATISTICS);
 // Info elements
@@ -40,16 +41,17 @@ $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_PROJ
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_RESOURCES . '</label>', $countResources));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_PACKAGES . '</label>', $countPackages));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_TRANSLATIONS . '</label>', $countTranslations));
+$adminObject->addInfoBoxLine(\sprintf( '<label>' . _AM_WGTRANSIFEX_THEREARE_REQUESTS . '</label>', $countRequests));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_SETTINGS . '</label>', $countSettings));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_LANGUAGES . '</label>', $countLanguages));
 // Upload Folders
 $configurator = new Common\Configurator();
-if ($configurator->uploadFolders && is_array($configurator->uploadFolders)) {
+if ($configurator->uploadFolders && \is_array($configurator->uploadFolders)) {
     foreach (\array_keys($configurator->uploadFolders) as $i) {
         $folder[] = $configurator->uploadFolders[$i];
     }
 }
-if (!function_exists('curl_init')) {
+if (!\function_exists('curl_init')) {
     $adminObject->addConfigError(\_AM_WGTRANSIFEX_NO_CURL);
 }
 // Uploads Folders Created
@@ -63,7 +65,7 @@ $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('inde
 // Test Data
 if ($helper->getConfig('displaySampleButton')) {
     \xoops_loadLanguage('admin/modulesadmin', 'system');
-    include_once dirname(__DIR__) . '/testdata/index.php';
+    include_once \dirname(__DIR__) . '/testdata/index.php';
     $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
     $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save', 'add');
     //	$adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');

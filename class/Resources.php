@@ -117,7 +117,6 @@ class Resources extends \XoopsObject
         // Form Select Status resStatus
         $resStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_STATUS, 'res_status', $this->getVar('res_status'));
         $resStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
-        $resStatusSelect->addOption(Constants::STATUS_OFFLINE, \_AM_WGTRANSIFEX_STATUS_OFFLINE);
         $resStatusSelect->addOption(Constants::STATUS_SUBMITTED, \_AM_WGTRANSIFEX_STATUS_SUBMITTED);
         $resStatusSelect->addOption(Constants::STATUS_APPROVED, \_AM_WGTRANSIFEX_STATUS_APPROVED);
         $resStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
@@ -201,8 +200,8 @@ class Resources extends \XoopsObject
             default:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
                 break;
-            case Constants::STATUS_OFFLINE:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_OFFLINE;
+            case Constants::STATUS_READTX:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_READTX;
                 break;
             case Constants::STATUS_SUBMITTED:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_SUBMITTED;

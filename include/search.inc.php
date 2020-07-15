@@ -42,8 +42,8 @@ function wgtransifex_search($queryarray, $andor, $limit, $offset, $userid)
 	// search keywords
 	$elementCount = 0;
 	$packagesHandler = $helper->getHandler('Packages');
-	if (is_array($queryarray)) {
-		$elementCount = count($queryarray);
+	if (\is_array($queryarray)) {
+		$elementCount = \count($queryarray);
 	}
 	if ($elementCount > 0) {
 		$crKeywords = new \CriteriaCompo();
@@ -53,10 +53,10 @@ function wgtransifex_search($queryarray, $andor, $limit, $offset, $userid)
 		}
 	}
 	// search user(s)
-	if ($userid && is_array($userid)) {
+	if ($userid && \is_array($userid)) {
 		$userid = array_map('intval', $userid);
 		$crUser = new \CriteriaCompo();
-		$crUser->add(new \Criteria('pkg_submitter', '(' . implode(',', $userid) . ')', 'IN'), 'OR');
+		$crUser->add(new \Criteria('pkg_submitter', '(' . \implode(',', $userid) . ')', 'IN'), 'OR');
 	} elseif (is_numeric($userid) && $userid > 0) {
 		$crUser = new \CriteriaCompo();
 		$crUser->add(new \Criteria('pkg_submitter', $userid), 'OR');
@@ -73,7 +73,7 @@ function wgtransifex_search($queryarray, $andor, $limit, $offset, $userid)
 	$crSearch->setSort('pkg_date');
 	$crSearch->setOrder('DESC');
 	$packagesAll = $packagesHandler->getAll($crSearch);
-	foreach (array_keys($packagesAll) as $i) {
+	foreach (\array_keys($packagesAll) as $i) {
 		$ret[] = [
 			'image'  => 'assets/icons/16/packages.png',
 			'link'   => 'packages.php?op=show&amp;pkg_id=' . $packagesAll[$i]->getVar('pkg_id'),

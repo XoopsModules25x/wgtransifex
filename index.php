@@ -65,7 +65,7 @@ $GLOBALS['xoopsTpl']->assign('table_type', $helper->getConfig('table_type'));
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_INDEX];
 // Keywords
-wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $keywords));
+wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
 unset($keywords);
 // Description
 wgtransifexMetaDescription(\_MA_WGTRANSIFEX_INDEX_DESC);

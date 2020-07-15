@@ -57,7 +57,7 @@ trait FilesManagement
     public static function recurseCopy($src, $dst)
     {
         $dir = \opendir($src);
-        //        @mkdir($dst);
+        //        @\mkdir($dst);
         if (!@\mkdir($dst) && !\is_dir($dst)) {
             throw new \RuntimeException('The directory ' . $dst . ' could not be created.');
         }
@@ -230,7 +230,7 @@ trait FilesManagement
             } elseif (!$fObj->isDot() && $fObj->isDir()) {
                 // Try recursively on directory
                 self::rmove($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
-                //                rmdir($fObj->getPath()); // now delete the directory
+                //                \rmdir($fObj->getPath()); // now delete the directory
             }
         }
         $iterator = null;   // clear iterator Obj to close file/directory

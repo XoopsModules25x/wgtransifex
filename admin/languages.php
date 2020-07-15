@@ -78,7 +78,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('languages.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('languages.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if ($langId > 0) {
             $languagesObj = $languagesHandler->get($langId);
@@ -109,7 +109,7 @@ switch ($op) {
             //$uploader->fetchMedia($_POST['xoops_upload_file'][0]);
             if (!$uploader->upload()) {
                 $errors = $uploader->getErrors();
-                redirect_header('javascript:history.go(-1).php', 3, $errors);
+                \redirect_header('javascript:history.go(-1).php', 3, $errors);
             } else {
                 $languagesObj->setVar('lang_flag', $uploader->getSavedFileName());
             }
@@ -121,7 +121,7 @@ switch ($op) {
         $languagesObj->setVar('lang_submitter', Request::getInt('lang_submitter', 0));
         // Insert Data
         if ($languagesHandler->insert($languagesObj)) {
-            redirect_header('languages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('languages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
@@ -146,10 +146,10 @@ switch ($op) {
         $langName     = $languagesObj->getVar('lang_name');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('languages.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('languages.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($languagesHandler->delete($languagesObj)) {
-                redirect_header('languages.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
+                \redirect_header('languages.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
             }
@@ -165,13 +165,13 @@ switch ($op) {
         if ($langId > 0) {
             $languagesObj = $languagesHandler->get($langId);
         } else {
-            redirect_header('languages.php', 3, \_AM_WGTRANSIFEX_INVALID_PARAM);
+            \redirect_header('languages.php', 3, \_AM_WGTRANSIFEX_INVALID_PARAM);
         }
         // Set Vars
         $languagesObj->setVar('lang_online', Request::getInt('lang_online', 0));
         // Insert Data
         if ($languagesHandler->insert($languagesObj)) {
-            redirect_header('languages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('languages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
         break;
@@ -179,14 +179,14 @@ switch ($op) {
         if ($langId > 0) {
             $languagesObj = $languagesHandler->get($langId);
         } else {
-            redirect_header('languages.php', 3, \_AM_WGTRANSIFEX_INVALID_PARAM);
+            \redirect_header('languages.php', 3, \_AM_WGTRANSIFEX_INVALID_PARAM);
         }
         $languagesHandler->resetPrimary();
         // Set Vars
         $languagesObj->setVar('lang_primary', 1);
         // Insert Data
         if ($languagesHandler->insert($languagesObj)) {
-            redirect_header('languages.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 2, \_AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('languages.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
         break;

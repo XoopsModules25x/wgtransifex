@@ -33,6 +33,7 @@ $settingsHandler     = $helper->getHandler('Settings');
 $languagesHandler    = $helper->getHandler('Languages');
 $translationsHandler = $helper->getHandler('Translations');
 $packagesHandler     = $helper->getHandler('Packages');
+$requestsHandler     = $helper->getHandler('Requests');
 $myts                = MyTextSanitizer::getInstance();
 // Default Css Style
 $style = WGTRANSIFEX_URL . '/assets/css/style.css';

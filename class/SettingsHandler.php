@@ -128,6 +128,25 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
     {
         $setting    = [];
         $crSettings = new \CriteriaCompo();
+        $crSettings->add(new \Criteria('set_primary', 1));
+        $crSettings->setLimit(1);
+        $settingsAll = $this->getAll($crSettings);
+        foreach (\array_keys($settingsAll) as $i) {
+            $setting['user'] = $settingsAll[$i]->getVar('set_username');
+            $setting['pwd']  = $settingsAll[$i]->getVar('set_password');
+        }
+        return $setting;
+    }
+    
+    /**
+     * Get Request Setting
+     * @return array
+     */
+    public function getRequestSetting()
+    {
+        $setting    = [];
+        $crSettings = new \CriteriaCompo();
+        $crSettings->add(new \Criteria('set_request', 1));
         $crSettings->setLimit(1);
         $settingsAll = $this->getAll($crSettings);
         foreach (\array_keys($settingsAll) as $i) {

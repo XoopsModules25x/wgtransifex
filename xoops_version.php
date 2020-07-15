@@ -24,7 +24,7 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
     'name'                => \_MI_WGTRANSIFEX_NAME,
-    'version'             => 1.02,
+    'version'             => 1.03,
     'description'         => \_MI_WGTRANSIFEX_DESC,
     'author'              => 'TDM XOOPS',
     'author_mail'         => 'info@email.com',
@@ -44,7 +44,7 @@ $modversion = [
     'min_admin'           => '1.2',
     'min_db'              => ['mysql' => '5.6', 'mysqli' => '5.6'],
     'image'               => 'assets/images/logoModule.png',
-    'dirname'             => basename(__DIR__),
+    'dirname'             => \basename(__DIR__),
     'dirmoduleadmin'      => 'Frameworks/moduleclasses/moduleadmin',
     'sysicons16'          => '../../Frameworks/moduleclasses/icons/16',
     'sysicons32'          => '../../Frameworks/moduleclasses/icons/32',
@@ -80,6 +80,7 @@ $modversion['templates'] = [
     ['file' => 'wgtransifex_admin_translations.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wgtransifex_admin_packages.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wgtransifex_admin_broken.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'wgtransifex_admin_requests.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wgtransifex_admin_footer.tpl', 'description' => '', 'type' => 'admin'],
     // User templates
     ['file' => 'wgtransifex_header.tpl', 'description' => ''],
@@ -92,6 +93,7 @@ $modversion['templates'] = [
     ['file' => 'wgtransifex_packages.tpl', 'description' => ''],
     ['file' => 'wgtransifex_packages_list.tpl', 'description' => ''],
     ['file' => 'wgtransifex_packages_item.tpl', 'description' => ''],
+    ['file' => 'wgtransifex_requests.tpl', 'description' => ''],
     ['file' => 'wgtransifex_breadcrumbs.tpl', 'description' => ''],
     ['file' => 'wgtransifex_footer.tpl', 'description' => ''],
 ];
@@ -105,6 +107,7 @@ $modversion['tables'] = [
     'wgtransifex_languages',
     'wgtransifex_translations',
     'wgtransifex_packages',
+    'wgtransifex_requests',
 ];
 // ------------------- Search ------------------- //
 $modversion['hasSearch'] = 1;
@@ -142,7 +145,7 @@ if ($currdirname == $moduleDirName) {
 		'name' => \_MI_WGTRANSIFEX_SMNAME3,
 		'url'  => 'languages.php',
 	];
-    // Sub languages
+    // Sub projects
     $modversion['sub'][] = [
         'name' => \_MI_WGTRANSIFEX_SMNAME4,
         'url'  => 'projects.php',
@@ -225,8 +228,8 @@ $modversion['config'][] = [
 ];
 // create increment steps for file size
 include_once __DIR__ . '/include/xoops_version.inc.php';
-$iniPostMaxSize       = wgtransifexReturnBytes(ini_get('post_max_size'));
-$iniUploadMaxFileSize = wgtransifexReturnBytes(ini_get('upload_max_filesize'));
+$iniPostMaxSize       = wgtransifexReturnBytes(\ini_get('post_max_size'));
+$iniUploadMaxFileSize = wgtransifexReturnBytes(\ini_get('upload_max_filesize'));
 $maxSize              = \min($iniPostMaxSize, $iniUploadMaxFileSize);
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;
@@ -287,7 +290,7 @@ $modversion['config'][] = [
     'description' => '\_MI_WGTRANSIFEX_MAXWIDTH_IMAGE_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 8000,
+    'default'     => 1000,
 ];
 $modversion['config'][] = [
     'name'        => 'maxheight_image',
@@ -295,7 +298,24 @@ $modversion['config'][] = [
     'description' => '\_MI_WGTRANSIFEX_MAXHEIGHT_IMAGE_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 8000,
+    'default'     => 1000,
+];
+// Get groups
+$memberHandler = \xoops_getHandler('member');
+$xoopsGroups  = $memberHandler->getGroupList();
+$groups = [];
+foreach ($xoopsGroups as $key => $group) {
+	$groups[$group]  = $key;
+}
+// General access groups
+$modversion['config'][] = [
+	'name'        => 'groups_request',
+	'title'       => '_MI_WGTRANSIFEX_GROUPS_REQUEST',
+	'description' => '_MI_WGTRANSIFEX_GROUPS_REQUEST_DESC',
+	'formtype'    => 'select_multi',
+	'valuetype'   => 'array',
+	'default'     => $groups,
+	'options'     => $groups,
 ];
 // Keywords
 $modversion['config'][] = [
@@ -410,30 +430,60 @@ $modversion['notification'] = [
 // Global Notify
 $modversion['notification']['category'][] = [
 	'name'           => 'global',
-	'title'          => _MI_WGTRANSIFEX_NOTIFY_GLOBAL,
+	'title'          => \_MI_WGTRANSIFEX_NOTIFY_GLOBAL,
 	'description'    => '',
 	'subscribe_from' => ['index.php', 'packages.php'],
 ];
-// Global events notification
-// GLOBAL_NEW Notify
-$modversion['notification']['event'][] = [
-	'name'          => 'global_new',
-	'category'      => 'global',
-	'admin_only'    => 0,
-	'title'         => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW,
-	'caption'       => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW_CAPTION,
-	'description'   => '',
-	'mail_template' => 'global_new_notify',
-	'mail_subject'  => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_NEW_SUBJECT,
+// Package Notify
+$modversion['notification']['category'][] = [
+    'name'           => 'packages',
+    'title'          => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE,
+    'description'    => '',
+    'subscribe_from' => ['index.php', 'packages.php'],
+    'item_name'      => '',
+    'allow_bookmark' => 1,
 ];
-// GLOBAL_BROKEN Notify
+// Request Notify
+$modversion['notification']['category'][] = [
+    'name'           => 'requests',
+    'title'          => \_MI_WGTRANSIFEX_NOTIFY_REQUEST_ADMIN,
+    'description'    => '',
+    'subscribe_from' => ['index.php', 'projects.php'],
+    'item_name'      => '',
+    'allow_bookmark' => 1,
+];
+// events notification
+// package new
 $modversion['notification']['event'][] = [
-	'name'          => 'global_broken',
-	'category'      => 'global',
-	'admin_only'    => 1,
-	'title'         => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN,
-	'caption'       => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN_CAPTION,
-	'description'   => '',
-	'mail_template' => 'global_broken_notify',
-	'mail_subject'  => _MI_WGTRANSIFEX_NOTIFY_GLOBAL_BROKEN_SUBJECT,
+    'name'          => 'package_new',
+    'category'      => 'packages',
+    'admin_only'    => 0,
+    'title'         => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_NEW,
+    'caption'       => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_NEW_CAPTION,
+    'description'   => '',
+    'mail_template' => 'package_new_notify',
+    'mail_subject'  => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_NEW_SUBJECT,
+];
+
+// package broken
+$modversion['notification']['event'][] = [
+    'name'          => 'package_broken',
+    'category'      => 'packages_admin',
+    'admin_only'    => 1,
+    'title'         => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_BROKEN,
+    'caption'       => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_BROKEN_CAPTION,
+    'description'   => '',
+    'mail_template' => 'package_broken_notify',
+    'mail_subject'  => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_BROKEN_SUBJECT,
+];
+// request new
+$modversion['notification']['event'][] = [
+    'name'          => 'request_new',
+    'category'      => 'requests_admin',
+    'admin_only'    => 1,
+    'title'         => \_MI_WGTRANSIFEX_NOTIFY_REQUEST_NEW,
+    'caption'       => \_MI_WGTRANSIFEX_NOTIFY_REQUEST_NEW_CAPTION,
+    'description'   => '',
+    'mail_template' => 'request_new_notify',
+    'mail_subject'  => \_MI_WGTRANSIFEX_NOTIFY_REQUEST_NEW_SUBJECT,
 ];

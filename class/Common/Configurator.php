@@ -20,7 +20,7 @@ namespace XoopsModules\Wgtransifex\Common;
  * @package     Publisher
  * @since       1.05
  */
-// require_once dirname(dirname(__DIR__)) . '/include/common.php';
+// require_once \dirname(\dirname(__DIR__)) . '/include/common.php';
 
 /**
  * Class Configurator
@@ -44,9 +44,9 @@ class Configurator
      */
     public function __construct()
     {
-        //        $moduleDirName      = basename(dirname(dirname(__DIR__)));
-        //        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        //        require dirname(dirname(__DIR__)) . '/config/config.php';
+        //        $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+        //        $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+        //        require \dirname(\dirname(__DIR__)) . '/config/config.php';
         //        $config = getConfig();
         $config                = include \dirname(\dirname(__DIR__)) . '/config/config.php';
         $this->name            = $config->name;

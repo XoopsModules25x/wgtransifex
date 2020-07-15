@@ -120,7 +120,7 @@ class Packages extends \XoopsObject
         $pkgPro_idSelect->addOptionArray($projectsHandler->getList($crProjects));
         $form->addElement($pkgPro_idSelect, true);
         // Form Table languages
-        $langId = $this->isNew() ? $languagesHandler->getPrimaryLang() : $this->getVar('pkg_lang_id');
+        $langId = $this->getVar('pkg_lang_id') ?: $languagesHandler->getPrimaryLang();
         $pkgLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_LANG_ID, 'pkg_lang_id', $langId);
         $crLanguages = new \CriteriaCompo();
         $crLanguages->add(new \Criteria('lang_online', 1));

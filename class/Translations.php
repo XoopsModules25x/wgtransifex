@@ -140,7 +140,6 @@ class Translations extends \XoopsObject
         // Form Select Status traStatus
         $traStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_STATUS, 'tra_status', $this->getVar('tra_status'));
         $traStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
-        $traStatusSelect->addOption(Constants::STATUS_OFFLINE, \_AM_WGTRANSIFEX_STATUS_OFFLINE);
         $traStatusSelect->addOption(Constants::STATUS_SUBMITTED, \_AM_WGTRANSIFEX_STATUS_SUBMITTED);
         $traStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
         $form->addElement($traStatusSelect, true);

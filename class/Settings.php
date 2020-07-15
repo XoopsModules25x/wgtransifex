@@ -42,10 +42,10 @@ class Settings extends \XoopsObject
         $this->initVar('set_id', \XOBJ_DTYPE_INT);
         $this->initVar('set_username', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('set_password', \XOBJ_DTYPE_TXTBOX);
-        $this->initVar('set_options', \XOBJ_DTYPE_TXTAREA);
-        $this->initVar('set_date', \XOBJ_DTYPE_INT);
-        $this->initVar('set_submitter', \XOBJ_DTYPE_INT);
         $this->initVar('set_primary', \XOBJ_DTYPE_INT);
+        $this->initVar('set_request', \XOBJ_DTYPE_INT);
+        $this->initVar('set_date', \XOBJ_DTYPE_INT);
+        $this->initVar('set_submitter', \XOBJ_DTYPE_INT);       
     }
 
     /**
@@ -91,11 +91,12 @@ class Settings extends \XoopsObject
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_SETTING_USERNAME, 'set_username', 50, 255, $this->getVar('set_username')), true);
         // Form Text setPassword
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_SETTING_PASSWORD, 'set_password', 50, 255, $this->getVar('set_password')));
-        // Form Editor TextArea setOptions
-        $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_SETTING_OPTIONS, 'set_options', $this->getVar('set_options', 'e'), 4, 47));
         // Form Radio Yes/No setPrimary
         $setPrimary = $this->isNew() ? 1 : $this->getVar('set_primary');
-        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_SETTING_PRIMARY, 'set_primary', $setPrimary), true);
+        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_SETTING_PRIMARY . '<br>' . \_AM_WGTRANSIFEX_SETTING_PRIMARY_DESC, 'set_primary', $setPrimary), true);
+        // Form Radio Yes/No setRequest
+        $setRequest = $this->isNew() ? 1 : $this->getVar('set_request');
+        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_SETTING_REQUEST . '<br>' . \_AM_WGTRANSIFEX_SETTING_REQUEST_DESC, 'set_request', $setRequest), true);
         // Form Text Date Select setDate
         $setDate = $this->isNew() ? 0 : $this->getVar('set_date');
         $form->addElement(new \XoopsFormTextDateSelect(\_AM_WGTRANSIFEX_SETTING_DATE, 'set_date', '', $setDate));
@@ -117,18 +118,18 @@ class Settings extends \XoopsObject
      */
     public function getValuesSettings($keys = null, $format = null, $maxDepth = null)
     {
-        $helper               = \XoopsModules\Wgtransifex\Helper::getInstance();
-        $utility              = new \XoopsModules\Wgtransifex\Utility();
         $ret                  = $this->getValues($keys, $format, $maxDepth);
         $ret['id']            = $this->getVar('set_id');
         $ret['username']      = $this->getVar('set_username');
         $ret['password']      = $this->getVar('set_password');
-        $ret['options']       = \strip_tags($this->getVar('set_options', 'e'));
-        $editorMaxchar        = $helper->getConfig('editor_maxchar');
-        $ret['options_short'] = $utility::truncateHtml($ret['options'], $editorMaxchar);
+        //$ret['options']       = \strip_tags($this->getVar('set_options', 'e'));
+        //$editorMaxchar        = $helper->getConfig('editor_maxchar');
+        //$ret['options_short'] = $utility::truncateHtml($ret['options'], $editorMaxchar);
+        $ret['primary']       = (int)$this->getVar('set_primary') > 0 ? \_YES : \_NO;
+        $ret['request']       = (int)$this->getVar('set_request') > 0 ? \_YES : \_NO;
         $ret['date']          = \formatTimestamp($this->getVar('set_date'), 's');
         $ret['submitter']     = \XoopsUser::getUnameFromId($this->getVar('set_submitter'));
-        $ret['primary']       = (int)$this->getVar('set_primary') > 0 ? \_YES : \_NO;
+        
         return $ret;
     }
 

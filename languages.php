@@ -84,7 +84,7 @@ switch ($op) {
 $xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_LANGUAGES];
 
 // Keywords
-wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $keywords));
+wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
 unset($keywords);
 
 // Description

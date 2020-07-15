@@ -30,7 +30,7 @@ switch ($op) {
     case 'load':
         if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('../admin/index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('../admin/index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             loadSampleData();
         } else {
@@ -76,7 +76,7 @@ function loadSampleData()
             $utility::rcopy($src, $dest);
         }
     }
-    redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
+    \redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
 }
 
 function saveSampleData()
@@ -87,7 +87,7 @@ function saveSampleData()
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     $tables             = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
     $languageFolder     = __DIR__ . '/' . $xoopsConfig['language'];
-    if (!file_exists($languageFolder . '/')) {
+    if (!\file_exists($languageFolder . '/')) {
         Utility::createFolder($languageFolder . '/');
     }
     $exportFolder = $languageFolder . '/Exports-' . \date('Y-m-d-H-i-s') . '/';
@@ -110,7 +110,7 @@ function saveSampleData()
             Utility::rcopy($src, $dest);
         }
     }
-    redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
+    \redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
 }
 
 function exportSchema()
@@ -122,7 +122,7 @@ function exportSchema()
         //        $migrate = new Wgtransifex\Migrate($moduleDirName);
         //        $migrate->saveCurrentSchema();
         //
-        //        redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
+        //        \redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
     } catch (\Exception $e) {
         exit(\constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR'));
     }

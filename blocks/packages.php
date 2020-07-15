@@ -58,8 +58,8 @@ function b_wgtransifex_packages_show($options)
 		break;
 		case 'new':
 			// For the block: packages new
-			$crPackages->add( new \Criteria( 'pkg_date', \strtotime(date(\_SHORTDATESTRING)), '>=' ) );
-			$crPackages->add( new \Criteria( 'pkg_date', \strtotime(date(\_SHORTDATESTRING))+86400, '<=' ) );
+            $crPackages->add(new \Criteria('', \DateTime::createFromFormat(_SHORTDATESTRING), '>='));
+            $crPackages->add(new \Criteria('', \DateTime::createFromFormat(_SHORTDATESTRING) + 86400, '<='));
 			$crPackages->setSort( 'pkg_date' );
 			$crPackages->setOrder( 'ASC' );
 		break;
@@ -70,13 +70,11 @@ function b_wgtransifex_packages_show($options)
 		break;
 		case 'top':
 			// For the block: packages top
-			$crPackages->add( new \Criteria( 'pkg_date', \strtotime(date(\_SHORTDATESTRING))+86400, '<=' ) );
 			$crPackages->setSort( 'pkg_top' );
 			$crPackages->setOrder( 'ASC' );
 		break;
 		case 'random':
 			// For the block: packages random
-			$crPackages->add( new \Criteria( 'pkg_date', \strtotime(date(\_SHORTDATESTRING))+86400, '<=' ) );
 			$crPackages->setSort( 'RAND()' );
 		break;
 	}
@@ -126,10 +124,10 @@ function b_wgtransifex_packages_edit($options)
 	$packagesAll = $packagesHandler->getAll($crPackages);
 	unset($crPackages);
 	$form .= \_MB_WGTRANSIFEX_PACKAGES_TO_DISPLAY . "<br><select name='options[]' multiple='multiple' size='5'>";
-	$form .= "<option value='0' " . (in_array(0, $options) == false ? '' : "selected='selected'") . '>' . \_MB_WGTRANSIFEX_ALL_PACKAGES . '</option>';
+	$form .= "<option value='0' " . (\in_array(0, $options) == false ? '' : "selected='selected'") . '>' . \_MB_WGTRANSIFEX_ALL_PACKAGES . '</option>';
 	foreach(\array_keys($packagesAll) as $i) {
 		$pkg_id = $packagesAll[$i]->getVar('pkg_id');
-		$form .= "<option value='" . $pkg_id . "' " . (in_array($pkg_id, $options) == false ? '' : "selected='selected'") . '>' . $packagesAll[$i]->getVar('pkg_name') . '</option>';
+		$form .= "<option value='" . $pkg_id . "' " . (\in_array($pkg_id, $options) == false ? '' : "selected='selected'") . '>' . $packagesAll[$i]->getVar('pkg_name') . '</option>';
 	}
 	$form .= '</select>';
 

@@ -1,5 +1,4 @@
-notifications: broken, new lang pack
 
-request language pack
+add style bootstrap
 
 

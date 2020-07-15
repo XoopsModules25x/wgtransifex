@@ -50,19 +50,24 @@ $adminmenu[]   = [
     'icon'  => 'assets/icons/32/packages.png',
 ];
 $adminmenu[]   = [
+    'title' => \_MI_WGTRANSIFEX_ADMENU10,
+    'link'  => 'admin/requests.php',
+    'icon'  => 'assets/icons/32/requests.png',
+];
+$adminmenu[]   = [
     'title' => \_MI_WGTRANSIFEX_ADMENU6,
     'link'  => 'admin/broken.php',
     'icon'  => 'assets/icons/32/broken.png',
 ];
 $adminmenu[]   = [
-    'title' => \_MI_WGTRANSIFEX_ADMENU7,
-    'link'  => 'admin/settings.php',
-    'icon'  => 'assets/icons/32/settings.png',
-];
-$adminmenu[]   = [
     'title' => \_MI_WGTRANSIFEX_ADMENU8,
     'link'  => 'admin/languages.php',
     'icon'  => 'assets/icons/32/languages.png',
+];
+$adminmenu[]   = [
+    'title' => \_MI_WGTRANSIFEX_ADMENU7,
+    'link'  => 'admin/settings.php',
+    'icon'  => 'assets/icons/32/settings.png',
 ];
 $adminmenu[]   = [
     'title' => \_MI_WGTRANSIFEX_ADMENU9,
