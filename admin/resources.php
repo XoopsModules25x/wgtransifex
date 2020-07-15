@@ -118,7 +118,7 @@ switch ($op) {
         $projectsObj    = $projectsHandler->get($proId);
         $projectsObj->setVar('pro_resources', $resourcesCount);
         $projectsHandler->insert($projectsObj);
-        redirect_header('resources.php?op=list', 3, $result);
+        \redirect_header('resources.php?op=list', 3, $result);
         break;
     case 'new':
         $templateMain = 'wgtransifex_admin_resources.tpl';
@@ -133,7 +133,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('resources.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('resources.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if ($resId > 0) {
             $resourcesObj = $resourcesHandler->get($resId);
@@ -155,7 +155,7 @@ switch ($op) {
         $resourcesObj->setVar('res_pro_id', Request::getInt('res_pro_id', 0));
         // Insert Data
         if ($resourcesHandler->insert($resourcesObj)) {
-            redirect_header('resources.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('resources.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $resourcesObj->getHtmlErrors());
@@ -182,7 +182,7 @@ switch ($op) {
         $success      = false;
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('resources.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('resources.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             $crResources = new \CriteriaCompo();
             $crResources->add(new \Criteria('res_pro_id', $proId));
@@ -227,7 +227,7 @@ switch ($op) {
                 $projectsObj->setVar('pro_resources', $resourcesCount);
                 $projectsObj->setVar('pro_translations', $translationsCount);
                 $projectsHandler->insert($projectsObj);
-                redirect_header('resources.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
+                \redirect_header('resources.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             }
         } else {
             if ('delete_all' == $op) {

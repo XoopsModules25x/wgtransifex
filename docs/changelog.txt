@@ -1,7 +1,14 @@
 ==============================================================
+Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.03
+==============================================================
+ - added requests (goffy)
+ - fqn replacer (mamba/goffy)
+
+==============================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.02
 ==============================================================
  - added notification system (goffy)
+ - added image resizing for logos (goffy)
 
 ==============================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.01

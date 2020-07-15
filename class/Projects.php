@@ -112,7 +112,6 @@ class Projects extends \XoopsObject
         // Form Select Status proStatus
         $proStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PROJECT_STATUS, 'pro_status', $this->getVar('pro_status'));
         $proStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
-        $proStatusSelect->addOption(Constants::STATUS_OFFLINE, \_AM_WGTRANSIFEX_STATUS_OFFLINE);
         $proStatusSelect->addOption(Constants::STATUS_SUBMITTED, \_AM_WGTRANSIFEX_STATUS_SUBMITTED);
         $proStatusSelect->addOption(Constants::STATUS_BROKEN, \_AM_WGTRANSIFEX_STATUS_BROKEN);
         $proStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
@@ -123,7 +122,7 @@ class Projects extends \XoopsObject
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCES_NB, 'pro_resources', 50, 255, $this->getVar('pro_resources')));
         // Form Text proTranslations
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATIONS_NB, 'pro_translations', 50, 255, $this->getVar('pro_translations')));
-        // Form Radio Yes/No langPrimary
+        // Form Radio Yes/No proArchived
         $proArchived = $this->isNew() ? 0 : $this->getVar('pro_archived');
         $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_PROJECT_ARCHIVED, 'pro_archived', $proArchived) );
         // Form Text Date Select proDate
@@ -147,7 +146,6 @@ class Projects extends \XoopsObject
      */
     public function getValuesProjects($keys = null, $format = null, $maxDepth = null)
     {
-        $utility = new \XoopsModules\Wgtransifex\Utility();
         $ret                         = $this->getValues($keys, $format, $maxDepth);
         $ret['id']                   = $this->getVar('pro_id');
         $ret['description']          = $this->getVar('pro_description');
@@ -184,9 +182,6 @@ class Projects extends \XoopsObject
             case Constants::STATUS_NONE:
             default:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
-                break;
-            case Constants::STATUS_OFFLINE:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_OFFLINE;
                 break;
             case Constants::STATUS_SUBMITTED:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_SUBMITTED;

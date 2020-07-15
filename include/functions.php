@@ -34,7 +34,7 @@
 function wgtransifexNumbersOfEntries($mytree, $languages, $entries, $cid)
 {
     $count = 0;
-    if (in_array($cid, $languages)) {
+    if (\in_array($cid, $languages)) {
         $child = $mytree->getAllChild($cid);
         foreach (\array_keys($entries) as $i) {
             if ($entries[$i]->getVar('lang_id') == $cid) {
@@ -59,10 +59,10 @@ function wgtransifexMetaKeywords($content)
     global $xoopsTpl, $xoTheme;
     $myts    = MyTextSanitizer::getInstance();
     $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-    if (isset($xoTheme) && is_object($xoTheme)) {
-        $xoTheme->addMeta('meta', 'keywords', strip_tags($content));
+    if (isset($xoTheme) && \is_object($xoTheme)) {
+        $xoTheme->addMeta('meta', 'keywords', \strip_tags($content));
     } else {    // Compatibility for old Xoops versions
-        $xoopsTpl->assign('xoops_meta_keywords', strip_tags($content));
+        $xoopsTpl->assign('xoops_meta_keywords', \strip_tags($content));
     }
 }
 
@@ -75,10 +75,10 @@ function wgtransifexMetaDescription($content)
     global $xoopsTpl, $xoTheme;
     $myts    = MyTextSanitizer::getInstance();
     $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-    if (isset($xoTheme) && is_object($xoTheme)) {
-        $xoTheme->addMeta('meta', 'description', strip_tags($content));
+    if (isset($xoTheme) && \is_object($xoTheme)) {
+        $xoTheme->addMeta('meta', 'description', \strip_tags($content));
     } else {    // Compatibility for old Xoops versions
-        $xoopsTpl->assign('xoops_meta_description', strip_tags($content));
+        $xoopsTpl->assign('xoops_meta_description', \strip_tags($content));
     }
 }
 
@@ -175,12 +175,12 @@ function wgtransifex_Filter($url, $type = '')
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
     $helper             = \XoopsModules\Wgtransifex\Helper::getInstance();
     $regular_expression = $helper->getConfig('regular_expression');
-    $url                = strip_tags($url);
-    $url                .= preg_replace("`\[.*\]`U", '', $url);
-    $url                .= preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $url);
+    $url                = \strip_tags($url);
+    $url                .= \preg_replace("`\[.*\]`U", '', $url);
+    $url                .= \preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $url);
     $url                .= htmlentities($url, ENT_COMPAT, 'utf-8');
-    $url                .= preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', "\1", $url);
-    $url                .= preg_replace([$regular_expression, '`[-]+`'], '-', $url);
-    $url                = ('' == $url) ? $type : mb_strtolower(trim($url, '-'));
+    $url                .= \preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', "\1", $url);
+    $url                .= \preg_replace([$regular_expression, '`[-]+`'], '-', $url);
+    $url                = ('' == $url) ? $type : \mb_strtolower(\trim($url, '-'));
     return $url;
 }

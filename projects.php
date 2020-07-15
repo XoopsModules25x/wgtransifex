@@ -44,11 +44,23 @@ $keywords = [];
 
 $GLOBALS['xoopsTpl']->assign('showItem', 'show' == $op);
 
+// Checking permissions
+$request_allowed = false;
+$groups = (isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+foreach ($groups as $group) {
+    if (XOOPS_GROUP_ADMIN == $group || \in_array($group, $helper->getConfig('groups_request'))) {
+        $request_allowed = true;
+        break;
+    }
+}
+
 switch ($op) {
 	case 'show':
 	case 'list':
 	default:
-		$crProjects = new \CriteriaCompo();
+        $GLOBALS['xoopsTpl']->assign('showRefresh', $request_allowed);
+
+	    $crProjects = new \CriteriaCompo();
 		if ($proId > 0) {
 			$crProjects->add(new \Criteria('pro_id', $proId));
 		}
@@ -78,13 +90,21 @@ switch ($op) {
 			$GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
 		}
 		break;
+    case 'refresh':
+        if (!$request_allowed) {
+            \redirect_header(WGTRANSIFEX_URL . '/index.php', 2, _MA_WGTRANSIFEX_NOPERM);
+        }
+        $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+        $result    = $transifex->readProjects($proId, true);
+        \redirect_header('projects.php?op=list', 3, $result);
+        break;
 }
 
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_PROJECTS];
 
 // Keywords
-wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . implode(',', $keywords));
+wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
 unset($keywords);
 
 // Description

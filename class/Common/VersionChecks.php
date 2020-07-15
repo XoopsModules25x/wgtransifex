@@ -30,7 +30,7 @@ trait VersionChecks
     public static function checkVerXoops(\XoopsModule $module = null, $requiredVer = null)
     {
         $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         if (null === $module) {
             $module = \XoopsModule::getByDirname($moduleDirName);
         }
@@ -59,7 +59,7 @@ trait VersionChecks
     public static function checkVerPhp(\XoopsModule $module = null)
     {
         $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         if (null === $module) {
             $module = \XoopsModule::getByDirname($moduleDirName);
         }
@@ -89,7 +89,7 @@ trait VersionChecks
     public static function checkVerModule($helper, $source = 'github', $default = 'master')
     {
         $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         $update             = '';
         $repository         = 'XoopsModules25x/' . $moduleDirName;
         //        $repository         = 'XoopsModules25x/publisher'; //for testing only
@@ -115,14 +115,14 @@ trait VersionChecks
                         $update = \constant('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION') . $latestVersion;
                     }
                     //"PHP-standardized" version
-                    $latestVersion = mb_strtolower($latestVersion);
+                    $latestVersion = \mb_strtolower($latestVersion);
                     if (false !== mb_strpos($latestVersion, 'final')) {
-                        $latestVersion = \str_replace('_', '', mb_strtolower($latestVersion));
-                        $latestVersion = \str_replace('final', '', mb_strtolower($latestVersion));
+                        $latestVersion = \str_replace('_', '', \mb_strtolower($latestVersion));
+                        $latestVersion = \str_replace('final', '', \mb_strtolower($latestVersion));
                     }
                     $moduleVersion = ($helper->getModule()->getInfo('version') . '_' . $helper->getModule()->getInfo('module_status'));
                     //"PHP-standardized" version
-                    $moduleVersion = \str_replace(' ', '', mb_strtolower($moduleVersion));
+                    $moduleVersion = \str_replace(' ', '', \mb_strtolower($moduleVersion));
                     //                    $moduleVersion = '1.0'; //for testing only
                     //                    $moduleDirName = 'publisher'; //for testing only
                     if (!$prerelease && \version_compare($moduleVersion, $latestVersion, '<')) {

@@ -27,8 +27,8 @@ $feedback    = new \XoopsModules\Wgtransifex\Common\ModuleFeedback();
 // It recovered the value of argument op in URL$
 $op                 = Request::getString('op', 'list');
 $moduleDirName      = $GLOBALS['xoopsModule']->getVar('dirname');
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
-xoops_loadLanguage('feedback', $moduleDirName);
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+\xoops_loadLanguage('feedback', $moduleDirName);
 //xoops_cp_header();
 switch ($op) {
     case 'list':
@@ -43,7 +43,7 @@ switch ($op) {
     case 'send':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('feedback.php'));
         $your_name   = Request::getString('your_name', '');
@@ -51,7 +51,7 @@ switch ($op) {
         $your_mail   = Request::getString('your_mail', '');
         $fb_type     = Request::getString('fb_type', '');
         $fb_content  = Request::getText('fb_content', '');
-        $fb_content  = str_replace(["\r\n", "\n", "\r"], '<br>', $fb_content); //clean line break from dhtmltextarea
+        $fb_content  = \str_replace(["\r\n", "\n", "\r"], '<br>', $fb_content); //clean line break from dhtmltextarea
         $title       = \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_SEND_FOR') . $GLOBALS['xoopsModule']->getVar('dirname');
         $body        = \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_NAME') . ': ' . $your_name . '<br>';
         $body        .= \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_MAIL') . ': ' . $your_mail . '<br>';
@@ -69,7 +69,7 @@ switch ($op) {
         $xoopsMailer->setBody($body);
         $ret = $xoopsMailer->send();
         if ($ret) {
-            redirect_header('index.php', 3, \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_SEND_SUCCESS'));
+            \redirect_header('index.php', 3, \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_SEND_SUCCESS'));
         }
         // show form with content again
         $feedback->name    = $your_name;

@@ -56,11 +56,12 @@ class Transifex
      * Get data of all project on transifex
      *
      * @param $proId
+     * @param bool $user
      * @return bool
      */
-    public function readProjects($proId)
+    public function readProjects($proId, $user = false)
     {
-        $setting = $this->getSetting();
+        $setting = $this->getSetting($user);
         global $xoopsUser;
         $helper          = \XoopsModules\Wgtransifex\Helper::getInstance();
         $projectsHandler = $helper->getHandler('Projects');
@@ -112,7 +113,7 @@ class Transifex
                     $projectsObj->setVar('pro_txresources', \count($project['resources']));
                     $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
                     $teams = \json_encode($project['teams'], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
-                    //str_replace(']', '', $teams);
+                    //\str_replace(']', '', $teams);
                     $projectsObj->setVar('pro_teams', $teams);
 
                     $projectsObj->setVar('pro_date', \time());
@@ -383,13 +384,19 @@ class Transifex
     /**
      * Get primary setting
      *
+     * @param bool $user
      * @return bool
      */
-    private function getSetting()
+    private function getSetting($user = false)
     {
         $helper          = \XoopsModules\Wgtransifex\Helper::getInstance();
         $settingsHandler = $helper->getHandler('Settings');
-        $setting         = $settingsHandler->getPrimarySetting();
+        if ($user) {
+            $setting = $settingsHandler->getRequestSetting();
+        } else {
+            $setting = $settingsHandler->getPrimarySetting();
+        }
+
         if (0 == \count($setting)) {
             \redirect_header('settings.php', 3, \_AM_WGTRANSIFEX_THEREARENT_SETTINGS);
         }
@@ -408,16 +415,16 @@ class Transifex
     {
         $ret = $toConvert;
         if ('html.txt' == \mb_substr($ret, -8)) {
-            $ret = \mb_substr($ret, 0, \mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
         }
         if ('php.txt' == \mb_substr($ret, -7)) {
-            $ret = \mb_substr($ret, 0, \mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
         }
         if ('tpl.txt' == \mb_substr($ret, -7)) {
-            $ret = \mb_substr($ret, 0, \mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
         }
         if ('js.txt' == \mb_substr($ret, -6)) {
-            $ret = \mb_substr($ret, 0, \mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
         }
         $ret = \str_replace('[', '', $ret);
         $ret = \str_replace(']', '/', $ret);

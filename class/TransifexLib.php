@@ -201,7 +201,7 @@ class TransifexLib
         } catch (\RuntimeException $e) {
             /* Handling a very specific exception due to a Transifex bug */
             // Exception is thrown maybe just because the file only has empty translations
-            if (false !== \mb_strpos($e->getMessage(), "We're not able to extract any string from the file uploaded for language")) {
+            if (false !== mb_strpos($e->getMessage(), "We're not able to extract any string from the file uploaded for language")) {
                 $catalog = I18n::loadPo($file);
                 unset($catalog['']);
                 if (\count($catalog)) {
@@ -275,7 +275,7 @@ class TransifexLib
     {
         if (!\function_exists('finfo_open')) {
             if (!\function_exists('mime_content_type')) {
-                throw new InternalErrorException('At least one of finfo or mime_content_type() needs to be available');
+                throw new InternalErrorException('At least one of finfo or \mime_content_type() needs to be available');
             }
             return \mime_content_type($file);
         }
@@ -350,7 +350,7 @@ class TransifexLib
     {
         $error = false;
         $ch    = \curl_init();
-        //curl_setopt($ch, CURLOPT_URL, Text::insert($url, $this->settings, ['before' => '{', 'after' => '}']));
+        //\curl_setopt($ch, CURLOPT_URL, Text::insert($url, $this->settings, ['before' => '{', 'after' => '}']));
         \curl_setopt($ch, \CURLOPT_URL, $url);
         \curl_setopt($ch, \CURLOPT_USERPWD, $this->user . ':' . $this->password);
         \curl_setopt($ch, \CURLOPT_CUSTOMREQUEST, $requestType);

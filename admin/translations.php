@@ -133,12 +133,12 @@ switch ($op) {
         $projectsObj       = $projectsHandler->get($proId);
         $projectsObj->setVar('pro_translations', $translationsCount);
         $projectsHandler->insert($projectsObj);
-        redirect_header('translations.php?op=list', 3, $result);
+        \redirect_header('translations.php?op=list', 3, $result);
         break;
     case 'checktx':
         $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
         $result    = $transifex->checkTranslations();
-        redirect_header('translations.php?op=list', 3, $result);
+        \redirect_header('translations.php?op=list', 3, $result);
         break;
     case 'new':
         $templateMain = 'wgtransifex_admin_translations.tpl';
@@ -153,7 +153,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('translations.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('translations.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if ($traId > 0) {
             $translationsObj = $translationsHandler->get($traId);
@@ -180,12 +180,14 @@ switch ($op) {
         $translationsObj->setVar('tra_untranslated_entities', Request::getInt('tra_untranslated_entities', 0));
         $translationsObj->setVar('tra_last_update', Request::getInt('tra_last_update', 0));
         $translationDateArr = Request::getArray('tra_date');
-        $traDate            = strtotime($translationDateArr['date']) + (int)$translationDateArr['time'];
-        $translationsObj->setVar('tra_date', $traDate);
+        $translationDateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $translationDateArr['date']);
+        $translationDateObj->setTime(0, 0, 0);
+        $translationDate = $translationDateObj->getTimestamp() + (int)$translationDateArr['time'];
+        $translationsObj->setVar('tra_date', $translationDate);
         $translationsObj->setVar('tra_submitter', Request::getInt('tra_submitter', 0));
         // Insert Data
         if ($translationsHandler->insert($translationsObj)) {
-            redirect_header('translations.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('translations.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $translationsObj->getHtmlErrors());
@@ -210,10 +212,10 @@ switch ($op) {
         $traPro_id       = $translationsObj->getVar('tra_pro_id');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('translations.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('translations.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($translationsHandler->delete($translationsObj)) {
-                redirect_header('translations.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
+                \redirect_header('translations.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $translationsObj->getHtmlErrors());
             }

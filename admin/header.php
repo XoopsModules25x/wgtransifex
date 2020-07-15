@@ -19,8 +19,8 @@
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
-include dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-include_once dirname(__DIR__) . '/include/common.php';
+include \dirname(\dirname(\dirname(__DIR__))) . '/include/cp_header.php';
+include_once \dirname(__DIR__) . '/include/common.php';
 $sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
 $sysPathIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
@@ -34,19 +34,20 @@ $settingsHandler     = $helper->getHandler('Settings');
 $languagesHandler    = $helper->getHandler('Languages');
 $translationsHandler = $helper->getHandler('Translations');
 $packagesHandler     = $helper->getHandler('Packages');
+$requestsHandler     = $helper->getHandler('Requests');
 $myts                = MyTextSanitizer::getInstance();
-if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
+if (!isset($xoopsTpl) || !\is_object($xoopsTpl)) {
     include_once XOOPS_ROOT_PATH . '/class/template.php';
     $xoopsTpl = new \XoopsTpl();
 }
 // Load languages
-xoops_loadLanguage('admin');
-xoops_loadLanguage('modinfo');
+\xoops_loadLanguage('admin');
+\xoops_loadLanguage('modinfo');
 // Local admin menu class
-if (file_exists($GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php'))) {
+if (\file_exists($GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php'))) {
     include_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
 } else {
-    redirect_header('../../../admin.php', 5, \_AM_MODULEADMIN_MISSING);
+    \redirect_header('../../../admin.php', 5, \_AM_MODULEADMIN_MISSING);
 }
 xoops_cp_header();
 // System icons path

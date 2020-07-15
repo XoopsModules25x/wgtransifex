@@ -42,7 +42,7 @@ switch ($op) {
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_PROJECTS, 'projects.php?op=savetx', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $projectsCount = $projectsHandler->getCountProjects();
-        $projectsAll   = $projectsHandler->getAllProjects($start, $limit);
+        $projectsAll   = $projectsHandler->getAllProjects($start, $limit, 'pro_id', 'DESC');
         $GLOBALS['xoopsTpl']->assign('projects_count', $projectsCount);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
@@ -66,7 +66,7 @@ switch ($op) {
     case 'savetx':
         $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
         $result    = $transifex->readProjects($proId);
-        redirect_header('projects.php?op=list', 3, $result);
+        \redirect_header('projects.php?op=list', 3, $result);
         break;
     case 'new':
         $templateMain = 'wgtransifex_admin_projects.tpl';
@@ -81,7 +81,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('projects.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('projects.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if ($proId > 0) {
             $projectsObj = $projectsHandler->get($proId);
@@ -95,18 +95,22 @@ switch ($op) {
         $projectsObj->setVar('pro_name', Request::getString('pro_name', ''));
         $projectsObj->setVar('pro_txresources', Request::getInt('pro_txresources', 0));
         $projectLastupdatedArr = Request::getArray('pro_date');
-        $projectLastupdated    = \strtotime($projectLastupdatedArr['date']) + (int)$projectLastupdatedArr['time'];
-        $projectsObj->setVar('pro_last_updated', $projectLastupdated);
+		$projectLastupdatedObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectLastupdatedArr['date']);
+		$projectLastupdatedObj->setTime(0, 0, 0);
+		$projectLastupdated = $projectLastupdatedObj->getTimestamp() + (int)$projectLastupdatedArr['time'];
+		$projectsObj->setVar('pro_date', $projectLastupdated);
         $projectsObj->setVar('pro_teams', Request::getString('pro_teams', ''));
         $projectsObj->setVar('pro_archived', Request::getInt('pro_archived', 0));
         $projectDateArr = Request::getArray('pro_date');
-        $projectDate    = \strtotime($projectDateArr['date']) + (int)$projectDateArr['time'];
-        $projectsObj->setVar('pro_date', $projectDate);
+		$projectDateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectDateArr['date']);
+		$projectDateObj->setTime(0, 0, 0);
+		$projectDate = $projectDateObj->getTimestamp() + (int)$projectDateArr['time'];
+		$projectsObj->setVar('pro_date', $projectDate);
         $projectsObj->setVar('pro_submitter', Request::getInt('pro_submitter', 0));
         $projectsObj->setVar('pro_status', Request::getInt('pro_status', 0));
         // Insert Data
         if ($projectsHandler->insert($projectsObj)) {
-            redirect_header('projects.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('projects.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $projectsObj->getHtmlErrors());
@@ -131,10 +135,10 @@ switch ($op) {
         $proSlug     = $projectsObj->getVar('pro_slug');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('projects.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('projects.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($projectsHandler->delete($projectsObj)) {
-                redirect_header('projects.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
+                \redirect_header('projects.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $projectsObj->getHtmlErrors());
             }

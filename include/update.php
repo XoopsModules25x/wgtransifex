@@ -62,8 +62,8 @@ function update_wgtransifex_v10($module)
         $tplids[] = $tplid;
     }
     if (\count($tplids) > 0) {
-        $tplfileHandler  = xoops_getHandler('tplfile');
-        $duplicate_files = $tplfileHandler->getObjects(new \Criteria('tpl_id', '(' . implode(',', $tplids) . ')', 'IN'));
+        $tplfileHandler  = \xoops_getHandler('tplfile');
+        $duplicate_files = $tplfileHandler->getObjects(new \Criteria('tpl_id', '(' . \implode(',', $tplids) . ')', 'IN'));
         if (\count($duplicate_files) > 0) {
             foreach (\array_keys($duplicate_files) as $i) {
                 $tplfileHandler->delete($duplicate_files[$i]);
@@ -194,19 +194,35 @@ function wgtransifex_check_db($module)
         }
     }
 
-    /*
-    // Example: create new table
-    $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_categories');
+    // update table (change field)
+    $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_settings');
+    $field   = 'set_request';
+    $check   = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if (!$numRows) {
+        $sql = "ALTER TABLE `$table` ADD `$field` INT(1) NOT NULL DEFAULT '0' AFTER `set_primary`;";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding '$field' to table '$table'.");
+            $ret = false;
+        }
+    }
+
+    // create new table
+    $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_requests');
     $check   = $GLOBALS['xoopsDB']->queryF("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='$table'");
     $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
     if (!$numRows) {
-        // create new table 'wgtransifex_categories'
         $sql = "CREATE TABLE `$table` (
-                  `cat_id`        INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-                  `cat_text`      VARCHAR(100)    NOT NULL DEFAULT '',
-                  `cat_date`      INT(8)          NOT NULL DEFAULT '0',
-                  `cat_submitter` INT(8)          NOT NULL DEFAULT '0',
-                  PRIMARY KEY (`cat_id`)
+                  `req_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+                  `req_pro_id` INT(0) NOT NULL DEFAULT '0',
+                  `req_lang_id` INT(0) NOT NULL DEFAULT '0',
+                  `req_date` INT(11) NOT NULL DEFAULT '0',
+                  `req_submitter` INT(10) NOT NULL DEFAULT '0',
+                  `req_status` INT(1) NOT NULL DEFAULT '0',
+                  `req_statusdate` INT(11) NOT NULL DEFAULT '0',
+                  `req_statusuid` INT(10) NOT NULL DEFAULT '0',
+                  PRIMARY KEY (`req_id`)
                 ) ENGINE=InnoDB;";
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
@@ -214,6 +230,6 @@ function wgtransifex_check_db($module)
             $ret = false;
         }
     }
-    */
+
     return $ret;
 }

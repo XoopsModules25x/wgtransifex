@@ -84,7 +84,7 @@ class Utility
                         // if tag is an opening tag
                     } elseif (\preg_match('/^<\s*([^\s>!]+).*?' . '>$/s', $line_matchings[1], $tag_matchings)) {
                         // add tag to the beginning of $open_tags list
-                        \array_unshift($open_tags, mb_strtolower($tag_matchings[1]));
+                        \array_unshift($open_tags, \mb_strtolower($tag_matchings[1]));
                     }
                     // add html-tag to $truncate'd text
                     $truncate .= $line_matchings[1];
@@ -128,14 +128,14 @@ class Utility
         // if the words shouldn't be cut in the middle...
         if (!$exact) {
             // ...search the last occurance of a space...
-            $spacepos = mb_strrpos($truncate, ' ');
+            $spacepos = \mb_strrpos($truncate, ' ');
             if (isset($spacepos)) {
                 // ...and cut the text in this position
                 $truncate = mb_substr($truncate, 0, $spacepos);
             }
         }
         // add the defined ending to the text
-        if (\mb_strlen($truncate) > 0) {
+        if (mb_strlen($truncate) > 0) {
             $truncate .= $ending;
         }
         if ($considerHtml) {
@@ -225,8 +225,8 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
                         $GLOBALS['xoopsConfig']['sitename'] . ' - ' . ('' != $GLOBALS['xoopsUser']->getVar('name') ? $GLOBALS['xoopsUser']->getVar('name') . ' [' . $GLOBALS['xoopsUser']->getVar('uname') . ']' : $GLOBALS['xoopsUser']->getVar('uname')),
                         $GLOBALS['xoopsUser']->getVar('email'),
                         XOOPS_LICENSE_KEY,
-                        mb_strtoupper($GLOBALS['xoopsModule']->getVar('dirname')),
-                        mb_strtoupper($GLOBALS['xoopsModule']->getVar('dirname')) . ' ' . $GLOBALS['xoopsModule']->getVar('name')
+                        \mb_strtoupper($GLOBALS['xoopsModule']->getVar('dirname')),
+                        \mb_strtoupper($GLOBALS['xoopsModule']->getVar('dirname')) . ' ' . $GLOBALS['xoopsModule']->getVar('name')
                     );
                     break;
             }
@@ -247,6 +247,6 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
      */
     public static function UcFirstAndToLower($str)
     {
-        return \ucfirst(mb_strtolower(\trim($str)));
+        return \ucfirst(\mb_strtolower(\trim($str)));
     }
 }

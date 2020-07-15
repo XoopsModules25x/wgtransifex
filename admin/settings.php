@@ -75,7 +75,7 @@ switch ($op) {
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header('settings.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            \redirect_header('settings.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if ($setId > 0) {
             $settingsObj = $settingsHandler->get($setId);
@@ -85,14 +85,15 @@ switch ($op) {
         // Set Vars
         $settingsObj->setVar('set_username', Request::getString('set_username', ''));
         $settingsObj->setVar('set_password', Request::getString('set_password', ''));
-        $settingsObj->setVar('set_options', Request::getString('set_options', ''));
+        $settingsObj->setVar('set_primary', Request::getInt('set_primary'));
+        $settingsObj->setVar('set_request', Request::getInt('set_request'));
         $settingDate = \date_create_from_format(_SHORTDATESTRING, Request::getString('set_date'));
         $settingsObj->setVar('set_date', $settingDate->getTimestamp());
         $settingsObj->setVar('set_submitter', Request::getInt('set_submitter', 0));
-        $settingsObj->setVar('set_primary', Request::getInt('set_primary', 0));
+        $settingsObj->setVar('set_type', Request::getInt('set_type', 0));
         // Insert Data
         if ($settingsHandler->insert($settingsObj)) {
-            redirect_header('settings.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('settings.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $settingsObj->getHtmlErrors());
@@ -117,10 +118,10 @@ switch ($op) {
         $setUsername = $settingsObj->getVar('set_username');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
-                redirect_header('settings.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                \redirect_header('settings.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($settingsHandler->delete($settingsObj)) {
-                redirect_header('settings.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
+                \redirect_header('settings.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $settingsObj->getHtmlErrors());
             }

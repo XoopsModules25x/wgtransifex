@@ -90,10 +90,10 @@ CREATE TABLE `wgtransifex_settings` (
     `set_id`        INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
     `set_username`  VARCHAR(255)    NOT NULL DEFAULT '',
     `set_password`  VARCHAR(50)     NOT NULL DEFAULT '',
-    `set_options`   TEXT            NOT NULL,
+    `set_primary`   INT(1)          NOT NULL DEFAULT '0',
+    `set_request`   INT(1)          NOT NULL DEFAULT '0',
     `set_date`      INT(11)         NOT NULL DEFAULT '0',
     `set_submitter` INT(10)         NOT NULL DEFAULT '0',
-    `set_primary`   INT(1)          NOT NULL DEFAULT '0',
     PRIMARY KEY (`set_id`)
 )
     ENGINE = InnoDB;
@@ -136,3 +136,19 @@ CREATE TABLE `wgtransifex_packages` (
     PRIMARY KEY (`pkg_id`)
 )
     ENGINE = InnoDB;
+
+#
+# Structure table for `wgtransifex_requests` 8
+#
+
+CREATE TABLE `wgtransifex_requests` (
+  `req_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `req_pro_id` INT(0) NOT NULL DEFAULT '0',
+  `req_lang_id` INT(0) NOT NULL DEFAULT '0',
+  `req_date` INT(11) NOT NULL DEFAULT '0',
+  `req_submitter` INT(10) NOT NULL DEFAULT '0',
+  `req_status` INT(1) NOT NULL DEFAULT '0',
+  `req_statusdate` INT(11) NOT NULL DEFAULT '0',
+  `req_statusuid` INT(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`req_id`)
+) ENGINE=InnoDB;

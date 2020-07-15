@@ -38,10 +38,6 @@ ul.menu > li + li:before {
 	display: none;
 }
 
-img {
-	max-width: 300px;
-}
-
 .wgt-icon24 {
 	height:24px;
 }

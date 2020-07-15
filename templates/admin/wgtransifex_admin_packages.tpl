@@ -25,7 +25,7 @@
 				<td class='center'><{$package.name}></td>
 				<td class='center'><{$package.pro_id}></td>
 				<td class='center'><{$package.lang_id}></td>
-				<td class='center'><img src="<{$wgtransifex_upload_url}>/logos/<{$package.logo}>" alt="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}> <{$package.name}>" title="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}> <{$package.name}>" /></td>
+				<td class='center'><img style="max-width:100px" src="<{$wgtransifex_upload_url}>/logos/<{$package.logo}>" alt="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}> <{$package.name}>" title="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}> <{$package.name}>" /></td>
 				<td class='center'><{$package.date}></td>
 				<td class='center'><{$package.submitter}></td>
 				<td class='center'><img src="<{$modPathIcon32}>status<{$package.status}>.png" alt="<{$package.status_text}>" title="<{$package.status_text}>" /></td>
