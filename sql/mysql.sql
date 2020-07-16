@@ -142,13 +142,14 @@ CREATE TABLE `wgtransifex_packages` (
 #
 
 CREATE TABLE `wgtransifex_requests` (
-  `req_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `req_pro_id` INT(0) NOT NULL DEFAULT '0',
-  `req_lang_id` INT(0) NOT NULL DEFAULT '0',
-  `req_date` INT(11) NOT NULL DEFAULT '0',
-  `req_submitter` INT(10) NOT NULL DEFAULT '0',
-  `req_status` INT(1) NOT NULL DEFAULT '0',
-  `req_statusdate` INT(11) NOT NULL DEFAULT '0',
-  `req_statusuid` INT(10) NOT NULL DEFAULT '0',
+  `req_id`         INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `req_pro_id`     INT(0)          NOT NULL DEFAULT '0',
+  `req_lang_id`    INT(0)          NOT NULL DEFAULT '0',
+  `req_info`       VARCHAR(255)    NOT NULL DEFAULT '',
+  `req_date`       INT(11)         NOT NULL DEFAULT '0',
+  `req_submitter`  INT(10)         NOT NULL DEFAULT '0',
+  `req_status`     INT(1)          NOT NULL DEFAULT '0',
+  `req_statusdate` INT(11)         NOT NULL DEFAULT '0',
+  `req_statusuid`  INT(10)         NOT NULL DEFAULT '0',
   PRIMARY KEY (`req_id`)
 ) ENGINE=InnoDB;

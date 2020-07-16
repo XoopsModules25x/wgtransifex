@@ -42,7 +42,7 @@ switch ($op) {
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $packagesCount = $packagesHandler->getCountPackages();
-        $packagesAll = $packagesHandler->getAllPackages($start, $limit);
+        $packagesAll = $packagesHandler->getAllPackages($start, $limit, 'pkg_id', 'DESC');
         $GLOBALS['xoopsTpl']->assign('packages_count', $packagesCount);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);

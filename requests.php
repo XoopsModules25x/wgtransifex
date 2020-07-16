@@ -41,7 +41,8 @@ $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
 
 // Checking permissions
 $request_allowed = false;
-$groups       = (isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+
+$groups       = (isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
 foreach ($groups as $group) {
     if (XOOPS_GROUP_ADMIN == $group || \in_array($group, $helper->getConfig('groups_request'))) {
         $request_allowed = true;

@@ -8,6 +8,7 @@
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_ID}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_PROJECT}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_LANGUAGE}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_INFO}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_DATE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_SUBMITTER}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_STATUS}></th>
@@ -23,6 +24,7 @@
 				<td class='center'><{$request.id}></td>
 				<td class='center'><{$request.project}></td>
 				<td class='center'><{$request.language}></td>
+				<td class='center'><{$request.info}></td>
 				<td class='center'><{$request.date}></td>
 				<td class='center'><{$request.submitter}></td>
 				<td class='center'><img src="<{$modPathIcon32}>status<{$request.status}>.png" alt="<{$request.status_text}>" title="<{$request.status_text}>" /></td>

@@ -218,17 +218,20 @@ include_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_BROKEN_KEYVAL', 'Key value');
 \define('_AM_WGTRANSIFEX_BROKEN_MAIN', 'Info main');
 // Request add/edit
-\define('_AM_WGTRANSIFEX_REQUEST_ADD', 'Add Request');
+\define('_AM_WGTRANSIFEX_REQUEST_ADD', 'Neue Anfrage');
 \define('_AM_WGTRANSIFEX_REQUEST_EDIT', 'Edit Request');
 // Elements of Request
 \define('_AM_WGTRANSIFEX_REQUEST_ID', 'Id');
-\define('_AM_WGTRANSIFEX_REQUEST_PROJECT', 'Projects');
-\define('_AM_WGTRANSIFEX_REQUEST_LANGUAGE', 'Languages');
+\define('_AM_WGTRANSIFEX_REQUEST_PROJECT', 'Projekte');
+\define('_AM_WGTRANSIFEX_REQUEST_LANGUAGE', 'Sprache');
 \define('_AM_WGTRANSIFEX_REQUEST_STATUS', 'Status');
 \define('_AM_WGTRANSIFEX_REQUEST_STATUSDATE', 'Status DateTime');
 \define('_AM_WGTRANSIFEX_REQUEST_STATUSUID', 'Status uid');
 \define('_AM_WGTRANSIFEX_REQUEST_DATE', 'DateTime');
 \define('_AM_WGTRANSIFEX_REQUEST_SUBMITTER', 'Submitter');
+\define('_AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST', '--- Nicht in der Liste ---');
+\define('_AM_WGTRANSIFEX_REQUEST_INFO', 'Nicht in der Liste');
+\define('_AM_WGTRANSIFEX_REQUEST_INFO_DESC', 'Wenn das gewünschte Projekt/Module nicht in der Liste ist, dann bitte hier den Namen eingeben');
 // General
 \define('_AM_WGTRANSIFEX_FORM_UPLOAD', 'Upload file');
 \define('_AM_WGTRANSIFEX_FORM_UPLOAD_NEW', 'Upload new file: ');

@@ -231,6 +231,9 @@ include_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_REQUEST_STATUSUID', 'Status uid');
 \define('_AM_WGTRANSIFEX_REQUEST_DATE', 'DateTime');
 \define('_AM_WGTRANSIFEX_REQUEST_SUBMITTER', 'Submitter');
+\define('_AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST', '--- Not in the list ---');
+\define('_AM_WGTRANSIFEX_REQUEST_INFO', 'Not in the list');
+\define('_AM_WGTRANSIFEX_REQUEST_INFO_DESC', 'If the project/module which you would like to have is not in the list, then please type in here the name');
 // General
 \define('_AM_WGTRANSIFEX_FORM_UPLOAD', 'Upload file');
 \define('_AM_WGTRANSIFEX_FORM_UPLOAD_NEW', 'Upload new file: ');
