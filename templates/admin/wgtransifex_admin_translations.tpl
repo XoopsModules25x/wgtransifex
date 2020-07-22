@@ -26,7 +26,10 @@
 				<td class='center width20'>
 					<{foreach item=language from=$project.languages}>
 						<a href="translations.php?op=list&amp;tra_pro_id=<{$project.id}>&amp;tra_lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>">
-							<img class="wgt-icon24" src="<{$modPathIcon32}>translations.png" alt="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>" />&nbsp;<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}> <{$language.name}></a><br>
+							<{if $language.outdated > 0}>
+                                <img class="wgt-icon24" src="<{$modPathIcon32}>status<{$language.outdated}>.png" alt="<{$language.outdated}>" title="<{$language.outdatedtext}>" />
+                            <{/if}>
+                            <img class="wgt-icon24" src="<{$modPathIcon32}>translations.png" alt="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>" />&nbsp;<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}> <{$language.name}></a><br>
 					<{/foreach}>
 				</td>
 			</tr>
@@ -48,7 +51,6 @@
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_PRO_ID}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_RES_ID}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_LANG_ID}></th>
-				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_MIMETYPE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_STATS}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_LOCAL}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_STATUS}></th>
@@ -65,7 +67,6 @@
 				<td class='center'><{$translation.pro_id}></td>
 				<td class='center'><{$translation.res_id}></td>
 				<td class='center'><{$translation.lang_id}></td>
-				<td class='center'><{$translation.mimetype}></td>
 				<td class='center'>
 					<{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_REVIEWED}>: <{$translation.reviewed}> (<{$translation.reviewed_percentage}>%)<br>
 					<{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_TRANSLATED_WORDS}>: <{$translation.translated_words}><br>
