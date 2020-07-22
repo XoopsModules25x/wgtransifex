@@ -86,6 +86,7 @@ switch ($op) {
 		// Set Vars
 		$requestsObj->setVar('req_pro_id', Request::getInt('req_pro_id', 0));
 		$requestsObj->setVar('req_lang_id', Request::getInt('req_lang_id', 0));
+        $requestsObj->setVar('req_info', Request::getString('req_info', ''));
 		$requestsObj->setVar('req_status', Request::getInt('req_status', 0));
 		$requestStatusdateArr = Request::getArray('req_statusdate');
 		$requestStatusdateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $requestStatusdateArr['date']);

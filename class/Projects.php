@@ -180,7 +180,6 @@ class Projects extends \XoopsObject
         $ret['status']       = $status;
         switch ($status) {
             case Constants::STATUS_NONE:
-            default:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
                 break;
             case Constants::STATUS_SUBMITTED:
@@ -200,6 +199,10 @@ class Projects extends \XoopsObject
                 break;
             case Constants::STATUS_DELETEDTX:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_DELETEDTX;
+                break;
+            case -1;
+            default:
+                $status_text = 'missing status text'; /* this should not be */
                 break;
         }
         $ret['status_text'] = $status_text;

@@ -124,11 +124,14 @@ class Translations extends \XoopsObject
         // Form Editor TextArea traContent
         $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_TRANSLATION_CONTENT, 'tra_content', $this->getVar('tra_content', 'e'), 20, 47));
         // Form Text traMimetype
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_MIMETYPE, 'tra_mimetype', 50, 255, $this->getVar('tra_mimetype')));
+        // $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_MIMETYPE, 'tra_mimetype', 50, 255, $this->getVar('tra_mimetype')));
+        $form->addElement(new \XoopsFormHidden('tra_mimetype', $this->getVar('tra_mimetype')));
         // Form Text traMimetype
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_LOCAL, 'tra_local', 50, 255, $this->getVar('tra_local')));
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD, 'tra_proofread', 50, 255, $this->getVar('tra_proofread')));
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD_PERC, 'tra_proofread_percentage', 50, 255, $this->getVar('tra_proofread_percentage')));
+        //$form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD, 'tra_proofread', 50, 255, $this->getVar('tra_proofread')));
+        $form->addElement(new \XoopsFormHidden('tra_proofread', $this->getVar('tra_proofread')));
+        //$form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD_PERC, 'tra_proofread_percentage', 50, 255, $this->getVar('tra_proofread_percentage')));
+        $form->addElement(new \XoopsFormHidden('tra_proofread_percentage', $this->getVar('tra_proofread_percentage')));
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED, 'tra_reviewed', 50, 255, $this->getVar('tra_reviewed')));
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED_PERC, 'tra_reviewed_percentage', 50, 255, $this->getVar('tra_reviewed_percentage')));
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_COMPLETED, 'tra_completed', 50, 255, $this->getVar('tra_completed')));
@@ -142,6 +145,7 @@ class Translations extends \XoopsObject
         $traStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
         $traStatusSelect->addOption(Constants::STATUS_SUBMITTED, \_AM_WGTRANSIFEX_STATUS_SUBMITTED);
         $traStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
+        $traStatusSelect->addOption(Constants::STATUS_OUTDATED, \_AM_WGTRANSIFEX_STATUS_OUTDATED);
         $form->addElement($traStatusSelect, true);
         // Form Text Date Select traDate
         $traDate = $this->isNew() ? 0 : $this->getVar('tra_date');
@@ -233,7 +237,30 @@ class Translations extends \XoopsObject
         $ret['content_short']         = $utility::truncateHtml($ret['content'], $editorMaxchar, '...', true);
         $ret['mimetype']              = $this->getVar('tra_mimetype');
         $ret['local']                 = $this->getVar('tra_local');
-        $ret['status']                = $this->getVar('tra_status');
+        $status                       = $this->getVar('tra_status');
+        $ret['status']                = $status;
+        switch ($status) {
+            case Constants::STATUS_NONE:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
+                break;
+            case Constants::STATUS_SUBMITTED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_SUBMITTED;
+                break;
+            case Constants::STATUS_READTX:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_READTX;
+                break;
+            case Constants::STATUS_ARCHIVED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_ARCHIVED;
+                break;
+            case Constants::STATUS_OUTDATED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
+                break;
+            case -1;
+            default:
+                $status_text = 'missing status text'; /* this should not be */
+                break;
+        }  
+        $ret['status_text']           = $status_text;
         $ret['date']                  = \formatTimestamp($this->getVar('tra_date'), 'm');
         $ret['submitter']             = \XoopsUser::getUnameFromId($this->getVar('tra_submitter'));
         $ret['proofread']             = $this->getVar('tra_proofread');
@@ -246,7 +273,7 @@ class Translations extends \XoopsObject
         $ret['untranslated_entities'] = $this->getVar('tra_untranslated_entities');
         $ret['completed']             = $this->getVar('tra_completed');
         //$ret['last_commiter']        = $this->getVar('tra_last_commiter');
-        $ret['last_update'] = \formatTimestamp($this->getVar('tra_last_update'), 'm');
+        $ret['last_update']           = \formatTimestamp($this->getVar('tra_last_update'), 'm');
         return $ret;
     }
 

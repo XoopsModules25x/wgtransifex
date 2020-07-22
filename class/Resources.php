@@ -197,7 +197,6 @@ class Resources extends \XoopsObject
         $ret['status']               = $status;
         switch ($status) {
             case Constants::STATUS_NONE:
-            default:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
                 break;
             case Constants::STATUS_READTX:
@@ -205,6 +204,10 @@ class Resources extends \XoopsObject
                 break;
             case Constants::STATUS_SUBMITTED:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_SUBMITTED;
+                break;
+            case -1;
+            default:
+                $status_text = 'missing status text'; /* this should not be */
                 break;
         }
         $ret['status_text'] = $status_text;

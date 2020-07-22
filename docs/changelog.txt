@@ -3,6 +3,10 @@ Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.03
 ==============================================================
  - added requests (goffy)
  - fqn replacer (mamba/goffy)
+ - fixed bug in notification (goffy)
+ - fixed bug in permission check (goffy)
+ - added request for not existing project (goffy)
+ - added new checks for outdated translations (goffy)
 
 ==============================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.02

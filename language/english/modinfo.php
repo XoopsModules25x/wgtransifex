@@ -48,18 +48,12 @@ include_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_SMNAME3', 'Show language list');
 \define('_MI_WGTRANSIFEX_SMNAME4', 'Show project list');
 // Blocks
-\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK', 'Packages block');
-\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_DESC', 'Packages block description');
-\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_PACKAGE', 'Packages block  PACKAGE');
-\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_PACKAGE_DESC', 'Packages block  PACKAGE description');
 \define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST', 'Packages block last');
 \define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_LAST_DESC', 'Packages block last description');
 \define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW', 'Packages block new');
 \define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_NEW_DESC', 'Packages block new description');
-\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_HITS', 'Packages block hits');
-\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_HITS_DESC', 'Packages block hits description');
-\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP', 'Packages block top');
-\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP_DESC', 'Packages block top description');
+//\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP', 'Packages block top');
+//\define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP_DESC', 'Packages block top description');
 \define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM', 'Packages block random');
 \define('_MI_WGTRANSIFEX_PACKAGES_BLOCK_RANDOM_DESC', 'Packages block random description');
 // Config

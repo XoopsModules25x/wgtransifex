@@ -23,6 +23,7 @@
 use Xmf\Request;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
+use XoopsModules\Wgtransifex\Constants;
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -51,6 +52,7 @@ switch ($op) {
             $crTranslations    = new \CriteriaCompo();
             $translationsCount = $translationsHandler->getCount($crTranslations);
             if ($translationsCount > 0) {
+                
                 $crTranslations->setGroupBy('`tra_pro_id`');
                 $crTranslations->setStart($start_pro);
                 $crTranslations->setLimit($limit);
@@ -63,12 +65,16 @@ switch ($op) {
                     $languages       = [];
                     $crTranslations2 = new \CriteriaCompo();
                     $crTranslations2->add(new \Criteria('tra_pro_id', $proId));
-                    $crTranslations2->setGroupBy('`tra_pro_id`, `tra_lang_id`');
+                    $crTranslations2->setGroupBy('`tra_pro_id`, `tra_lang_id`, `tra_status`');
                     $translationsAll2 = $translationsHandler->getAll($crTranslations2);
                     foreach (\array_keys($translationsAll2) as $l) {
                         $langId                = $translationsAll2[$l]->getVar('tra_lang_id');
-                        $languages[$l]['id']   = $langId;
-                        $languages[$l]['name'] = $languagesHandler->get($langId)->getVar('lang_name');
+                        $languages[$langId]['id']   = $langId;
+                        $languages[$langId]['name'] = $languagesHandler->get($langId)->getVar('lang_name');
+                        if (Constants::STATUS_OUTDATED == $translationsAll2[$l]->getVar('tra_status')) {
+                            $languages[$langId]['outdated']      = Constants::STATUS_OUTDATED;
+                            $languages[$langId]['outdatedtext'] = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
+                        }
                     }
                     $project['languages'] = $languages;
                     $GLOBALS['xoopsTpl']->append('projects_list', $project);
@@ -138,7 +144,7 @@ switch ($op) {
     case 'checktx':
         $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
         $result    = $transifex->checkTranslations();
-        \redirect_header('translations.php?op=list', 3, $result);
+        \redirect_header('translations.php?op=list', 3, $ret['info']);
         break;
     case 'new':
         $templateMain = 'wgtransifex_admin_translations.tpl';

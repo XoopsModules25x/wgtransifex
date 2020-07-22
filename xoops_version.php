@@ -172,7 +172,8 @@ $modversion['blocks'][] = [
     'template'    => 'wgtransifex_block_packages.tpl',
     'options'     => 'new|5|25|0',
 ];
-// Packages top
+/*
+ * // Packages top
 $modversion['blocks'][] = [
     'file'        => 'packages.php',
     'name'        => \_MI_WGTRANSIFEX_PACKAGES_BLOCK_TOP,
@@ -182,6 +183,7 @@ $modversion['blocks'][] = [
     'template'    => 'wgtransifex_block_packages.tpl',
     'options'     => 'top|5|25|0',
 ];
+*/
 // Packages random
 $modversion['blocks'][] = [
     'file'        => 'packages.php',
@@ -468,7 +470,7 @@ $modversion['notification']['event'][] = [
 // package broken
 $modversion['notification']['event'][] = [
     'name'          => 'package_broken',
-    'category'      => 'packages_admin',
+    'category'      => 'packages',
     'admin_only'    => 1,
     'title'         => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_BROKEN,
     'caption'       => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_BROKEN_CAPTION,
@@ -479,7 +481,7 @@ $modversion['notification']['event'][] = [
 // request new
 $modversion['notification']['event'][] = [
     'name'          => 'request_new',
-    'category'      => 'requests_admin',
+    'category'      => 'requests',
     'admin_only'    => 1,
     'title'         => \_MI_WGTRANSIFEX_NOTIFY_REQUEST_NEW,
     'caption'       => \_MI_WGTRANSIFEX_NOTIFY_REQUEST_NEW_CAPTION,

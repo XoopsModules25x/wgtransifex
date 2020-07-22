@@ -194,7 +194,7 @@ function wgtransifex_check_db($module)
         }
     }
 
-    // update table (change field)
+    // update table (add new field)
     $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_settings');
     $field   = 'set_request';
     $check   = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
@@ -217,6 +217,7 @@ function wgtransifex_check_db($module)
                   `req_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
                   `req_pro_id` INT(0) NOT NULL DEFAULT '0',
                   `req_lang_id` INT(0) NOT NULL DEFAULT '0',
+                  `req_info` VARCHAR(255)    NOT NULL DEFAULT '',
                   `req_date` INT(11) NOT NULL DEFAULT '0',
                   `req_submitter` INT(10) NOT NULL DEFAULT '0',
                   `req_status` INT(1) NOT NULL DEFAULT '0',
@@ -227,6 +228,20 @@ function wgtransifex_check_db($module)
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
             xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
             $module->setErrors("Error when creating table '$table'.");
+            $ret = false;
+        }
+    }
+
+    // update table (add new field)
+    $table   = $GLOBALS['xoopsDB']->prefix('wgtransifex_requests');
+    $field   = 'req_info';
+    $check   = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if (!$numRows) {
+        $sql = "ALTER TABLE `$table` ADD `$field` VARCHAR(255) NOT NULL DEFAULT '' AFTER `req_lang_id`;";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when adding '$field' to table '$table'.");
             $ret = false;
         }
     }

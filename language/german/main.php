@@ -86,10 +86,10 @@ As you can see, you have created a page with a list of links at the top to navig
 \define('_MA_WGTRANSIFEX_DOWNLOAD_PACKAGE', 'Download Sprachpaket');
 \define('_MA_WGTRANSIFEX_DOWNLOAD_ERR_NOFILE', 'Fehler: Download-Datei nicht gefunden');
 //requests
-\define('_MA_WGTRANSIFEX_REQUESTS', 'Requests');
-\define('_MA_WGTRANSIFEX_REQUEST_NEW', 'Request a new language package');
-\define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST1', 'Request already exist! Please wait until language package is released!');
-\define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST2', 'Language package already exist! Please check list of language packages!');
+\define('_MA_WGTRANSIFEX_REQUESTS', 'Anfragen');
+\define('_MA_WGTRANSIFEX_REQUEST_NEW', 'Anfrage für neues Sprachpaket');
+\define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST1', 'Anfrage existiert bereits! Bitte warten Sie bis das Sprachpaket freigegeben wurde!');
+\define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST2', 'Sprachpaket exisiert bereits! Bitte überprüfen Sie die Liste der Sprachpakete!');
 // Admin link
 \define('_MA_WGTRANSIFEX_ADMIN', 'Administration');
 // ---------------- End ----------------

@@ -357,6 +357,17 @@ class Transifex
                 $traLastUpdate = \strtotime($stats['last_update']);
                 if ($traLastUpdate > $translationsAll[$i]->getVar('tra_date')) {
                     $translationsObj = $translationsHandler->get($translationsAll[$i]->getVar('tra_id'));
+                    $translationsObj->setVar('tra_proofread', $stats['proofread']);
+                    $translationsObj->setVar('tra_proofread_percentage', $stats['proofread_percentage']);
+                    $translationsObj->setVar('tra_reviewed_percentage', $stats['reviewed_percentage']);
+                    $translationsObj->setVar('tra_completed', $stats['completed']);
+                    $translationsObj->setVar('tra_untranslated_words', $stats['untranslated_words']);
+                    $translationsObj->setVar('tra_last_commiter', $stats['last_commiter']);
+                    $translationsObj->setVar('tra_reviewed', $stats['reviewed']);
+                    $translationsObj->setVar('tra_translated_entities', $stats['translated_entities']);
+                    $translationsObj->setVar('tra_translated_words', $stats['translated_words']);
+                    $translationsObj->setVar('tra_untranslated_entities', $stats['untranslated_entities']);
+                    $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
                     $translationsObj->setVar('tra_status', Constants::STATUS_OUTDATED);
                     // Insert Data
                     if ($translationsHandler->insert($translationsObj, true)) {
