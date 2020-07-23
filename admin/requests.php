@@ -134,10 +134,15 @@ switch ($op) {
 				$GLOBALS['xoopsTpl']->assign('error', $requestsObj->getHtmlErrors());
 			}
 		} else {
-			$xoopsconfirm = new Common\XoopsConfirm(
+			if ($requestsObj->getVar('req_pro_id') > 0) {
+			    $confirmInfo = $projectsHandler->get($requestsObj->getVar('req_pro_id'))->getVar('pro_name');
+            } else {
+                $confirmInfo = $requestsObj->getVar('req_info');
+            }
+		    $xoopsconfirm = new Common\XoopsConfirm(
 				['ok' => 1, 'req_id' => $reqId, 'op' => 'delete'],
 				$_SERVER['REQUEST_URI'],
-				\sprintf(_AM_WGTRANSIFEX_FORM_SURE_DELETE, $projectsHandler->get($requestsObj->getVar('req_pro_id'))->getVar('pro_name')));
+				\sprintf(_AM_WGTRANSIFEX_FORM_SURE_DELETE, $confirmInfo));
 			$form = $xoopsconfirm->getFormXoopsConfirm();
 			$GLOBALS['xoopsTpl']->assign('form', $form->render());
 		}

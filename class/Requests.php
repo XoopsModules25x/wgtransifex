@@ -180,8 +180,13 @@ class Requests extends \XoopsObject
 		$ret = $this->getValues($keys, $format, $maxDepth);
 		$ret['id']        = $this->getVar('req_id');
 		$projectsHandler  = $helper->getHandler('Projects');
-		$projectsObj      = $projectsHandler->get($this->getVar('req_pro_id'));
-		$ret['project']   = $projectsObj->getVar('pro_slug');
+		$proId            = $this->getVar('req_pro_id');
+		if ($proId > 0) {
+            $projectsObj      = $projectsHandler->get($this->getVar('req_pro_id'));
+            $ret['project']   = $projectsObj->getVar('pro_slug');
+        } else {
+            $ret['project'] = _AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST;
+        }
 		$languagesHandler = $helper->getHandler('Languages');
 		$languagesObj     = $languagesHandler->get($this->getVar('req_lang_id'));
 		$ret['language']  = $languagesObj->getVar('lang_name');
