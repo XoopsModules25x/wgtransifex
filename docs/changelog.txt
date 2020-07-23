@@ -7,6 +7,7 @@ Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.03
  - fixed bug in permission check (goffy)
  - added request for not existing project (goffy)
  - added new checks for outdated translations (goffy)
+ - fixed bug in request creation (goffy)
 
 ==============================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.02

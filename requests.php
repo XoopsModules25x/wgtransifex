@@ -62,26 +62,28 @@ switch ($op) {
 		if (!$GLOBALS['xoopsSecurity']->check()) {
 			\redirect_header('requests.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
 		}
-        //check whether request already exists
-        $crRequests = new \CriteriaCompo();
-        $crRequests->add(new \Criteria('req_pro_id', $proId));
-        $crRequests->add(new \Criteria('req_lang_id', $langId));
-        if ($requestsHandler->getCount($crRequests) > 0) {
-            \redirect_header('requests.php', 3, \_MA_WGTRANSIFEX_REQUEST_ERR_EXIST1);
+		if ($proId > 0) {
+            //check whether request already exists
+            $crRequests = new \CriteriaCompo();
+            $crRequests->add(new \Criteria('req_pro_id', $proId));
+            $crRequests->add(new \Criteria('req_lang_id', $langId));
+            if ($requestsHandler->getCount($crRequests) > 0) {
+                \redirect_header('requests.php', 3, \_MA_WGTRANSIFEX_REQUEST_ERR_EXIST1);
+            }
+            //check whether package already exists
+            $crPackages = new \CriteriaCompo();
+            $crPackages->add(new \Criteria('pkg_pro_id', $proId));
+            $crPackages->add(new \Criteria('pkg_lang_id', $langId));
+            if ($packagesHandler->getCount($crPackages) > 0) {
+                \redirect_header('requests.php', 3, \_MA_WGTRANSIFEX_REQUEST_ERR_EXIST2);
+            }
         }
-        //check whether package already exists
-        $crPackages = new \CriteriaCompo();
-        $crPackages->add(new \Criteria('pkg_pro_id', $proId));
-        $crPackages->add(new \Criteria('pkg_lang_id', $langId));
-        if ($packagesHandler->getCount($crPackages) > 0) {
-            \redirect_header('requests.php', 3, \_MA_WGTRANSIFEX_REQUEST_ERR_EXIST2);
-        }
-
         $uid = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
 		$requestsObj = $requestsHandler->create();
 		
 		$requestsObj->setVar('req_pro_id', Request::getInt('req_pro_id', 0));
 		$requestsObj->setVar('req_lang_id', Request::getInt('req_lang_id', 0));
+        $requestsObj->setVar('req_info', Request::getString('req_info'));
         $requestsObj->setVar('req_date', \time());
         $requestsObj->setVar('req_submitter', $uid);
 		$requestsObj->setVar('req_status', Constants::STATUS_PENDING);
