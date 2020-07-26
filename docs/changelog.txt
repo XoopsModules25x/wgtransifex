@@ -1,6 +1,11 @@
-==============================================================
+===================================================================
+Change Log for wgTransifex - 2020/07/26 12:35:41 Version 1.03 RC1
+===================================================================
+ - moved to RC1 (goffy)
+
+===================================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.03
-==============================================================
+===================================================================
  - added requests (goffy)
  - fqn replacer (mamba/goffy)
  - fixed bug in notification (goffy)
@@ -8,16 +13,17 @@ Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.03
  - added request for not existing project (goffy)
  - added new checks for outdated translations (goffy)
  - fixed bug in request creation (goffy)
+ - added set all languages on-/offline (goffy)
 
-==============================================================
+===================================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.02
-==============================================================
+===================================================================
  - added notification system (goffy)
  - added image resizing for logos (goffy)
 
-==============================================================
+===================================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.01
-==============================================================
+===================================================================
  - added projects on user side (goffy)
  - implemented new status 'deleted on transifex' (goffy)
  - read only active projects (goffy)
@@ -25,9 +31,9 @@ Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.01
  - removed array_key_last (goffy)
  - implemented quick creation of package (download and creation at once) (goffy)
 
-==============================================================
+===================================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.0
-==============================================================
+===================================================================
  - Original release wgtransifex (goffy)
  - added translation statistics (goffy)
  - preparation for creation of language packages (goffy)

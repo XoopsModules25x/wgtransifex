@@ -42,8 +42,10 @@ switch ($op) {
         if ($proId > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
         }
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx', 'add');
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
+        if (0 == $proId) {
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx', 'add');
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
+        }
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $start_pro = Request::getInt('start_pro', 0);
         $start_tra = Request::getInt('start_tra', 0);

@@ -155,7 +155,9 @@ include_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY', 'Set as Primary Language');
 \define('_AM_WGTRANSIFEX_LANGUAGE_ONLINE', 'Language Online');
 \define('_AM_WGTRANSIFEX_LANGUAGE_SETONLINE', 'Set Online');
+\define('_AM_WGTRANSIFEX_LANGUAGE_SETONLINE_ALL', 'Set all Online');
 \define('_AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE', 'Set Offline');
+\define('_AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE_ALL', 'Set all Offline');
 \define('_AM_WGTRANSIFEX_LANGUAGE_MENU', '%s language packages');
 // Translation add/edit
 \define('_AM_WGTRANSIFEX_TRANSLATION_ADD', 'Add Translation');

@@ -11,7 +11,7 @@
 			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCES_NB}></th>
 			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_NB}></th>
 			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_DATE}></th>
-			<th class="center width10"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
+			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -23,7 +23,7 @@
 				<td class='center'><{$project.resources}></td>
 				<td class='center'><{$project.translations}></td>
 				<td class='center'><{$project.date}></td>
-				<td class='center width20'>
+				<td class='center'>
 					<{foreach item=language from=$project.languages}>
 						<a href="translations.php?op=list&amp;tra_pro_id=<{$project.id}>&amp;tra_lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>">
 							<{if $language.outdated > 0}>
@@ -56,7 +56,7 @@
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_STATUS}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_DATE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_SUBMITTER}></th>
-				<th class="center width5"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
 			</tr>
 		</thead>
 		<{if $translations_count}>
@@ -80,7 +80,7 @@
 				<td class='center'><img src="<{$modPathIcon32}>status<{$translation.status}>.png" alt="<{$translation.status_text}>" title="<{$translation.status_text}>" /></td>
 				<td class='center'><{$translation.date}></td>
 				<td class='center'><{$translation.submitter}></td>
-				<td class="center  width5">
+				<td class="center">
 					<a href="translations.php?op=savetx&amp;tra_id=<{$translation.id}>&amp;tra_pro_id=<{$translation.tra_pro_id}>&amp;tra_res_id=<{$translation.tra_res_id}>&amp;tra_lang_id=<{$translation.tra_lang_id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>"><img class="wgt-icon24" src="<{$modPathIcon32}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>" /></a>
 					<a href="translations.php?op=edit&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> translations" /></a>
 					<a href="translations.php?op=delete&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> translations" /></a>

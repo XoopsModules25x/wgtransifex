@@ -12,7 +12,13 @@
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_FOLDER}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_FLAG}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_PRIMARY}></th>
-				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_ONLINE}></th>
+				<th class="center">
+					<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_ONLINE}>&nbsp;
+					<a href="languages.php?op=setonlineall&amp;lang_online=0&amp;start=<{$start}>&amp;limit=<{$limit}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE_ALL}>">
+						<img src="<{$modPathIcon16}>0.png" alt="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE_ALL}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETOFFLINE_ALL}>"</a>&nbsp;
+					<a href="languages.php?op=setonlineall&amp;lang_online=1&amp;start=<{$start}>&amp;limit=<{$limit}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE_ALL}>">
+						<img src="<{$modPathIcon16}>1.png" alt="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE_ALL}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETONLINE_ALL}>"</a>
+				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_DATE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SUBMITTER}></th>
 				<th class="center width5"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>

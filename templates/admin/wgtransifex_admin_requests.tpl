@@ -14,7 +14,7 @@
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_STATUS}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_STATUSDATE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_REQUEST_STATUSUID}></th>
-				<th class="center width5"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
 			</tr>
 		</thead>
 		<{if $requests_count}>
@@ -30,9 +30,9 @@
 				<td class='center'><img src="<{$modPathIcon32}>status<{$request.status}>.png" alt="<{$request.status_text}>" title="<{$request.status_text}>" /></td>
 				<td class='center'><{$request.statusdate}></td>
 				<td class='center'><{$request.statusuid}></td>
-				<td class="center  width5">
+				<td class="center">
 					<a href="requests.php?op=edit&amp;req_id=<{$request.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> requests" /></a>
-					<a href="packages.php?op=new&amp;pkg_pro_id=<{$request.req_pro_id}>&amp;pkg_lang_id=<{$request.req_lang_id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>packages.png" alt="packages" /></a>
+					<a href="packages.php?op=new&amp;pkg_pro_id=<{$request.req_pro_id}>&amp;pkg_lang_id=<{$request.req_lang_id}>" title="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_ADD}>"><img class="wgt-icon24" src="<{$modPathIcon32}>packages.png" alt="packages" /></a>
 					<a href="requests.php?op=delete&amp;req_id=<{$request.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> requests" /></a>
 				</td>
 			</tr>
