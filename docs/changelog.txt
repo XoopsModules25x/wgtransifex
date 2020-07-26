@@ -2,7 +2,8 @@
 Change Log for wgTransifex - 2020/07/26 12:35:41 Version 1.03 RC1
 ===================================================================
  - moved to RC1 (goffy)
-
+ - fixed bug with reading single project (Cesagonchu/goffy)
+ 
 ===================================================================
 Change Log for wgTransifex - 2020/06/14 12:35:41 Version 1.03
 ===================================================================

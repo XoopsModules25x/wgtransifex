@@ -20,9 +20,7 @@
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
-use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Helper;
-use XoopsModules\Wgtransifex\Constants;
 
 include_once XOOPS_ROOT_PATH . '/modules/wgtransifex/include/common.php';
 
@@ -33,8 +31,7 @@ include_once XOOPS_ROOT_PATH . '/modules/wgtransifex/include/common.php';
  */
 function b_wgtransifex_packages_show($options)
 {
-	include_once XOOPS_ROOT_PATH . '/modules/wgtransifex/class/packages.php';
-	$myts = MyTextSanitizer::getInstance();
+	$myts = \MyTextSanitizer::getInstance();
 	$GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
     $GLOBALS['xoopsTpl']->assign('modPathIconFlags', WGTRANSIFEX_IMAGE_URL . '/flags/');
 	$block            = [];
@@ -105,7 +102,6 @@ function b_wgtransifex_packages_show($options)
  */
 function b_wgtransifex_packages_edit($options)
 {
-	include_once \XOOPS_ROOT_PATH . '/modules/wgtransifex/class/packages.php';
 	$helper = Helper::getInstance();
 	$packagesHandler = $helper->getHandler('Packages');
 	$GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
