@@ -89,11 +89,11 @@ class Transifex
                 } else {
                     $projectsObj = $projectsHandler->get($projectsObjExist[0]->getVar('pro_id'));
                 }
-                $projectsObj->setVar('pro_status', Constants::STATUS_READTX);
+                $proStatus = Constants::STATUS_READTX;
                 $oldProject = true;
             } else {
                 $projectsObj = $projectsHandler->create();
-                $projectsObj->setVar('pro_status', Constants::STATUS_READTXNEW);
+                $proStatus = Constants::STATUS_READTXNEW;
             }
             if (\is_object($projectsObj)) {
                 $project = $transifexLib->getProject($item['slug'], true);
@@ -108,6 +108,7 @@ class Transifex
                         $projectsObj->setVar('pro_status', Constants::STATUS_ARCHIVED);
                         $projectsObj->setVar('pro_archived', 1);
                     } else {
+                        $projectsObj->setVar('pro_status', $proStatus);
                         $projectsObj->setVar('pro_archived', 0);
                     }
                     $projectsObj->setVar('pro_txresources', \count($project['resources']));
