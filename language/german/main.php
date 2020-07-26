@@ -88,6 +88,7 @@ As you can see, you have created a page with a list of links at the top to navig
 //requests
 \define('_MA_WGTRANSIFEX_REQUESTS', 'Anfragen');
 \define('_MA_WGTRANSIFEX_REQUEST_NEW', 'Anfrage für neues Sprachpaket');
+\define('_MA_WGTRANSIFEX_REQUEST_NEW_DESC', "Sie haben das gewünschte Sprachpaket nicht gefunden? Dann lassen Sie uns das wissen");
 \define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST1', 'Anfrage existiert bereits! Bitte warten Sie bis das Sprachpaket freigegeben wurde!');
 \define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST2', 'Sprachpaket exisiert bereits! Bitte überprüfen Sie die Liste der Sprachpakete!');
 // Admin link

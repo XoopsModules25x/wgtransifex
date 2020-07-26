@@ -175,6 +175,21 @@ switch ($op) {
         }
         $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
         break;
+    case 'setonlineall':
+        $langOnline     = Request::getInt('lang_online', 0);
+        $languagesAll   = $languagesHandler->getAllLanguages($start, $limit);
+        foreach (\array_keys($languagesAll) as $i) {
+            $languagesObj = $languagesHandler->get($languagesAll[$i]->getVar('lang_id'));
+            $languagesObj->setVar('lang_online', $langOnline);
+            // Insert Data
+            if (!$languagesHandler->insert($languagesObj)) {
+                $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
+                break;
+            }
+            unset($languagesObj);
+        }
+        \redirect_header('languages.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 2, \_AM_WGTRANSIFEX_FORM_OK);
+        break;
     case 'setprimary':
         if ($langId > 0) {
             $languagesObj = $languagesHandler->get($langId);

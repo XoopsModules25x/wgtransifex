@@ -90,6 +90,7 @@ As you can see, you have created a page with a list of links at the top to navig
 //requests
 \define('_MA_WGTRANSIFEX_REQUESTS', 'Requests');
 \define('_MA_WGTRANSIFEX_REQUEST_NEW', 'Request a new language package');
+\define('_MA_WGTRANSIFEX_REQUEST_NEW_DESC', "You didn't find what you are looking for? Then please let us know");
 \define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST1', 'Request already exist! Please wait until language package is released!');
 \define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST2', 'Language package already exist! Please check list of language packages!');
 // Admin link

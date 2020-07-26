@@ -28,6 +28,7 @@
 	<{if $showRequest}>
 		<div class='row'>
 			<div class='cols-xs-12 center'>
+				<h5><{$smarty.const._MA_WGTRANSIFEX_REQUEST_NEW_DESC}></h5>
 				<a class='btn btn-success center' href='requests.php?op=new' title='<{$smarty.const._MA_WGTRANSIFEX_REQUEST_NEW}>'><{$smarty.const._MA_WGTRANSIFEX_REQUEST_NEW}></a>
 			</div>
 		</div>
