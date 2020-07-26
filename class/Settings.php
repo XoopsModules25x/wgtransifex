@@ -45,7 +45,7 @@ class Settings extends \XoopsObject
         $this->initVar('set_primary', \XOBJ_DTYPE_INT);
         $this->initVar('set_request', \XOBJ_DTYPE_INT);
         $this->initVar('set_date', \XOBJ_DTYPE_INT);
-        $this->initVar('set_submitter', \XOBJ_DTYPE_INT);       
+        $this->initVar('set_submitter', \XOBJ_DTYPE_INT);
     }
 
     /**

@@ -205,7 +205,7 @@ class Resources extends \XoopsObject
             case Constants::STATUS_SUBMITTED:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_SUBMITTED;
                 break;
-            case -1;
+            case -1:
             default:
                 $status_text = 'missing status text'; /* this should not be */
                 break;

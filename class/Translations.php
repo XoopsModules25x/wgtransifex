@@ -255,11 +255,11 @@ class Translations extends \XoopsObject
             case Constants::STATUS_OUTDATED:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
                 break;
-            case -1;
+            case -1:
             default:
                 $status_text = 'missing status text'; /* this should not be */
                 break;
-        }  
+        }
         $ret['status_text']           = $status_text;
         $ret['date']                  = \formatTimestamp($this->getVar('tra_date'), 'm');
         $ret['submitter']             = \XoopsUser::getUnameFromId($this->getVar('tra_submitter'));

@@ -88,8 +88,8 @@ switch ($op) {
         $langId = Request::getInt('pkg_lang_id');
         // Form Create
         $packagesObj = $packagesHandler->create();
-        $packagesObj->setVar('pkg_pro_id' , $proId);
-        $packagesObj->setVar('pkg_lang_id' , $langId);
+        $packagesObj->setVar('pkg_pro_id', $proId);
+        $packagesObj->setVar('pkg_lang_id', $langId);
         $form = $packagesObj->getFormPackages();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
@@ -158,8 +158,8 @@ switch ($op) {
                 $dst_path = $pkg_path;
                 $files = \explode('/', $translationsAll[$i]->getVar('tra_local'));
                 foreach (\array_keys($files) as $f) {
-                    end( $files );
-                    if (key( $files ) == $f) {
+                    end($files);
+                    if (key($files) == $f) {
                         $content = $translationsAll[$i]->getVar('tra_content', 'n');
                         $dst_file = $dst_path . '/' . $files[$f];
                         \unlink($dst_file);
@@ -202,9 +202,13 @@ switch ($op) {
         $imgMimetype    = $_FILES['pkg_logo']['type'];
         $imgNameDef     = Request::getString('pkg_name');
         $uploaderErrors = '';
-        $uploader = new \XoopsMediaUploader(WGTRANSIFEX_UPLOAD_PATH . '/logos/',
+        $uploader = new \XoopsMediaUploader(
+            WGTRANSIFEX_UPLOAD_PATH . '/logos/',
             $helper->getConfig('mimetypes_image'),
-            $helper->getConfig('maxsize_image'), null, null);
+            $helper->getConfig('maxsize_image'),
+            null,
+            null
+        );
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $extension = \preg_replace('/^.+\.([^.]+)$/sU', '', $filename);
             $imgName = \str_replace(' ', '', $imgNameDef) . '.' . $extension;
@@ -235,7 +239,7 @@ switch ($op) {
             $packagesObj->setVar('pkg_logo', Request::getString('pkg_logo'));
         }
         // Insert Data
-        if ($packagesHandler->insert($packagesObj)) {           
+        if ($packagesHandler->insert($packagesObj)) {
             $newPkgId = $pkgId > 0 ? $pkgId : $packagesObj->getNewInsertedIdPackages();
             if ('' !== $uploaderErrors) {
                 \redirect_header('packages.php?op=edit&pkg_id=' . $pkgId, 5, $uploaderErrors);

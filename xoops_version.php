@@ -86,7 +86,7 @@ $modversion['templates'] = [
     ['file' => 'wgtransifex_header.tpl', 'description' => ''],
     ['file' => 'wgtransifex_index.tpl', 'description' => ''],
     ['file' => 'wgtransifex_projects.tpl', 'description' => ''],
-	['file' => 'wgtransifex_projects_item.tpl', 'description' => ''],
+    ['file' => 'wgtransifex_projects_item.tpl', 'description' => ''],
     ['file' => 'wgtransifex_languages.tpl', 'description' => ''],
     ['file' => 'wgtransifex_languages_list.tpl', 'description' => ''],
     ['file' => 'wgtransifex_languages_item.tpl', 'description' => ''],
@@ -112,8 +112,8 @@ $modversion['tables'] = [
 // ------------------- Search ------------------- //
 $modversion['hasSearch'] = 1;
 $modversion['search'] = [
-	'file' => 'include/search.inc.php',
-	'func' => 'wgtransifex_search',
+    'file' => 'include/search.inc.php',
+    'func' => 'wgtransifex_search',
 ];
 // ------------------- Menu ------------------- //
 $currdirname = isset($GLOBALS['xoopsModule']) && \is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
@@ -141,10 +141,10 @@ if ($currdirname == $moduleDirName) {
         ];
     }
     // Sub languages
-	$modversion['sub'][] = [
-		'name' => \_MI_WGTRANSIFEX_SMNAME3,
-		'url'  => 'languages.php',
-	];
+    $modversion['sub'][] = [
+        'name' => \_MI_WGTRANSIFEX_SMNAME3,
+        'url'  => 'languages.php',
+    ];
     // Sub projects
     $modversion['sub'][] = [
         'name' => \_MI_WGTRANSIFEX_SMNAME4,
@@ -307,17 +307,17 @@ $memberHandler = \xoops_getHandler('member');
 $xoopsGroups  = $memberHandler->getGroupList();
 $groups = [];
 foreach ($xoopsGroups as $key => $group) {
-	$groups[$group]  = $key;
+    $groups[$group]  = $key;
 }
 // General access groups
 $modversion['config'][] = [
-	'name'        => 'groups_request',
-	'title'       => '_MI_WGTRANSIFEX_GROUPS_REQUEST',
-	'description' => '_MI_WGTRANSIFEX_GROUPS_REQUEST_DESC',
-	'formtype'    => 'select_multi',
-	'valuetype'   => 'array',
-	'default'     => $groups,
-	'options'     => $groups,
+    'name'        => 'groups_request',
+    'title'       => '_MI_WGTRANSIFEX_GROUPS_REQUEST',
+    'description' => '_MI_WGTRANSIFEX_GROUPS_REQUEST_DESC',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'default'     => $groups,
+    'options'     => $groups,
 ];
 // Keywords
 $modversion['config'][] = [
@@ -425,16 +425,16 @@ $modversion['config'][] = [
 // ------------------- Notifications ------------------- //
 $modversion['hasNotification'] = 1;
 $modversion['notification'] = [
-	'lookup_file' => 'include/notification.inc.php',
-	'lookup_func' => 'wgtransifex_notify_iteminfo',
+    'lookup_file' => 'include/notification.inc.php',
+    'lookup_func' => 'wgtransifex_notify_iteminfo',
 ];
 // Categories of notification
 // Global Notify
 $modversion['notification']['category'][] = [
-	'name'           => 'global',
-	'title'          => \_MI_WGTRANSIFEX_NOTIFY_GLOBAL,
-	'description'    => '',
-	'subscribe_from' => ['index.php', 'packages.php'],
+    'name'           => 'global',
+    'title'          => \_MI_WGTRANSIFEX_NOTIFY_GLOBAL,
+    'description'    => '',
+    'subscribe_from' => ['index.php', 'packages.php'],
 ];
 // Package Notify
 $modversion['notification']['category'][] = [

@@ -22,7 +22,6 @@
 
 use XoopsModules\Wgtransifex;
 
-
 /**
  * search callback functions
  *
@@ -35,57 +34,56 @@ use XoopsModules\Wgtransifex;
  */
 function wgtransifex_search($queryarray, $andor, $limit, $offset, $userid)
 {
-	$ret = [];
-	$helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+    $ret = [];
+    $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
 
-	// search in table packages
-	// search keywords
-	$elementCount = 0;
-	$packagesHandler = $helper->getHandler('Packages');
-	if (\is_array($queryarray)) {
-		$elementCount = \count($queryarray);
-	}
-	if ($elementCount > 0) {
-		$crKeywords = new \CriteriaCompo();
-		for ($i = 0; $i  <  $elementCount; $i++) {
-			$crKeyword = new \CriteriaCompo();
-			unset($crKeyword);
-		}
-	}
-	// search user(s)
-	if ($userid && \is_array($userid)) {
-		$userid = array_map('intval', $userid);
-		$crUser = new \CriteriaCompo();
-		$crUser->add(new \Criteria('pkg_submitter', '(' . \implode(',', $userid) . ')', 'IN'), 'OR');
-	} elseif (is_numeric($userid) && $userid > 0) {
-		$crUser = new \CriteriaCompo();
-		$crUser->add(new \Criteria('pkg_submitter', $userid), 'OR');
-	}
-	$crSearch = new \CriteriaCompo();
-	if (isset($crKeywords)) {
-		$crSearch->add($crKeywords, 'AND');
-	}
-	if (isset($crUser)) {
-		$crSearch->add($crUser, 'AND');
-	}
-	$crSearch->setStart($offset);
-	$crSearch->setLimit($limit);
-	$crSearch->setSort('pkg_date');
-	$crSearch->setOrder('DESC');
-	$packagesAll = $packagesHandler->getAll($crSearch);
-	foreach (\array_keys($packagesAll) as $i) {
-		$ret[] = [
-			'image'  => 'assets/icons/16/packages.png',
-			'link'   => 'packages.php?op=show&amp;pkg_id=' . $packagesAll[$i]->getVar('pkg_id'),
-			'title'  => $packagesAll[$i]->getVar('pkg_name'),
-			'time'   => $packagesAll[$i]->getVar('pkg_date')
-		];
-	}
-	unset($crKeywords);
-	unset($crKeyword);
-	unset($crUser);
-	unset($crSearch);
+    // search in table packages
+    // search keywords
+    $elementCount = 0;
+    $packagesHandler = $helper->getHandler('Packages');
+    if (\is_array($queryarray)) {
+        $elementCount = \count($queryarray);
+    }
+    if ($elementCount > 0) {
+        $crKeywords = new \CriteriaCompo();
+        for ($i = 0; $i  <  $elementCount; $i++) {
+            $crKeyword = new \CriteriaCompo();
+            unset($crKeyword);
+        }
+    }
+    // search user(s)
+    if ($userid && \is_array($userid)) {
+        $userid = array_map('intval', $userid);
+        $crUser = new \CriteriaCompo();
+        $crUser->add(new \Criteria('pkg_submitter', '(' . \implode(',', $userid) . ')', 'IN'), 'OR');
+    } elseif (is_numeric($userid) && $userid > 0) {
+        $crUser = new \CriteriaCompo();
+        $crUser->add(new \Criteria('pkg_submitter', $userid), 'OR');
+    }
+    $crSearch = new \CriteriaCompo();
+    if (isset($crKeywords)) {
+        $crSearch->add($crKeywords, 'AND');
+    }
+    if (isset($crUser)) {
+        $crSearch->add($crUser, 'AND');
+    }
+    $crSearch->setStart($offset);
+    $crSearch->setLimit($limit);
+    $crSearch->setSort('pkg_date');
+    $crSearch->setOrder('DESC');
+    $packagesAll = $packagesHandler->getAll($crSearch);
+    foreach (\array_keys($packagesAll) as $i) {
+        $ret[] = [
+            'image'  => 'assets/icons/16/packages.png',
+            'link'   => 'packages.php?op=show&amp;pkg_id=' . $packagesAll[$i]->getVar('pkg_id'),
+            'title'  => $packagesAll[$i]->getVar('pkg_name'),
+            'time'   => $packagesAll[$i]->getVar('pkg_date')
+        ];
+    }
+    unset($crKeywords);
+    unset($crKeyword);
+    unset($crUser);
+    unset($crSearch);
 
-	return $ret;
-
+    return $ret;
 }

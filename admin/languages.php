@@ -102,7 +102,11 @@ switch ($op) {
         // Set Var lang_flag
         include_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $uploader = new \XoopsMediaUploader(
-            XOOPS_ROOT_PATH . '/modules/wgtransifex/assets/images/flags', $helper->getConfig('mimetypes_image'), $helper->getConfig('maxsize_image'), null, null
+            XOOPS_ROOT_PATH . '/modules/wgtransifex/assets/images/flags',
+            $helper->getConfig('mimetypes_image'),
+            $helper->getConfig('maxsize_image'),
+            null,
+            null
         );
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             //$uploader->setPrefix(lang_flag_);
@@ -155,7 +159,9 @@ switch ($op) {
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'lang_id' => $langId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $languagesObj->getVar('lang_name'))
+                ['ok' => 1, 'lang_id' => $langId, 'op' => 'delete'],
+                $_SERVER['REQUEST_URI'],
+                \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $languagesObj->getVar('lang_name'))
             );
             $form         = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());

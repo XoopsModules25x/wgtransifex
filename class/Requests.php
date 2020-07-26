@@ -32,101 +32,101 @@ use XoopsModules\Wgtransifex;
  */
 class Requests extends \XoopsObject
 {
-	/**
-	 * Constructor
-	 *
-	 * @param null
-	 */
-	public function __construct()
-	{
-		$this->initVar('req_id', \XOBJ_DTYPE_INT);
-		$this->initVar('req_pro_id', \XOBJ_DTYPE_INT);
+    /**
+     * Constructor
+     *
+     * @param null
+     */
+    public function __construct()
+    {
+        $this->initVar('req_id', \XOBJ_DTYPE_INT);
+        $this->initVar('req_pro_id', \XOBJ_DTYPE_INT);
         $this->initVar('req_lang_id', \XOBJ_DTYPE_INT);
         $this->initVar('req_info', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('req_status', \XOBJ_DTYPE_INT);
-		$this->initVar('req_statusdate', \XOBJ_DTYPE_INT);
-		$this->initVar('req_statusuid', \XOBJ_DTYPE_INT);
-		$this->initVar('req_date', \XOBJ_DTYPE_INT);
-		$this->initVar('req_submitter', \XOBJ_DTYPE_INT);
-	}
+        $this->initVar('req_statusdate', \XOBJ_DTYPE_INT);
+        $this->initVar('req_statusuid', \XOBJ_DTYPE_INT);
+        $this->initVar('req_date', \XOBJ_DTYPE_INT);
+        $this->initVar('req_submitter', \XOBJ_DTYPE_INT);
+    }
 
-	/**
-	 * @static function &getInstance
-	 *
-	 * @param null
-	 */
-	public static function getInstance()
-	{
-		static $instance = false;
-		if (!$instance) {
-			$instance = new self();
-		}
-	}
+    /**
+     * @static function &getInstance
+     *
+     * @param null
+     */
+    public static function getInstance()
+    {
+        static $instance = false;
+        if (!$instance) {
+            $instance = new self();
+        }
+    }
 
-	/**
-	 * The new inserted $Id
-	 * @return inserted id
-	 */
-	public function getNewInsertedIdRequests()
-	{
-		$newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-		return $newInsertedId;
-	}
+    /**
+     * The new inserted $Id
+     * @return inserted id
+     */
+    public function getNewInsertedIdRequests()
+    {
+        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
+        return $newInsertedId;
+    }
 
-	/**
-	 * @public function getForm
-	 * @param bool $action
-	 * @return \XoopsThemeForm
-	 */
-	public function getFormRequests($action = false)
-	{
-		$helper = \XoopsModules\Wgtransifex\Helper::getInstance();
-		if (!$action) {
-			$action = $_SERVER['REQUEST_URI'];
-		}
-		// Title
-		$title = $this->isNew() ? \sprintf(\_AM_WGTRANSIFEX_REQUEST_ADD) : \sprintf(\_AM_WGTRANSIFEX_REQUEST_EDIT);
-		// Get Theme Form
-		\xoops_load('XoopsFormLoader');
-		$form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
-		$form->setExtra('enctype="multipart/form-data"');
-		// Form Table projects
-		$projectsHandler = $helper->getHandler('Projects');
-		$reqProjectSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_REQUEST_PROJECT, 'req_pro_id', $this->getVar('req_pro_id'));
-		$reqProjectSelect->addOptionArray($projectsHandler->getList());
+    /**
+     * @public function getForm
+     * @param bool $action
+     * @return \XoopsThemeForm
+     */
+    public function getFormRequests($action = false)
+    {
+        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        if (!$action) {
+            $action = $_SERVER['REQUEST_URI'];
+        }
+        // Title
+        $title = $this->isNew() ? \sprintf(\_AM_WGTRANSIFEX_REQUEST_ADD) : \sprintf(\_AM_WGTRANSIFEX_REQUEST_EDIT);
+        // Get Theme Form
+        \xoops_load('XoopsFormLoader');
+        $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        // Form Table projects
+        $projectsHandler = $helper->getHandler('Projects');
+        $reqProjectSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_REQUEST_PROJECT, 'req_pro_id', $this->getVar('req_pro_id'));
+        $reqProjectSelect->addOptionArray($projectsHandler->getList());
         $reqProjectSelect->addOption(0, \_AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST);
-		$form->addElement($reqProjectSelect, true);
-		// Form Table languages
-		$languagesHandler = $helper->getHandler('Languages');
-		$reqLanguageSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_REQUEST_LANGUAGE, 'req_lang_id', $this->getVar('req_lang_id'));
-		$reqLanguageSelect->addOptionArray($languagesHandler->getList());
-		$form->addElement($reqLanguageSelect );
+        $form->addElement($reqProjectSelect, true);
+        // Form Table languages
+        $languagesHandler = $helper->getHandler('Languages');
+        $reqLanguageSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_REQUEST_LANGUAGE, 'req_lang_id', $this->getVar('req_lang_id'));
+        $reqLanguageSelect->addOptionArray($languagesHandler->getList());
+        $form->addElement($reqLanguageSelect);
         // Form Text reqInfo
         $reqInfoText = new \XoopsFormText(\_AM_WGTRANSIFEX_REQUEST_INFO, 'req_info', 50, 255, $this->getVar('req_info'));
-        $reqInfoText->setDescription( \_AM_WGTRANSIFEX_REQUEST_INFO_DESC);
+        $reqInfoText->setDescription(\_AM_WGTRANSIFEX_REQUEST_INFO_DESC);
         $form->addElement($reqInfoText);
         // Form Select Status reqStatus
         $reqStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_REQUEST_STATUS, 'req_status', $this->getVar('req_status'));
         $reqStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
         $reqStatusSelect->addOption(Constants::STATUS_PENDING, \_AM_WGTRANSIFEX_STATUS_PENDING);
         $reqStatusSelect->addOption(Constants::STATUS_CREATED, \_AM_WGTRANSIFEX_STATUS_CREATED);
-        $form->addElement($reqStatusSelect );
+        $form->addElement($reqStatusSelect);
         // Form Text Date Select reqStatusdate
         $reqStatusdate = $this->isNew() ?: $this->getVar('req_statusdate');
-        $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_REQUEST_STATUSDATE, 'req_statusdate', '', $reqStatusdate) );
+        $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_REQUEST_STATUSDATE, 'req_statusdate', '', $reqStatusdate));
         // Form Select User reqStatusuid
-        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_REQUEST_STATUSUID, 'req_statusuid', false, $this->getVar('req_statusuid')) );
+        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_REQUEST_STATUSUID, 'req_statusuid', false, $this->getVar('req_statusuid')));
         // Form Text Date Select reqDate
         $reqDate = $this->isNew() ?: $this->getVar('req_date');
-        $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_REQUEST_DATE, 'req_date', '', $reqDate) );
+        $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_REQUEST_DATE, 'req_date', '', $reqDate));
         // Form Select User reqSubmitter
         $reqSubmitter = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_REQUEST_SUBMITTER, 'req_submitter', false, $reqSubmitter));
-		// To Save
-		$form->addElement(new \XoopsFormHidden('op', 'save'));
-		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
-		return $form;
-	}
+        // To Save
+        $form->addElement(new \XoopsFormHidden('op', 'save'));
+        $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        return $form;
+    }
 
     /**
      * @public function getForm
@@ -155,10 +155,10 @@ class Requests extends \XoopsObject
         $languagesHandler = $helper->getHandler('Languages');
         $reqLanguageSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_REQUEST_LANGUAGE, 'req_lang_id', $this->getVar('req_lang_id'));
         $reqLanguageSelect->addOptionArray($languagesHandler->getList());
-        $form->addElement($reqLanguageSelect );
+        $form->addElement($reqLanguageSelect);
         // Form Text reqInfo
         $reqInfoText = new \XoopsFormText(\_AM_WGTRANSIFEX_REQUEST_INFO, 'req_info', 50, 255, $this->getVar('req_info'));
-        $reqInfoText->setDescription( \_AM_WGTRANSIFEX_REQUEST_INFO_DESC);
+        $reqInfoText->setDescription(\_AM_WGTRANSIFEX_REQUEST_INFO_DESC);
         $form->addElement($reqInfoText);
 
         // To Save
@@ -167,64 +167,64 @@ class Requests extends \XoopsObject
         return $form;
     }
 
-	/**
-	 * Get Values
-	 * @param null $keys
-	 * @param null $format
-	 * @param null $maxDepth
-	 * @return array
-	 */
-	public function getValuesRequests($keys = null, $format = null, $maxDepth = null)
-	{
-		$helper  = \XoopsModules\Wgtransifex\Helper::getInstance();
-		$ret = $this->getValues($keys, $format, $maxDepth);
-		$ret['id']        = $this->getVar('req_id');
-		$projectsHandler  = $helper->getHandler('Projects');
-		$proId            = $this->getVar('req_pro_id');
-		if ($proId > 0) {
+    /**
+     * Get Values
+     * @param null $keys
+     * @param null $format
+     * @param null $maxDepth
+     * @return array
+     */
+    public function getValuesRequests($keys = null, $format = null, $maxDepth = null)
+    {
+        $helper  = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['id']        = $this->getVar('req_id');
+        $projectsHandler  = $helper->getHandler('Projects');
+        $proId            = $this->getVar('req_pro_id');
+        if ($proId > 0) {
             $projectsObj      = $projectsHandler->get($this->getVar('req_pro_id'));
             $ret['project']   = $projectsObj->getVar('pro_slug');
         } else {
             $ret['project'] = _AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST;
         }
-		$languagesHandler = $helper->getHandler('Languages');
-		$languagesObj     = $languagesHandler->get($this->getVar('req_lang_id'));
-		$ret['language']  = $languagesObj->getVar('lang_name');
+        $languagesHandler = $helper->getHandler('Languages');
+        $languagesObj     = $languagesHandler->get($this->getVar('req_lang_id'));
+        $ret['language']  = $languagesObj->getVar('lang_name');
         $ret['info']      = $this->getVar('req_info');
-		$status           = $this->getVar('req_status');
-		$ret['status']    = $status;
-		switch ($status) {
-			case Constants::STATUS_NONE:
-			default:
-				$status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
-				break;
-			case Constants::STATUS_CREATED:
-				$status_text = \_AM_WGTRANSIFEX_STATUS_CREATED;
-				break;
-			case Constants::STATUS_PENDING:
-				$status_text = \_AM_WGTRANSIFEX_STATUS_PENDING;
-				break;
-		}
-		$ret['status_text'] = $status_text;
-		$ret['statusdate']  = \formatTimestamp($this->getVar('req_statusdate'), 'm');
-		$ret['statusuid']   = \XoopsUser::getUnameFromId($this->getVar('req_statusuid'));
-		$ret['date']        = \formatTimestamp($this->getVar('req_date'), 'm');
-		$ret['submitter']   = \XoopsUser::getUnameFromId($this->getVar('req_submitter'));
-		return $ret;
-	}
+        $status           = $this->getVar('req_status');
+        $ret['status']    = $status;
+        switch ($status) {
+            case Constants::STATUS_NONE:
+            default:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
+                break;
+            case Constants::STATUS_CREATED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_CREATED;
+                break;
+            case Constants::STATUS_PENDING:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_PENDING;
+                break;
+        }
+        $ret['status_text'] = $status_text;
+        $ret['statusdate']  = \formatTimestamp($this->getVar('req_statusdate'), 'm');
+        $ret['statusuid']   = \XoopsUser::getUnameFromId($this->getVar('req_statusuid'));
+        $ret['date']        = \formatTimestamp($this->getVar('req_date'), 'm');
+        $ret['submitter']   = \XoopsUser::getUnameFromId($this->getVar('req_submitter'));
+        return $ret;
+    }
 
-	/**
-	 * Returns an array representation of the object
-	 *
-	 * @return array
-	 */
-	public function toArrayRequests()
-	{
-		$ret = [];
-		$vars = $this->getVars();
-		foreach (\array_keys($vars) as $var) {
-			$ret[$var] = $this->getVar('"{$var}"');
-		}
-		return $ret;
-	}
+    /**
+     * Returns an array representation of the object
+     *
+     * @return array
+     */
+    public function toArrayRequests()
+    {
+        $ret = [];
+        $vars = $this->getVars();
+        foreach (\array_keys($vars) as $var) {
+            $ret[$var] = $this->getVar('"{$var}"');
+        }
+        return $ret;
+    }
 }

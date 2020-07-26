@@ -54,7 +54,6 @@ switch ($op) {
             $crTranslations    = new \CriteriaCompo();
             $translationsCount = $translationsHandler->getCount($crTranslations);
             if ($translationsCount > 0) {
-                
                 $crTranslations->setGroupBy('`tra_pro_id`');
                 $crTranslations->setStart($start_pro);
                 $crTranslations->setLimit($limit);
@@ -229,7 +228,9 @@ switch ($op) {
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'tra_id' => $traId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $translationsObj->getVar('tra_pro_id'))
+                ['ok' => 1, 'tra_id' => $traId, 'op' => 'delete'],
+                $_SERVER['REQUEST_URI'],
+                \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $translationsObj->getVar('tra_pro_id'))
             );
             $form         = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());

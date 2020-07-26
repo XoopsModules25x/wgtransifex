@@ -47,8 +47,8 @@ include __DIR__ . '/footer.php';
 
 
 
-function function_qualifier($dst_path) {
-
+function function_qualifier($dst_path)
+{
     $sources = [];
 
     //php functions
@@ -209,7 +209,6 @@ function function_qualifier($dst_path) {
     $patKeys   = \array_keys($patterns);
     $patValues = \array_values($patterns);
     cloneFileFolder($dst_path, $dst_path, $patKeys, $patValues);
-
 }
 
 // recursive cloning script
@@ -226,9 +225,9 @@ function cloneFileFolder($src_path, $dst_path, $patKeys = [], $patValues =[])
     // Make the destination directory if not exist
     @\mkdir($dst_path);
     // Loop through the files in source directory
-    while( $file = \readdir($dir) ) {
-        if (( $file != '.' ) && ( $file != '..' )) {
-            if ( \is_dir($src_path . '/' . $file) ) {
+    while ($file = \readdir($dir)) {
+        if (($file != '.') && ($file != '..')) {
+            if (\is_dir($src_path . '/' . $file)) {
                 // Recursively calling custom copy function for sub directory
                 cloneFileFolder($src_path . '/' . $file, $dst_path . '/' . $file, $patKeys, $patValues);
             } else {
@@ -252,7 +251,7 @@ function cloneFile($src_file, $dst_file, $patKeys = [], $patValues =[])
     if (\in_array(\mb_strtolower(\pathinfo($src_file, PATHINFO_EXTENSION)), $changeExtensions)) {
         $replace_code = true;
     }
-    if (\strpos( $dst_file, basename(__FILE__)) > 0) {
+    if (\strpos($dst_file, basename(__FILE__)) > 0) {
         //skip myself
         $replace_code = false;
     }
@@ -270,4 +269,3 @@ function cloneFile($src_file, $dst_file, $patKeys = [], $patValues =[])
         \copy($src_file, $dst_file);
     }
 }
-

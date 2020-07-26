@@ -124,10 +124,10 @@ class Languages extends \XoopsObject
         $form->addElement($imageTray);
         // Form Radio Yes/No langPrimary
         $langPrimary = $this->isNew() ? 0 : $this->getVar('lang_primary');
-        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_LANGUAGE_PRIMARY, 'lang_primary', $langPrimary) );
+        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_LANGUAGE_PRIMARY, 'lang_primary', $langPrimary));
         // Form Radio Yes/No langOnline
         $langOnline = $this->isNew() ? 1 : $this->getVar('lang_online');
-        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_LANGUAGE_ONLINE, 'lang_online', $langOnline) );
+        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_LANGUAGE_ONLINE, 'lang_online', $langOnline));
         // Form Text Date Select langDate
         $langDate = $this->isNew() ? 0 : $this->getVar('lang_date');
         $form->addElement(new \XoopsFormTextDateSelect(\_AM_WGTRANSIFEX_LANGUAGE_DATE, 'lang_date', '', $langDate));

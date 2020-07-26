@@ -95,17 +95,17 @@ switch ($op) {
         $projectsObj->setVar('pro_name', Request::getString('pro_name', ''));
         $projectsObj->setVar('pro_txresources', Request::getInt('pro_txresources', 0));
         $projectLastupdatedArr = Request::getArray('pro_date');
-		$projectLastupdatedObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectLastupdatedArr['date']);
-		$projectLastupdatedObj->setTime(0, 0, 0);
-		$projectLastupdated = $projectLastupdatedObj->getTimestamp() + (int)$projectLastupdatedArr['time'];
-		$projectsObj->setVar('pro_date', $projectLastupdated);
+        $projectLastupdatedObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectLastupdatedArr['date']);
+        $projectLastupdatedObj->setTime(0, 0, 0);
+        $projectLastupdated = $projectLastupdatedObj->getTimestamp() + (int)$projectLastupdatedArr['time'];
+        $projectsObj->setVar('pro_date', $projectLastupdated);
         $projectsObj->setVar('pro_teams', Request::getString('pro_teams', ''));
         $projectsObj->setVar('pro_archived', Request::getInt('pro_archived', 0));
         $projectDateArr = Request::getArray('pro_date');
-		$projectDateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectDateArr['date']);
-		$projectDateObj->setTime(0, 0, 0);
-		$projectDate = $projectDateObj->getTimestamp() + (int)$projectDateArr['time'];
-		$projectsObj->setVar('pro_date', $projectDate);
+        $projectDateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectDateArr['date']);
+        $projectDateObj->setTime(0, 0, 0);
+        $projectDate = $projectDateObj->getTimestamp() + (int)$projectDateArr['time'];
+        $projectsObj->setVar('pro_date', $projectDate);
         $projectsObj->setVar('pro_submitter', Request::getInt('pro_submitter', 0));
         $projectsObj->setVar('pro_status', Request::getInt('pro_status', 0));
         // Insert Data
@@ -144,7 +144,9 @@ switch ($op) {
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'pro_id' => $proId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $projectsObj->getVar('pro_slug'))
+                ['ok' => 1, 'pro_id' => $proId, 'op' => 'delete'],
+                $_SERVER['REQUEST_URI'],
+                \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $projectsObj->getVar('pro_slug'))
             );
             $form         = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());

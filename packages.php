@@ -114,18 +114,20 @@ switch ($op) {
             $packagesObj->setVar('pkg_status', Constants::STATUS_BROKEN);
             if ($packagesHandler->insert($packagesObj)) {
                 // Event broken notification
-				$tags = [];
-				$tags['ITEM_NAME'] = $pkgName;
-				$tags['ITEM_URL']  = XOOPS_URL . '/modules/wgtransifex/admin/packages.php?op=show&pkg_id=' . $pkgId;
-				$notificationHandler = \xoops_getHandler('notification');
-				$notificationHandler->triggerEvent('packages', $pkgId, 'package_broken', $tags);
+                $tags = [];
+                $tags['ITEM_NAME'] = $pkgName;
+                $tags['ITEM_URL']  = XOOPS_URL . '/modules/wgtransifex/admin/packages.php?op=show&pkg_id=' . $pkgId;
+                $notificationHandler = \xoops_getHandler('notification');
+                $notificationHandler->triggerEvent('packages', $pkgId, 'package_broken', $tags);
                 \redirect_header('packages.php', 3, \_MA_WGTRANSIFEX_FORM_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $packagesObj->getHtmlErrors());
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'pkg_id' => $pkgId, 'op' => 'broken'], $_SERVER['REQUEST_URI'], \sprintf(\_MA_WGTRANSIFEX_FORM_SURE_BROKEN, $packagesObj->getVar('pkg_name'))
+                ['ok' => 1, 'pkg_id' => $pkgId, 'op' => 'broken'],
+                $_SERVER['REQUEST_URI'],
+                \sprintf(\_MA_WGTRANSIFEX_FORM_SURE_BROKEN, $packagesObj->getVar('pkg_name'))
             );
             $form         = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());

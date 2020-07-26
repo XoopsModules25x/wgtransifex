@@ -108,7 +108,7 @@ class Projects extends \XoopsObject
         $proLastupdated = $this->isNew() ? 0 : $this->getVar('pro_last_updated');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PROJECT_LAST_UPDATED, 'pro_last_updated', '', $proLastupdated));
         // Form Text proTeams
-        $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_PROJECT_TEAMS, 'pro_teams', $this->getVar('pro_teams', 'e'), 4, 47) );
+        $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_PROJECT_TEAMS, 'pro_teams', $this->getVar('pro_teams', 'e'), 4, 47));
         // Form Select Status proStatus
         $proStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PROJECT_STATUS, 'pro_status', $this->getVar('pro_status'));
         $proStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
@@ -124,7 +124,7 @@ class Projects extends \XoopsObject
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATIONS_NB, 'pro_translations', 50, 255, $this->getVar('pro_translations')));
         // Form Radio Yes/No proArchived
         $proArchived = $this->isNew() ? 0 : $this->getVar('pro_archived');
-        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_PROJECT_ARCHIVED, 'pro_archived', $proArchived) );
+        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_PROJECT_ARCHIVED, 'pro_archived', $proArchived));
         // Form Text Date Select proDate
         $proDate = $this->isNew() ? 0 : $this->getVar('pro_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PROJECT_DATE, 'pro_date', '', $proDate));
@@ -165,7 +165,8 @@ class Projects extends \XoopsObject
             }
         }
         if ($key > 3) {
-            $teams_short .= '<li>...</li>';;
+            $teams_short .= '<li>...</li>';
+            ;
         }
         $teams       .= '</ul>';
         $teams_short .= '</ul>';
@@ -200,7 +201,7 @@ class Projects extends \XoopsObject
             case Constants::STATUS_DELETEDTX:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_DELETEDTX;
                 break;
-            case -1;
+            case -1:
             default:
                 $status_text = 'missing status text'; /* this should not be */
                 break;

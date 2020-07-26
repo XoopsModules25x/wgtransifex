@@ -54,15 +54,15 @@ if (!$request_allowed) {
 }
 
 switch ($op) {
-	case 'list':
-	default:
-		break;
-	case 'save':
-		// Security Check
-		if (!$GLOBALS['xoopsSecurity']->check()) {
-			\redirect_header('requests.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
-		}
-		if ($proId > 0) {
+    case 'list':
+    default:
+        break;
+    case 'save':
+        // Security Check
+        if (!$GLOBALS['xoopsSecurity']->check()) {
+            \redirect_header('requests.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+        }
+        if ($proId > 0) {
             //check whether request already exists
             $crRequests = new \CriteriaCompo();
             $crRequests->add(new \Criteria('req_pro_id', $proId));
@@ -79,43 +79,43 @@ switch ($op) {
             }
         }
         $uid = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
-		$requestsObj = $requestsHandler->create();
-		
-		$requestsObj->setVar('req_pro_id', Request::getInt('req_pro_id', 0));
-		$requestsObj->setVar('req_lang_id', Request::getInt('req_lang_id', 0));
+        $requestsObj = $requestsHandler->create();
+        
+        $requestsObj->setVar('req_pro_id', Request::getInt('req_pro_id', 0));
+        $requestsObj->setVar('req_lang_id', Request::getInt('req_lang_id', 0));
         $requestsObj->setVar('req_info', Request::getString('req_info'));
         $requestsObj->setVar('req_date', \time());
         $requestsObj->setVar('req_submitter', $uid);
-		$requestsObj->setVar('req_status', Constants::STATUS_PENDING);
-		$requestsObj->setVar('req_statusdate', \time());
-		$requestsObj->setVar('req_statusuid', $uid);
-		// Insert Data
-		if ($requestsHandler->insert($requestsObj)) {
-			$newReqId = $reqId > 0 ? $reqId : $requestsObj->getNewInsertedIdRequests();
-			// Handle notification
-			$reqProject = $requestsObj->getVar('req_project');
-			$reqStatus = $requestsObj->getVar('req_status');
-			$tags = [];
-			$tags['ITEM_NAME'] = $reqProject;
-			$tags['ITEM_URL']  = XOOPS_URL . '/modules/wgtransifex/admin/requests.php?op=show&req_id=' . $reqId;
-			$notificationHandler = \xoops_getHandler('notification');
-			// Event approve notification
-			$notificationHandler->triggerEvent('requests', $newReqId, 'request_new', $tags);
-			// redirect after insert
-			\redirect_header('index.php', 2, _MA_WGTRANSIFEX_FORM_OK);
-		}
-		// Get Form Error
-		$GLOBALS['xoopsTpl']->assign('error', $requestsObj->getHtmlErrors());
-		$form = $requestsObj->getFormRequests();
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-		break;
+        $requestsObj->setVar('req_status', Constants::STATUS_PENDING);
+        $requestsObj->setVar('req_statusdate', \time());
+        $requestsObj->setVar('req_statusuid', $uid);
+        // Insert Data
+        if ($requestsHandler->insert($requestsObj)) {
+            $newReqId = $reqId > 0 ? $reqId : $requestsObj->getNewInsertedIdRequests();
+            // Handle notification
+            $reqProject = $requestsObj->getVar('req_project');
+            $reqStatus = $requestsObj->getVar('req_status');
+            $tags = [];
+            $tags['ITEM_NAME'] = $reqProject;
+            $tags['ITEM_URL']  = XOOPS_URL . '/modules/wgtransifex/admin/requests.php?op=show&req_id=' . $reqId;
+            $notificationHandler = \xoops_getHandler('notification');
+            // Event approve notification
+            $notificationHandler->triggerEvent('requests', $newReqId, 'request_new', $tags);
+            // redirect after insert
+            \redirect_header('index.php', 2, _MA_WGTRANSIFEX_FORM_OK);
+        }
+        // Get Form Error
+        $GLOBALS['xoopsTpl']->assign('error', $requestsObj->getHtmlErrors());
+        $form = $requestsObj->getFormRequests();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
 
-	case 'new':
-		// Form Create
-		$requestsObj = $requestsHandler->create();
-		$form = $requestsObj->getFormRequestUser();
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-		break;
+    case 'new':
+        // Form Create
+        $requestsObj = $requestsHandler->create();
+        $form = $requestsObj->getFormRequestUser();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
 }
 
 // Breadcrumbs

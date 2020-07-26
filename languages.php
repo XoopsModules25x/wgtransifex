@@ -45,39 +45,39 @@ $GLOBALS['xoopsTpl']->assign('showItem', $langId > 0);
 $keywords = [];
 
 switch ($op) {
-	case 'show':
-	case 'list':
-	default:
-		$crLanguages = new \CriteriaCompo();
-		if ($langId > 0) {
-			$crLanguages->add(new \Criteria('lang_id', $langId));
-		}
-		$languagesCount = $languagesHandler->getCount($crLanguages);
-		$GLOBALS['xoopsTpl']->assign('languagesCount', $languagesCount);
-		$crLanguages->setSort('lang_name');
+    case 'show':
+    case 'list':
+    default:
+        $crLanguages = new \CriteriaCompo();
+        if ($langId > 0) {
+            $crLanguages->add(new \Criteria('lang_id', $langId));
+        }
+        $languagesCount = $languagesHandler->getCount($crLanguages);
+        $GLOBALS['xoopsTpl']->assign('languagesCount', $languagesCount);
+        $crLanguages->setSort('lang_name');
         $crLanguages->setStart($start);
-		$crLanguages->setLimit($limit);
-		$languagesAll = $languagesHandler->getAll($crLanguages);
-		if ($languagesCount > 0) {
-			$languages = [];
-			// Get All Languages
-			foreach (\array_keys($languagesAll) as $i) {
-				$languages[$i] = $languagesAll[$i]->getValuesLanguages();
-				$keywords[$i] = $languagesAll[$i]->getVar('lang_name');
-			}
-			$GLOBALS['xoopsTpl']->assign('languages', $languages);
-			unset($languages);
-			// Display Navigation
-			if ($languagesCount > $limit) {
-				include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-				$pagenav = new \XoopsPageNav($languagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
-			}
-			$GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
-			$GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
-			$GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
-		}
-		break;
+        $crLanguages->setLimit($limit);
+        $languagesAll = $languagesHandler->getAll($crLanguages);
+        if ($languagesCount > 0) {
+            $languages = [];
+            // Get All Languages
+            foreach (\array_keys($languagesAll) as $i) {
+                $languages[$i] = $languagesAll[$i]->getValuesLanguages();
+                $keywords[$i] = $languagesAll[$i]->getVar('lang_name');
+            }
+            $GLOBALS['xoopsTpl']->assign('languages', $languages);
+            unset($languages);
+            // Display Navigation
+            if ($languagesCount > $limit) {
+                include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                $pagenav = new \XoopsPageNav($languagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+            }
+            $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
+            $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
+            $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
+        }
+        break;
 }
 
 // Breadcrumbs

@@ -55,41 +55,41 @@ foreach ($groups as $group) {
 }
 
 switch ($op) {
-	case 'show':
-	case 'list':
-	default:
+    case 'show':
+    case 'list':
+    default:
         $GLOBALS['xoopsTpl']->assign('showRefresh', $request_allowed);
 
-	    $crProjects = new \CriteriaCompo();
-		if ($proId > 0) {
-			$crProjects->add(new \Criteria('pro_id', $proId));
-		}
+        $crProjects = new \CriteriaCompo();
+        if ($proId > 0) {
+            $crProjects->add(new \Criteria('pro_id', $proId));
+        }
         $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX, '>='));
-		$projectsCount = $projectsHandler->getCount($crProjects);
-		$GLOBALS['xoopsTpl']->assign('projectsCount', $projectsCount);
-		$crProjects->setStart($start);
-		$crProjects->setLimit($limit);
-		$projectsAll = $projectsHandler->getAll($crProjects);
-		if ($projectsCount > 0) {
-			$projects = [];
-			// Get All Projects
-			foreach (\array_keys($projectsAll) as $i) {
-				$projects[$i] = $projectsAll[$i]->getValuesProjects();
-				$keywords[$i] = $projectsAll[$i]->getVar('pro_slug');
-			}
-			$GLOBALS['xoopsTpl']->assign('projects', $projects);
-			unset($projects);
-			// Display Navigation
-			if ($projectsCount > $limit) {
-				include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-				$pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
-			}
-			$GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
-			$GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
-			$GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
-		}
-		break;
+        $projectsCount = $projectsHandler->getCount($crProjects);
+        $GLOBALS['xoopsTpl']->assign('projectsCount', $projectsCount);
+        $crProjects->setStart($start);
+        $crProjects->setLimit($limit);
+        $projectsAll = $projectsHandler->getAll($crProjects);
+        if ($projectsCount > 0) {
+            $projects = [];
+            // Get All Projects
+            foreach (\array_keys($projectsAll) as $i) {
+                $projects[$i] = $projectsAll[$i]->getValuesProjects();
+                $keywords[$i] = $projectsAll[$i]->getVar('pro_slug');
+            }
+            $GLOBALS['xoopsTpl']->assign('projects', $projects);
+            unset($projects);
+            // Display Navigation
+            if ($projectsCount > $limit) {
+                include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+            }
+            $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
+            $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
+            $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
+        }
+        break;
     case 'refresh':
         if (!$request_allowed) {
             \redirect_header(WGTRANSIFEX_URL . '/index.php', 2, _MA_WGTRANSIFEX_NOPERM);

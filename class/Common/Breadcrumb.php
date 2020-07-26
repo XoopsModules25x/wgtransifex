@@ -38,7 +38,7 @@ use XoopsModules\Wgtransifex\Common;
  */
 class Breadcrumb
 {
-    public  $dirname;
+    public $dirname;
     private $bread = [];
 
     public function __construct()

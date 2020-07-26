@@ -232,11 +232,15 @@ switch ($op) {
         } else {
             if ('delete_all' == $op) {
                 $xoopsconfirm = new Common\XoopsConfirm(
-                    ['ok' => 1, 'res_pro_id' => $proId, 'op' => 'delete_all'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_RESOURCES_SURE_DELETEALL, $projectsObj->getVar('pro_name'))
+                    ['ok' => 1, 'res_pro_id' => $proId, 'op' => 'delete_all'],
+                    $_SERVER['REQUEST_URI'],
+                    \sprintf(\_AM_WGTRANSIFEX_RESOURCES_SURE_DELETEALL, $projectsObj->getVar('pro_name'))
                 );
             } else {
                 $xoopsconfirm = new Common\XoopsConfirm(
-                    ['ok' => 1, 'res_id' => $resId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $resourcesObj->getVar('res_slug'))
+                    ['ok' => 1, 'res_id' => $resId, 'op' => 'delete'],
+                    $_SERVER['REQUEST_URI'],
+                    \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $resourcesObj->getVar('res_slug'))
                 );
             }
             $form = $xoopsconfirm->getFormXoopsConfirm();

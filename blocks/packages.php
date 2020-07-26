@@ -26,107 +26,105 @@ include_once XOOPS_ROOT_PATH . '/modules/wgtransifex/include/common.php';
 
 /**
  * Function show block
- * @param  $options 
+ * @param  $options
  * @return array
  */
 function b_wgtransifex_packages_show($options)
 {
-	$myts = \MyTextSanitizer::getInstance();
-	$GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
+    $myts = \MyTextSanitizer::getInstance();
+    $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
     $GLOBALS['xoopsTpl']->assign('modPathIconFlags', WGTRANSIFEX_IMAGE_URL . '/flags/');
-	$block            = [];
-	$typeBlock        = $options[0];
-	$limit            = $options[1];
-	//$lenghtTitle = $options[2];
-	$helper           = Helper::getInstance();
-	$packagesHandler  = $helper->getHandler('Packages');
+    $block            = [];
+    $typeBlock        = $options[0];
+    $limit            = $options[1];
+    //$lenghtTitle = $options[2];
+    $helper           = Helper::getInstance();
+    $packagesHandler  = $helper->getHandler('Packages');
     $languagesHandler = $helper->getHandler('Languages');
-	\array_shift($options);
-	\array_shift($options);
-	\array_shift($options);
+    \array_shift($options);
+    \array_shift($options);
+    \array_shift($options);
 
     $crPackages = new \CriteriaCompo();
-	switch($typeBlock) {
-		case 'last':
-		default:
-			// For the block: packages last
-			$crPackages->setSort( 'pkg_date' );
-			$crPackages->setOrder( 'DESC' );
-		break;
-		case 'new':
-			// For the block: packages new
+    switch ($typeBlock) {
+        case 'last':
+        default:
+            // For the block: packages last
+            $crPackages->setSort('pkg_date');
+            $crPackages->setOrder('DESC');
+        break;
+        case 'new':
+            // For the block: packages new
             $crPackages->add(new \Criteria('', \DateTime::createFromFormat(_SHORTDATESTRING, time()), '>='));
             $crPackages->add(new \Criteria('', \DateTime::createFromFormat(_SHORTDATESTRING, time()) + 86400, '<='));
-			$crPackages->setSort( 'pkg_date' );
-			$crPackages->setOrder( 'ASC' );
-		break;
-		case 'hits':
-			// For the block: packages hits
-			$crPackages->setSort( 'pkg_hits' );
-			$crPackages->setOrder( 'DESC' );
-		break;
-		case 'top':
-			// For the block: packages top
-			$crPackages->setSort( 'pkg_top' );
-			$crPackages->setOrder( 'ASC' );
-		break;
-		case 'random':
-			// For the block: packages random
-			$crPackages->setSort( 'RAND()' );
-		break;
-	}
+            $crPackages->setSort('pkg_date');
+            $crPackages->setOrder('ASC');
+        break;
+        case 'hits':
+            // For the block: packages hits
+            $crPackages->setSort('pkg_hits');
+            $crPackages->setOrder('DESC');
+        break;
+        case 'top':
+            // For the block: packages top
+            $crPackages->setSort('pkg_top');
+            $crPackages->setOrder('ASC');
+        break;
+        case 'random':
+            // For the block: packages random
+            $crPackages->setSort('RAND()');
+        break;
+    }
 
-	$crPackages->setLimit( $limit );
-	$packagesAll = $packagesHandler->getAll($crPackages);
-	unset($crPackages);
-	if (\count($packagesAll) > 0) {
-		foreach(\array_keys($packagesAll) as $i) {
+    $crPackages->setLimit($limit);
+    $packagesAll = $packagesHandler->getAll($crPackages);
+    unset($crPackages);
+    if (\count($packagesAll) > 0) {
+        foreach (\array_keys($packagesAll) as $i) {
             $block[$i]['id']        = $packagesAll[$i]->getVar('pkg_id');
-		    $block[$i]['name']      = $myts->htmlSpecialChars($packagesAll[$i]->getVar('pkg_name'));
+            $block[$i]['name']      = $myts->htmlSpecialChars($packagesAll[$i]->getVar('pkg_name'));
             $block[$i]['desc']      = $myts->htmlSpecialChars($packagesAll[$i]->getVar('pkg_desc'));
             $languagesObj           = $languagesHandler->get($packagesAll[$i]->getVar('pkg_lang_id'));
             $block[$i]['date']      = \formatTimestamp($packagesAll[$i]->getVar('pkg_date'), 'm');
-			$block[$i]['lang_flag'] = $languagesObj->getVar('lang_flag');
+            $block[$i]['lang_flag'] = $languagesObj->getVar('lang_flag');
             $block[$i]['logo']      = $packagesAll[$i]->getVar('pkg_logo');
-		}
-	}
+        }
+    }
 
-	return $block;
-
+    return $block;
 }
 
 /**
  * Function edit block
- * @param  $options 
+ * @param  $options
  * @return string
  */
 function b_wgtransifex_packages_edit($options)
 {
-	$helper = Helper::getInstance();
-	$packagesHandler = $helper->getHandler('Packages');
-	$GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
-	$form = \_MB_WGTRANSIFEX_DISPLAY;
-	$form .= "<input type='hidden' name='options[0]' value='".$options[0]."' />";
-	$form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
-	$form .= \_MB_WGTRANSIFEX_TITLE_LENGTH . " : <input type='text' name='options[2]' size='5' maxlength='255' value='" . $options[2] . "' /><br><br>";
-	\array_shift($options);
-	\array_shift($options);
-	\array_shift($options);
+    $helper = Helper::getInstance();
+    $packagesHandler = $helper->getHandler('Packages');
+    $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
+    $form = \_MB_WGTRANSIFEX_DISPLAY;
+    $form .= "<input type='hidden' name='options[0]' value='".$options[0]."' />";
+    $form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
+    $form .= \_MB_WGTRANSIFEX_TITLE_LENGTH . " : <input type='text' name='options[2]' size='5' maxlength='255' value='" . $options[2] . "' /><br><br>";
+    \array_shift($options);
+    \array_shift($options);
+    \array_shift($options);
 
-	$crPackages = new \CriteriaCompo();
-	$crPackages->add( new \Criteria( 'pkg_id', 0, '!=' ) );
-	$crPackages->setSort( 'pkg_id' );
-	$crPackages->setOrder( 'ASC' );
-	$packagesAll = $packagesHandler->getAll($crPackages);
-	unset($crPackages);
-	$form .= \_MB_WGTRANSIFEX_PACKAGES_TO_DISPLAY . "<br><select name='options[]' multiple='multiple' size='5'>";
-	$form .= "<option value='0' " . (\in_array(0, $options) == false ? '' : "selected='selected'") . '>' . \_MB_WGTRANSIFEX_ALL_PACKAGES . '</option>';
-	foreach(\array_keys($packagesAll) as $i) {
-		$pkg_id = $packagesAll[$i]->getVar('pkg_id');
-		$form .= "<option value='" . $pkg_id . "' " . (\in_array($pkg_id, $options) == false ? '' : "selected='selected'") . '>' . $packagesAll[$i]->getVar('pkg_name') . '</option>';
-	}
-	$form .= '</select>';
+    $crPackages = new \CriteriaCompo();
+    $crPackages->add(new \Criteria('pkg_id', 0, '!='));
+    $crPackages->setSort('pkg_id');
+    $crPackages->setOrder('ASC');
+    $packagesAll = $packagesHandler->getAll($crPackages);
+    unset($crPackages);
+    $form .= \_MB_WGTRANSIFEX_PACKAGES_TO_DISPLAY . "<br><select name='options[]' multiple='multiple' size='5'>";
+    $form .= "<option value='0' " . (\in_array(0, $options) == false ? '' : "selected='selected'") . '>' . \_MB_WGTRANSIFEX_ALL_PACKAGES . '</option>';
+    foreach (\array_keys($packagesAll) as $i) {
+        $pkg_id = $packagesAll[$i]->getVar('pkg_id');
+        $form .= "<option value='" . $pkg_id . "' " . (\in_array($pkg_id, $options) == false ? '' : "selected='selected'") . '>' . $packagesAll[$i]->getVar('pkg_name') . '</option>';
+    }
+    $form .= '</select>';
 
-	return $form;
-
+    return $form;
 }
