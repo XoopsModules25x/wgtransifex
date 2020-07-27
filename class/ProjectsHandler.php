@@ -106,7 +106,7 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Projects
-     * @param        $crProjects
+     * @param \CriteriaCompo  $crProjects
      * @param int    $start
      * @param int    $limit
      * @param string $sort

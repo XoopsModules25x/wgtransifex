@@ -107,7 +107,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Requests
-     * @param        $crRequests
+     * @param \CriteriaCompo $crRequests
      * @param int    $start
      * @param int    $limit
      * @param string $sort

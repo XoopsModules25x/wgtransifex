@@ -106,7 +106,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Packages
-     * @param        $crPackages
+     * @param \CriteriaCompo       $crPackages
      * @param int    $start
      * @param int    $limit
      * @param string $sort

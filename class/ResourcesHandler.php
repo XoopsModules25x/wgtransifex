@@ -106,7 +106,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Resources
-     * @param        $crResources
+     * @param \CriteriaCompo $crResources
      * @param int    $start
      * @param int    $limit
      * @param string $sort

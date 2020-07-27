@@ -106,7 +106,7 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Translations
-     * @param        $crTranslations
+     * @param \CriteriaCompo $crTranslations
      * @param int    $start
      * @param int    $limit
      * @param string $sort

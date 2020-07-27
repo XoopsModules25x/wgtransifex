@@ -106,7 +106,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Settings
-     * @param        $crSettings
+     * @param \CriteriaCompo $crSettings
      * @param int    $start
      * @param int    $limit
      * @param string $sort
