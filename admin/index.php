@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 use XoopsModules\Wgtransifex\Common;
 
-require_once \dirname(__DIR__) . '/preloads/autoloader.php';
 require __DIR__ . '/header.php';
 // Template Index
 $templateMain = 'wgtransifex_admin_index.tpl';
