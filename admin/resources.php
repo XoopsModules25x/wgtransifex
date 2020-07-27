@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,19 +17,40 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
+use Xmf\Module\Admin;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    PackagesHandler,
+    ProjectsHandler,
+    ResourcesHandler,
+    TranslationsHandler,
+    SettingsHandler,
+    LanguagesHandler,
+    RequestsHandler,
+    Transifex
+};
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
+/** @var ProjectsHandler $projectsHandler */
+/** @var ResourcesHandler $resourcesHandler */
+/** @var TranslationsHandler $translationsHandler */
+/** @var SettingsHandler $settingsHandler */
+/** @var LanguagesHandler $languagesHandler */
+/** @var RequestsHandler $requestsHandler */
+
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op    = Request::getCmd('op', 'list');
+$op = Request::getCmd('op', 'list');
 $resId = Request::getInt('res_id');
 $proId = Request::getInt('res_pro_id');
 switch ($op) {
@@ -45,7 +69,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
         $start_pro = Request::getInt('start_pro', 0);
         $start_res = Request::getInt('start_res', 0);
-        $limit     = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         if (0 == $proId) {
             $crProjects = new \CriteriaCompo();
             $crProjects->add(new \Criteria('pro_resources', 0, '>'));
@@ -62,7 +86,7 @@ switch ($op) {
                 }
                 // Display Navigation
                 if ($projectsCount > $limit) {
-                    include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($projectsCount, $limit, $start_pro, 'start_pro', 'op=list&limit=' . $limit);
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
@@ -70,7 +94,7 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_RESOURCES);
             }
         } else {
-            $crResources    = new \CriteriaCompo();
+            $crResources = new \CriteriaCompo();
             $resourcesTotal = $resourcesHandler->getCount($crResources);
             $GLOBALS['xoopsTpl']->assign('resources_total', $resourcesTotal);
             $crResources->add(new \Criteria('res_pro_id', $proId));
@@ -88,7 +112,7 @@ switch ($op) {
                 }
                 // Display Navigation
                 if ($resourcesCount > $limit) {
-                    include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($resourcesCount, $limit, $start_res, 'start_res', 'op=list&limit=' . $limit . '&res_pro_id=' . $proId);
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
@@ -104,18 +128,18 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $resourcesObj = $resourcesHandler->create();
-        $form         = $resourcesObj->getFormResourcesTx();
+        $form = $resourcesObj->getFormResourcesTx();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'savetx':
         //read resources
-        $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
-        $result    = $transifex->readResources($resId, $proId);
+        $transifex = Transifex::getInstance();
+        $result = $transifex->readResources($resId, $proId);
         //update table projects
         $crResources = new \CriteriaCompo();
         $crResources->add(new \Criteria('res_pro_id', $proId));
         $resourcesCount = $resourcesHandler->getCount($crResources);
-        $projectsObj    = $projectsHandler->get($proId);
+        $projectsObj = $projectsHandler->get($proId);
         $projectsObj->setVar('pro_resources', $resourcesCount);
         $projectsHandler->insert($projectsObj);
         \redirect_header('resources.php?op=list', 3, $result);
@@ -127,7 +151,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $resourcesObj = $resourcesHandler->create();
-        $form         = $resourcesObj->getFormResources();
+        $form = $resourcesObj->getFormResources();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'save':
@@ -170,16 +194,16 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $resourcesObj = $resourcesHandler->get($resId);
-        $form         = $resourcesObj->getFormResources();
+        $form = $resourcesObj->getFormResources();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'delete':
     case 'delete_all':
         $templateMain = 'wgtransifex_admin_resources.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('resources.php'));
-        $projectsObj  = $projectsHandler->get($proId);
+        $projectsObj = $projectsHandler->get($proId);
         $resourcesObj = $resourcesHandler->get($resId);
-        $success      = false;
+        $success = false;
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 \redirect_header('resources.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -222,7 +246,7 @@ switch ($op) {
                 }
             }
             if ($success) {
-                $resourcesCount    = $resourcesHandler->getCount($crResources);
+                $resourcesCount = $resourcesHandler->getCount($crResources);
                 $translationsCount = $translationsHandler->getCount($crTranslations);
                 $projectsObj->setVar('pro_resources', $resourcesCount);
                 $projectsObj->setVar('pro_translations', $translationsCount);
@@ -232,11 +256,15 @@ switch ($op) {
         } else {
             if ('delete_all' == $op) {
                 $xoopsconfirm = new Common\XoopsConfirm(
-                    ['ok' => 1, 'res_pro_id' => $proId, 'op' => 'delete_all'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_RESOURCES_SURE_DELETEALL, $projectsObj->getVar('pro_name'))
+                    ['ok' => 1, 'res_pro_id' => $proId, 'op' => 'delete_all'],
+                    $_SERVER['REQUEST_URI'],
+                    \sprintf(\_AM_WGTRANSIFEX_RESOURCES_SURE_DELETEALL, $projectsObj->getVar('pro_name'))
                 );
             } else {
                 $xoopsconfirm = new Common\XoopsConfirm(
-                    ['ok' => 1, 'res_id' => $resId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $resourcesObj->getVar('res_slug'))
+                    ['ok' => 1, 'res_id' => $resId, 'op' => 'delete'],
+                    $_SERVER['REQUEST_URI'],
+                    \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $resourcesObj->getVar('res_slug'))
                 );
             }
             $form = $xoopsconfirm->getFormXoopsConfirm();

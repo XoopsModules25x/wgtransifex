@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -52,7 +53,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param null|int       $i field id
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -84,6 +85,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
     {
         $crCountSettings = new \CriteriaCompo();
         $crCountSettings = $this->getSettingsCriteria($crCountSettings, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountSettings);
     }
 
@@ -99,17 +101,18 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
     {
         $crAllSettings = new \CriteriaCompo();
         $crAllSettings = $this->getSettingsCriteria($crAllSettings, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllSettings);
     }
 
     /**
      * Get Criteria Settings
-     * @param        $crSettings
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
-     * @return int
+     * @param \CriteriaCompo $crSettings
+     * @param int            $start
+     * @param int            $limit
+     * @param string         $sort
+     * @param string         $order
+     * @return \CriteriaCompo|int
      */
     private function getSettingsCriteria($crSettings, $start, $limit, $sort, $order)
     {
@@ -117,6 +120,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
         $crSettings->setLimit($limit);
         $crSettings->setSort($sort);
         $crSettings->setOrder($order);
+
         return $crSettings;
     }
 
@@ -126,33 +130,35 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
      */
     public function getPrimarySetting()
     {
-        $setting    = [];
+        $setting = [];
         $crSettings = new \CriteriaCompo();
         $crSettings->add(new \Criteria('set_primary', 1));
         $crSettings->setLimit(1);
         $settingsAll = $this->getAll($crSettings);
         foreach (\array_keys($settingsAll) as $i) {
             $setting['user'] = $settingsAll[$i]->getVar('set_username');
-            $setting['pwd']  = $settingsAll[$i]->getVar('set_password');
+            $setting['pwd'] = $settingsAll[$i]->getVar('set_password');
         }
+
         return $setting;
     }
-    
+
     /**
      * Get Request Setting
      * @return array
      */
     public function getRequestSetting()
     {
-        $setting    = [];
+        $setting = [];
         $crSettings = new \CriteriaCompo();
         $crSettings->add(new \Criteria('set_request', 1));
         $crSettings->setLimit(1);
         $settingsAll = $this->getAll($crSettings);
         foreach (\array_keys($settingsAll) as $i) {
             $setting['user'] = $settingsAll[$i]->getVar('set_username');
-            $setting['pwd']  = $settingsAll[$i]->getVar('set_password');
+            $setting['pwd'] = $settingsAll[$i]->getVar('set_password');
         }
+
         return $setting;
     }
 }

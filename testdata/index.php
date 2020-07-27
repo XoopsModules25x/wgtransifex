@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -9,26 +12,30 @@
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package
  * @since           2.5.9
  * @author          Michael Beck (aka Mamba)
  */
 
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
-use XoopsModules\Wgtransifex\Utility;
+use Xmf\Database\TableLoad;
+use Xmf\Request;
+use Xmf\Yaml;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    Utility
+};
 
-require_once \dirname(\dirname(\dirname(__DIR__))) . '/include/cp_header.php';
+require dirname(__DIR__, 3) . '/include/cp_header.php';
 require \dirname(__DIR__) . '/preloads/autoloader.php';
-$op                 = \Xmf\Request::getCmd('op', '');
-$moduleDirName      = \basename(\dirname(__DIR__));
+$op = Request::getCmd('op', '');
+$moduleDirName = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-$helper             = Wgtransifex\Helper::getInstance();
+$helper = Helper::getInstance();
 // Load language files
 $helper->loadLanguage('common');
 switch ($op) {
     case 'load':
-        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == $_REQUEST['ok']) {
+        if (Request::hasVar('ok', 'REQUEST') && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 \redirect_header('../admin/index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -47,31 +54,31 @@ switch ($op) {
 function loadSampleData()
 {
     global $xoopsConfig;
-    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-    $utility            = new Wgtransifex\Utility();
-    $configurator       = new Common\Configurator();
-    $tables             = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
-    $language           = 'english/';
+    $utility = new Utility();
+    $configurator = new Common\Configurator();
+    $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
+    $language = 'english/';
     if (\is_dir(__DIR__ . '/' . $xoopsConfig['language'])) {
         $language = $xoopsConfig['language'] . '/';
     }
     // load module tables
     foreach ($tables as $table) {
-        $tabledata = \Xmf\Yaml::readWrapped($language . $table . '.yml');
-        \Xmf\Database\TableLoad::truncateTable($table);
-        \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
+        $tabledata = Yaml::readWrapped($language . $table . '.yml');
+        TableLoad::truncateTable($table);
+        TableLoad::loadTableFromArray($table, $tabledata);
     }
     // load permissions
-    $table     = 'group_permission';
-    $tabledata = \Xmf\Yaml::readWrapped($language . $table . '.yml');
-    $mid       = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
+    $table = 'group_permission';
+    $tabledata = Yaml::readWrapped($language . $table . '.yml');
+    $mid = Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
     loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
     //  ---  COPY test folder files ---------------
     if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
-        //        $file = __DIR__ . '/../testdata/images/';
+        //        $file =  dirname(__DIR__) . '/testdata/images/';
         foreach (\array_keys($configurator->copyTestFolders) as $i) {
-            $src  = $configurator->copyTestFolders[$i][0];
+            $src = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];
             $utility::rcopy($src, $dest);
         }
@@ -82,11 +89,11 @@ function loadSampleData()
 function saveSampleData()
 {
     global $xoopsConfig;
-    $configurator       = new Common\Configurator();
-    $moduleDirName      = \basename(\dirname(__DIR__));
+    $configurator = new Common\Configurator();
+    $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-    $tables             = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
-    $languageFolder     = __DIR__ . '/' . $xoopsConfig['language'];
+    $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
+    $languageFolder = __DIR__ . '/' . $xoopsConfig['language'];
     if (!\file_exists($languageFolder . '/')) {
         Utility::createFolder($languageFolder . '/');
     }
@@ -94,18 +101,18 @@ function saveSampleData()
     Utility::createFolder($exportFolder);
     // save module tables
     foreach ($tables as $table) {
-        \Xmf\Database\TableLoad::saveTableToYamlFile($table, $exportFolder . $table . '.yml');
+        TableLoad::saveTableToYamlFile($table, $exportFolder . $table . '.yml');
     }
     // save permissions
     $criteria = new \CriteriaCompo();
-    $criteria->add(new \Criteria('gperm_modid', \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid')));
+    $criteria->add(new \Criteria('gperm_modid', Helper::getHelper($moduleDirName)->getModule()->getVar('mid')));
     $skipColumns[] = 'gperm_id';
-    \Xmf\Database\TableLoad::saveTableToYamlFile('group_permission', $exportFolder . 'group_permission.yml', $criteria, $skipColumns);
+    TableLoad::saveTableToYamlFile('group_permission', $exportFolder . 'group_permission.yml', $criteria, $skipColumns);
     unset($criteria);
     //  ---  COPY test folder files ---------------
     if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
         foreach (\array_keys($configurator->copyTestFolders) as $i) {
-            $src  = $configurator->copyTestFolders[$i][1];
+            $src = $configurator->copyTestFolders[$i][1];
             $dest = $configurator->copyTestFolders[$i][0];
             Utility::rcopy($src, $dest);
         }
@@ -115,15 +122,16 @@ function saveSampleData()
 
 function exportSchema()
 {
-    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+
     try {
         // TODO set exportSchema
         //        $migrate = new Wgtransifex\Migrate($moduleDirName);
         //        $migrate->saveCurrentSchema();
         //
         //        \redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
-    } catch (\Exception $e) {
+    } catch (\Throwable $e) {
         exit(\constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR'));
     }
 }
@@ -143,20 +151,20 @@ function exportSchema()
 function loadTableFromArrayWithReplace($table, $data, $search, $replace)
 {
     /** @var \XoopsDatabase */
-    $db            = \XoopsDatabaseFactory::getDatabaseConnection();
+    $db = \XoopsDatabaseFactory::getDatabaseConnection();
     $prefixedTable = $db->prefix($table);
-    $count         = 0;
-    $sql           = 'DELETE FROM ' . $prefixedTable . ' WHERE `' . $search . '`=' . $db->quote($replace);
+    $count = 0;
+    $sql = 'DELETE FROM ' . $prefixedTable . ' WHERE `' . $search . '`=' . $db->quote($replace);
     $db->queryF($sql);
     foreach ($data as $row) {
-        $insertInto  = 'INSERT INTO ' . $prefixedTable . ' (';
+        $insertInto = 'INSERT INTO ' . $prefixedTable . ' (';
         $valueClause = ' VALUES (';
-        $first       = true;
+        $first = true;
         foreach ($row as $column => $value) {
             if ($first) {
                 $first = false;
             } else {
-                $insertInto  .= ', ';
+                $insertInto .= ', ';
                 $valueClause .= ', ';
             }
             $insertInto .= $column;
@@ -166,11 +174,12 @@ function loadTableFromArrayWithReplace($table, $data, $search, $replace)
                 $valueClause .= $db->quote($value);
             }
         }
-        $sql    = $insertInto . ') ' . $valueClause . ')';
+        $sql = $insertInto . ') ' . $valueClause . ')';
         $result = $db->queryF($sql);
         if (false !== $result) {
             ++$count;
         }
     }
+
     return $count;
 }

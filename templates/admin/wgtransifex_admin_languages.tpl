@@ -33,7 +33,7 @@
 				<td class='center'><{$language.code}></td>
 				<td class='center'><{$language.iso_639_1}></td>
 				<td class='center'><{$language.folder}></td>
-				<td class='center'><img src="<{$modPathIconFlags}><{$language.flag}>" alt="<{$language.name}>" title="<{$language.name}>" /></td>
+				<td class='center'><img src="<{$modPathIconFlags}><{$language.flag}>" alt="<{$language.name}>" title="<{$language.name}>"></td>
 				<td class='center'>
 					<a href="languages.php?op=setprimary&amp;lang_id=<{$language.id}>&amp;start=<{$start}>&amp;limit=<{$limit}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>">
 						<img src="<{$modPathIcon16}><{$language.primary}>.png" alt="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>" title="<{$smarty.const._AM_WGTRANSIFEX_LANGUAGE_SETPRIMARY}>"</a>
@@ -50,8 +50,8 @@
 				<td class='center'><{$language.date}></td>
 				<td class='center'><{$language.submitter}></td>
 				<td class="center  width5">
-					<a href="languages.php?op=edit&amp;lang_id=<{$language.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> languages" /></a>
-					<a href="languages.php?op=delete&amp;lang_id=<{$language.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> languages" /></a>
+					<a href="languages.php?op=edit&amp;lang_id=<{$language.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> languages"></a>
+					<a href="languages.php?op=delete&amp;lang_id=<{$language.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> languages"></a>
 				</td>
 			</tr>
 			<{/foreach}>

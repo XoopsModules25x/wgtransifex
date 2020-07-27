@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,34 +17,55 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
-use XoopsModules\Wgtransifex\Common;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    PackagesHandler,
+    ProjectsHandler,
+    ResourcesHandler,
+    TranslationsHandler,
+    SettingsHandler,
+    LanguagesHandler,
+    RequestsHandler
+};
 
-include_once \dirname(__DIR__) . '/preloads/autoloader.php';
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
+/** @var ProjectsHandler $projectsHandler */
+/** @var ResourcesHandler $resourcesHandler */
+/** @var TranslationsHandler $translationsHandler */
+/** @var SettingsHandler $settingsHandler */
+/** @var LanguagesHandler $languagesHandler */
+/** @var RequestsHandler $requestsHandler */
+
+$moduleDirName = \basename(dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+
 require __DIR__ . '/header.php';
 // Template Index
 $templateMain = 'wgtransifex_admin_index.tpl';
 // Count elements
-$countProjects     = $projectsHandler->getCount();
-$countResources    = $resourcesHandler->getCount();
-$countPackages     = $packagesHandler->getCount();
+$countProjects = $projectsHandler->getCount();
+$countResources = $resourcesHandler->getCount();
+$countPackages = $packagesHandler->getCount();
 $countTranslations = $translationsHandler->getCount();
-$countSettings     = $settingsHandler->getCount();
-$countLanguages    = $languagesHandler->getCount();
-$countRequests     = $requestsHandler->getCount();
+$countSettings = $settingsHandler->getCount();
+$countLanguages = $languagesHandler->getCount();
+$countRequests = $requestsHandler->getCount();
 // InfoBox Statistics
+/** @var \Xmf\Module\Admin $adminObject */
 $adminObject->addInfoBox(\_AM_WGTRANSIFEX_STATISTICS);
 // Info elements
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_PROJECTS . '</label>', $countProjects));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_RESOURCES . '</label>', $countResources));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_PACKAGES . '</label>', $countPackages));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_TRANSLATIONS . '</label>', $countTranslations));
-$adminObject->addInfoBoxLine(\sprintf( '<label>' . _AM_WGTRANSIFEX_THEREARE_REQUESTS . '</label>', $countRequests));
+$adminObject->addInfoBoxLine(\sprintf('<label>' . _AM_WGTRANSIFEX_THEREARE_REQUESTS . '</label>', $countRequests));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_SETTINGS . '</label>', $countSettings));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_LANGUAGES . '</label>', $countLanguages));
 // Upload Folders
@@ -65,7 +89,7 @@ $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('inde
 // Test Data
 if ($helper->getConfig('displaySampleButton')) {
     \xoops_loadLanguage('admin/modulesadmin', 'system');
-    include_once \dirname(__DIR__) . '/testdata/index.php';
+    require_once \dirname(__DIR__) . '/testdata/index.php';
     $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
     $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save', 'add');
     //	$adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');

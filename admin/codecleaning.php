@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -18,37 +20,37 @@
  *
  * @since           2.5.5
  *
- * @author          Txmod Xoops <support@txmodxoops.org>
- *
+ * @author          Wedega - Email:<webmaster@wedega.com>
  */
 
 use Xmf\Request;
 
-$moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+$moduleDirName = \basename(dirname(__DIR__, 2));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // Define main template
 $templateMain = $moduleDirName . '_index.tpl';
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 // Recovered value of argument op in the URL $
-$op    = Request::getString('op', 'list');
+$op = Request::getString('op', 'list');
 
 $src_path = \constant($moduleDirNameUpper . '_PATH');
 $dst_path = \constant($moduleDirNameUpper . '_UPLOAD_PATH') . '/codecleaned';
 
-$patKeys   = [];
+$patKeys = [];
 $patValues = [];
 cloneFileFolder($src_path, $dst_path, $patKeys, $patValues);
 
-function_qualifier($dst_path);
+functionQualifier($dst_path);
 
-include __DIR__ . '/footer.php';
+require __DIR__ . '/footer.php';
 
-
-
-function function_qualifier($dst_path) {
-
+/**
+ * @param $dst_path
+ */
+function functionQualifier($dst_path)
+{
     $sources = [];
 
     //php functions
@@ -177,16 +179,16 @@ function function_qualifier($dst_path) {
 
     // repair known errors
     $errors = [
-        'mb_\strlen('   => 'mb_strlen(',
-        'mb_\substr('   => 'mb_substr(',
-        'x\copy'        => 'xcopy',
-        'r\rmdir'       => 'rrmdir',
-        'r\copy'        => 'rcopy',
-        '\dirname()'    => 'dirname()',
-        'assw\ord'      => 'assword',
-        'mb_\strpos'    => 'mb_strpos',
-        'image\copy('    => 'imagecopy(',
-        '<{if \count('  => '<{if count(',
+        'mb_\strlen(' => 'mb_strlen(',
+        'mb_\substr(' => 'mb_substr(',
+        'x\copy' => 'xcopy',
+        'r\rmdir' => 'rrmdir',
+        'r\copy' => 'rcopy',
+        '\dirname()' => 'dirname()',
+        'assw\ord' => 'assword',
+        'mb_\strpos' => 'mb_strpos',
+        'image\copy(' => 'imagecopy(',
+        '<{if \count(' => '<{if count(',
     ];
 
     $patterns = [];
@@ -206,10 +208,9 @@ function function_qualifier($dst_path) {
         $patterns[$key] = $value;
     }
 
-    $patKeys   = \array_keys($patterns);
+    $patKeys = \array_keys($patterns);
     $patValues = \array_values($patterns);
     cloneFileFolder($dst_path, $dst_path, $patKeys, $patValues);
-
 }
 
 // recursive cloning script
@@ -219,16 +220,18 @@ function function_qualifier($dst_path) {
  * @param array $patKeys
  * @param array $patValues
  */
-function cloneFileFolder($src_path, $dst_path, $patKeys = [], $patValues =[])
+function cloneFileFolder($src_path, $dst_path, $patKeys = [], $patValues = [])
 {
     // open the source directory
     $dir = \opendir($src_path);
     // Make the destination directory if not exist
-    @\mkdir($dst_path);
+    if (!mkdir($dst_path) && !is_dir($dst_path)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $dst_path));
+    }
     // Loop through the files in source directory
-    while( $file = \readdir($dir) ) {
-        if (( $file != '.' ) && ( $file != '..' )) {
-            if ( \is_dir($src_path . '/' . $file) ) {
+    while ($file = \readdir($dir)) {
+        if (('.' != $file) && ('..' != $file)) {
+            if (\is_dir($src_path . '/' . $file)) {
                 // Recursively calling custom copy function for sub directory
                 cloneFileFolder($src_path . '/' . $file, $dst_path . '/' . $file, $patKeys, $patValues);
             } else {
@@ -245,14 +248,14 @@ function cloneFileFolder($src_path, $dst_path, $patKeys = [], $patValues =[])
  * @param array $patKeys
  * @param array $patValues
  */
-function cloneFile($src_file, $dst_file, $patKeys = [], $patValues =[])
+function cloneFile($src_file, $dst_file, $patKeys = [], $patValues = [])
 {
     $replace_code = false;
     $changeExtensions = ['php'];
-    if (\in_array(\mb_strtolower(\pathinfo($src_file, PATHINFO_EXTENSION)), $changeExtensions)) {
+    if (\in_array(\mb_strtolower(\pathinfo($src_file, PATHINFO_EXTENSION)), $changeExtensions, true)) {
         $replace_code = true;
     }
-    if (\strpos( $dst_file, basename(__FILE__)) > 0) {
+    if (\mb_strpos($dst_file, basename(__FILE__)) > 0) {
         //skip myself
         $replace_code = false;
     }
@@ -263,11 +266,10 @@ function cloneFile($src_file, $dst_file, $patKeys = [], $patValues =[])
         //check file name whether it contains replace code
         $path_parts = \pathinfo($dst_file);
         $path = $path_parts['dirname'];
-        $file =  $path_parts['basename'];
+        $file = $path_parts['basename'];
         $dst_file = $path . '/' . \str_replace($patKeys, $patValues, $file);
         \file_put_contents($dst_file, $content);
     } else {
         \copy($src_file, $dst_file);
     }
 }
-

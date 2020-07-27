@@ -22,13 +22,13 @@
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$project.id}></td>
 				<td class='center'><{$project.name}></td>
-				<td class='center'><img src="<{$modPathIcon32}>status<{$project.status}>.png" alt="<{$project.status_text}>" title="<{$project.status_text}>" /></td>
+				<td class='center'><img src="<{$modPathIcon32}>status<{$project.status}>.png" alt="<{$project.status_text}>" title="<{$project.status_text}>"></td>
 				<td class='center'><{$project.resources}></td>
 				<td class='center'><{$project.translations}></td>
 				<td class='center'><{$project.date}></td>
 				<td class="center width5">
-					<a href="resources.php?op=list&amp;res_pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_SHOW}>"><img class="wgt-icon24" src="<{$modPathIcon32}>resources.png" alt="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_SHOW}>" /></a>
-					<a href="resources.php?op=delete_all&amp;res_pro_id=<{$project.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> resources" /></a>
+					<a href="resources.php?op=list&amp;res_pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_SHOW}>"><img class="wgt-icon24" src="<{$modPathIcon32}>resources.png" alt="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_SHOW}>"></a>
+					<a href="resources.php?op=delete_all&amp;res_pro_id=<{$project.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> resources"></a>
 				</td>
 			</tr>
 			<{/foreach}>
@@ -71,13 +71,13 @@
 				<td class='center'><{$resource.priority}></td>
 				<td class='center'><{$resource.categories}></td>
 				<td class='center'><{$resource.metadata_short}></td>
-				<td class='center'><img src="<{$modPathIcon32}>status<{$resource.status}>.png" alt="<{$resource.status_text}>" title="<{$resource.status_text}>" /></td>
+				<td class='center'><img src="<{$modPathIcon32}>status<{$resource.status}>.png" alt="<{$resource.status_text}>" title="<{$resource.status_text}>"></td>
 				<td class='center'><{$resource.date}></td>
 				<td class='center'><{$resource.submitter}></td>
 				<td class="center width10">
-					<a href="resources.php?op=savetx&amp;res_id=<{$resource.id}>&amp;res_pro_id=<{$resource.res_pro_id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCE}>" /></a>
-					<a href="resources.php?op=edit&amp;res_id=<{$resource.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> resources" /></a>
-					<a href="resources.php?op=delete&amp;res_id=<{$resource.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> resources" /></a>
+					<a href="resources.php?op=savetx&amp;res_id=<{$resource.id}>&amp;res_pro_id=<{$resource.res_pro_id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCE}>"></a>
+					<a href="resources.php?op=edit&amp;res_id=<{$resource.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> resources"></a>
+					<a href="resources.php?op=delete&amp;res_id=<{$resource.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> resources"></a>
 				</td>
 			</tr>
 			<{/foreach}>

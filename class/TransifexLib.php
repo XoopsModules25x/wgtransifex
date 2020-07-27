@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -14,7 +16,6 @@ namespace XoopsModules\Wgtransifex;
 /**
  * @copyright    XOOPS Project https://xoops.org/
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
  * @since
  * @author       Goffy - XOOPS Development Team
  */
@@ -54,6 +55,7 @@ class TransifexLib
     public function getProjects()
     {
         $url = static::BASE_URL . 'projects';
+
         return $this->_get($url);
     }
 
@@ -70,6 +72,7 @@ class TransifexLib
         if ($details) {
             $url .= '?details';
         }
+
         return $this->_get($url);
     }
 
@@ -82,6 +85,7 @@ class TransifexLib
     public function getResources($project)
     {
         $url = static::BASE_URL . 'project/' . $project . '/resources/';
+
         return $this->_get($url);
     }
 
@@ -98,6 +102,7 @@ class TransifexLib
             $resource .= '/';
         }
         $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource;
+
         return $this->_get($url);
     }
 
@@ -111,6 +116,7 @@ class TransifexLib
     public function getLanguages($project)
     {
         $url = static::BASE_URL . 'project/' . $project . '/languages/';
+
         return $this->_get($url);
     }
 
@@ -124,6 +130,7 @@ class TransifexLib
     public function getLanguage($project, $language)
     {
         $url = static::BASE_URL . 'project/' . $project . '/language/' . $language . '/?details';
+
         return $this->_get($url);
     }
 
@@ -136,6 +143,7 @@ class TransifexLib
     public function getLanguageInfo($language)
     {
         $url = static::BASE_URL . 'language/' . $language . '/';
+
         return $this->_get($url);
     }
 
@@ -159,6 +167,7 @@ class TransifexLib
         if ($reviewedOnly) {
             $url .= '?mode=reviewed';
         }
+
         return $this->_get($url);
     }
 
@@ -176,6 +185,7 @@ class TransifexLib
             $language .= '/';
         }
         $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource . '/stats/' . $language;
+
         return $this->_get($url);
     }
 
@@ -196,6 +206,7 @@ class TransifexLib
         } else {
             $body = ['file' => '@' . $file];
         }
+
         try {
             return $this->_post($url, $body, 'PUT');
         } catch (\RuntimeException $e) {
@@ -211,9 +222,9 @@ class TransifexLib
                         // Then we could just append one non empty translation to that file and send it again
                         // But apart from successfully sending this file again, it wont affect the remote translations
                         return [
-                            'strings_added'   => 0,
+                            'strings_added' => 0,
                             'strings_updated' => 0,
-                            'strings_delete'  => 0,
+                            'strings_delete' => 0,
                         ];
                     }
                     throw new \RuntimeException(\sprintf('Could not extract any string from %s. Whereas file contains non-empty translation(s) for following key(s): %s.', $file, '"' . \implode('", "', \array_keys(\array_filter($catalog))) . '"'));
@@ -240,6 +251,7 @@ class TransifexLib
         } else {
             $body = ['file' => '@' . $file];
         }
+
         return $this->_post($url, $body, 'PUT');
     }
 
@@ -253,10 +265,10 @@ class TransifexLib
      */
     public function createResource($project, $resource, $file)
     {
-        $url  = static::BASE_URL . 'project/' . $project . '/resources';
+        $url = static::BASE_URL . 'project/' . $project . '/resources';
         $body = [
-            'name'      => $resource,
-            'slug'      => Text::slug($resource),
+            'name' => $resource,
+            'slug' => Text::slug($resource),
             'i18n_type' => 'PO',
         ];
         if (\function_exists('curl_file_create')) {
@@ -264,6 +276,7 @@ class TransifexLib
         } else {
             $body['file'] = '@' . $file;
         }
+
         return $this->_post($url, $body);
     }
 
@@ -277,24 +290,25 @@ class TransifexLib
             if (!\function_exists('mime_content_type')) {
                 throw new InternalErrorException('At least one of finfo or \mime_content_type() needs to be available');
             }
+
             return \mime_content_type($file);
         }
-        $finfo    = \finfo_open(\FILEINFO_MIME);
-        $mimetype = \finfo_file($finfo, $file);
-        return $mimetype;
+        $finfo = \finfo_open(\FILEINFO_MIME);
+
+        return \finfo_file($finfo, $file);
     }
 
     /**
      * TransifexLib::_get()
      *
      * @param string $url
-     * @return array
      * @throws \RuntimeException Exception.
+     * @return array
      */
     protected function _get($url)
     {
         $error = false;
-        $ch    = \curl_init();
+        $ch = \curl_init();
         //set the url, number of POST vars, POST data
         \curl_setopt($ch, \CURLOPT_URL, $url);
         \curl_setopt($ch, \CURLOPT_USERPWD, $this->user . ':' . $this->password);
@@ -309,8 +323,8 @@ class TransifexLib
         \curl_setopt($ch, \CURLOPT_SSL_VERIFYPEER, false);
         \curl_setopt($ch, \CURLOPT_POST, 1);
         $result = \curl_exec($ch);
-        $info   = \curl_getinfo($ch);
-        if (($errMsg = \curl_error($ch)) || !\in_array((int)$info['http_code'], [200, 201])) {
+        $info = \curl_getinfo($ch);
+        if (($errMsg = \curl_error($ch)) || !\in_array((int)$info['http_code'], [200, 201], true)) {
             $error = true;
         }
         \curl_close($ch);
@@ -336,6 +350,7 @@ class TransifexLib
                     break;
             }
         }
+
         return \json_decode($result, true);
     }
 
@@ -343,13 +358,13 @@ class TransifexLib
      * @param string $url
      * @param mixed  $data
      * @param string $requestType
-     * @return mixed
      * @throws \RuntimeException
+     * @return mixed
      */
     protected function _post($url, $data, $requestType = 'POST')
     {
         $error = false;
-        $ch    = \curl_init();
+        $ch = \curl_init();
         //\curl_setopt($ch, CURLOPT_URL, Text::insert($url, $this->settings, ['before' => '{', 'after' => '}']));
         \curl_setopt($ch, \CURLOPT_URL, $url);
         \curl_setopt($ch, \CURLOPT_USERPWD, $this->user . ':' . $this->password);
@@ -362,14 +377,15 @@ class TransifexLib
             \curl_setopt($ch, \CURLOPT_VERBOSE, true);
         }
         $result = \curl_exec($ch);
-        $info   = \curl_getinfo($ch);
-        if (($errMsg = \curl_error($ch)) || !\in_array((int)$info['http_code'], [200, 201])) {
+        $info = \curl_getinfo($ch);
+        if (($errMsg = \curl_error($ch)) || !\in_array((int)$info['http_code'], [200, 201], true)) {
             $error = true;
         }
         \curl_close($ch);
         if ($error) {
             throw new \RuntimeException(\_AM_WGTRANSIFEX_READTX_ERROR_API . $errMsg);
         }
+
         return \json_decode($result, true);
     }
 }

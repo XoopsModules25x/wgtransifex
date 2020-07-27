@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -52,7 +53,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param null|int       $i field id
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -84,6 +85,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
     {
         $crCountPackages = new \CriteriaCompo();
         $crCountPackages = $this->getPackagesCriteria($crCountPackages, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountPackages);
     }
 
@@ -99,17 +101,18 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
     {
         $crAllPackages = new \CriteriaCompo();
         $crAllPackages = $this->getPackagesCriteria($crAllPackages, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllPackages);
     }
 
     /**
      * Get Criteria Packages
-     * @param        $crPackages
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
-     * @return int
+     * @param \CriteriaCompo $crPackages
+     * @param int            $start
+     * @param int            $limit
+     * @param string         $sort
+     * @param string         $order
+     * @return \CriteriaCompo|int
      */
     private function getPackagesCriteria($crPackages, $start, $limit, $sort, $order)
     {
@@ -117,6 +120,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
         $crPackages->setLimit($limit);
         $crPackages->setSort($sort);
         $crPackages->setOrder($order);
+
         return $crPackages;
     }
 }

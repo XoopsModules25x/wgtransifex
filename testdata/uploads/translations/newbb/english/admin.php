@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 if (\defined('NEWBB_ADMIN_DEFINED')) {
     return;
 }
@@ -74,8 +76,10 @@ if (\defined('NEWBB_ADMIN_DEFINED')) {
 \define('_AM_NEWBB_DIGEST_HELP_2', 'Create a newsletter is possible only after the topic is marked as \'Digest\'.');
 \define('_AM_NEWBB_DIGEST_HELP_3', 'The dispatch is made only to users signed up for notification of digest topics.');
 \define('_AM_NEWBB_DIGEST_HELP_4', 'After creating and sending, do not delete the created messages. Otherwise they will be generated again.');
-\define('_AM_NEWBB_DIGEST_HELP_AUTO_DIGEST',
-       'To configure the automatic creation and distribution of Digest topics, you need to create a cron task on your server.<br>For example: * NIX systems: <strong>0 6 * * * wget --post-data \'foo=bar\' https://example.com/modules/newbb/digest.php</strong><br>In this example, the script will run every day at 6.00 and check if there are any new Digest topics. If they are not found, mailing will not be done.<br>If for any reason you do not have the opportunity to create a task, then it is possible to create and make the dispatch on this page manually by clicking on the button above.<br>Please note that it is not recommended to delete created mailings, otherwise they will be created and sent again.');
+\define(
+    '_AM_NEWBB_DIGEST_HELP_AUTO_DIGEST',
+    'To configure the automatic creation and distribution of Digest topics, you need to create a cron task on your server.<br>For example: * NIX systems: <strong>0 6 * * * wget --post-data \'foo=bar\' https://example.com/modules/newbb/digest.php</strong><br>In this example, the script will run every day at 6.00 and check if there are any new Digest topics. If they are not found, mailing will not be done.<br>If for any reason you do not have the opportunity to create a task, then it is possible to create and make the dispatch on this page manually by clicking on the button above.<br>Please note that it is not recommended to delete created mailings, otherwise they will be created and sent again.'
+);
 //\define('_AM_NEWBB_DIGEST_PAST', '<span style="color:red;">Should be sent out %d minutes ago</span>');
 //\define('_AM_NEWBB_DIGEST_NEXT', 'Need to send out in %d minutes');
 //\define('_AM_NEWBB_DIGEST_ARCHIVE', 'Digest archive');
@@ -321,21 +325,33 @@ if (\defined('NEWBB_ADMIN_DEFINED')) {
 \define('_AM_NEWBB_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
 
 // Help tab
-\define('_AM_NEWBB_HELP_CATEGORY_TAB',
-       'To create a category, use the button above and fill in all the fields on the form.<br>By default, category images are located: /modules/newbb/assets/images/category/<br>Sponsor link should be written in the following format: https://xoops.org/modules/newbb/ newBB Support. First the link, then the sponsor\'s name or other text.');
-\define('_AM_NEWBB_HELP_FORUM_TAB',
-       'To create and manage the forums use the buttons with the right<br>To create the forum, use the \'Create forum\' button. Then fill in all the fields of the form. You can also create a subforum.<br>To move the forum between categories, use the \'Move\' button. Follow the further instructions.<br>To merge forums, use the \'Merge\' button. Follow the further instructions.<br>If you have an access rights template, then you can apply it to the forum you are creating.');
-\define('_AM_NEWBB_HELP_PERMISSION_TAB',
-       '<strong>When setting permissions, be careful.</strong><br>After you install and apply the settings, you will automatically go to the next permissions tab.<br>Also here it is possible to create a default access rights template and apply it either to one forum or to all forums.');
+\define(
+    '_AM_NEWBB_HELP_CATEGORY_TAB',
+    'To create a category, use the button above and fill in all the fields on the form.<br>By default, category images are located: /modules/newbb/assets/images/category/<br>Sponsor link should be written in the following format: https://xoops.org/modules/newbb/ newBB Support. First the link, then the sponsor\'s name or other text.'
+);
+\define(
+    '_AM_NEWBB_HELP_FORUM_TAB',
+    'To create and manage the forums use the buttons with the right<br>To create the forum, use the \'Create forum\' button. Then fill in all the fields of the form. You can also create a subforum.<br>To move the forum between categories, use the \'Move\' button. Follow the further instructions.<br>To merge forums, use the \'Merge\' button. Follow the further instructions.<br>If you have an access rights template, then you can apply it to the forum you are creating.'
+);
+\define(
+    '_AM_NEWBB_HELP_PERMISSION_TAB',
+    '<strong>When setting permissions, be careful.</strong><br>After you install and apply the settings, you will automatically go to the next permissions tab.<br>Also here it is possible to create a default access rights template and apply it either to one forum or to all forums.'
+);
 \define('_AM_NEWBB_HELP_ORDER_TAB', 'Allows you to set the order of categories and forums relative to each other.<br>The order (Weight) is set to 0 - top, 99 (and further) - bottom.');
 \define('_AM_NEWBB_HELP_PRUNE_TAB', 'Allows you to clear forums from empty themes, obsolete themes, etc.<br>Also you can not delete topics that you want to clear, but transfer them to a specially created category \'Archive\' or any other.');
-\define('_AM_NEWBB_HELP_REPORT_TAB',
-       'Allows you to process reports that users send to you if they believe that the message on the forum does not comply with forum rules or ethical rules.<br>You can review the report and take action in relation to the message, the author, etc.<br>When a user sends a message, moderators and administrators are notified by e-mail.');
+\define(
+    '_AM_NEWBB_HELP_REPORT_TAB',
+    'Allows you to process reports that users send to you if they believe that the message on the forum does not comply with forum rules or ethical rules.<br>You can review the report and take action in relation to the message, the author, etc.<br>When a user sends a message, moderators and administrators are notified by e-mail.'
+);
 \define('_AM_NEWBB_HELP_VOTE_TAB', 'If you have the voting function enabled, here you can see the results of the voting.<br>This vote is not associated with other XOOPS modules.');
-\define('_AM_NEWBB_HELP_TYPE_TAB',
-       'Allows you to create tags for highlighting themes. For example:<br><strong style="color:#0000ff;">[Important]</strong> <strong>Topic Title</strong><br><strong style="color:#ff0000;">[ATTENTION]</strong> <strong>Topic Title</strong><br>You can set theme types when creating a theme on the user side.');
-\define('_AM_NEWBB_HELP_GROUPMOD_TAB',
-       'Allows you to install users of certain groups as moderators for the entire module, and for individual categories and forums.<br>It is recommended to create separate groups of moderators, for more convenient management of moderators.<br>You can also assign specific users to moderators when creating a forum.');
+\define(
+    '_AM_NEWBB_HELP_TYPE_TAB',
+    'Allows you to create tags for highlighting themes. For example:<br><strong style="color:#0000ff;">[Important]</strong> <strong>Topic Title</strong><br><strong style="color:#ff0000;">[ATTENTION]</strong> <strong>Topic Title</strong><br>You can set theme types when creating a theme on the user side.'
+);
+\define(
+    '_AM_NEWBB_HELP_GROUPMOD_TAB',
+    'Allows you to install users of certain groups as moderators for the entire module, and for individual categories and forums.<br>It is recommended to create separate groups of moderators, for more convenient management of moderators.<br>You can also assign specific users to moderators when creating a forum.'
+);
 \define('_AM_NEWBB_HELP_SYNC_TAB', 'If you notice a problem with the message dates, the appearance of blank messages, etc. Here you can synchronize and correct forum data and topics');
 
 \define('_AM_NEWBB_FORUM_DESC_LENGTH', 'Forum Description Length');

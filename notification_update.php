@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,10 +17,9 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
-include \dirname(\dirname(__DIR__)) . '/mainfile.php';
-include XOOPS_ROOT_PATH . '/include/notification_update.php';
+require dirname(__DIR__, 2) . '/mainfile.php';
+require XOOPS_ROOT_PATH . '/include/notification_update.php';

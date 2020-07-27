@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex\Common;
 
 /*
@@ -20,7 +22,6 @@ namespace XoopsModules\Wgtransifex\Common;
  * @author         Wedega - Email:<webmaster@wedega.com>
  * @author         Fernando Santos (topet05) <fernando@mastop.com.br>
  */
-\defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Object ModuleFeedback
@@ -62,7 +63,7 @@ class ModuleFeedback extends \XoopsObject
      */
     public function getFormFeedback()
     {
-        $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirName      = \basename(\dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
@@ -95,8 +96,10 @@ class ModuleFeedback extends \XoopsObject
         $editorConfigs['cols']   = 40;
         $editorConfigs['width']  = '100%';
         $editorConfigs['height'] = '400px';
-        $moduleHandler           = \xoops_getHandler('module');
-        $module                  = $moduleHandler->getByDirname('system');
+        /** @var \XoopsModuleHandler $moduleHandler */
+        $moduleHandler = \xoops_getHandler('module');
+        $module        = $moduleHandler->getByDirname('system');
+        /** @var \XoopsConfigHandler $configHandler */
         $configHandler           = \xoops_getHandler('config');
         $config                  = &$configHandler->getConfigsByCat(0, $module->getVar('mid'));
         $editorConfigs['editor'] = $config['general_editor'];
@@ -104,6 +107,7 @@ class ModuleFeedback extends \XoopsObject
         $form->addElement($editor, true);
         $form->addElement(new \XoopsFormHidden('op', 'send'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
         return $form;
     }
 }

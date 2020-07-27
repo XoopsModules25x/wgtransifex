@@ -19,7 +19,7 @@
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$project.id}></td>
 				<td class='center'><{$project.name}></td>
-				<td class='center'><img src="<{$modPathIcon32}>status<{$project.status}>.png" alt="<{$project.status_text}>" title="<{$project.status_text}>" /></td>
+				<td class='center'><img src="<{$modPathIcon32}>status<{$project.status}>.png" alt="<{$project.status_text}>" title="<{$project.status_text}>"></td>
 				<td class='center'><{$project.resources}></td>
 				<td class='center'><{$project.translations}></td>
 				<td class='center'><{$project.date}></td>
@@ -27,9 +27,9 @@
 					<{foreach item=language from=$project.languages}>
 						<a href="translations.php?op=list&amp;tra_pro_id=<{$project.id}>&amp;tra_lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>">
 							<{if $language.outdated > 0}>
-                                <img class="wgt-icon24" src="<{$modPathIcon32}>status<{$language.outdated}>.png" alt="<{$language.outdated}>" title="<{$language.outdatedtext}>" />
+                                <img class="wgt-icon24" src="<{$modPathIcon32}>status<{$language.outdated}>.png" alt="<{$language.outdated}>" title="<{$language.outdatedtext}>">
                             <{/if}>
-                            <img class="wgt-icon24" src="<{$modPathIcon32}>translations.png" alt="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>" />&nbsp;<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}> <{$language.name}></a><br>
+                            <img class="wgt-icon24" src="<{$modPathIcon32}>translations.png" alt="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>">&nbsp;<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}> <{$language.name}></a><br>
 					<{/foreach}>
 				</td>
 			</tr>
@@ -77,13 +77,13 @@
 					<{$smarty.const._AM_WGTRANSIFEX_TRANSLATION_COMPLETED}>: <{$translation.completed}><br>
 				</td>
 				<td class='center'><{$translation.local}></td>
-				<td class='center'><img src="<{$modPathIcon32}>status<{$translation.status}>.png" alt="<{$translation.status_text}>" title="<{$translation.status_text}>" /></td>
+				<td class='center'><img src="<{$modPathIcon32}>status<{$translation.status}>.png" alt="<{$translation.status_text}>" title="<{$translation.status_text}>"></td>
 				<td class='center'><{$translation.date}></td>
 				<td class='center'><{$translation.submitter}></td>
 				<td class="center">
-					<a href="translations.php?op=savetx&amp;tra_id=<{$translation.id}>&amp;tra_pro_id=<{$translation.tra_pro_id}>&amp;tra_res_id=<{$translation.tra_res_id}>&amp;tra_lang_id=<{$translation.tra_lang_id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>"><img class="wgt-icon24" src="<{$modPathIcon32}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>" /></a>
-					<a href="translations.php?op=edit&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> translations" /></a>
-					<a href="translations.php?op=delete&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> translations" /></a>
+					<a href="translations.php?op=savetx&amp;tra_id=<{$translation.id}>&amp;tra_pro_id=<{$translation.tra_pro_id}>&amp;tra_res_id=<{$translation.tra_res_id}>&amp;tra_lang_id=<{$translation.tra_lang_id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>"><img class="wgt-icon24" src="<{$modPathIcon32}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_TRANSLATION}>"></a>
+					<a href="translations.php?op=edit&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> translations"></a>
+					<a href="translations.php?op=delete&amp;tra_id=<{$translation.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> translations"></a>
 				</td>
 			</tr>
 			<{/foreach}>

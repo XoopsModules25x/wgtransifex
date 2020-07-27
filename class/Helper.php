@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -14,11 +16,9 @@ namespace XoopsModules\Wgtransifex;
 /**
  * @copyright    XOOPS Project https://xoops.org/
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
  * @since
  * @author       XOOPS Development Team
  */
-//\defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Helper
@@ -32,7 +32,7 @@ class Helper extends \Xmf\Module\Helper
      */
     public function __construct($debug = false)
     {
-        $this->debug   = $debug;
+        $this->debug = $debug;
         $moduleDirName = \basename(\dirname(__DIR__));
         parent::__construct($moduleDirName);
     }
@@ -48,6 +48,7 @@ class Helper extends \Xmf\Module\Helper
         if (null === $instance) {
             $instance = new static($debug);
         }
+
         return $instance;
     }
 
@@ -73,11 +74,12 @@ class Helper extends \Xmf\Module\Helper
             throw new \RuntimeException("Class '$class' not found");
         }
         /** @var \XoopsMySQLDatabase $db */
-        $db     = \XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
         $helper = self::getInstance();
-        $ret    = new $class($db, $helper);
+        $ret = new $class($db, $helper);
         $this->addLog("Getting handler '{$name}'");
+
         return $ret;
     }
 }
-//require __DIR__ . '/../../mainfile.php';
+//require  dirname(dirname(__DIR__)) . '/mainfile.php';

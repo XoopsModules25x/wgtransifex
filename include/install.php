@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,24 +17,25 @@
  *
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
- * @package        Wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com> XOOPS Project (www.xoops.org) $
  */
 
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    Utility
+};
 
 /**
- * @param \XoopsModule $module
  * @return bool
  */
 function xoops_module_pre_install_wgtransifex(\XoopsModule $module)
 {
     require \dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Wgtransifex\Utility $utility */
-    $utility = new Wgtransifex\Utility();
+    /** @var Utility $utility */
+    $utility = new Utility();
     //check for minimum XOOPS version
     $xoopsSuccess = $utility::checkVerXoops($module);
     // check for minimum PHP version
@@ -42,20 +46,21 @@ function xoops_module_pre_install_wgtransifex(\XoopsModule $module)
             $GLOBALS['xoopsDB']->queryF('DROP TABLE IF EXISTS ' . $GLOBALS['xoopsDB']->prefix($table) . ';');
         }
     }
+
     return $xoopsSuccess && $phpSuccess;
 }
 
 /**
- * @param \XoopsModule $module
  * @return bool|string
  */
 function xoops_module_install_wgtransifex(\XoopsModule $module)
 {
     require \dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Wgtransifex\Helper $helper */ /** @var Wgtransifex\Utility $utility */
+    /** @var Helper $helper */
+    /** @var Utility $utility */
     /** @var Common\Configurator $configurator */
-    $helper       = Wgtransifex\Helper::getInstance();
-    $utility      = new Wgtransifex\Utility();
+    $helper = Helper::getInstance();
+    $utility = new Utility();
     $configurator = new Common\Configurator();
     // Load language files
     $helper->loadLanguage('admin');
@@ -81,5 +86,6 @@ function xoops_module_install_wgtransifex(\XoopsModule $module)
             $utility::copyFile($file, $dest);
         }
     }
+
     return true;
 }

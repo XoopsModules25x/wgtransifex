@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,22 +17,43 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
-use XoopsModules\Wgtransifex\Constants;
+use Xmf\Module\Admin;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Constants,
+    Helper,
+    PackagesHandler,
+    ProjectsHandler,
+    ResourcesHandler,
+    TranslationsHandler,
+    SettingsHandler,
+    LanguagesHandler,
+    RequestsHandler,
+    Transifex
+};
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
+/** @var ProjectsHandler $projectsHandler */
+/** @var ResourcesHandler $resourcesHandler */
+/** @var TranslationsHandler $translationsHandler */
+/** @var SettingsHandler $settingsHandler */
+/** @var LanguagesHandler $languagesHandler */
+/** @var RequestsHandler $requestsHandler */
+
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op     = Request::getCmd('op', 'list');
-$traId  = Request::getInt('tra_id');
-$proId  = Request::getInt('tra_pro_id');
+$op = Request::getCmd('op', 'list');
+$traId = Request::getInt('tra_id');
+$proId = Request::getInt('tra_pro_id');
 $langId = Request::getInt('tra_lang_id');
 switch ($op) {
     case 'list':
@@ -49,32 +73,31 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $start_pro = Request::getInt('start_pro', 0);
         $start_tra = Request::getInt('start_tra', 0);
-        $limit     = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         if (0 == $proId) {
-            $crTranslations    = new \CriteriaCompo();
+            $crTranslations = new \CriteriaCompo();
             $translationsCount = $translationsHandler->getCount($crTranslations);
             if ($translationsCount > 0) {
-                
                 $crTranslations->setGroupBy('`tra_pro_id`');
                 $crTranslations->setStart($start_pro);
                 $crTranslations->setLimit($limit);
                 $translationsCount = $translationsHandler->getCount($crTranslations);
-                $translationsAll   = $translationsHandler->getAll($crTranslations);
+                $translationsAll = $translationsHandler->getAll($crTranslations);
                 // Table view projects
                 foreach (\array_keys($translationsAll) as $i) {
-                    $proId           = $translationsAll[$i]->getVar('tra_pro_id');
-                    $project         = $projectsHandler->get($proId)->getValuesProjects();
-                    $languages       = [];
+                    $proId = $translationsAll[$i]->getVar('tra_pro_id');
+                    $project = $projectsHandler->get($proId)->getValuesProjects();
+                    $languages = [];
                     $crTranslations2 = new \CriteriaCompo();
                     $crTranslations2->add(new \Criteria('tra_pro_id', $proId));
                     $crTranslations2->setGroupBy('`tra_pro_id`, `tra_lang_id`, `tra_status`');
                     $translationsAll2 = $translationsHandler->getAll($crTranslations2);
                     foreach (\array_keys($translationsAll2) as $l) {
-                        $langId                = $translationsAll2[$l]->getVar('tra_lang_id');
-                        $languages[$langId]['id']   = $langId;
+                        $langId = $translationsAll2[$l]->getVar('tra_lang_id');
+                        $languages[$langId]['id'] = $langId;
                         $languages[$langId]['name'] = $languagesHandler->get($langId)->getVar('lang_name');
                         if (Constants::STATUS_OUTDATED == $translationsAll2[$l]->getVar('tra_status')) {
-                            $languages[$langId]['outdated']      = Constants::STATUS_OUTDATED;
+                            $languages[$langId]['outdated'] = Constants::STATUS_OUTDATED;
                             $languages[$langId]['outdatedtext'] = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
                         }
                     }
@@ -84,7 +107,7 @@ switch ($op) {
                 }
                 // Display Navigation
                 if ($translationsCount > $limit) {
-                    include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($translationsCount, $limit, $start_pro, 'start_pro', 'op=list&limit=' . $limit);
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
@@ -98,7 +121,7 @@ switch ($op) {
             $crTranslations->setStart($start_tra);
             $crTranslations->setLimit($limit);
             $translationsCount = $translationsHandler->getCount($crTranslations);
-            $translationsAll   = $translationsHandler->getAll($crTranslations);
+            $translationsAll = $translationsHandler->getAll($crTranslations);
             $GLOBALS['xoopsTpl']->assign('translations_count', $translationsCount);
             $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
             $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
@@ -111,7 +134,7 @@ switch ($op) {
                 }
                 // Display Navigation
                 if ($translationsCount > $limit) {
-                    include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($translationsCount, $limit, $start_tra, 'start_tra', 'op=list&limit=' . $limit . '&tra_pro_id=' . $proId . '&tra_lang_id=' . $langId);
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
@@ -127,25 +150,25 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $translationsObj = $translationsHandler->create();
-        $form            = $translationsObj->getFormTranslationsTx();
+        $form = $translationsObj->getFormTranslationsTx();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'savetx':
         //read translations
-        $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
-        $result    = $transifex->readTranslations($traId, $proId, $langId);
+        $transifex = Transifex::getInstance();
+        $result = $transifex->readTranslations($traId, $proId, $langId);
         //update table projects
         $crTranslations = new \CriteriaCompo();
         $crTranslations->add(new \Criteria('tra_pro_id', $proId));
         $translationsCount = $translationsHandler->getCount($crTranslations);
-        $projectsObj       = $projectsHandler->get($proId);
+        $projectsObj = $projectsHandler->get($proId);
         $projectsObj->setVar('pro_translations', $translationsCount);
         $projectsHandler->insert($projectsObj);
         \redirect_header('translations.php?op=list', 3, $result);
         break;
     case 'checktx':
-        $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
-        $result    = $transifex->checkTranslations();
+        $transifex = Transifex::getInstance();
+        $result = $transifex->checkTranslations();
         \redirect_header('translations.php?op=list', 3, $ret['info']);
         break;
     case 'new':
@@ -155,7 +178,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $translationsObj = $translationsHandler->create();
-        $form            = $translationsObj->getFormTranslations();
+        $form = $translationsObj->getFormTranslations();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'save':
@@ -210,14 +233,14 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $translationsObj = $translationsHandler->get($traId);
-        $form            = $translationsObj->getFormTranslations();
+        $form = $translationsObj->getFormTranslations();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'delete':
         $templateMain = 'wgtransifex_admin_translations.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
         $translationsObj = $translationsHandler->get($traId);
-        $traPro_id       = $translationsObj->getVar('tra_pro_id');
+        $traPro_id = $translationsObj->getVar('tra_pro_id');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 \redirect_header('translations.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -229,9 +252,11 @@ switch ($op) {
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'tra_id' => $traId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $translationsObj->getVar('tra_pro_id'))
+                ['ok' => 1, 'tra_id' => $traId, 'op' => 'delete'],
+                $_SERVER['REQUEST_URI'],
+                \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $translationsObj->getVar('tra_pro_id'))
             );
-            $form         = $xoopsconfirm->getFormXoopsConfirm();
+            $form = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;

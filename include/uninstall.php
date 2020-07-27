@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * uninstall.php - cleanup on module uninstall
  *
@@ -8,7 +11,10 @@
  * @link            https://xoops.org XOOPS
  */
 
-use XoopsModules\Wgtransifex;
+use XoopsModules\Wgtransifex\{
+    Helper,
+    Utility
+};
 
 /**
  * Prepares system prior to attempting to uninstall module
@@ -31,12 +37,11 @@ function xoops_module_pre_uninstall_wgtransifex(\XoopsModule $module)
 function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
 {
     //    return true;
-    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-    /** @var Wgtransifex\Helper $helper */
-    $helper = Wgtransifex\Helper::getInstance();
-    /** @var Wgtransifex\Utility $utility */
-    $utility = new Wgtransifex\Utility();
+    /** @var Helper $helper */
+    $helper = Helper::getInstance();
+    $utility = new Utility();
     $success = true;
     $helper->loadLanguage('admin');
     //------------------------------------------------------------------

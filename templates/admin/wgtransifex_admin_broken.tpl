@@ -17,8 +17,8 @@
 				<td class='center'><{$package.table}></td>
 				<td class='center'><{$package.main}></td>
 				<td class='center'>
-					<a href='packages.php?op=edit&amp;<{$package.key}>=<{$package.keyval}>' title='<{$smarty.const._EDIT}>'><img class="wgt-icon24" src='<{$modPathIcon32}>edit.png' alt='packages' /></a>
-					<a href='packages.php?op=delete&amp;<{$package.key}>=<{$package.keyval}>' title='<{$smarty.const._DELETE}>'><img class="wgt-icon24" src='<{$modPathIcon32}>delete.png' alt='packages' /></a>
+					<a href='packages.php?op=edit&amp;<{$package.key}>=<{$package.keyval}>' title='<{$smarty.const._EDIT}>'><img class="wgt-icon24" src='<{$modPathIcon32}>edit.png' alt='packages'></a>
+					<a href='packages.php?op=delete&amp;<{$package.key}>=<{$package.keyval}>' title='<{$smarty.const._DELETE}>'><img class="wgt-icon24" src='<{$modPathIcon32}>delete.png' alt='packages'></a>
 				</td>
 			</tr>
 			<{/foreach}>
@@ -32,16 +32,16 @@
 <{else}>
 	<{if $nodataPackages}>
 		<div>
-			<{$nodataPackages}><img src='<{xoModuleIcons32 button_ok.png}>' alt='packages' />
+			<{$nodataPackages}><img src='<{xoModuleIcons32 button_ok.png}>' alt='packages'>
 		</div>
 		<div class='clear spacer'></div>
-		<br />
-		<br />
+		<br>
+		<br>
 	<{/if}>
 <{/if}>
-<br />
-<br />
-<br />
+<br>
+<br>
+<br>
 <{if $error}>
 	<div class='errorMsg'>
 <strong><{$error}></strong>	</div>

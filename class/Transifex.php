@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -14,7 +16,6 @@ namespace XoopsModules\Wgtransifex;
 /**
  * @copyright    XOOPS Project https://xoops.org/
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
  * @since
  * @author       Goffy - XOOPS Development Team
  */
@@ -49,6 +50,7 @@ class Transifex
         if (!$instance) {
             $instance = new self();
         }
+
         return $instance;
     }
 
@@ -57,27 +59,27 @@ class Transifex
      *
      * @param $proId
      * @param bool $user
-     * @return bool
+     * @return bool|string
      */
     public function readProjects($proId, $user = false)
     {
         $setting = $this->getSetting($user);
         global $xoopsUser;
-        $helper          = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $projectsHandler = $helper->getHandler('Projects');
-        $count_ok        = 0;
-        $count_err       = 0;
-        $txprojects      = [];
+        $count_ok = 0;
+        $count_err = 0;
+        $txprojects = [];
         //request data from transifex
-        $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib();
-        $transifexLib->user     = $setting['user'];
+        $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib();
+        $transifexLib->user = $setting['user'];
         $transifexLib->password = $setting['pwd'];
-        $items                  = $transifexLib->getProjects();
+        $items = $transifexLib->getProjects();
         foreach ($items as $item) {
             $txprojects[] = $item['slug'];
             $projectsObj = null;
-            $oldProject  = false;
-            $crProjects  = new \CriteriaCompo();
+            $oldProject = false;
+            $crProjects = new \CriteriaCompo();
             $crProjects->add(new \Criteria('pro_slug', $item['slug']));
             $projectsCount = $projectsHandler->getCount($crProjects);
             if ($projectsCount > 0) {
@@ -113,7 +115,7 @@ class Transifex
                     }
                     $projectsObj->setVar('pro_txresources', \count($project['resources']));
                     $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
-                    $teams = \json_encode($project['teams'], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+                    $teams = \json_encode($project['teams'], \JSON_HEX_TAG | \JSON_HEX_APOS | \JSON_HEX_QUOT | \JSON_HEX_AMP | \JSON_UNESCAPED_UNICODE);
                     //\str_replace(']', '', $teams);
                     $projectsObj->setVar('pro_teams', $teams);
 
@@ -132,7 +134,7 @@ class Transifex
         //check whether all items from table projects have been in current download
         $projectsAll = $projectsHandler->getAll();
         foreach (\array_keys($projectsAll) as $i) {
-            if (!\in_array($projectsAll[$i]->getVar('pro_slug'), $txprojects)) {
+            if (!\in_array($projectsAll[$i]->getVar('pro_slug'), $txprojects, true)) {
                 $projectsObj = $projectsHandler->get($projectsAll[$i]->getVar('pro_id'));
                 $projectsObj->setVar('pro_status', Constants::STATUS_DELETEDTX);
                 // Insert Data
@@ -150,6 +152,7 @@ class Transifex
         if ($count_ok > 0) {
             return \_AM_WGTRANSIFEX_READTX_OK;
         }
+
         return \_AM_WGTRANSIFEX_READTX_NODATA;
     }
 
@@ -158,27 +161,27 @@ class Transifex
      *
      * @param $resId
      * @param $proId
-     * @return bool
+     * @return bool|string
      */
     public function readResources($resId, $proId)
     {
         $setting = $this->getSetting();
         global $xoopsUser;
-        $helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
-        $projectsHandler  = $helper->getHandler('Projects');
+        $helper = Helper::getInstance();
+        $projectsHandler = $helper->getHandler('Projects');
         $resourcesHandler = $helper->getHandler('Resources');
-        $projectsObj      = $projectsHandler->get($proId);
-        $project          = $projectsObj->getVar('pro_slug');
-        $count_ok         = 0;
-        $count_err        = 0;
+        $projectsObj = $projectsHandler->get($proId);
+        $project = $projectsObj->getVar('pro_slug');
+        $count_ok = 0;
+        $count_err = 0;
         //request data from transifex
-        $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib();
-        $transifexLib->user     = $setting['user'];
+        $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib();
+        $transifexLib->user = $setting['user'];
         $transifexLib->password = $setting['pwd'];
-        $items                  = $transifexLib->getResources($project);
+        $items = $transifexLib->getResources($project);
         foreach ($items as $item) {
             $resourcesObj = null;
-            $crResources  = new \CriteriaCompo();
+            $crResources = new \CriteriaCompo();
             $crResources->add(new \Criteria('res_slug', $item['slug']));
             $crResources->add(new \Criteria('res_pro_id', $proId));
             $resourcesCount = $resourcesHandler->getCount($crResources);
@@ -221,6 +224,7 @@ class Transifex
         if ($count_ok > 0) {
             return \_AM_WGTRANSIFEX_READTX_OK;
         }
+
         return \_AM_WGTRANSIFEX_READTX_NODATA;
     }
 
@@ -230,42 +234,42 @@ class Transifex
      * @param $traId
      * @param $proId
      * @param $langId
-     * @return bool
+     * @return bool|string
      */
     public function readTranslations($traId, $proId, $langId)
     {
         $setting = $this->getSetting();
         global $xoopsUser;
-        $helper              = \XoopsModules\Wgtransifex\Helper::getInstance();
-        $projectsHandler     = $helper->getHandler('Projects');
-        $projectsObj         = $projectsHandler->get($proId);
-        $project             = $projectsObj->getVar('pro_slug');
-        $resourcesHandler    = $helper->getHandler('Resources');
+        $helper = Helper::getInstance();
+        $projectsHandler = $helper->getHandler('Projects');
+        $projectsObj = $projectsHandler->get($proId);
+        $project = $projectsObj->getVar('pro_slug');
+        $resourcesHandler = $helper->getHandler('Resources');
         $translationsHandler = $helper->getHandler('Translations');
-        $languagesHandler    = $helper->getHandler('Languages');
-        $languagesObj        = $languagesHandler->get($langId);
-        $language            = $languagesObj->getVar('lang_code');
-        $langShort           = $languagesObj->getVar('lang_iso_639_1');
-        $langFolder          = $languagesObj->getVar('lang_folder');
-        $count_ok            = 0;
-        $count_err           = 0;
-        $crResources         = new \CriteriaCompo();
+        $languagesHandler = $helper->getHandler('Languages');
+        $languagesObj = $languagesHandler->get($langId);
+        $language = $languagesObj->getVar('lang_code');
+        $langShort = $languagesObj->getVar('lang_iso_639_1');
+        $langFolder = $languagesObj->getVar('lang_folder');
+        $count_ok = 0;
+        $count_err = 0;
+        $crResources = new \CriteriaCompo();
         $crResources->add(new \Criteria('res_pro_id', $proId));
         $resourcesCount = $resourcesHandler->getCount($crResources);
         if ($resourcesCount > 0) {
             //request data from transifex
-            $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib();
-            $transifexLib->user     = $setting['user'];
+            $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib();
+            $transifexLib->user = $setting['user'];
             $transifexLib->password = $setting['pwd'];
-            $resourcesAll           = $resourcesHandler->getAll($crResources);
+            $resourcesAll = $resourcesHandler->getAll($crResources);
             foreach (\array_keys($resourcesAll) as $i) {
-                $resId           = $resourcesAll[$i]->getVar('res_id');
-                $resource        = $resourcesAll[$i]->getVar('res_slug');
-                $resName         = $resourcesAll[$i]->getVar('res_name');
-                $resSourceLang   = $resourcesAll[$i]->getVar('res_source_language_code');
-                $item            = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
+                $resId = $resourcesAll[$i]->getVar('res_id');
+                $resource = $resourcesAll[$i]->getVar('res_slug');
+                $resName = $resourcesAll[$i]->getVar('res_name');
+                $resSourceLang = $resourcesAll[$i]->getVar('res_source_language_code');
+                $item = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
                 $translationsObj = null;
-                $crTranslations  = new \CriteriaCompo();
+                $crTranslations = new \CriteriaCompo();
                 $crTranslations->add(new \Criteria('tra_res_id', $resId));
                 $crTranslations->add(new \Criteria('tra_lang_id', $langId));
                 $translationsCount = $translationsHandler->getCount($crTranslations);
@@ -319,42 +323,43 @@ class Transifex
         if ($count_ok > 0) {
             return \_AM_WGTRANSIFEX_READTX_OK;
         }
+
         return \_AM_WGTRANSIFEX_READTX_NODATA;
     }
 
     /**
      * Check all existing translation whether there is a new translation on transifex
      *
-     * @return bool
+     * @return bool|string
      */
     public function checkTranslations()
     {
-        $setting             = $this->getSetting();
-        $helper              = \XoopsModules\Wgtransifex\Helper::getInstance();
-        $projectsHandler     = $helper->getHandler('Projects');
-        $resourcesHandler    = $helper->getHandler('Resources');
+        $setting = $this->getSetting();
+        $helper = Helper::getInstance();
+        $projectsHandler = $helper->getHandler('Projects');
+        $resourcesHandler = $helper->getHandler('Resources');
         $translationsHandler = $helper->getHandler('Translations');
-        $languagesHandler    = $helper->getHandler('Languages');
-        $count_update        = 0;
-        $count_ok            = 0;
-        $count_err           = 0;
-        $translationsCount   = $translationsHandler->getCount();
+        $languagesHandler = $helper->getHandler('Languages');
+        $count_update = 0;
+        $count_ok = 0;
+        $count_err = 0;
+        $translationsCount = $translationsHandler->getCount();
         if ($translationsCount > 0) {
             //request data from transifex
-            $transifexLib           = new \XoopsModules\Wgtransifex\TransifexLib();
-            $transifexLib->user     = $setting['user'];
+            $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib();
+            $transifexLib->user = $setting['user'];
             $transifexLib->password = $setting['pwd'];
-            $translationsAll        = $translationsHandler->getAll();
+            $translationsAll = $translationsHandler->getAll();
             foreach (\array_keys($translationsAll) as $i) {
                 $projectsObj = $projectsHandler->get($translationsAll[$i]->getVar('tra_pro_id'));
-                $project     = $projectsObj->getVar('pro_slug');
+                $project = $projectsObj->getVar('pro_slug');
                 $resourceObj = $resourcesHandler->get($translationsAll[$i]->getVar('tra_res_id'));
-                $resource    = $resourceObj->getVar('res_slug');
+                $resource = $resourceObj->getVar('res_slug');
                 //$resSourceLang = $resourceObj->getVar('res_source_language_code');
                 $languagesObj = $languagesHandler->get($translationsAll[$i]->getVar('tra_lang_id'));
-                $language     = $languagesObj->getVar('lang_code');
+                $language = $languagesObj->getVar('lang_code');
                 //$item          = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
-                $stats         = $transifexLib->getStats($project, $resource, $language);
+                $stats = $transifexLib->getStats($project, $resource, $language);
                 $traLastUpdate = \strtotime($stats['last_update']);
                 if ($traLastUpdate > $translationsAll[$i]->getVar('tra_date')) {
                     $translationsObj = $translationsHandler->get($translationsAll[$i]->getVar('tra_id'));
@@ -388,8 +393,10 @@ class Transifex
             $ret = \_AM_WGTRANSIFEX_READTX_OK . '<br>';
             $ret .= \_AM_WGTRANSIFEX_CHECKTX_TRANSLATION_OK . $count_ok . '<br>';
             $ret .= \_AM_WGTRANSIFEX_CHECKTX_TRANSLATION_OUTDATED . $count_update . '<br>';
+
             return $ret;
         }
+
         return \_AM_WGTRANSIFEX_READTX_NODATA;
     }
 
@@ -397,11 +404,11 @@ class Transifex
      * Get primary setting
      *
      * @param bool $user
-     * @return bool
+     * @return bool|array
      */
     private function getSetting($user = false)
     {
-        $helper          = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $settingsHandler = $helper->getHandler('Settings');
         if ($user) {
             $setting = $settingsHandler->getRequestSetting();
@@ -412,6 +419,7 @@ class Transifex
         if (0 == \count($setting)) {
             \redirect_header('settings.php', 3, \_AM_WGTRANSIFEX_THEREARENT_SETTINGS);
         }
+
         return $setting;
     }
 
@@ -421,28 +429,28 @@ class Transifex
      * @param $toConvert
      * @param $langFolder
      * @param $langShort
-     * @return bool
+     * @return bool|string
      */
     private function getLocal($toConvert, $langFolder, $langShort)
     {
         $ret = $toConvert;
         if ('html.txt' == \mb_substr($ret, -8)) {
-            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, -4);
         }
         if ('php.txt' == \mb_substr($ret, -7)) {
-            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, -4);
         }
         if ('tpl.txt' == \mb_substr($ret, -7)) {
-            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, -4);
         }
         if ('js.txt' == \mb_substr($ret, -6)) {
-            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, -4);
         }
         $ret = \str_replace('[', '', $ret);
         $ret = \str_replace(']', '/', $ret);
         $ret = \str_replace('-', '/', $ret);
         $ret = \str_replace('yourlang', $langFolder, $ret);
-        $ret = \str_replace('yourshortlang', $langShort, $ret);
-        return $ret;
+
+        return \str_replace('yourshortlang', $langShort, $ret);
     }
 }

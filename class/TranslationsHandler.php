@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -52,7 +53,7 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param null|int       $i field id
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -84,6 +85,7 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
     {
         $crCountTranslations = new \CriteriaCompo();
         $crCountTranslations = $this->getTranslationsCriteria($crCountTranslations, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountTranslations);
     }
 
@@ -99,17 +101,18 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
     {
         $crAllTranslations = new \CriteriaCompo();
         $crAllTranslations = $this->getTranslationsCriteria($crAllTranslations, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllTranslations);
     }
 
     /**
      * Get Criteria Translations
-     * @param        $crTranslations
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
-     * @return int
+     * @param \CriteriaCompo $crTranslations
+     * @param int            $start
+     * @param int            $limit
+     * @param string         $sort
+     * @param string         $order
+     * @return \CriteriaCompo|int
      */
     private function getTranslationsCriteria($crTranslations, $start, $limit, $sort, $order)
     {
@@ -117,6 +120,7 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
         $crTranslations->setLimit($limit);
         $crTranslations->setSort($sort);
         $crTranslations->setOrder($order);
+
         return $crTranslations;
     }
 }

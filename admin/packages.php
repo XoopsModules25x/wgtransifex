@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,16 +17,30 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
-use XoopsModules\Wgtransifex\Constants;
+use Xmf\Module\Admin;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Constants,
+    Helper,
+    PackagesHandler,
+    TranslationsHandler,
+    RequestsHandler,
+    Transifex
+};
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
+/** @var TranslationsHandler $translationsHandler */
+/** @var RequestsHandler $requestsHandler */
+
+
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -70,7 +87,7 @@ switch ($op) {
 
             // Display Navigation
             if ($packagesCount > $limit) {
-                include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -84,12 +101,12 @@ switch ($op) {
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_PACKAGES_LIST, 'packages.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
-        $proId  = Request::getInt('pkg_pro_id');
+        $proId = Request::getInt('pkg_pro_id');
         $langId = Request::getInt('pkg_lang_id');
         // Form Create
         $packagesObj = $packagesHandler->create();
-        $packagesObj->setVar('pkg_pro_id' , $proId);
-        $packagesObj->setVar('pkg_lang_id' , $langId);
+        $packagesObj->setVar('pkg_pro_id', $proId);
+        $packagesObj->setVar('pkg_lang_id', $langId);
         $form = $packagesObj->getFormPackages();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
@@ -98,25 +115,25 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             \redirect_header('packages.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        $pkgName     = Request::getString('pkg_name');
-        $pkgProId    = Request::getInt('pkg_pro_id', 0);
-        $pkgLangId   = Request::getInt('pkg_lang_id', 0);
+        $pkgName = Request::getString('pkg_name');
+        $pkgProId = Request::getInt('pkg_pro_id', 0);
+        $pkgLangId = Request::getInt('pkg_lang_id', 0);
         $pkgDownload = Request::getInt('pkg_download', 0);
 
-        $projectsHandler     = $helper->getHandler('Projects');
-        $resourcesHandler    = $helper->getHandler('Resources');
+        $projectsHandler = $helper->getHandler('Projects');
+        $resourcesHandler = $helper->getHandler('Resources');
         $translationsHandler = $helper->getHandler('Translations');
-        $languagesHandler    = $helper->getHandler('Languages');
+        $languagesHandler = $helper->getHandler('Languages');
 
         if ($pkgDownload) {
-            $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+            $transifex = Transifex::getInstance();
             //read resources
             $result = $transifex->readResources(0, $pkgProId);
             //update table projects
             $crResources = new \CriteriaCompo();
             $crResources->add(new \Criteria('res_pro_id', $pkgProId));
             $resourcesCount = $resourcesHandler->getCount($crResources);
-            $projectsObj    = $projectsHandler->get($pkgProId);
+            $projectsObj = $projectsHandler->get($pkgProId);
             $projectsObj->setVar('pro_resources', $resourcesCount);
             $projectsHandler->insert($projectsObj);
 
@@ -126,7 +143,7 @@ switch ($op) {
             $crTranslations = new \CriteriaCompo();
             $crTranslations->add(new \Criteria('tra_pro_id', $pkgProId));
             $translationsCount = $translationsHandler->getCount($crTranslations);
-            $projectsObj       = $projectsHandler->get($pkgProId);
+            $projectsObj = $projectsHandler->get($pkgProId);
             $projectsObj->setVar('pro_translations', $translationsCount);
             $projectsHandler->insert($projectsObj);
         }
@@ -137,10 +154,14 @@ switch ($op) {
 
         // Make the destination directory if not exist
         $pkg_path = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName;
-        @\mkdir($pkg_path);
+        if (!mkdir($pkg_path) && !is_dir($pkg_path)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+        }
         $pkg_path .= '/' . $langFolder;
         \clearDir($pkg_path);
-        @\mkdir($pkg_path);
+        if (!mkdir($pkg_path) && !is_dir($pkg_path)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+        }
 
         $count_ok = 0;
         $count_err = 0;
@@ -158,15 +179,17 @@ switch ($op) {
                 $dst_path = $pkg_path;
                 $files = \explode('/', $translationsAll[$i]->getVar('tra_local'));
                 foreach (\array_keys($files) as $f) {
-                    end( $files );
-                    if (key( $files ) == $f) {
+                    end($files);
+                    if (key($files) == $f) {
                         $content = $translationsAll[$i]->getVar('tra_content', 'n');
                         $dst_file = $dst_path . '/' . $files[$f];
                         \unlink($dst_file);
                         \file_put_contents($dst_file, $content);
                     } else {
                         $dst_path .= '/' . $files[$f];
-                        @\mkdir($dst_path);
+                        if (!mkdir($dst_path) && !is_dir($dst_path)) {
+                            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dst_path));
+                        }
                     }
                 }
             }
@@ -178,7 +201,7 @@ switch ($op) {
         \unlink($zipcreate);
         if (1 == Request::getInt('pkg_zipfile', 0)) {
             $pkg_path = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $langFolder;
-            zip_files($pkg_path, $zipcreate);
+            zipFiles($pkg_path, $zipcreate);
         }
 
         // update table packages
@@ -197,14 +220,18 @@ switch ($op) {
         $packagesObj->setVar('pkg_submitter', Request::getInt('pkg_submitter', 0));
         $packagesObj->setVar('pkg_status', Constants::STATUS_CREATED);
         // Set Var pkg_logo
-        include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-        $filename       = $_FILES['pkg_logo']['name'];
-        $imgMimetype    = $_FILES['pkg_logo']['type'];
-        $imgNameDef     = Request::getString('pkg_name');
+        require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        $filename = $_FILES['pkg_logo']['name'];
+        $imgMimetype = $_FILES['pkg_logo']['type'];
+        $imgNameDef = Request::getString('pkg_name');
         $uploaderErrors = '';
-        $uploader = new \XoopsMediaUploader(WGTRANSIFEX_UPLOAD_PATH . '/logos/',
+        $uploader = new \XoopsMediaUploader(
+            WGTRANSIFEX_UPLOAD_PATH . '/logos/',
             $helper->getConfig('mimetypes_image'),
-            $helper->getConfig('maxsize_image'), null, null);
+            $helper->getConfig('maxsize_image'),
+            null,
+            null
+        );
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $extension = \preg_replace('/^.+\.([^.]+)$/sU', '', $filename);
             $imgName = \str_replace(' ', '', $imgNameDef) . '.' . $extension;
@@ -214,17 +241,17 @@ switch ($op) {
                 $uploaderErrors = $uploader->getErrors();
             } else {
                 $savedFilename = $uploader->getSavedFileName();
-                $maxwidth  = (int)$helper->getConfig('maxwidth_image');
+                $maxwidth = (int)$helper->getConfig('maxwidth_image');
                 $maxheight = (int)$helper->getConfig('maxheight_image');
                 if ($maxwidth > 0 && $maxheight > 0) {
                     // Resize image
-                    $imgHandler                = new Wgtransifex\Common\Resizer();
-                    $imgHandler->sourceFile    = WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
-                    $imgHandler->endFile       = WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
+                    $imgHandler = new Common\Resizer();
+                    $imgHandler->sourceFile = WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
+                    $imgHandler->endFile = WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
                     $imgHandler->imageMimetype = $imgMimetype;
-                    $imgHandler->maxWidth      = $maxwidth;
-                    $imgHandler->maxHeight     = $maxheight;
-                    $result                    = $imgHandler->resizeImage();
+                    $imgHandler->maxWidth = $maxwidth;
+                    $imgHandler->maxHeight = $maxheight;
+                    $result = $imgHandler->resizeImage();
                 }
                 $packagesObj->setVar('pkg_logo', $savedFilename);
             }
@@ -235,7 +262,7 @@ switch ($op) {
             $packagesObj->setVar('pkg_logo', Request::getString('pkg_logo'));
         }
         // Insert Data
-        if ($packagesHandler->insert($packagesObj)) {           
+        if ($packagesHandler->insert($packagesObj)) {
             $newPkgId = $pkgId > 0 ? $pkgId : $packagesObj->getNewInsertedIdPackages();
             if ('' !== $uploaderErrors) {
                 \redirect_header('packages.php?op=edit&pkg_id=' . $pkgId, 5, $uploaderErrors);
@@ -260,7 +287,7 @@ switch ($op) {
                 $pkgStatus = $packagesObj->getVar('pkg_status');
                 $tags = [];
                 $tags['ITEM_NAME'] = $pkgName;
-                $tags['ITEM_URL']  = XOOPS_URL . '/modules/wgtransifex/packages.php?op=show&pkg_id=' . $pkgId;
+                $tags['ITEM_URL'] = XOOPS_URL . '/modules/wgtransifex/packages.php?op=show&pkg_id=' . $pkgId;
                 $notificationHandler = \xoops_getHandler('notification');
                 // Event new notification
                 $notificationHandler->triggerEvent('packages', $newPkgId, 'package_new', $tags);
@@ -319,12 +346,12 @@ require __DIR__ . '/footer.php';
 function clearDir($dir, $pattern = '*')
 {
     // Find all files and folders matching pattern
-    $files = \glob($dir . "/$pattern");
+    $files = \glob($dir . "/$pattern", GLOB_NOSORT);
 
     // Interate thorugh the files and folders
     foreach ($files as $file) {
         // if it's a directory then re-call clearDir function to delete files inside this directory
-        if (\is_dir($file) && !\in_array($file, ['..', '.'])) {
+        if (\is_dir($file) && !\in_array($file, ['..', '.'], true)) {
             // Remove the directory itself
             clearDir($file, $pattern);
         } elseif ((__FILE__ != $file) && is_file($file)) {
@@ -344,7 +371,7 @@ function clearDir($dir, $pattern = '*')
  * @param $destination
  * @return bool
  */
-function zip_files($source, $destination)
+function zipFiles($source, $destination)
 {
     $zip = new ZipArchive();
 

@@ -12,7 +12,7 @@
 		<tr class='<{cycle values="odd, even"}>'>
 			<td class='center'><img class='img-responsive' src="<{$wgtransifex_upload_url}>/logos/<{$package.logo}>" alt="<{$package.name}>" title="<{$package.name}>"></td>
 			<td class='center'><{$package.name}></td>
-			<td class='center'><img src="<{$modPathIconFlags}><{$package.lang_flag}>" alt="<{$package.name}>" title="<{$package.name}>" /></td>
+			<td class='center'><img src="<{$modPathIconFlags}><{$package.lang_flag}>" alt="<{$package.name}>" title="<{$package.name}>"></td>
 		</tr>
 		<{/foreach}>
 	</tbody>

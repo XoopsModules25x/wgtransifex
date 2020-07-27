@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,25 +17,33 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
-use XoopsModules\Wgtransifex\Constants;
+use Xmf\Module\Admin;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Constants,
+    Helper,
+    PackagesHandler,
+    Utility
+};
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_packages.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
-$op     = Request::getCmd('op', 'list');
-$start  = Request::getInt('start', 0);
-$limit  = Request::getInt('limit', $helper->getConfig('userpager'));
-$pkgId  = Request::getInt('pkg_id', 0);
+$op = Request::getCmd('op', 'list');
+$start = Request::getInt('start', 0);
+$limit = Request::getInt('limit', $helper->getConfig('userpager'));
+$pkgId = Request::getInt('pkg_id', 0);
 $langId = Request::getInt('lang_id', 0);
 
 // Define Stylesheet
@@ -58,9 +69,9 @@ switch ($op) {
 
         // Checking permissions
         $request_allowed = false;
-        $groups = (isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
         foreach ($groups as $group) {
-            if (XOOPS_GROUP_ADMIN == $group || \in_array($group, $helper->getConfig('groups_request'))) {
+            if (XOOPS_GROUP_ADMIN == $group || \in_array($group, $helper->getConfig('groups_request'), true)) {
                 $request_allowed = true;
                 break;
             }
@@ -91,7 +102,7 @@ switch ($op) {
             unset($packages);
             // Display Navigation
             if ($packagesCount > $limit) {
-                include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -106,7 +117,7 @@ switch ($op) {
             \redirect_header('packages.php?op=list', 3, \_MA_WGTRANSIFEX_INVALID_PARAM);
         }
         $packagesObj = $packagesHandler->get($pkgId);
-        $pkgName     = $packagesObj->getVar('pkg_name');
+        $pkgName = $packagesObj->getVar('pkg_name');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 \redirect_header('packages.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -114,20 +125,23 @@ switch ($op) {
             $packagesObj->setVar('pkg_status', Constants::STATUS_BROKEN);
             if ($packagesHandler->insert($packagesObj)) {
                 // Event broken notification
-				$tags = [];
-				$tags['ITEM_NAME'] = $pkgName;
-				$tags['ITEM_URL']  = XOOPS_URL . '/modules/wgtransifex/admin/packages.php?op=show&pkg_id=' . $pkgId;
-				$notificationHandler = \xoops_getHandler('notification');
-				$notificationHandler->triggerEvent('packages', $pkgId, 'package_broken', $tags);
+                $tags = [];
+                $tags['ITEM_NAME'] = $pkgName;
+                $tags['ITEM_URL'] = XOOPS_URL . '/modules/wgtransifex/admin/packages.php?op=show&pkg_id=' . $pkgId;
+                /** @var \XoopsNotificationHandler $notificationHandler */
+                $notificationHandler = \xoops_getHandler('notification');
+                $notificationHandler->triggerEvent('packages', $pkgId, 'package_broken', $tags);
                 \redirect_header('packages.php', 3, \_MA_WGTRANSIFEX_FORM_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $packagesObj->getHtmlErrors());
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'pkg_id' => $pkgId, 'op' => 'broken'], $_SERVER['REQUEST_URI'], \sprintf(\_MA_WGTRANSIFEX_FORM_SURE_BROKEN, $packagesObj->getVar('pkg_name'))
+                ['ok' => 1, 'pkg_id' => $pkgId, 'op' => 'broken'],
+                $_SERVER['REQUEST_URI'],
+                \sprintf(\_MA_WGTRANSIFEX_FORM_SURE_BROKEN, $packagesObj->getVar('pkg_name'))
             );
-            $form         = $xoopsconfirm->getFormXoopsConfirm();
+            $form = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
@@ -135,10 +149,10 @@ switch ($op) {
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_PACKAGES];
 // Keywords
-wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
+Utility::metaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
 unset($keywords);
 // Description
-wgtransifexMetaDescription(\_MA_WGTRANSIFEX_PACKAGES_DESC);
+Utility::metaDescription(\_MA_WGTRANSIFEX_PACKAGES_DESC);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL . '/packages.php');
 $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
 require __DIR__ . '/footer.php';

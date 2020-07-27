@@ -25,10 +25,10 @@
 				<td class='center'><{$package.name}></td>
 				<td class='center'><{$package.pro_id}></td>
 				<td class='center'><{$package.lang_id}></td>
-				<td class='center'><img style="max-width:100px" src="<{$wgtransifex_upload_url}>/logos/<{$package.logo}>" alt="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}> <{$package.name}>" title="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}> <{$package.name}>" /></td>
+				<td class='center'><img style="max-width:100px" src="<{$wgtransifex_upload_url}>/logos/<{$package.logo}>" alt="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}> <{$package.name}>" title="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}> <{$package.name}>"></td>
 				<td class='center'><{$package.date}></td>
 				<td class='center'><{$package.submitter}></td>
-				<td class='center'><img src="<{$modPathIcon32}>status<{$package.status}>.png" alt="<{$package.status_text}>" title="<{$package.status_text}>" /></td>
+				<td class='center'><img src="<{$modPathIcon32}>status<{$package.status}>.png" alt="<{$package.status_text}>" title="<{$package.status_text}>"></td>
 				<td class='center'>
 					<{if $package.outdated}>
 						<img src="<{$modPathIcon32}>warning.png" alt="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_VERSION_OUTDATED}>" title="<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_VERSION_OUTDATED}>">
@@ -39,8 +39,8 @@
 					<{/if}>
 				</td>
 				<td class="center  width5">
-					<a href="packages.php?op=edit&amp;pkg_id=<{$package.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> packages" /></a>
-					<a href="packages.php?op=delete&amp;pkg_id=<{$package.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> packages" /></a>
+					<a href="packages.php?op=edit&amp;pkg_id=<{$package.id}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}> packages"></a>
+					<a href="packages.php?op=delete&amp;pkg_id=<{$package.id}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}> packages"></a>
 				</td>
 			</tr>
 			<{/foreach}>

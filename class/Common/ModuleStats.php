@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex\Common;
 
 /*
@@ -33,6 +35,7 @@ trait ModuleStats
                 $moduleStats[$i] = $configurator->moduleStats[$i];
             }
         }
+
         return $moduleStats;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +17,6 @@
  *
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
- * @package        wggallery
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
@@ -81,8 +83,10 @@ require_once __DIR__ . '/common.php';
 // Elements of Gallery options
 \define('_AM_WGGALLERY_OPTION_GT_SET', 'Set options for selected gallerytype');
 \define('_AM_WGGALLERY_OPTION_GT_SOURCE', 'Slideshow source');
-\define('_AM_WGGALLERY_OPTION_GT_SOURCE_DESC',
-       "Pay attention: if the user do not have to download large images the source will be automatically reduce to medium for this user in order to avoid unallowed download by right mouse click.<br>User with right to download large images will also see large images, if you have selected 'large'.");
+\define(
+    '_AM_WGGALLERY_OPTION_GT_SOURCE_DESC',
+    "Pay attention: if the user do not have to download large images the source will be automatically reduce to medium for this user in order to avoid unallowed download by right mouse click.<br>User with right to download large images will also see large images, if you have selected 'large'."
+);
 \define('_AM_WGGALLERY_OPTION_GT_SOURCE_PREVIEW', 'Preview source');
 \define('_AM_WGGALLERY_OPTION_GT_SOURCE_LARGE', 'large images');
 \define('_AM_WGGALLERY_OPTION_GT_SOURCE_MEDIUM', 'medium images');

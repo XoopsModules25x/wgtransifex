@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -25,7 +26,6 @@ namespace XoopsModules\Wgtransifex;
 
 use XoopsModules\Wgtransifex;
 
-\defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Object Settings
@@ -45,7 +45,7 @@ class Settings extends \XoopsObject
         $this->initVar('set_primary', \XOBJ_DTYPE_INT);
         $this->initVar('set_request', \XOBJ_DTYPE_INT);
         $this->initVar('set_date', \XOBJ_DTYPE_INT);
-        $this->initVar('set_submitter', \XOBJ_DTYPE_INT);       
+        $this->initVar('set_submitter', \XOBJ_DTYPE_INT);
     }
 
     /**
@@ -63,17 +63,16 @@ class Settings extends \XoopsObject
 
     /**
      * The new inserted $Id
-     * @return inserted id
+     * @return int inserted id
      */
     public function getNewInsertedIdSettings()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormSettings($action = false)
@@ -106,6 +105,7 @@ class Settings extends \XoopsObject
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
         return $form;
     }
 
@@ -118,18 +118,18 @@ class Settings extends \XoopsObject
      */
     public function getValuesSettings($keys = null, $format = null, $maxDepth = null)
     {
-        $ret                  = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']            = $this->getVar('set_id');
-        $ret['username']      = $this->getVar('set_username');
-        $ret['password']      = $this->getVar('set_password');
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['id'] = $this->getVar('set_id');
+        $ret['username'] = $this->getVar('set_username');
+        $ret['password'] = $this->getVar('set_password');
         //$ret['options']       = \strip_tags($this->getVar('set_options', 'e'));
         //$editorMaxchar        = $helper->getConfig('editor_maxchar');
         //$ret['options_short'] = $utility::truncateHtml($ret['options'], $editorMaxchar);
-        $ret['primary']       = (int)$this->getVar('set_primary') > 0 ? \_YES : \_NO;
-        $ret['request']       = (int)$this->getVar('set_request') > 0 ? \_YES : \_NO;
-        $ret['date']          = \formatTimestamp($this->getVar('set_date'), 's');
-        $ret['submitter']     = \XoopsUser::getUnameFromId($this->getVar('set_submitter'));
-        
+        $ret['primary'] = (int)$this->getVar('set_primary') > 0 ? \_YES : \_NO;
+        $ret['request'] = (int)$this->getVar('set_request') > 0 ? \_YES : \_NO;
+        $ret['date'] = \formatTimestamp($this->getVar('set_date'), 's');
+        $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('set_submitter'));
+
         return $ret;
     }
 
@@ -140,11 +140,12 @@ class Settings extends \XoopsObject
      */
     public function toArraySettings()
     {
-        $ret  = [];
+        $ret = [];
         $vars = $this->getVars();
         foreach (\array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
+
         return $ret;
     }
 }

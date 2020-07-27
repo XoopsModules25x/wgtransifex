@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,22 +17,29 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
+use Xmf\Module\Admin;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    LanguagesHandler
+};
+
+/** @var Helper $helper */
+/** @var Admin $adminObject */
+/** @var LanguagesHandler $languagesHandler */
 
 require __DIR__ . '/header.php';
 
 $op     = Request::getCmd('op', 'list');
 $langId = Request::getInt('lang_id');
 $start  = Request::getInt('start', 0);
-$limit  = Request::getInt('limit', $helper->getConfig('adminpager'));
+$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 switch ($op) {
     case 'list':
@@ -42,6 +52,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('languages.php'));
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_LANGUAGE, 'languages.php?op=new', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        /** @var LanguagesHandler $languagesHandler */
         $languagesCount = $languagesHandler->getCountLanguages();
         $languagesAll   = $languagesHandler->getAllLanguages($start, $limit);
         $GLOBALS['xoopsTpl']->assign('languages_count', $languagesCount);
@@ -57,7 +68,7 @@ switch ($op) {
             }
             // Display Navigation
             if ($languagesCount > $limit) {
-                include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($languagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -100,7 +111,7 @@ switch ($op) {
         }
         $languagesObj->setVar('lang_online', Request::getInt('lang_online', 0));
         // Set Var lang_flag
-        include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $uploader = new \XoopsMediaUploader(
             XOOPS_ROOT_PATH . '/modules/wgtransifex/assets/images/flags', $helper->getConfig('mimetypes_image'), $helper->getConfig('maxsize_image'), null, null
         );
@@ -176,8 +187,8 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
         break;
     case 'setonlineall':
-        $langOnline     = Request::getInt('lang_online', 0);
-        $languagesAll   = $languagesHandler->getAllLanguages($start, $limit);
+        $langOnline   = Request::getInt('lang_online', 0);
+        $languagesAll = $languagesHandler->getAllLanguages($start, $limit);
         foreach (\array_keys($languagesAll) as $i) {
             $languagesObj = $languagesHandler->get($languagesAll[$i]->getVar('lang_id'));
             $languagesObj->setVar('lang_online', $langOnline);

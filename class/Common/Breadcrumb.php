@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex\Common;
 
 /*
@@ -28,22 +30,17 @@ namespace XoopsModules\Wgtransifex\Common;
  * echo $breadcrumb->render();
  */
 
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
-
-\defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
-
 /**
  * Class Breadcrumb
  */
 class Breadcrumb
 {
-    public  $dirname;
+    public $dirname;
     private $bread = [];
 
     public function __construct()
     {
-        $this->dirname = \basename(\dirname(\dirname(__DIR__)));
+        $this->dirname = \basename(\dirname(__DIR__, 2));
     }
 
     /**
@@ -55,7 +52,7 @@ class Breadcrumb
     public function addLink($title = '', $link = '')
     {
         $this->bread[] = [
-            'link'  => $link,
+            'link' => $link,
             'title' => $title,
         ];
     }
@@ -74,6 +71,7 @@ class Breadcrumb
         $breadcrumbTpl->assign('breadcrumb', $this->bread);
         $html = $breadcrumbTpl->fetch('db:' . $this->dirname . '_common_breadcrumb.tpl');
         unset($breadcrumbTpl);
+
         return $html;
     }
 }

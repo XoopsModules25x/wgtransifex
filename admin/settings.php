@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,15 +17,35 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
+use Xmf\Module\Admin;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    PackagesHandler,
+    ProjectsHandler,
+    ResourcesHandler,
+    TranslationsHandler,
+    SettingsHandler,
+    LanguagesHandler,
+    RequestsHandler
+};
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
+/** @var ProjectsHandler $projectsHandler */
+/** @var ResourcesHandler $resourcesHandler */
+/** @var TranslationsHandler $translationsHandler */
+/** @var SettingsHandler $settingsHandler */
+/** @var LanguagesHandler $languagesHandler */
+/** @var RequestsHandler $requestsHandler */
+
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -34,14 +57,14 @@ switch ($op) {
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
-        $start        = Request::getInt('start', 0);
-        $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $start = Request::getInt('start', 0);
+        $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wgtransifex_admin_settings.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('settings.php'));
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_SETTING, 'settings.php?op=new', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $settingsCount = $settingsHandler->getCountSettings();
-        $settingsAll   = $settingsHandler->getAllSettings($start, $limit);
+        $settingsAll = $settingsHandler->getAllSettings($start, $limit);
         $GLOBALS['xoopsTpl']->assign('settings_count', $settingsCount);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
@@ -54,7 +77,7 @@ switch ($op) {
             }
             // Display Navigation
             if ($settingsCount > $limit) {
-                include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($settingsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -69,7 +92,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $settingsObj = $settingsHandler->create();
-        $form        = $settingsObj->getFormSettings();
+        $form = $settingsObj->getFormSettings();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'save':
@@ -108,7 +131,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $settingsObj = $settingsHandler->get($setId);
-        $form        = $settingsObj->getFormSettings();
+        $form = $settingsObj->getFormSettings();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'delete':
@@ -127,9 +150,11 @@ switch ($op) {
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'set_id' => $setId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $settingsObj->getVar('set_username'))
+                ['ok' => 1, 'set_id' => $setId, 'op' => 'delete'],
+                $_SERVER['REQUEST_URI'],
+                \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $settingsObj->getVar('set_username'))
             );
-            $form         = $xoopsconfirm->getFormXoopsConfirm();
+            $form = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
