@@ -134,7 +134,7 @@ class Utility
             }
         }
         // add the defined ending to the text
-        if (mb_strlen($truncate) > 0) {
+        if ($truncate != '') {
             $truncate .= $ending;
         }
         if ($considerHtml) {
