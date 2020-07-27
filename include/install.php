@@ -22,8 +22,11 @@ declare(strict_types=1);
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com> XOOPS Project (www.xoops.org) $
  */
 
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    Utility
+};
 
 /**
  * @return bool
@@ -31,8 +34,8 @@ use XoopsModules\Wgtransifex\Common;
 function xoops_module_pre_install_wgtransifex(\XoopsModule $module)
 {
     require \dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Wgtransifex\Utility $utility */
-    $utility = new Wgtransifex\Utility();
+    /** @var Utility $utility */
+    $utility = new Utility();
     //check for minimum XOOPS version
     $xoopsSuccess = $utility::checkVerXoops($module);
     // check for minimum PHP version
@@ -53,10 +56,11 @@ function xoops_module_pre_install_wgtransifex(\XoopsModule $module)
 function xoops_module_install_wgtransifex(\XoopsModule $module)
 {
     require \dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Wgtransifex\Helper $helper */ /** @var Wgtransifex\Utility $utility */
+    /** @var Helper $helper */
+    /** @var Utility $utility */
     /** @var Common\Configurator $configurator */
-    $helper = Wgtransifex\Helper::getInstance();
-    $utility = new Wgtransifex\Utility();
+    $helper = Helper::getInstance();
+    $utility = new Utility();
     $configurator = new Common\Configurator();
     // Load language files
     $helper->loadLanguage('admin');

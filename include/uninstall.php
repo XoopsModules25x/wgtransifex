@@ -11,7 +11,9 @@ declare(strict_types=1);
  * @link            https://xoops.org XOOPS
  */
 
-use XoopsModules\Wgtransifex;
+use XoopsModules\Wgtransifex\{
+    Helper
+};
 
 /**
  * Prepares system prior to attempting to uninstall module
@@ -36,8 +38,8 @@ function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
     //    return true;
     $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-    /** @var Wgtransifex\Helper $helper */
-    $helper = Wgtransifex\Helper::getInstance();
+    /** @var Helper $helper */
+    $helper = Helper::getInstance();
     $utility = new Wgtransifex\Utility();
     $success = true;
     $helper->loadLanguage('admin');

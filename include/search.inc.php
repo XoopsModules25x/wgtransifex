@@ -22,7 +22,6 @@ declare(strict_types=1);
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
 
-use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Helper;
 
 /**

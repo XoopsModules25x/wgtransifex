@@ -23,9 +23,10 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Constants;
-use XoopsModules\Wgtransifex\Transifex;
+use XoopsModules\Wgtransifex\{
+    Constants,
+    Transifex
+};
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_projects.tpl';

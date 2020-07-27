@@ -17,19 +17,20 @@ declare(strict_types=1);
  */
 
 use Xmf\Database\TableLoad;
-use Xmf\Module\Helper;
 use Xmf\Request;
 use Xmf\Yaml;
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
-use XoopsModules\Wgtransifex\Utility;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    Utility
+};
 
 require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 require \dirname(__DIR__) . '/preloads/autoloader.php';
 $op = Request::getCmd('op', '');
 $moduleDirName = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-$helper = Wgtransifex\Helper::getInstance();
+$helper = Helper::getInstance();
 // Load language files
 $helper->loadLanguage('common');
 switch ($op) {

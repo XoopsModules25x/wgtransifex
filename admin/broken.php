@@ -23,7 +23,6 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Constants;
 
 require __DIR__ . '/header.php';
