@@ -22,7 +22,29 @@ declare(strict_types=1);
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
 
-use XoopsModules\Wgtransifex\Common;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    PackagesHandler,
+    ProjectsHandler,
+    ResourcesHandler,
+    TranslationsHandler,
+    SettingsHandler,
+    LanguagesHandler,
+    RequestsHandler
+};
+
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
+/** @var ProjectsHandler $projectsHandler */
+/** @var ResourcesHandler $resourcesHandler */
+/** @var TranslationsHandler $translationsHandler */
+/** @var SettingsHandler $settingsHandler */
+/** @var LanguagesHandler $languagesHandler */
+/** @var RequestsHandler $requestsHandler */
+
+$moduleDirName = \basename(dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 require __DIR__ . '/header.php';
 // Template Index
@@ -36,6 +58,7 @@ $countSettings = $settingsHandler->getCount();
 $countLanguages = $languagesHandler->getCount();
 $countRequests = $requestsHandler->getCount();
 // InfoBox Statistics
+/** @var \Xmf\Module\Admin $adminObject */
 $adminObject->addInfoBox(\_AM_WGTRANSIFEX_STATISTICS);
 // Info elements
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_PROJECTS . '</label>', $countProjects));

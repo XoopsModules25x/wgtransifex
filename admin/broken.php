@@ -23,7 +23,16 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex\Constants;
+use Xmf\Module\Admin;
+use XoopsModules\Wgtransifex\{
+    Constants,
+    Helper,
+    PackagesHandler
+};
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
 
 require __DIR__ . '/header.php';
 // Define Stylesheet
@@ -35,6 +44,7 @@ $start = Request::getInt('startPackages', 0);
 $limit = Request::getInt('limitPackages', $helper->getConfig('adminpager'));
 $crPackages = new \CriteriaCompo();
 $crPackages->add(new \Criteria('pkg_status', Constants::STATUS_BROKEN));
+$translationsHandler = $helper->getHandler('Translations');
 $packagesCount = $packagesHandler->getCount($crPackages);
 $GLOBALS['xoopsTpl']->assign('packages_count', $packagesCount);
 $GLOBALS['xoopsTpl']->assign('packages_result', \sprintf(\_AM_WGTRANSIFEX_BROKEN_RESULT, 'Packages'));

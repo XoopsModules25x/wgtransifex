@@ -23,15 +23,19 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex\Utility;
+use XoopsModules\Wgtransifex\{Helper,
+    LanguagesHandler,
+    Utility
+};
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_languages.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-$op = Request::getCmd('op', 'list');
+$op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $helper->getConfig('userpager'));
+/** @var Helper $helper */
+$limit  = Request::getInt('limit', $helper->getConfig('userpager'));
 $langId = Request::getInt('lang_id', 0);
 
 // Define Stylesheet
@@ -52,6 +56,7 @@ switch ($op) {
         if ($langId > 0) {
             $crLanguages->add(new \Criteria('lang_id', $langId));
         }
+        /** @var LanguagesHandler $languagesHandler */
         $languagesCount = $languagesHandler->getCount($crLanguages);
         $GLOBALS['xoopsTpl']->assign('languagesCount', $languagesCount);
         $crLanguages->setSort('lang_name');
@@ -63,7 +68,7 @@ switch ($op) {
             // Get All Languages
             foreach (\array_keys($languagesAll) as $i) {
                 $languages[$i] = $languagesAll[$i]->getValuesLanguages();
-                $keywords[$i] = $languagesAll[$i]->getVar('lang_name');
+                $keywords[$i]  = $languagesAll[$i]->getVar('lang_name');
             }
             $GLOBALS['xoopsTpl']->assign('languages', $languages);
             unset($languages);

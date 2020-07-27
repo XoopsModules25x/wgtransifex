@@ -23,11 +23,18 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
+use Xmf\Module\Admin;
 use XoopsModules\Wgtransifex\{
     Constants,
+    Helper,
+    ProjectsHandler,
     Transifex,
     Utility
 };
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var ProjectsHandler $projectsHandler */
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_projects.tpl';

@@ -24,6 +24,11 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
+use XoopsModules\Wgtransifex\{
+    PackagesHandler
+};
+
+/** @var PackagesHandler $packagesHandler */
 
 require __DIR__ . '/header.php';
 $op = Request::getString('op', 'list');

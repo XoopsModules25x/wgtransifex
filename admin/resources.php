@@ -23,10 +23,30 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
+use Xmf\Module\Admin;
 use XoopsModules\Wgtransifex\{
     Common,
+    Helper,
+    PackagesHandler,
+    ProjectsHandler,
+    ResourcesHandler,
+    TranslationsHandler,
+    SettingsHandler,
+    LanguagesHandler,
+    RequestsHandler,
     Transifex
 };
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
+/** @var ProjectsHandler $projectsHandler */
+/** @var ResourcesHandler $resourcesHandler */
+/** @var TranslationsHandler $translationsHandler */
+/** @var SettingsHandler $settingsHandler */
+/** @var LanguagesHandler $languagesHandler */
+/** @var RequestsHandler $requestsHandler */
+
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$

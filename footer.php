@@ -21,6 +21,9 @@ declare(strict_types=1);
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
+
+/** @var Helper $helper */
+
 if (\count($xoBreadcrumbs) > 1) {
     $GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
 }

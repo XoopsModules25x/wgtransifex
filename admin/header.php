@@ -23,26 +23,46 @@ declare(strict_types=1);
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Wgtransifex\Helper;
+use XoopsModules\Wgtransifex\{Common,
+    Helper,
+    PackagesHandler,
+    ProjectsHandler,
+    ResourcesHandler,
+    TranslationsHandler,
+    SettingsHandler,
+    LanguagesHandler,
+    RequestsHandler
+};
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
+/** @var ProjectsHandler $projectsHandler */
+/** @var ResourcesHandler $resourcesHandler */
+/** @var TranslationsHandler $translationsHandler */
+/** @var SettingsHandler $settingsHandler */
+/** @var LanguagesHandler $languagesHandler */
+/** @var RequestsHandler $requestsHandler */
 
 require dirname(__DIR__) . '/preloads/autoloader.php';
 
 require dirname(__DIR__, 3) . '/include/cp_header.php';
 require_once \dirname(__DIR__) . '/include/common.php';
-$sysPathIcon16 = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
-$sysPathIcon32 = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
+$sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
+$sysPathIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16 = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
-$modPathIcon32 = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
+$modPathIcon16   = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
+$modPathIcon32   = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
 // Get instance of module
-$helper = Helper::getInstance();
-$projectsHandler = $helper->getHandler('Projects');
-$resourcesHandler = $helper->getHandler('Resources');
-$settingsHandler = $helper->getHandler('Settings');
-$languagesHandler = $helper->getHandler('Languages');
+$helper              = Helper::getInstance();
+$projectsHandler     = $helper->getHandler('Projects');
+$resourcesHandler    = $helper->getHandler('Resources');
+$settingsHandler     = $helper->getHandler('Settings');
+$languagesHandler    = $helper->getHandler('Languages');
 $translationsHandler = $helper->getHandler('Translations');
-$packagesHandler = $helper->getHandler('Packages');
-$requestsHandler = $helper->getHandler('Requests');
+$packagesHandler     = $helper->getHandler('Packages');
+$requestsHandler     = $helper->getHandler('Requests');
+
 $myts = MyTextSanitizer::getInstance();
 if (!isset($xoopsTpl) || !\is_object($xoopsTpl)) {
     require_once XOOPS_ROOT_PATH . '/class/template.php';
@@ -59,4 +79,4 @@ $GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);
 $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 $adminObject = Admin::getInstance();
-$style = WGTRANSIFEX_URL . '/assets/css/admin/style.css';
+$style       = WGTRANSIFEX_URL . '/assets/css/admin/style.css';

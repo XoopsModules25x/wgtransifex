@@ -23,7 +23,13 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex\Utility;
+use XoopsModules\Wgtransifex\{
+    Helper,
+    PackagesHandler
+};
+
+/** @var Helper $helper */
+/** @var PackagesHandler $packagesHandler */
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_index.tpl';

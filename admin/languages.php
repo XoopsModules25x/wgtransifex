@@ -23,13 +23,22 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex\Common;
+use Xmf\Module\Admin;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    LanguagesHandler
+};
+
+/** @var Helper $helper */
+/** @var Admin $adminObject */
+/** @var LanguagesHandler $languagesHandler */
 
 require __DIR__ . '/header.php';
 
-$op = Request::getCmd('op', 'list');
+$op     = Request::getCmd('op', 'list');
 $langId = Request::getInt('lang_id');
-$start = Request::getInt('start', 0);
+$start  = Request::getInt('start', 0);
 $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 switch ($op) {
@@ -43,8 +52,9 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('languages.php'));
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_LANGUAGE, 'languages.php?op=new', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        /** @var LanguagesHandler $languagesHandler */
         $languagesCount = $languagesHandler->getCountLanguages();
-        $languagesAll = $languagesHandler->getAllLanguages($start, $limit);
+        $languagesAll   = $languagesHandler->getAllLanguages($start, $limit);
         $GLOBALS['xoopsTpl']->assign('languages_count', $languagesCount);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
@@ -73,7 +83,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $languagesObj = $languagesHandler->create();
-        $form = $languagesObj->getFormLanguages();
+        $form         = $languagesObj->getFormLanguages();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'save':
@@ -103,11 +113,7 @@ switch ($op) {
         // Set Var lang_flag
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $uploader = new \XoopsMediaUploader(
-            XOOPS_ROOT_PATH . '/modules/wgtransifex/assets/images/flags',
-            $helper->getConfig('mimetypes_image'),
-            $helper->getConfig('maxsize_image'),
-            null,
-            null
+            XOOPS_ROOT_PATH . '/modules/wgtransifex/assets/images/flags', $helper->getConfig('mimetypes_image'), $helper->getConfig('maxsize_image'), null, null
         );
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             //$uploader->setPrefix(lang_flag_);
@@ -141,14 +147,14 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $languagesObj = $languagesHandler->get($langId);
-        $form = $languagesObj->getFormLanguages();
+        $form         = $languagesObj->getFormLanguages();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'delete':
         $templateMain = 'wgtransifex_admin_languages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('languages.php'));
         $languagesObj = $languagesHandler->get($langId);
-        $langName = $languagesObj->getVar('lang_name');
+        $langName     = $languagesObj->getVar('lang_name');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 \redirect_header('languages.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -160,11 +166,9 @@ switch ($op) {
             }
         } else {
             $xoopsconfirm = new Common\XoopsConfirm(
-                ['ok' => 1, 'lang_id' => $langId, 'op' => 'delete'],
-                $_SERVER['REQUEST_URI'],
-                \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $languagesObj->getVar('lang_name'))
+                ['ok' => 1, 'lang_id' => $langId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $languagesObj->getVar('lang_name'))
             );
-            $form = $xoopsconfirm->getFormXoopsConfirm();
+            $form         = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
@@ -183,7 +187,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
         break;
     case 'setonlineall':
-        $langOnline = Request::getInt('lang_online', 0);
+        $langOnline   = Request::getInt('lang_online', 0);
         $languagesAll = $languagesHandler->getAllLanguages($start, $limit);
         foreach (\array_keys($languagesAll) as $i) {
             $languagesObj = $languagesHandler->get($languagesAll[$i]->getVar('lang_id'));

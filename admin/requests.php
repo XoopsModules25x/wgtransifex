@@ -23,7 +23,19 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex\Common;
+use Xmf\Module\Admin;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Helper,
+    ProjectsHandler,
+    RequestsHandler
+};
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var RequestsHandler $requestsHandler */
+/** @var ProjectsHandler $projectsHandler */
+
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$

@@ -21,8 +21,10 @@ declare(strict_types=1);
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
+
 require __DIR__ . '/header.php';
 $templateMain = 'wgtransifex_admin_about.tpl';
+/** @var Xmf\Module\Admin $adminObject */
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('about.php'));
 $adminObject::setPaypal('6KJ7RW5DR3VTJ');
 $GLOBALS['xoopsTpl']->assign('about', $adminObject->renderAbout(false));
