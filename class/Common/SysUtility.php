@@ -23,9 +23,6 @@ namespace XoopsModules\Wgtransifex\Common;
  * @license       GNU GPL2orlater(https://www.gnu.org/licenses/gpl-2.0.html)
  */
 
-use MyTextSanitizer;
-use XoopsFormDhtmlTextArea;
-use XoopsFormTextArea;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Helper;
 
@@ -66,9 +63,9 @@ class SysUtility
         global $start, $order, $file_cat, $sort, $xoopsModule;
 
         $select_view   = '';
-        $moduleDirName = basename(dirname(__DIR__));
-        /** @var Achat\Helper $helper */
-        $helper = Achat\Helper::getInstance();
+        $moduleDirName = basename(dirname(__DIR__, 2));
+        /** @var Helper $helper */
+        $helper = Helper::getInstance();
 
         //$pathModIcon16 = XOOPS_URL . '/modules/' . $moduleDirName . '/' . $helper->getConfig('modicons16');
         $pathModIcon16 = $helper->url($helper->getModule()->getInfo('modicons16'));
@@ -337,7 +334,7 @@ class SysUtility
      *
      * @return bool
      */
-    function fieldExists($fieldname, $table)
+    public static function fieldExists($fieldname, $table)
     {
         global $xoopsDB;
         $result = $xoopsDB->queryF("SHOW COLUMNS FROM   $table LIKE '$fieldname'");
@@ -360,5 +357,112 @@ class SysUtility
         } catch (\Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         }
+    }
+
+    /**
+     * Rewrite all url
+     *
+     * @param string $module module name
+     * @param array  $array  array
+     * @param string $type   type
+     * @return null|string    string replacement for any blank case
+     */
+    public static function rewriteUrl($module, $array, $type = 'content')
+    {
+        $comment = '';
+        $helper = Helper::getInstance();
+        $lenght_id = $helper->getConfig('lenght_id');
+        $rewrite_url = $helper->getConfig('rewrite_url');
+        if (0 != $lenght_id) {
+            $id = $array['content_id'];
+            while (mb_strlen($id) < $lenght_id) {
+                $id = '0' . $id;
+            }
+        } else {
+            $id = $array['content_id'];
+        }
+        if (isset($array['topic_alias']) && $array['topic_alias']) {
+            $topic_name = $array['topic_alias'];
+        } else {
+            $topic_name = self::filter(xoops_getModuleOption('static_name', $module));
+        }
+        switch ($rewrite_url) {
+            case 'none':
+                if ($topic_name) {
+                    $topic_name = 'topic=' . $topic_name . '&amp;';
+                }
+                $rewrite_base = '/modules/';
+                $page = 'page=' . $array['content_alias'];
+
+                return XOOPS_URL . $rewrite_base . $module . '/' . $type . '.php?' . $topic_name . 'id=' . $id . '&amp;' . $page . $comment;
+                break;
+            case 'rewrite':
+                if ($topic_name) {
+                    $topic_name .= '/';
+                }
+                $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
+                $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+                $module_name = '';
+                if (xoops_getModuleOption('rewrite_name', $module)) {
+                    $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
+                }
+                $page = $array['content_alias'];
+                $type .= '/';
+                $id .= '/';
+                if ('content/' === $type) {
+                    $type = '';
+                }
+                if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
+                    return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
+                }
+
+                return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $id . $page . $rewrite_ext;
+                break;
+            case 'short':
+                if ($topic_name) {
+                    $topic_name .= '/';
+                }
+                $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
+                $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+                $module_name = '';
+                if (xoops_getModuleOption('rewrite_name', $module)) {
+                    $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
+                }
+                $page = $array['content_alias'];
+                $type .= '/';
+                if ('content/' === $type) {
+                    $type = '';
+                }
+                if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
+                    return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
+                }
+
+                return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $page . $rewrite_ext;
+                break;
+        }
+
+        return null;
+    }
+
+    /**
+     * Replace all escape, character, ... for display a correct url
+     *
+     * @param string $url  string to transform
+     * @param string $type string replacement for any blank case
+     * @return string
+     */
+    public static function filter($url, $type = '')
+    {
+        // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
+        $helper = Helper::getInstance();
+        $regular_expression = $helper->getConfig('regular_expression');
+        $url = \strip_tags($url);
+        $url .= \preg_replace("`\[.*\]`U", '', $url);
+        $url .= \preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $url);
+        $url .= htmlentities($url, ENT_COMPAT, 'utf-8');
+        $url .= \preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', "\1", $url);
+        $url .= \preg_replace([$regular_expression, '`[-]+`'], '-', $url);
+
+        return '' == $url ? $type : \mb_strtolower(\trim($url, '-'));
     }
 }

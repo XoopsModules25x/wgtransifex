@@ -27,7 +27,6 @@ namespace XoopsModules\Wgtransifex;
  * @since
  */
 
-use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
 
 /**
@@ -35,9 +34,7 @@ use XoopsModules\Wgtransifex\Common;
  */
 class Utility extends Common\SysUtility
 {
-
     //--------------- Custom module methods -----------------------------
-
     /**
      * @param $about
      * @return string
@@ -45,8 +42,8 @@ class Utility extends Common\SysUtility
     public static function makeDonationForm($about)
     {
         $donationform = [
-            0 => '<form name="donation" id="donation" action="http://www.txmodxoops.org/modules/xdonations/" method="post" onsubmit="return xoopsFormValidate_donation();">',
-            1 => '<table class="outer" cellspacing="1" width="100%"><tbody><tr><th colspan="2">'
+            0   => '<form name="donation" id="donation" action="http://www.txmodxoops.org/modules/xdonations/" method="post" onsubmit="return xoopsFormValidate_donation();">',
+            1   => '<table class="outer" cellspacing="1" width="100%"><tbody><tr><th colspan="2">'
                    . \_AM_WGTRANSIFEX_ABOUT_MAKE_DONATION
                    . '</th></tr><tr align="left" valign="top"><td class="head"><div class="xoops-form-element-caption-required"><span class="caption-text">'
                    . \_AM_WGTRANSIFEX_DONATION_AMOUNT
@@ -55,10 +52,10 @@ class Utility extends Common\SysUtility
                    . '" title="'
                    . \_SUBMIT
                    . '" type="submit"></td></tr></tbody></table>',
-            2 => '<input name="op" id="op" value="createinvoice" type="hidden"><input name="plugin" id="plugin" value="donations" type="hidden"><input name="donation" id="donation" value="1" type="hidden"><input name="drawfor" id="drawfor" value="Chronolabs Co-Operative" type="hidden"><input name="drawto" id="drawto" value="%s" type="hidden"><input name="drawto_email" id="drawto_email" value="%s" type="hidden"><input name="key" id="key" value="%s" type="hidden"><input name="currency" id="currency" value="EUR" type="hidden"><input name="weight_unit" id="weight_unit" value="kgs" type="hidden"><input name="item[A][cat]" id="item[A][cat]" value="XDN%s" type="hidden"><input name="item[A][name]" id="item[A][name]" value="Donation for %s" type="hidden"><input name="item[A][quantity]" id="item[A][quantity]" value="1" type="hidden"><input name="item[A][shipping]" id="item[A][shipping]" value="0" type="hidden"><input name="item[A][handling]" id="item[A][handling]" value="0" type="hidden"><input name="item[A][weight]" id="item[A][weight]" value="0" type="hidden"><input name="item[A][tax]" id="item[A][tax]" value="0" type="hidden"><input name="return" id="return" value="http://www.txmodxoops.org/modules/xdonations/success.php" type="hidden"><input name="cancel" id="cancel" value="http://www.txmodxoops.org/modules/xdonations/success.php" type="hidden"></form>',
+            2   => '<input name="op" id="op" value="createinvoice" type="hidden"><input name="plugin" id="plugin" value="donations" type="hidden"><input name="donation" id="donation" value="1" type="hidden"><input name="drawfor" id="drawfor" value="Chronolabs Co-Operative" type="hidden"><input name="drawto" id="drawto" value="%s" type="hidden"><input name="drawto_email" id="drawto_email" value="%s" type="hidden"><input name="key" id="key" value="%s" type="hidden"><input name="currency" id="currency" value="EUR" type="hidden"><input name="weight_unit" id="weight_unit" value="kgs" type="hidden"><input name="item[A][cat]" id="item[A][cat]" value="XDN%s" type="hidden"><input name="item[A][name]" id="item[A][name]" value="Donation for %s" type="hidden"><input name="item[A][quantity]" id="item[A][quantity]" value="1" type="hidden"><input name="item[A][shipping]" id="item[A][shipping]" value="0" type="hidden"><input name="item[A][handling]" id="item[A][handling]" value="0" type="hidden"><input name="item[A][weight]" id="item[A][weight]" value="0" type="hidden"><input name="item[A][tax]" id="item[A][tax]" value="0" type="hidden"><input name="return" id="return" value="http://www.txmodxoops.org/modules/xdonations/success.php" type="hidden"><input name="cancel" id="cancel" value="http://www.txmodxoops.org/modules/xdonations/success.php" type="hidden"></form>',
             'D' => '',
-            3 => '',
-            4 => '<!-- Start Form Validation JavaScript //-->
+            3   => '',
+            4   => '<!-- Start Form Validation JavaScript //-->
 <script type="text/javascript">
 <!--//
 function xoopsFormValidate_donation() { var myform = window.document.donation; 
@@ -67,7 +64,7 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
 //--></script>
 <!-- End Form Validation JavaScript //-->',
         ];
-        $paypalform = [
+        $paypalform   = [
             0 => '<form action="https://www.paypal.com/cgi-bin/webscr" method="post">',
             1 => '<input name="cmd" value="_s-xclick" type="hidden">',
             2 => '<input name="hosted_button_id" value="%s" type="hidden">',
@@ -90,8 +87,8 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
             }
         }
         $aboutRes = '';
-        $istart = mb_strpos($about, $paypalform[0], 1);
-        $iend = mb_strpos($about, $paypalform[5], $istart + 1) + mb_strlen($paypalform[5]) - 1;
+        $istart   = mb_strpos($about, $paypalform[0], 1);
+        $iend     = mb_strpos($about, $paypalform[5], $istart + 1) + mb_strlen($paypalform[5]) - 1;
         $aboutRes .= mb_substr($about, 0, $istart - 1);
         $aboutRes .= \implode("\n", $donationform);
         $aboutRes .= mb_substr($about, $iend + 1, mb_strlen($about) - $iend - 1);
@@ -109,11 +106,7 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
         return \ucfirst(\mb_strtolower(\trim($str)));
     }
 
-
-
-
     //------------------------------------
-
 
     /**
      * Get the number of languages from the sub categories of a category or sub topics of or topic
@@ -142,171 +135,4 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
 
         return $count;
     }
-
-    /**
-     * Add content as meta tag to template
-     * @param $content
-     */
-    public static function metaKeywords($content)
-    {
-        global $xoopsTpl, $xoTheme;
-        $myts = MyTextSanitizer::getInstance();
-        $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-        if (isset($xoTheme) && \is_object($xoTheme)) {
-            $xoTheme->addMeta('meta', 'keywords', \strip_tags($content));
-        } else {    // Compatibility for old Xoops versions
-            $xoopsTpl->assign('xoops_meta_keywords', \strip_tags($content));
-        }
-    }
-
-    /**
-     * Add content as meta description to template
-     * @param $content
-     */
-    public static function metaDescription($content)
-    {
-        global $xoopsTpl, $xoTheme;
-        $myts = MyTextSanitizer::getInstance();
-        $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-        if (isset($xoTheme) && \is_object($xoTheme)) {
-            $xoTheme->addMeta('meta', 'description', \strip_tags($content));
-        } else {    // Compatibility for old Xoops versions
-            $xoopsTpl->assign('xoops_meta_description', \strip_tags($content));
-        }
-    }
-
-    /**
-     * Rewrite all url
-     *
-     * @param string $module module name
-     * @param array  $array  array
-     * @param string $type   type
-     * @return null|string    string replacement for any blank case
-     */
-    public static function rewriteUrl($module, $array, $type = 'content')
-    {
-        $comment = '';
-        $helper = Helper::getInstance();
-        $lenght_id = $helper->getConfig('lenght_id');
-        $rewrite_url = $helper->getConfig('rewrite_url');
-        if (0 != $lenght_id) {
-            $id = $array['content_id'];
-            while (mb_strlen($id) < $lenght_id) {
-                $id = '0' . $id;
-            }
-        } else {
-            $id = $array['content_id'];
-        }
-        if (isset($array['topic_alias']) && $array['topic_alias']) {
-            $topic_name = $array['topic_alias'];
-        } else {
-            $topic_name = self::filter(xoops_getModuleOption('static_name', $module));
-        }
-        switch ($rewrite_url) {
-            case 'none':
-                if ($topic_name) {
-                    $topic_name = 'topic=' . $topic_name . '&amp;';
-                }
-                $rewrite_base = '/modules/';
-                $page = 'page=' . $array['content_alias'];
-
-                return XOOPS_URL . $rewrite_base . $module . '/' . $type . '.php?' . $topic_name . 'id=' . $id . '&amp;' . $page . $comment;
-                break;
-            case 'rewrite':
-                if ($topic_name) {
-                    $topic_name .= '/';
-                }
-                $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
-                $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
-                $module_name = '';
-                if (xoops_getModuleOption('rewrite_name', $module)) {
-                    $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
-                }
-                $page = $array['content_alias'];
-                $type .= '/';
-                $id .= '/';
-                if ('content/' === $type) {
-                    $type = '';
-                }
-                if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
-                    return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
-                }
-
-                return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $id . $page . $rewrite_ext;
-                break;
-            case 'short':
-                if ($topic_name) {
-                    $topic_name .= '/';
-                }
-                $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
-                $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
-                $module_name = '';
-                if (xoops_getModuleOption('rewrite_name', $module)) {
-                    $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
-                }
-                $page = $array['content_alias'];
-                $type .= '/';
-                if ('content/' === $type) {
-                    $type = '';
-                }
-                if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
-                    return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
-                }
-
-                return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $page . $rewrite_ext;
-                break;
-        }
-
-        return null;
-    }
-
-    /**
-     * Replace all escape, character, ... for display a correct url
-     *
-     * @param string $url  string to transform
-     * @param string $type string replacement for any blank case
-     * @return string
-     */
-    public static function filter($url, $type = '')
-    {
-        // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
-        $helper = Helper::getInstance();
-        $regular_expression = $helper->getConfig('regular_expression');
-        $url = \strip_tags($url);
-        $url .= \preg_replace("`\[.*\]`U", '', $url);
-        $url .= \preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $url);
-        $url .= htmlentities($url, ENT_COMPAT, 'utf-8');
-        $url .= \preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', "\1", $url);
-        $url .= \preg_replace([$regular_expression, '`[-]+`'], '-', $url);
-
-        return '' == $url ? $type : \mb_strtolower(\trim($url, '-'));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
