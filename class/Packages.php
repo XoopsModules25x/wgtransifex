@@ -80,7 +80,7 @@ class Packages extends \XoopsObject
      */
     public function getFormPackages($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $projectsHandler = $helper->getHandler('Projects');
         //$resourcesHandler = $helper->getHandler('Resources');
         $languagesHandler = $helper->getHandler('Languages');
@@ -187,7 +187,7 @@ class Packages extends \XoopsObject
      */
     public function getValuesPackages($keys = null, $format = null, $maxDepth = null)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $ret = $this->getValues($keys, $format, $maxDepth);
         $ret['id'] = $this->getVar('pkg_id');
         $ret['name'] = $this->getVar('pkg_name');

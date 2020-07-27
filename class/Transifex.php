@@ -65,7 +65,7 @@ class Transifex
     {
         $setting = $this->getSetting($user);
         global $xoopsUser;
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $projectsHandler = $helper->getHandler('Projects');
         $count_ok = 0;
         $count_err = 0;
@@ -167,7 +167,7 @@ class Transifex
     {
         $setting = $this->getSetting();
         global $xoopsUser;
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $projectsHandler = $helper->getHandler('Projects');
         $resourcesHandler = $helper->getHandler('Resources');
         $projectsObj = $projectsHandler->get($proId);
@@ -240,7 +240,7 @@ class Transifex
     {
         $setting = $this->getSetting();
         global $xoopsUser;
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $projectsHandler = $helper->getHandler('Projects');
         $projectsObj = $projectsHandler->get($proId);
         $project = $projectsObj->getVar('pro_slug');
@@ -335,7 +335,7 @@ class Transifex
     public function checkTranslations()
     {
         $setting = $this->getSetting();
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $projectsHandler = $helper->getHandler('Projects');
         $resourcesHandler = $helper->getHandler('Resources');
         $translationsHandler = $helper->getHandler('Translations');
@@ -408,7 +408,7 @@ class Transifex
      */
     private function getSetting($user = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $settingsHandler = $helper->getHandler('Settings');
         if ($user) {
             $setting = $settingsHandler->getRequestSetting();

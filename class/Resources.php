@@ -83,7 +83,7 @@ class Resources extends \XoopsObject
      */
     public function getFormResources($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -143,7 +143,7 @@ class Resources extends \XoopsObject
      */
     public function getFormResourcesTx($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -178,7 +178,7 @@ class Resources extends \XoopsObject
      */
     public function getValuesResources($keys = null, $format = null, $maxDepth = null)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $utility = new \XoopsModules\Wgtransifex\Utility();
         $ret = $this->getValues($keys, $format, $maxDepth);
         $ret['id'] = $this->getVar('res_id');

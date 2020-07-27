@@ -91,7 +91,7 @@ class Translations extends \XoopsObject
      */
     public function getFormTranslations($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $projectsHandler = $helper->getHandler('Projects');
         $resourcesHandler = $helper->getHandler('Resources');
         $languagesHandler = $helper->getHandler('Languages');
@@ -166,7 +166,7 @@ class Translations extends \XoopsObject
      */
     public function getFormTranslationsTx($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -220,7 +220,7 @@ class Translations extends \XoopsObject
      */
     public function getValuesTranslations($keys = null, $format = null, $maxDepth = null)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $utility = new \XoopsModules\Wgtransifex\Utility();
         $ret = $this->getValues($keys, $format, $maxDepth);
         $ret['id'] = $this->getVar('tra_id');

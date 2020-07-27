@@ -78,7 +78,7 @@ class Requests extends \XoopsObject
      */
     public function getFormRequests($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -134,7 +134,7 @@ class Requests extends \XoopsObject
      */
     public function getFormRequestUser($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -176,7 +176,7 @@ class Requests extends \XoopsObject
      */
     public function getValuesRequests($keys = null, $format = null, $maxDepth = null)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = Helper::getInstance();
         $ret = $this->getValues($keys, $format, $maxDepth);
         $ret['id'] = $this->getVar('req_id');
         $projectsHandler = $helper->getHandler('Projects');
