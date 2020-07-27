@@ -33,6 +33,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
+     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -52,8 +53,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int $i field id
-     * @param null fields
+     * @param null|int       $i field id
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -108,11 +108,11 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
     /**
      * Get Criteria Requests
      * @param \CriteriaCompo $crRequests
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
-     * @return int
+     * @param int            $start
+     * @param int            $limit
+     * @param string         $sort
+     * @param string         $order
+     * @return \CriteriaCompo
      */
     private function getRequestsCriteria($crRequests, $start, $limit, $sort, $order)
     {

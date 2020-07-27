@@ -33,6 +33,7 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
+     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -52,7 +53,7 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param null|int       $i field id
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -107,11 +108,11 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
     /**
      * Get Criteria Translations
      * @param \CriteriaCompo $crTranslations
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
-     * @return int
+     * @param int            $start
+     * @param int            $limit
+     * @param string         $sort
+     * @param string         $order
+     * @return \CriteriaCompo
      */
     private function getTranslationsCriteria($crTranslations, $start, $limit, $sort, $order)
     {

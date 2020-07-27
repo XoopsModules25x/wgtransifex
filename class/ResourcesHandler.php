@@ -33,6 +33,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
+     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -52,7 +53,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param null|int       $i field id
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
@@ -107,11 +108,11 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
     /**
      * Get Criteria Resources
      * @param \CriteriaCompo $crResources
-     * @param int    $start
-     * @param int    $limit
-     * @param string $sort
-     * @param string $order
-     * @return int
+     * @param int            $start
+     * @param int            $limit
+     * @param string         $sort
+     * @param string         $order
+     * @return \CriteriaCompo
      */
     private function getResourcesCriteria($crResources, $start, $limit, $sort, $order)
     {

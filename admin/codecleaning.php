@@ -46,6 +46,9 @@ functionQualifier($dst_path);
 
 require __DIR__ . '/footer.php';
 
+/**
+ * @param $dst_path
+ */
 function functionQualifier($dst_path)
 {
     $sources = [];

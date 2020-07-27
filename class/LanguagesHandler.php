@@ -33,6 +33,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
+     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -52,7 +53,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param null|int       $i field id
      * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */

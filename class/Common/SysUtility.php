@@ -298,8 +298,8 @@ class SysUtility
     }
 
     /**
-     * @param \Xmf\Module\Helper $helper
-     * @param array|null         $options
+     * @param null       $helper
+     * @param array|null $options
      * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
      */
     public static function getEditor($helper = null, $options = null)
