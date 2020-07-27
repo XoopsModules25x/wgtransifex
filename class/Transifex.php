@@ -435,16 +435,16 @@ class Transifex
     {
         $ret = $toConvert;
         if ('html.txt' == \mb_substr($ret, -8)) {
-            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, -4);
         }
         if ('php.txt' == \mb_substr($ret, -7)) {
-            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, -4);
         }
         if ('tpl.txt' == \mb_substr($ret, -7)) {
-            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, -4);
         }
         if ('js.txt' == \mb_substr($ret, -6)) {
-            $ret = \mb_substr($ret, 0, mb_strlen($ret) - 4);
+            $ret = \mb_substr($ret, 0, -4);
         }
         $ret = \str_replace('[', '', $ret);
         $ret = \str_replace(']', '/', $ret);
