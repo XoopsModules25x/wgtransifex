@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,13 +17,12 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
-include_once __DIR__ . '/common.php';
-include_once __DIR__ . '/main.php';
+require_once __DIR__ . '/common.php';
+require_once __DIR__ . '/main.php';
 // ---------------- Admin Index ----------------
 \define('_AM_WGTRANSIFEX_STATISTICS', 'Statistics');
 // There are

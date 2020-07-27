@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +17,6 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
@@ -22,16 +24,14 @@
 
 use Xmf\Request;
 use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Constants;
-use XoopsModules\Wgtransifex\Common;
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_languages.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
-$op     = Request::getCmd('op', 'list');
-$start  = Request::getInt('start', 0);
-$limit  = Request::getInt('limit', $helper->getConfig('userpager'));
+$op = Request::getCmd('op', 'list');
+$start = Request::getInt('start', 0);
+$limit = Request::getInt('limit', $helper->getConfig('userpager'));
 $langId = Request::getInt('lang_id', 0);
 
 // Define Stylesheet
@@ -69,7 +69,7 @@ switch ($op) {
             unset($languages);
             // Display Navigation
             if ($languagesCount > $limit) {
-                include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($languagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -89,7 +89,7 @@ unset($keywords);
 
 // Description
 wgtransifexMetaDescription(\_MA_WGTRANSIFEX_LANGUAGES);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL.'/languages.php');
+$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL . '/languages.php');
 $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
 
 require __DIR__ . '/footer.php';

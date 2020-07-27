@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +17,6 @@
  *
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
- * @package        wggallery
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
@@ -24,15 +26,15 @@
 use Xmf\Request;
 
 require __DIR__ . '/header.php';
-$op    = Request::getString('op', 'list');
+$op = Request::getString('op', 'list');
 $pkgId = Request::getInt('pkg_id');
 switch ($op) {
     case 'package':
     default:
         // download package
         $packagesObj = $packagesHandler->get($pkgId);
-        $package     = $packagesObj->getValuesPackages();
-        $file        = $package['pkg_zip'];
+        $package = $packagesObj->getValuesPackages();
+        $file = $package['pkg_zip'];
         if ('' === $file) {
             \redirect_header('packages.php?op=list&amp;pkg_id=' . $pkgId, 3, \_MA_WGTRANSIFEX_DOWNLOAD_ERR_NOFILE);
         }

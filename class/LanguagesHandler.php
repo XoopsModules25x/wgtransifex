@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -32,7 +33,6 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
-     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -84,6 +84,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
     {
         $crCountLanguages = new \CriteriaCompo();
         $crCountLanguages = $this->getLanguagesCriteria($crCountLanguages, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountLanguages);
     }
 
@@ -99,6 +100,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
     {
         $crAllLanguages = new \CriteriaCompo();
         $crAllLanguages = $this->getLanguagesCriteria($crAllLanguages, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllLanguages);
     }
 
@@ -117,6 +119,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
         $crLanguages->setLimit($limit);
         $crLanguages->setSort($sort);
         $crLanguages->setOrder($order);
+
         return $crLanguages;
     }
 
@@ -133,6 +136,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
         foreach (\array_keys($languagesAll) as $i) {
             $primary = $languagesAll[$i]->getVar('lang_id');
         }
+
         return $primary;
     }
 

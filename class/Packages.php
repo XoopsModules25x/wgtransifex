@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -70,8 +71,7 @@ class Packages extends \XoopsObject
      */
     public function getNewInsertedIdPackages()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**
@@ -81,8 +81,8 @@ class Packages extends \XoopsObject
      */
     public function getFormPackages($action = false)
     {
-        $helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
-        $projectsHandler  = $helper->getHandler('Projects');
+        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $projectsHandler = $helper->getHandler('Projects');
         //$resourcesHandler = $helper->getHandler('Resources');
         $languagesHandler = $helper->getHandler('Languages');
         if (!$action) {
@@ -104,16 +104,16 @@ class Packages extends \XoopsObject
         } else {
             $editor = $helper->getConfig('editor_user');
         }
-        $editorConfigs['name']   = 'pkg_desc';
-        $editorConfigs['value']  = $this->getVar('pkg_desc', 'e');
-        $editorConfigs['rows']   = 5;
-        $editorConfigs['cols']   = 40;
-        $editorConfigs['width']  = '100%';
+        $editorConfigs['name'] = 'pkg_desc';
+        $editorConfigs['value'] = $this->getVar('pkg_desc', 'e');
+        $editorConfigs['rows'] = 5;
+        $editorConfigs['cols'] = 40;
+        $editorConfigs['width'] = '100%';
         $editorConfigs['height'] = '400px';
         $editorConfigs['editor'] = $editor;
         $form->addElement(new \XoopsFormEditor(\_AM_WGTRANSIFEX_PACKAGE_DESC, 'pkg_desc', $editorConfigs));
         // Form Table projects
-        $pkgPro_idSelect  = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_PRO_ID, 'pkg_pro_id', $this->getVar('pkg_pro_id'));
+        $pkgPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_PRO_ID, 'pkg_pro_id', $this->getVar('pkg_pro_id'));
         $crProjects = new \CriteriaCompo();
         $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
         $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTXNEW), 'OR');
@@ -136,18 +136,18 @@ class Packages extends \XoopsObject
             $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_PACKAGE_ZIP, 'pkg_zip', 100, 255, $this->getVar('pkg_zip')));
         }
         // Form Frameworks Images langFlag: Select Uploaded Image
-        $getPkg_logo    = $this->getVar('pkg_logo');
-        $pkgLogo        = $getPkg_logo ?: 'blank.gif';
+        $getPkg_logo = $this->getVar('pkg_logo');
+        $pkgLogo = $getPkg_logo ?: 'blank.gif';
         $imageDirectory = '/uploads/wgtransifex/logos';
-        $imageTray      = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_PACKAGE_LOGO, '<br>');
-        $imageSelect    = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_PACKAGE_LOGO_UPLOADS, ".{$imageDirectory}/"), 'pkg_logo', $pkgLogo, 5);
-        $imageArray     = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
+        $imageTray = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_PACKAGE_LOGO, '<br>');
+        $imageSelect = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_PACKAGE_LOGO_UPLOADS, ".{$imageDirectory}/"), 'pkg_logo', $pkgLogo, 5);
+        $imageArray = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
         foreach ($imageArray as $image1) {
-            $imageSelect->addOption(($image1), $image1);
+            $imageSelect->addOption($image1, $image1);
         }
         $imageSelect->setExtra("onchange='showImgSelected(\"imglabel_pkg_logo\", \"pkg_logo\", \"" . $imageDirectory . '", "", "' . XOOPS_URL . "\")'");
         $imageTray->addElement($imageSelect, false);
-        $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $imageDirectory . '/' . $pkgLogo . "' id='imglabel_pkg_logo' alt='' style='max-width:100px' />"));
+        $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $imageDirectory . '/' . $pkgLogo . "' id='imglabel_pkg_logo' alt='' style='max-width:100px'>"));
         // Form Frameworks Images langFlag: Upload new image
         $fileSelectTray = new \XoopsFormElementTray('', '<br>');
         $fileSelectTray->addElement(new \XoopsFormFile(\_AM_WGTRANSIFEX_FORM_UPLOAD_NEW, 'pkg_logo', $helper->getConfig('maxsize_image')));
@@ -175,6 +175,7 @@ class Packages extends \XoopsObject
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
         return $form;
     }
 
@@ -187,25 +188,25 @@ class Packages extends \XoopsObject
      */
     public function getValuesPackages($keys = null, $format = null, $maxDepth = null)
     {
-        $helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
-        $ret              = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']        = $this->getVar('pkg_id');
-        $ret['name']      = $this->getVar('pkg_name');
-        $ret['desc']      = $this->getVar('pkg_desc');
-        $projectsHandler  = $helper->getHandler('Projects');
-        $projectsObj      = $projectsHandler->get($this->getVar('pkg_pro_id'));
-        $ret['pro_id']    = $projectsObj->getVar('pro_slug');
+        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['id'] = $this->getVar('pkg_id');
+        $ret['name'] = $this->getVar('pkg_name');
+        $ret['desc'] = $this->getVar('pkg_desc');
+        $projectsHandler = $helper->getHandler('Projects');
+        $projectsObj = $projectsHandler->get($this->getVar('pkg_pro_id'));
+        $ret['pro_id'] = $projectsObj->getVar('pro_slug');
         $languagesHandler = $helper->getHandler('Languages');
-        $languagesObj     = $languagesHandler->get($this->getVar('pkg_lang_id'));
-        $ret['lang_id']   = $languagesObj->getVar('lang_name');
+        $languagesObj = $languagesHandler->get($this->getVar('pkg_lang_id'));
+        $ret['lang_id'] = $languagesObj->getVar('lang_name');
         $ret['lang_flag'] = $languagesObj->getVar('lang_flag');
-        $ret['zip']       = $this->getVar('pkg_zip');
-        $ret['logo']      = $this->getVar('pkg_logo');
-        $ret['date']      = \formatTimestamp($this->getVar('pkg_date'), 'm');
+        $ret['zip'] = $this->getVar('pkg_zip');
+        $ret['logo'] = $this->getVar('pkg_logo');
+        $ret['date'] = \formatTimestamp($this->getVar('pkg_date'), 'm');
         $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('pkg_submitter'));
-        $status           = $this->getVar('pkg_status');
-        $ret['status']    = $status;
-        $status_text      = '';
+        $status = $this->getVar('pkg_status');
+        $ret['status'] = $status;
+        $status_text = '';
         switch ($status) {
             case Constants::STATUS_NONE:
             default:
@@ -219,6 +220,7 @@ class Packages extends \XoopsObject
                 break;
         }
         $ret['status_text'] = $status_text;
+
         return $ret;
     }
 
@@ -229,11 +231,12 @@ class Packages extends \XoopsObject
      */
     public function toArrayPackages()
     {
-        $ret  = [];
+        $ret = [];
         $vars = $this->getVars();
         foreach (\array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
+
         return $ret;
     }
 }

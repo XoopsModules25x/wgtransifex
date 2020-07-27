@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -32,7 +33,6 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
-     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -84,6 +84,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
     {
         $crCountPackages = new \CriteriaCompo();
         $crCountPackages = $this->getPackagesCriteria($crCountPackages, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountPackages);
     }
 
@@ -99,6 +100,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
     {
         $crAllPackages = new \CriteriaCompo();
         $crAllPackages = $this->getPackagesCriteria($crAllPackages, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllPackages);
     }
 
@@ -117,6 +119,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
         $crPackages->setLimit($limit);
         $crPackages->setSort($sort);
         $crPackages->setOrder($order);
+
         return $crPackages;
     }
 }

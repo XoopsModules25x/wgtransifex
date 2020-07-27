@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -22,11 +25,12 @@
 class WgtransifexCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
+
     /**
      * @param $args
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
-        include __DIR__ . '/autoloader.php';
+        require __DIR__ . '/autoloader.php';
     }
 }

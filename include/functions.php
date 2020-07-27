@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +17,6 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -34,7 +36,7 @@
 function wgtransifexNumbersOfEntries($mytree, $languages, $entries, $cid)
 {
     $count = 0;
-    if (\in_array($cid, $languages)) {
+    if (\in_array($cid, $languages, true)) {
         $child = $mytree->getAllChild($cid);
         foreach (\array_keys($entries) as $i) {
             if ($entries[$i]->getVar('lang_id') == $cid) {
@@ -47,6 +49,7 @@ function wgtransifexNumbersOfEntries($mytree, $languages, $entries, $cid)
             }
         }
     }
+
     return $count;
 }
 
@@ -57,7 +60,7 @@ function wgtransifexNumbersOfEntries($mytree, $languages, $entries, $cid)
 function wgtransifexMetaKeywords($content)
 {
     global $xoopsTpl, $xoTheme;
-    $myts    = MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
     if (isset($xoTheme) && \is_object($xoTheme)) {
         $xoTheme->addMeta('meta', 'keywords', \strip_tags($content));
@@ -73,7 +76,7 @@ function wgtransifexMetaKeywords($content)
 function wgtransifexMetaDescription($content)
 {
     global $xoopsTpl, $xoTheme;
-    $myts    = MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
     if (isset($xoTheme) && \is_object($xoTheme)) {
         $xoTheme->addMeta('meta', 'description', \strip_tags($content));
@@ -88,13 +91,13 @@ function wgtransifexMetaDescription($content)
  * @param string $module module name
  * @param array  $array  array
  * @param string $type   type
- * @return null|string $type    string replacement for any blank case
+ * @return null|string    string replacement for any blank case
  */
 function wgtransifex_RewriteUrl($module, $array, $type = 'content')
 {
-    $comment     = '';
-    $helper      = \XoopsModules\Wgtransifex\Helper::getInstance();
-    $lenght_id   = $helper->getConfig('lenght_id');
+    $comment = '';
+    $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+    $lenght_id = $helper->getConfig('lenght_id');
     $rewrite_url = $helper->getConfig('rewrite_url');
     if (0 != $lenght_id) {
         $id = $array['content_id'];
@@ -115,7 +118,8 @@ function wgtransifex_RewriteUrl($module, $array, $type = 'content')
                 $topic_name = 'topic=' . $topic_name . '&amp;';
             }
             $rewrite_base = '/modules/';
-            $page         = 'page=' . $array['content_alias'];
+            $page = 'page=' . $array['content_alias'];
+
             return XOOPS_URL . $rewrite_base . $module . '/' . $type . '.php?' . $topic_name . 'id=' . $id . '&amp;' . $page . $comment;
             break;
         case 'rewrite':
@@ -123,20 +127,21 @@ function wgtransifex_RewriteUrl($module, $array, $type = 'content')
                 $topic_name .= '/';
             }
             $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
-            $rewrite_ext  = xoops_getModuleOption('rewrite_ext', $module);
-            $module_name  = '';
+            $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+            $module_name = '';
             if (xoops_getModuleOption('rewrite_name', $module)) {
                 $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
             }
             $page = $array['content_alias'];
             $type .= '/';
-            $id   .= '/';
+            $id .= '/';
             if ('content/' === $type) {
                 $type = '';
             }
             if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
                 return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
             }
+
             return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $id . $page . $rewrite_ext;
             break;
         case 'short':
@@ -144,8 +149,8 @@ function wgtransifex_RewriteUrl($module, $array, $type = 'content')
                 $topic_name .= '/';
             }
             $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
-            $rewrite_ext  = xoops_getModuleOption('rewrite_ext', $module);
-            $module_name  = '';
+            $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+            $module_name = '';
             if (xoops_getModuleOption('rewrite_name', $module)) {
                 $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
             }
@@ -157,9 +162,11 @@ function wgtransifex_RewriteUrl($module, $array, $type = 'content')
             if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
                 return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
             }
+
             return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $page . $rewrite_ext;
             break;
     }
+
     return null;
 }
 
@@ -168,19 +175,19 @@ function wgtransifex_RewriteUrl($module, $array, $type = 'content')
  *
  * @param string $url  string to transform
  * @param string $type string replacement for any blank case
- * @return string $url
+ * @return string
  */
 function wgtransifex_Filter($url, $type = '')
 {
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
-    $helper             = \XoopsModules\Wgtransifex\Helper::getInstance();
+    $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
     $regular_expression = $helper->getConfig('regular_expression');
-    $url                = \strip_tags($url);
-    $url                .= \preg_replace("`\[.*\]`U", '', $url);
-    $url                .= \preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $url);
-    $url                .= htmlentities($url, ENT_COMPAT, 'utf-8');
-    $url                .= \preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', "\1", $url);
-    $url                .= \preg_replace([$regular_expression, '`[-]+`'], '-', $url);
-    $url                = ('' == $url) ? $type : \mb_strtolower(\trim($url, '-'));
-    return $url;
+    $url = \strip_tags($url);
+    $url .= \preg_replace("`\[.*\]`U", '', $url);
+    $url .= \preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $url);
+    $url .= htmlentities($url, ENT_COMPAT, 'utf-8');
+    $url .= \preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', "\1", $url);
+    $url .= \preg_replace([$regular_expression, '`[-]+`'], '-', $url);
+
+    return '' == $url ? $type : \mb_strtolower(\trim($url, '-'));
 }

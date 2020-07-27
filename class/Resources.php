@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -73,8 +74,7 @@ class Resources extends \XoopsObject
      */
     public function getNewInsertedIdResources()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**
@@ -133,6 +133,7 @@ class Resources extends \XoopsObject
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
         return $form;
     }
 
@@ -165,6 +166,7 @@ class Resources extends \XoopsObject
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'savetx'));
         $form->addElement(new \XoopsFormButtonTray('', $title, 'submit', '', false));
+
         return $form;
     }
 
@@ -177,24 +179,24 @@ class Resources extends \XoopsObject
      */
     public function getValuesResources($keys = null, $format = null, $maxDepth = null)
     {
-        $helper                      = \XoopsModules\Wgtransifex\Helper::getInstance();
-        $utility                     = new \XoopsModules\Wgtransifex\Utility();
-        $ret                         = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']                   = $this->getVar('res_id');
+        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $utility = new \XoopsModules\Wgtransifex\Utility();
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['id'] = $this->getVar('res_id');
         $ret['source_language_code'] = $this->getVar('res_source_language_code');
-        $ret['name']                 = $this->getVar('res_name');
-        $ret['i18n_type']            = $this->getVar('res_i18n_type');
-        $ret['priority']             = $this->getVar('res_priority');
-        $ret['slug']                 = $this->getVar('res_slug');
-        $ret['categories']           = $this->getVar('res_categories');
-        $ret['metadata']             = \strip_tags($this->getVar('res_metadata', 'e'));
-        $editorMaxchar               = $helper->getConfig('editor_maxchar');
-        $ret['metadata_short']       = $utility::truncateHtml($ret['metadata'], $editorMaxchar);
-        $ret['translations']         = $this->getVar('res_translations');
-        $ret['date']                 = \formatTimestamp($this->getVar('res_date'), 'm');
-        $ret['submitter']            = \XoopsUser::getUnameFromId($this->getVar('res_submitter'));
-        $status                      = $this->getVar('res_status');
-        $ret['status']               = $status;
+        $ret['name'] = $this->getVar('res_name');
+        $ret['i18n_type'] = $this->getVar('res_i18n_type');
+        $ret['priority'] = $this->getVar('res_priority');
+        $ret['slug'] = $this->getVar('res_slug');
+        $ret['categories'] = $this->getVar('res_categories');
+        $ret['metadata'] = \strip_tags($this->getVar('res_metadata', 'e'));
+        $editorMaxchar = $helper->getConfig('editor_maxchar');
+        $ret['metadata_short'] = $utility::truncateHtml($ret['metadata'], $editorMaxchar);
+        $ret['translations'] = $this->getVar('res_translations');
+        $ret['date'] = \formatTimestamp($this->getVar('res_date'), 'm');
+        $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('res_submitter'));
+        $status = $this->getVar('res_status');
+        $ret['status'] = $status;
         switch ($status) {
             case Constants::STATUS_NONE:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
@@ -211,9 +213,10 @@ class Resources extends \XoopsObject
                 break;
         }
         $ret['status_text'] = $status_text;
-        $projectsHandler    = $helper->getHandler('Projects');
-        $projectsObj        = $projectsHandler->get($this->getVar('res_pro_id'));
-        $ret['pro_id']      = $projectsObj->getVar('pro_slug');
+        $projectsHandler = $helper->getHandler('Projects');
+        $projectsObj = $projectsHandler->get($this->getVar('res_pro_id'));
+        $ret['pro_id'] = $projectsObj->getVar('pro_slug');
+
         return $ret;
     }
 
@@ -224,11 +227,12 @@ class Resources extends \XoopsObject
      */
     public function toArrayResources()
     {
-        $ret  = [];
+        $ret = [];
         $vars = $this->getVars();
         foreach (\array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
+
         return $ret;
     }
 }

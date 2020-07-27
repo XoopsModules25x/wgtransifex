@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex\Common;
 
 /*
@@ -27,10 +29,10 @@ namespace XoopsModules\Wgtransifex\Common;
  */
 class ModuleFeedback extends \XoopsObject
 {
-    public $name    = '';
-    public $email   = '';
-    public $site    = '';
-    public $type    = '';
+    public $name = '';
+    public $email = '';
+    public $site = '';
+    public $type = '';
     public $content = '';
 
     /**
@@ -62,7 +64,7 @@ class ModuleFeedback extends \XoopsObject
      */
     public function getFormFeedback()
     {
-        $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirName = \basename(\dirname(\dirname(__DIR__)));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
@@ -88,22 +90,23 @@ class ModuleFeedback extends \XoopsObject
         $fbtypeSelect->addOption(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_FEATURES'), \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_FEATURES'));
         $fbtypeSelect->addOption(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_OTHERS'), \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_OTHERS'));
         $form->addElement($fbtypeSelect, true);
-        $editorConfigs           = [];
-        $editorConfigs['name']   = 'fb_content';
-        $editorConfigs['value']  = $this->content;
-        $editorConfigs['rows']   = 5;
-        $editorConfigs['cols']   = 40;
-        $editorConfigs['width']  = '100%';
+        $editorConfigs = [];
+        $editorConfigs['name'] = 'fb_content';
+        $editorConfigs['value'] = $this->content;
+        $editorConfigs['rows'] = 5;
+        $editorConfigs['cols'] = 40;
+        $editorConfigs['width'] = '100%';
         $editorConfigs['height'] = '400px';
-        $moduleHandler           = \xoops_getHandler('module');
-        $module                  = $moduleHandler->getByDirname('system');
-        $configHandler           = \xoops_getHandler('config');
-        $config                  = &$configHandler->getConfigsByCat(0, $module->getVar('mid'));
+        $moduleHandler = \xoops_getHandler('module');
+        $module = $moduleHandler->getByDirname('system');
+        $configHandler = \xoops_getHandler('config');
+        $config = &$configHandler->getConfigsByCat(0, $module->getVar('mid'));
         $editorConfigs['editor'] = $config['general_editor'];
-        $editor                  = new \XoopsFormEditor(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_CONTENT'), 'fb_content', $editorConfigs);
+        $editor = new \XoopsFormEditor(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_CONTENT'), 'fb_content', $editorConfigs);
         $form->addElement($editor, true);
         $form->addElement(new \XoopsFormHidden('op', 'send'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
         return $form;
     }
 }

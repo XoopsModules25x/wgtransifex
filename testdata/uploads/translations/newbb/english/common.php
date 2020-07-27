@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -13,11 +16,10 @@
  *
  * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         wfdownload
  * @since           3.23
  * @author          Xoops Development Team
  */
-$moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+$moduleDirName = \basename(\dirname(\dirname(__DIR__)));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 \define('CO_' . $moduleDirNameUpper . '_GDLIBSTATUS', 'GD library support: ');

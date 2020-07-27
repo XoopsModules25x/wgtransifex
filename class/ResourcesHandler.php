@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -32,7 +33,6 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
-     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -84,6 +84,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
     {
         $crCountResources = new \CriteriaCompo();
         $crCountResources = $this->getResourcesCriteria($crCountResources, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountResources);
     }
 
@@ -99,6 +100,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
     {
         $crAllResources = new \CriteriaCompo();
         $crAllResources = $this->getResourcesCriteria($crAllResources, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllResources);
     }
 
@@ -117,6 +119,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
         $crResources->setLimit($limit);
         $crResources->setSort($sort);
         $crResources->setOrder($order);
+
         return $crResources;
     }
 }

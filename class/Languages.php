@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -72,8 +73,7 @@ class Languages extends \XoopsObject
      */
     public function getNewInsertedIdLanguages()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**
@@ -104,18 +104,18 @@ class Languages extends \XoopsObject
         // Form Text langFolder
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_LANGUAGE_FOLDER, 'lang_folder', 50, 255, $this->getVar('lang_folder')));
         // Form Frameworks Images langFlag: Select Uploaded Image
-        $getLangFlag    = $this->getVar('lang_flag');
-        $langFlag       = $getLangFlag ?: 'blank.png';
+        $getLangFlag = $this->getVar('lang_flag');
+        $langFlag = $getLangFlag ?: 'blank.png';
         $imageDirectory = '/modules/wgtransifex/assets/images/flags';
-        $imageTray      = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_LANGUAGE_FLAG, '<br>');
-        $imageSelect    = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_LANGUAGE_FLAG_UPLOADS, ".{$imageDirectory}/"), 'lang_flag', $langFlag, 5);
-        $imageArray     = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
+        $imageTray = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_LANGUAGE_FLAG, '<br>');
+        $imageSelect = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_LANGUAGE_FLAG_UPLOADS, ".{$imageDirectory}/"), 'lang_flag', $langFlag, 5);
+        $imageArray = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
         foreach ($imageArray as $image1) {
-            $imageSelect->addOption(($image1), $image1);
+            $imageSelect->addOption($image1, $image1);
         }
         $imageSelect->setExtra("onchange='showImgSelected(\"imglabel_lang_flag\", \"lang_flag\", \"" . $imageDirectory . '", "", "' . XOOPS_URL . "\")'");
         $imageTray->addElement($imageSelect, false);
-        $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $imageDirectory . '/' . $langFlag . "' id='imglabel_lang_flag' alt='' style='max-width:100px' />"));
+        $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $imageDirectory . '/' . $langFlag . "' id='imglabel_lang_flag' alt='' style='max-width:100px'>"));
         // Form Frameworks Images langFlag: Upload new image
         $fileSelectTray = new \XoopsFormElementTray('', '<br>');
         $fileSelectTray->addElement(new \XoopsFormFile(\_AM_WGTRANSIFEX_FORM_UPLOAD_NEW, 'lang_flag', $helper->getConfig('maxsize_image')));
@@ -137,6 +137,7 @@ class Languages extends \XoopsObject
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
         return $form;
     }
 
@@ -149,20 +150,20 @@ class Languages extends \XoopsObject
      */
     public function getValuesLanguages($keys = null, $format = null, $maxDepth = null)
     {
-        $ret                 = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']           = $this->getVar('lang_id');
-        $ret['name']         = $this->getVar('lang_name');
-        $ret['code']         = $this->getVar('lang_code');
-        $ret['iso_639_1']    = $this->getVar('lang_iso_639_1');
-        $ret['iso_639_2']    = $this->getVar('lang_iso_639_2');
-        $ret['folder']       = $this->getVar('lang_folder');
-        $ret['flag']         = $this->getVar('lang_flag');
-        $ret['primary']      = $this->getVar('lang_primary');
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['id'] = $this->getVar('lang_id');
+        $ret['name'] = $this->getVar('lang_name');
+        $ret['code'] = $this->getVar('lang_code');
+        $ret['iso_639_1'] = $this->getVar('lang_iso_639_1');
+        $ret['iso_639_2'] = $this->getVar('lang_iso_639_2');
+        $ret['folder'] = $this->getVar('lang_folder');
+        $ret['flag'] = $this->getVar('lang_flag');
+        $ret['primary'] = $this->getVar('lang_primary');
         $ret['primary_text'] = (1 == $this->getVar('lang_primary')) ? \_YES : \_NO;
-        $ret['online']       = $this->getVar('lang_online');
+        $ret['online'] = $this->getVar('lang_online');
         $ret['online_text']  = (1 == $this->getVar('lang_online')) ? \_YES : \_NO;
-        $ret['date']         = \formatTimestamp($this->getVar('lang_date'), 's');
-        $ret['submitter']    = \XoopsUser::getUnameFromId($this->getVar('lang_submitter'));
+        $ret['date'] = \formatTimestamp($this->getVar('lang_date'), 's');
+        $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('lang_submitter'));
 
         return $ret;
     }
@@ -174,11 +175,12 @@ class Languages extends \XoopsObject
      */
     public function toArrayLanguages()
     {
-        $ret  = [];
+        $ret = [];
         $vars = $this->getVars();
         foreach (\array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
+
         return $ret;
     }
 }

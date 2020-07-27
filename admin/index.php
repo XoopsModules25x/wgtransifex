@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +17,6 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -22,18 +24,18 @@
 
 use XoopsModules\Wgtransifex\Common;
 
-include_once \dirname(__DIR__) . '/preloads/autoloader.php';
+require_once \dirname(__DIR__) . '/preloads/autoloader.php';
 require __DIR__ . '/header.php';
 // Template Index
 $templateMain = 'wgtransifex_admin_index.tpl';
 // Count elements
-$countProjects     = $projectsHandler->getCount();
-$countResources    = $resourcesHandler->getCount();
-$countPackages     = $packagesHandler->getCount();
+$countProjects = $projectsHandler->getCount();
+$countResources = $resourcesHandler->getCount();
+$countPackages = $packagesHandler->getCount();
 $countTranslations = $translationsHandler->getCount();
-$countSettings     = $settingsHandler->getCount();
-$countLanguages    = $languagesHandler->getCount();
-$countRequests     = $requestsHandler->getCount();
+$countSettings = $settingsHandler->getCount();
+$countLanguages = $languagesHandler->getCount();
+$countRequests = $requestsHandler->getCount();
 // InfoBox Statistics
 $adminObject->addInfoBox(\_AM_WGTRANSIFEX_STATISTICS);
 // Info elements
@@ -65,7 +67,7 @@ $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('inde
 // Test Data
 if ($helper->getConfig('displaySampleButton')) {
     \xoops_loadLanguage('admin/modulesadmin', 'system');
-    include_once \dirname(__DIR__) . '/testdata/index.php';
+    require_once \dirname(__DIR__) . '/testdata/index.php';
     $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
     $adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save', 'add');
     //	$adminObject->addItemButton(\constant('CO_' . $moduleDirNameUpper . '_EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');

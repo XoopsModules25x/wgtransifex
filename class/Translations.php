@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -81,8 +82,7 @@ class Translations extends \XoopsObject
      */
     public function getNewInsertedIdTranslations()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**
@@ -92,8 +92,8 @@ class Translations extends \XoopsObject
      */
     public function getFormTranslations($action = false)
     {
-        $helper           = \XoopsModules\Wgtransifex\Helper::getInstance();
-        $projectsHandler  = $helper->getHandler('Projects');
+        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $projectsHandler = $helper->getHandler('Projects');
         $resourcesHandler = $helper->getHandler('Resources');
         $languagesHandler = $helper->getHandler('Languages');
         if (!$action) {
@@ -110,7 +110,7 @@ class Translations extends \XoopsObject
         $traPro_idSelect->addOptionArray($projectsHandler->getList());
         $form->addElement($traPro_idSelect, true);
         // Form Table resources
-        $traRes_idSelect  = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_RES_ID, 'tra_res_id', $this->getVar('tra_res_id'));
+        $traRes_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_RES_ID, 'tra_res_id', $this->getVar('tra_res_id'));
         $traRes_idSelect->addOptionArray($resourcesHandler->getList());
         $form->addElement($traRes_idSelect, true);
         // Form Table languages
@@ -156,6 +156,7 @@ class Translations extends \XoopsObject
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
         return $form;
     }
 
@@ -177,14 +178,14 @@ class Translations extends \XoopsObject
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         // Form Table projects
-        $projectsHandler  = $helper->getHandler('Projects');
+        $projectsHandler = $helper->getHandler('Projects');
         $resourcesHandler = $helper->getHandler('Resources');
-        $traPro_idSelect  = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_PRO_ID, 'tra_pro_id', $this->getVar('tra_pro_id'));
-        $projectsCount    = $projectsHandler->getCountProjects();
+        $traPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_PRO_ID, 'tra_pro_id', $this->getVar('tra_pro_id'));
+        $projectsCount = $projectsHandler->getCountProjects();
         if ($projectsCount > 0) {
             $projectsAll = $projectsHandler->getAll();
             foreach (\array_keys($projectsAll) as $i) {
-                $proId       = $projectsAll[$i]->getVar('pro_id');
+                $proId = $projectsAll[$i]->getVar('pro_id');
                 $crResources = new \CriteriaCompo();
                 $crResources->add(new \Criteria('res_pro_id', $proId));
                 $resourcesCount = $resourcesHandler->getCount($crResources);
@@ -207,6 +208,7 @@ class Translations extends \XoopsObject
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'savetx'));
         $form->addElement(new \XoopsFormButtonTray('', $title, 'submit', '', false));
+
         return $form;
     }
 
@@ -219,26 +221,26 @@ class Translations extends \XoopsObject
      */
     public function getValuesTranslations($keys = null, $format = null, $maxDepth = null)
     {
-        $helper                       = \XoopsModules\Wgtransifex\Helper::getInstance();
-        $utility                      = new \XoopsModules\Wgtransifex\Utility();
-        $ret                          = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']                    = $this->getVar('tra_id');
-        $projectsHandler              = $helper->getHandler('Projects');
-        $projectsObj                  = $projectsHandler->get($this->getVar('tra_pro_id'));
-        $ret['pro_id']                = $projectsObj->getVar('pro_slug');
-        $resourcesHandler             = $helper->getHandler('Resources');
-        $resourcesObj                 = $resourcesHandler->get($this->getVar('tra_res_id'));
-        $ret['res_id']                = $resourcesObj->getVar('res_slug');
-        $languagesHandler             = $helper->getHandler('Languages');
-        $languagesObj                 = $languagesHandler->get($this->getVar('tra_lang_id'));
-        $ret['lang_id']               = $languagesObj->getVar('lang_name');
-        $ret['content']               = \strip_tags($this->getVar('tra_content', 'e'));
-        $editorMaxchar                = $helper->getConfig('editor_maxchar');
-        $ret['content_short']         = $utility::truncateHtml($ret['content'], $editorMaxchar, '...', true);
-        $ret['mimetype']              = $this->getVar('tra_mimetype');
-        $ret['local']                 = $this->getVar('tra_local');
-        $status                       = $this->getVar('tra_status');
-        $ret['status']                = $status;
+        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $utility = new \XoopsModules\Wgtransifex\Utility();
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['id'] = $this->getVar('tra_id');
+        $projectsHandler = $helper->getHandler('Projects');
+        $projectsObj = $projectsHandler->get($this->getVar('tra_pro_id'));
+        $ret['pro_id'] = $projectsObj->getVar('pro_slug');
+        $resourcesHandler = $helper->getHandler('Resources');
+        $resourcesObj = $resourcesHandler->get($this->getVar('tra_res_id'));
+        $ret['res_id'] = $resourcesObj->getVar('res_slug');
+        $languagesHandler = $helper->getHandler('Languages');
+        $languagesObj = $languagesHandler->get($this->getVar('tra_lang_id'));
+        $ret['lang_id'] = $languagesObj->getVar('lang_name');
+        $ret['content'] = \strip_tags($this->getVar('tra_content', 'e'));
+        $editorMaxchar = $helper->getConfig('editor_maxchar');
+        $ret['content_short'] = $utility::truncateHtml($ret['content'], $editorMaxchar, '...', true);
+        $ret['mimetype'] = $this->getVar('tra_mimetype');
+        $ret['local'] = $this->getVar('tra_local');
+        $status = $this->getVar('tra_status');
+        $ret['status'] = $status;
         switch ($status) {
             case Constants::STATUS_NONE:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
@@ -260,20 +262,21 @@ class Translations extends \XoopsObject
                 $status_text = 'missing status text'; /* this should not be */
                 break;
         }
-        $ret['status_text']           = $status_text;
-        $ret['date']                  = \formatTimestamp($this->getVar('tra_date'), 'm');
-        $ret['submitter']             = \XoopsUser::getUnameFromId($this->getVar('tra_submitter'));
-        $ret['proofread']             = $this->getVar('tra_proofread');
-        $ret['proofread_percentage']  = $this->getVar('tra_proofread_percentage');
-        $ret['reviewed']              = $this->getVar('tra_reviewed');
-        $ret['reviewed_percentage']   = $this->getVar('tra_reviewed_percentage');
-        $ret['untranslated_words']    = $this->getVar('tra_untranslated_words');
-        $ret['translated_words']      = $this->getVar('tra_translated_words');
-        $ret['translated_entities']   = $this->getVar('tra_translated_entities');
+        $ret['status_text'] = $status_text;
+        $ret['date'] = \formatTimestamp($this->getVar('tra_date'), 'm');
+        $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('tra_submitter'));
+        $ret['proofread'] = $this->getVar('tra_proofread');
+        $ret['proofread_percentage'] = $this->getVar('tra_proofread_percentage');
+        $ret['reviewed'] = $this->getVar('tra_reviewed');
+        $ret['reviewed_percentage'] = $this->getVar('tra_reviewed_percentage');
+        $ret['untranslated_words'] = $this->getVar('tra_untranslated_words');
+        $ret['translated_words'] = $this->getVar('tra_translated_words');
+        $ret['translated_entities'] = $this->getVar('tra_translated_entities');
         $ret['untranslated_entities'] = $this->getVar('tra_untranslated_entities');
-        $ret['completed']             = $this->getVar('tra_completed');
+        $ret['completed'] = $this->getVar('tra_completed');
         //$ret['last_commiter']        = $this->getVar('tra_last_commiter');
-        $ret['last_update']           = \formatTimestamp($this->getVar('tra_last_update'), 'm');
+        $ret['last_update'] = \formatTimestamp($this->getVar('tra_last_update'), 'm');
+
         return $ret;
     }
 
@@ -284,11 +287,12 @@ class Translations extends \XoopsObject
      */
     public function toArrayTranslations()
     {
-        $ret  = [];
+        $ret = [];
         $vars = $this->getVars();
         foreach (\array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
+
         return $ret;
     }
 }

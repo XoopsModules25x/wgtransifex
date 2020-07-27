@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +17,6 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -26,7 +28,7 @@ use XoopsModules\Wgtransifex\Common;
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op    = Request::getCmd('op', 'list');
+$op = Request::getCmd('op', 'list');
 $proId = Request::getInt('pro_id');
 
 switch ($op) {
@@ -34,15 +36,15 @@ switch ($op) {
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
-        $start        = Request::getInt('start', 0);
-        $limit        = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $start = Request::getInt('start', 0);
+        $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wgtransifex_admin_projects.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('projects.php'));
         //$adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PROJECT, 'projects.php?op=new', 'add');
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_PROJECTS, 'projects.php?op=savetx', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $projectsCount = $projectsHandler->getCountProjects();
-        $projectsAll   = $projectsHandler->getAllProjects($start, $limit, 'pro_id', 'DESC');
+        $projectsAll = $projectsHandler->getAllProjects($start, $limit, 'pro_id', 'DESC');
         $GLOBALS['xoopsTpl']->assign('projects_count', $projectsCount);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
@@ -55,7 +57,7 @@ switch ($op) {
             }
             // Display Navigation
             if ($projectsCount > $limit) {
-                include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -65,7 +67,7 @@ switch ($op) {
         break;
     case 'savetx':
         $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
-        $result    = $transifex->readProjects($proId);
+        $result = $transifex->readProjects($proId);
         \redirect_header('projects.php?op=list', 3, $result);
         break;
     case 'new':
@@ -75,7 +77,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Form Create
         $projectsObj = $projectsHandler->create();
-        $form        = $projectsObj->getFormProjects();
+        $form = $projectsObj->getFormProjects();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'save':
@@ -125,14 +127,14 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $projectsObj = $projectsHandler->get($proId);
-        $form        = $projectsObj->getFormProjects();
+        $form = $projectsObj->getFormProjects();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'delete':
         $templateMain = 'wgtransifex_admin_projects.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('projects.php'));
         $projectsObj = $projectsHandler->get($proId);
-        $proSlug     = $projectsObj->getVar('pro_slug');
+        $proSlug = $projectsObj->getVar('pro_slug');
         if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 \redirect_header('projects.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -148,7 +150,7 @@ switch ($op) {
                 $_SERVER['REQUEST_URI'],
                 \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $projectsObj->getVar('pro_slug'))
             );
-            $form         = $xoopsconfirm->getFormXoopsConfirm();
+            $form = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;

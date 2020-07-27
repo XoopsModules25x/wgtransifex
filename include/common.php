@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +17,6 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -39,6 +41,6 @@ if (!\defined('XOOPS_ICONS32_URL')) {
 \define('WGTRANSIFEX_ADMIN', WGTRANSIFEX_URL . '/admin/index.php');
 $localLogo = WGTRANSIFEX_IMAGE_URL . '/tdmxoops_logo.png';
 // Module Information
-$copyright = "<a href='http://xoops.org' title='XOOPS Project' target='_blank'><img src='" . $localLogo . "' alt='XOOPS Project' /></a>";
-include_once XOOPS_ROOT_PATH . '/class/xoopsrequest.php';
-include_once WGTRANSIFEX_PATH . '/include/functions.php';
+$copyright = "<a href='http://xoops.org' title='XOOPS Project' target='_blank'><img src='" . $localLogo . "' alt='XOOPS Project'></a>";
+require_once XOOPS_ROOT_PATH . '/class/xoopsrequest.php';
+require_once WGTRANSIFEX_PATH . '/include/functions.php';

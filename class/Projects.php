@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -74,8 +75,7 @@ class Projects extends \XoopsObject
      */
     public function getNewInsertedIdProjects()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**
@@ -134,6 +134,7 @@ class Projects extends \XoopsObject
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
         return $form;
     }
 
@@ -146,18 +147,18 @@ class Projects extends \XoopsObject
      */
     public function getValuesProjects($keys = null, $format = null, $maxDepth = null)
     {
-        $ret                         = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']                   = $this->getVar('pro_id');
-        $ret['description']          = $this->getVar('pro_description');
+        $ret = $this->getValues($keys, $format, $maxDepth);
+        $ret['id'] = $this->getVar('pro_id');
+        $ret['description'] = $this->getVar('pro_description');
         $ret['source_language_code'] = $this->getVar('pro_source_language_code');
-        $ret['slug']                 = $this->getVar('pro_slug');
-        $ret['name']                 = $this->getVar('pro_name');
-        $ret['txresources']          = $this->getVar('pro_txresources');
-        $ret['last_updated']         = \formatTimestamp($this->getVar('pro_last_updated'), 'm');
-        $teams       = '<ul>';
+        $ret['slug'] = $this->getVar('pro_slug');
+        $ret['name'] = $this->getVar('pro_name');
+        $ret['txresources'] = $this->getVar('pro_txresources');
+        $ret['last_updated'] = \formatTimestamp($this->getVar('pro_last_updated'), 'm');
+        $teams = '<ul>';
         $teams_short = '<ul>';
-        $key         = 0;
-        $teams_arr   = \json_decode(html_entity_decode($this->getVar('pro_teams')), true);
+        $key = 0;
+        $teams_arr = \json_decode(html_entity_decode($this->getVar('pro_teams')), true);
         foreach ($teams_arr as $key => $value) {
             $teams .= '<li>' . $value . '</li>';
             if ($key < 4) {
@@ -166,19 +167,18 @@ class Projects extends \XoopsObject
         }
         if ($key > 3) {
             $teams_short .= '<li>...</li>';
-            ;
         }
-        $teams       .= '</ul>';
+        $teams .= '</ul>';
         $teams_short .= '</ul>';
-        $ret['teams']        = $teams;
-        $ret['teams_short']  = $teams_short;
-        $ret['resources']    = $this->getVar('pro_resources');
+        $ret['teams'] = $teams;
+        $ret['teams_short'] = $teams_short;
+        $ret['resources'] = $this->getVar('pro_resources');
         $ret['translations'] = $this->getVar('pro_translations');
-        $ret['date']         = \formatTimestamp($this->getVar('pro_date'), 'm');
-        $ret['submitter']    = \XoopsUser::getUnameFromId($this->getVar('pro_submitter'));
-        $ret['archived']    = $this->getVar('pro_archived');
-        $status              = $this->getVar('pro_status');
-        $ret['status']       = $status;
+        $ret['date'] = \formatTimestamp($this->getVar('pro_date'), 'm');
+        $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('pro_submitter'));
+        $ret['archived'] = $this->getVar('pro_archived');
+        $status = $this->getVar('pro_status');
+        $ret['status'] = $status;
         switch ($status) {
             case Constants::STATUS_NONE:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
@@ -207,6 +207,7 @@ class Projects extends \XoopsObject
                 break;
         }
         $ret['status_text'] = $status_text;
+
         return $ret;
     }
 
@@ -217,11 +218,12 @@ class Projects extends \XoopsObject
      */
     public function toArrayProjects()
     {
-        $ret  = [];
+        $ret = [];
         $vars = $this->getVars();
         foreach (\array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
+
         return $ret;
     }
 }

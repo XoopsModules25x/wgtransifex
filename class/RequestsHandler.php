@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
@@ -32,8 +33,6 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
-     *
-     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -55,6 +54,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
      *
      * @param int $i field id
      * @param null fields
+     * @param null|mixed $fields
      * @return mixed reference to the {@link Get} object
      */
     public function get($i = null, $fields = null)
@@ -85,6 +85,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
     {
         $crCountRequests = new \CriteriaCompo();
         $crCountRequests = $this->getRequestsCriteria($crCountRequests, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountRequests);
     }
 
@@ -100,6 +101,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
     {
         $crAllRequests = new \CriteriaCompo();
         $crAllRequests = $this->getRequestsCriteria($crAllRequests, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllRequests);
     }
 
@@ -118,6 +120,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
         $crRequests->setLimit($limit);
         $crRequests->setSort($sort);
         $crRequests->setOrder($order);
+
         return $crRequests;
     }
 }

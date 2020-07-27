@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex\Common;
 
 /*
@@ -17,14 +19,10 @@ namespace XoopsModules\Wgtransifex\Common;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        Wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<goffy@myxoops.org> - Website:<http://xoops.org>
  */
-
-use XoopsModules\Wgtransifex;
-
 \defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -33,10 +31,10 @@ use XoopsModules\Wgtransifex;
 class XoopsConfirm
 {
     private $hiddens = [];
-    private $action  = '';
-    private $title   = '';
-    private $label   = '';
-    private $object  = '';
+    private $action = '';
+    private $title = '';
+    private $label = '';
+    private $object = '';
 
     /**
      * @public function constructor class
@@ -50,10 +48,10 @@ class XoopsConfirm
     public function __construct($hiddens, $action, $object, $title = '', $label = '')
     {
         $this->hiddens = $hiddens;
-        $this->action  = $action;
-        $this->object  = $object;
-        $this->title   = $title;
-        $this->label   = $label;
+        $this->action = $action;
+        $this->object = $object;
+        $this->title = $title;
+        $this->label = $label;
     }
 
     /**
@@ -90,6 +88,7 @@ class XoopsConfirm
         $buttonBack->setExtra('onclick="history.go(-1);return true;"');
         $buttonTray->addElement($buttonBack);
         $form->addElement($buttonTray);
+
         return $form;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +17,6 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
@@ -22,7 +24,6 @@
 
 use Xmf\Request;
 use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Constants;
 use XoopsModules\Wgtransifex\Common;
 
 require __DIR__ . '/header.php';
@@ -55,7 +56,7 @@ switch ($op) {
             }
             // Display Navigation
             if ($requestsCount > $limit) {
-                include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($requestsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }

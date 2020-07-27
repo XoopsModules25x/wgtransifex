@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -18,7 +20,6 @@ namespace XoopsModules\Wgtransifex;
 /**
  * Module:  wgtransifex
  *
- * @package      \module\wgtransifex\class
  * @license      http://www.fsf.org/copyleft/gpl.html GNU public license
  * @copyright    https://xoops.org 2001-2017 &copy; XOOPS Project
  * @author       ZySpec <owners@zyspec.com>
@@ -34,10 +35,8 @@ use XoopsModules\Wgtransifex;
 class Utility
 {
     use Common\VersionChecks;
-
     //checkVerXoops, checkVerPhp Traits
     use Common\ServerStats;
-
     // getServerStats Trait
     use Common\FilesManagement;
 
@@ -66,8 +65,8 @@ class Utility
             // splits all html-tags to scanable lines
             \preg_match_all('/(<.+?' . '>)?([^<>]*)/s', $text, $lines, \PREG_SET_ORDER);
             $total_length = mb_strlen($ending);
-            $open_tags    = [];
-            $truncate     = '';
+            $open_tags = [];
+            $truncate = '';
             foreach ($lines as $line_matchings) {
                 // if there is any html-tag in this line, handle it and add it (uncounted) to the output
                 if (!empty($line_matchings[1])) {
@@ -93,7 +92,7 @@ class Utility
                 $content_length = mb_strlen(\preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
                 if ($total_length + $content_length > $length) {
                     // the number of characters which are left
-                    $left            = $length - $total_length;
+                    $left = $length - $total_length;
                     $entities_length = 0;
                     // search for html entities
                     if (\preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', $line_matchings[2], $entities, \PREG_OFFSET_CAPTURE)) {
@@ -112,7 +111,7 @@ class Utility
                     // maximum lenght is reached, so get off the loop
                     break;
                 }
-                $truncate     .= $line_matchings[2];
+                $truncate .= $line_matchings[2];
                 $total_length += $content_length;
                 // if the maximum length is reached, get off the loop
                 if ($total_length >= $length) {
@@ -144,6 +143,7 @@ class Utility
                 $truncate .= '</' . $tag . '>';
             }
         }
+
         return $truncate;
     }
 
@@ -156,12 +156,12 @@ class Utility
     {
         /** @var Wgtransifex\Helper $helper */
         if (null === $options) {
-            $options           = [];
-            $options['name']   = 'Editor';
-            $options['value']  = 'Editor';
-            $options['rows']   = 10;
-            $options['cols']   = '100%';
-            $options['width']  = '100%';
+            $options = [];
+            $options['name'] = 'Editor';
+            $options['value'] = 'Editor';
+            $options['rows'] = 10;
+            $options['cols'] = '100%';
+            $options['width'] = '100%';
             $options['height'] = '400px';
         }
         $isAdmin = $helper->isUserAdmin();
@@ -187,8 +187,8 @@ class Utility
     public static function makeDonationForm($about)
     {
         $donationform = [
-            0   => '<form name="donation" id="donation" action="http://www.txmodxoops.org/modules/xdonations/" method="post" onsubmit="return xoopsFormValidate_donation();">',
-            1   => '<table class="outer" cellspacing="1" width="100%"><tbody><tr><th colspan="2">'
+            0 => '<form name="donation" id="donation" action="http://www.txmodxoops.org/modules/xdonations/" method="post" onsubmit="return xoopsFormValidate_donation();">',
+            1 => '<table class="outer" cellspacing="1" width="100%"><tbody><tr><th colspan="2">'
                    . \_AM_WGTRANSIFEX_ABOUT_MAKE_DONATION
                    . '</th></tr><tr align="left" valign="top"><td class="head"><div class="xoops-form-element-caption-required"><span class="caption-text">'
                    . \_AM_WGTRANSIFEX_DONATION_AMOUNT
@@ -197,10 +197,10 @@ class Utility
                    . '" title="'
                    . \_SUBMIT
                    . '" type="submit"></td></tr></tbody></table>',
-            2   => '<input name="op" id="op" value="createinvoice" type="hidden"><input name="plugin" id="plugin" value="donations" type="hidden"><input name="donation" id="donation" value="1" type="hidden"><input name="drawfor" id="drawfor" value="Chronolabs Co-Operative" type="hidden"><input name="drawto" id="drawto" value="%s" type="hidden"><input name="drawto_email" id="drawto_email" value="%s" type="hidden"><input name="key" id="key" value="%s" type="hidden"><input name="currency" id="currency" value="EUR" type="hidden"><input name="weight_unit" id="weight_unit" value="kgs" type="hidden"><input name="item[A][cat]" id="item[A][cat]" value="XDN%s" type="hidden"><input name="item[A][name]" id="item[A][name]" value="Donation for %s" type="hidden"><input name="item[A][quantity]" id="item[A][quantity]" value="1" type="hidden"><input name="item[A][shipping]" id="item[A][shipping]" value="0" type="hidden"><input name="item[A][handling]" id="item[A][handling]" value="0" type="hidden"><input name="item[A][weight]" id="item[A][weight]" value="0" type="hidden"><input name="item[A][tax]" id="item[A][tax]" value="0" type="hidden"><input name="return" id="return" value="http://www.txmodxoops.org/modules/xdonations/success.php" type="hidden"><input name="cancel" id="cancel" value="http://www.txmodxoops.org/modules/xdonations/success.php" type="hidden"></form>',
+            2 => '<input name="op" id="op" value="createinvoice" type="hidden"><input name="plugin" id="plugin" value="donations" type="hidden"><input name="donation" id="donation" value="1" type="hidden"><input name="drawfor" id="drawfor" value="Chronolabs Co-Operative" type="hidden"><input name="drawto" id="drawto" value="%s" type="hidden"><input name="drawto_email" id="drawto_email" value="%s" type="hidden"><input name="key" id="key" value="%s" type="hidden"><input name="currency" id="currency" value="EUR" type="hidden"><input name="weight_unit" id="weight_unit" value="kgs" type="hidden"><input name="item[A][cat]" id="item[A][cat]" value="XDN%s" type="hidden"><input name="item[A][name]" id="item[A][name]" value="Donation for %s" type="hidden"><input name="item[A][quantity]" id="item[A][quantity]" value="1" type="hidden"><input name="item[A][shipping]" id="item[A][shipping]" value="0" type="hidden"><input name="item[A][handling]" id="item[A][handling]" value="0" type="hidden"><input name="item[A][weight]" id="item[A][weight]" value="0" type="hidden"><input name="item[A][tax]" id="item[A][tax]" value="0" type="hidden"><input name="return" id="return" value="http://www.txmodxoops.org/modules/xdonations/success.php" type="hidden"><input name="cancel" id="cancel" value="http://www.txmodxoops.org/modules/xdonations/success.php" type="hidden"></form>',
             'D' => '',
-            3   => '',
-            4   => '<!-- Start Form Validation JavaScript //-->
+            3 => '',
+            4 => '<!-- Start Form Validation JavaScript //-->
 <script type="text/javascript">
 <!--//
 function xoopsFormValidate_donation() { var myform = window.document.donation; 
@@ -209,7 +209,7 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
 //--></script>
 <!-- End Form Validation JavaScript //-->',
         ];
-        $paypalform   = [
+        $paypalform = [
             0 => '<form action="https://www.paypal.com/cgi-bin/webscr" method="post">',
             1 => '<input name="cmd" value="_s-xclick" type="hidden">',
             2 => '<input name="hosted_button_id" value="%s" type="hidden">',
@@ -232,11 +232,12 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
             }
         }
         $aboutRes = '';
-        $istart   = mb_strpos($about, $paypalform[0], 1);
-        $iend     = mb_strpos($about, $paypalform[5], $istart + 1) + mb_strlen($paypalform[5]) - 1;
+        $istart = mb_strpos($about, $paypalform[0], 1);
+        $iend = mb_strpos($about, $paypalform[5], $istart + 1) + mb_strlen($paypalform[5]) - 1;
         $aboutRes .= mb_substr($about, 0, $istart - 1);
         $aboutRes .= \implode("\n", $donationform);
         $aboutRes .= mb_substr($about, $iend + 1, mb_strlen($about) - $iend - 1);
+
         return $aboutRes;
     }
 

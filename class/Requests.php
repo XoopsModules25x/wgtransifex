@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
@@ -69,8 +70,7 @@ class Requests extends \XoopsObject
      */
     public function getNewInsertedIdRequests()
     {
-        $newInsertedId = $GLOBALS['xoopsDB']->getInsertId();
-        return $newInsertedId;
+        return $GLOBALS['xoopsDB']->getInsertId();
     }
 
     /**
@@ -120,11 +120,12 @@ class Requests extends \XoopsObject
         $reqDate = $this->isNew() ?: $this->getVar('req_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_REQUEST_DATE, 'req_date', '', $reqDate));
         // Form Select User reqSubmitter
-        $reqSubmitter = (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
+        $reqSubmitter = isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_REQUEST_SUBMITTER, 'req_submitter', false, $reqSubmitter));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+
         return $form;
     }
 
@@ -164,6 +165,7 @@ class Requests extends \XoopsObject
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+
         return $form;
     }
 
@@ -176,23 +178,23 @@ class Requests extends \XoopsObject
      */
     public function getValuesRequests($keys = null, $format = null, $maxDepth = null)
     {
-        $helper  = \XoopsModules\Wgtransifex\Helper::getInstance();
+        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
         $ret = $this->getValues($keys, $format, $maxDepth);
-        $ret['id']        = $this->getVar('req_id');
-        $projectsHandler  = $helper->getHandler('Projects');
-        $proId            = $this->getVar('req_pro_id');
+        $ret['id'] = $this->getVar('req_id');
+        $projectsHandler = $helper->getHandler('Projects');
+        $proId = $this->getVar('req_pro_id');
         if ($proId > 0) {
-            $projectsObj      = $projectsHandler->get($this->getVar('req_pro_id'));
-            $ret['project']   = $projectsObj->getVar('pro_slug');
+            $projectsObj = $projectsHandler->get($this->getVar('req_pro_id'));
+            $ret['project'] = $projectsObj->getVar('pro_slug');
         } else {
             $ret['project'] = _AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST;
         }
         $languagesHandler = $helper->getHandler('Languages');
-        $languagesObj     = $languagesHandler->get($this->getVar('req_lang_id'));
-        $ret['language']  = $languagesObj->getVar('lang_name');
-        $ret['info']      = $this->getVar('req_info');
-        $status           = $this->getVar('req_status');
-        $ret['status']    = $status;
+        $languagesObj = $languagesHandler->get($this->getVar('req_lang_id'));
+        $ret['language'] = $languagesObj->getVar('lang_name');
+        $ret['info'] = $this->getVar('req_info');
+        $status = $this->getVar('req_status');
+        $ret['status'] = $status;
         switch ($status) {
             case Constants::STATUS_NONE:
             default:
@@ -206,10 +208,11 @@ class Requests extends \XoopsObject
                 break;
         }
         $ret['status_text'] = $status_text;
-        $ret['statusdate']  = \formatTimestamp($this->getVar('req_statusdate'), 'm');
-        $ret['statusuid']   = \XoopsUser::getUnameFromId($this->getVar('req_statusuid'));
-        $ret['date']        = \formatTimestamp($this->getVar('req_date'), 'm');
-        $ret['submitter']   = \XoopsUser::getUnameFromId($this->getVar('req_submitter'));
+        $ret['statusdate'] = \formatTimestamp($this->getVar('req_statusdate'), 'm');
+        $ret['statusuid'] = \XoopsUser::getUnameFromId($this->getVar('req_statusuid'));
+        $ret['date'] = \formatTimestamp($this->getVar('req_date'), 'm');
+        $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('req_submitter'));
+
         return $ret;
     }
 
@@ -225,6 +228,7 @@ class Requests extends \XoopsObject
         foreach (\array_keys($vars) as $var) {
             $ret[$var] = $this->getVar('"{$var}"');
         }
+
         return $ret;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +17,6 @@
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -25,7 +27,7 @@ use XoopsModules\Wgtransifex;
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_index.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
 $keywords = [];
@@ -36,14 +38,14 @@ $packagesCount = $packagesHandler->getCountPackages();
 $GLOBALS['xoopsTpl']->assign('packagesCount', $packagesCount);
 $count = 1;
 if ($packagesCount > 0) {
-    $start       = Request::getInt('start', 0);
-    $limit       = Request::getInt('limit', $helper->getConfig('userpager'));
+    $start = Request::getInt('start', 0);
+    $limit = Request::getInt('limit', $helper->getConfig('userpager'));
     $packagesAll = $packagesHandler->getAllPackages($start, $limit, 'pkg_date', 'DESC');
     // Get All Packages
     $packages = [];
     foreach (\array_keys($packagesAll) as $i) {
-        $package    = $packagesAll[$i]->getValuesPackages();
-        $acount     = ['count', $count];
+        $package = $packagesAll[$i]->getValuesPackages();
+        $acount = ['count', $count];
         $packages[] = \array_merge($package, $acount);
         $keywords[] = $packagesAll[$i]->getVar('pkg_name');
         ++$count;
@@ -52,7 +54,7 @@ if ($packagesCount > 0) {
     unset($packages);
     // Display Navigation
     if ($packagesCount > $limit) {
-        include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+        require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
         $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
         $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
     }

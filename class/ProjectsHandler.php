@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Wgtransifex;
 
 /*
@@ -17,7 +19,6 @@ namespace XoopsModules\Wgtransifex;
  *
  * @copyright      2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
  * @since          1.0
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
@@ -32,7 +33,6 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor
-     * @param \XoopsDatabase $db
      */
     public function __construct(\XoopsDatabase $db)
     {
@@ -84,6 +84,7 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
     {
         $crCountProjects = new \CriteriaCompo();
         $crCountProjects = $this->getProjectsCriteria($crCountProjects, $start, $limit, $sort, $order);
+
         return $this->getCount($crCountProjects);
     }
 
@@ -99,6 +100,7 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
     {
         $crAllProjects = new \CriteriaCompo();
         $crAllProjects = $this->getProjectsCriteria($crAllProjects, $start, $limit, $sort, $order);
+
         return $this->getAll($crAllProjects);
     }
 
@@ -117,6 +119,7 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
         $crProjects->setLimit($limit);
         $crProjects->setSort($sort);
         $crProjects->setOrder($order);
+
         return $crProjects;
     }
 }
