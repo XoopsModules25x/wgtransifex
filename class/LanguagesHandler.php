@@ -107,12 +107,12 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get Criteria Languages
-     * @param        $crLanguages
+     * @param \CriteriaCompo  $crLanguages
      * @param int    $start
      * @param int    $limit
      * @param string $sort
      * @param string $order
-     * @return int
+     * @return \CriteriaCompo
      */
     private function getLanguagesCriteria($crLanguages, $start, $limit, $sort, $order)
     {
