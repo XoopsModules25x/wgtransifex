@@ -25,6 +25,7 @@ declare(strict_types=1);
 use Xmf\Request;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
+use XoopsModules\Wgtransifex\Transifex;
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -111,7 +112,7 @@ switch ($op) {
         break;
     case 'savetx':
         //read resources
-        $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+        $transifex = Transifex::getInstance();
         $result = $transifex->readResources($resId, $proId);
         //update table projects
         $crResources = new \CriteriaCompo();

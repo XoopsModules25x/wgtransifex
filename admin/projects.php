@@ -25,6 +25,7 @@ declare(strict_types=1);
 use Xmf\Request;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
+use XoopsModules\Wgtransifex\Transifex;
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -66,7 +67,7 @@ switch ($op) {
         }
         break;
     case 'savetx':
-        $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+        $transifex = Transifex::getInstance();
         $result = $transifex->readProjects($proId);
         \redirect_header('projects.php?op=list', 3, $result);
         break;

@@ -25,6 +25,7 @@ declare(strict_types=1);
 use Xmf\Request;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Constants;
+use XoopsModules\Wgtransifex\Transifex;
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_projects.tpl';
@@ -95,7 +96,7 @@ switch ($op) {
         if (!$request_allowed) {
             \redirect_header(WGTRANSIFEX_URL . '/index.php', 2, _MA_WGTRANSIFEX_NOPERM);
         }
-        $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+        $transifex = Transifex::getInstance();
         $result = $transifex->readProjects($proId, true);
         \redirect_header('projects.php?op=list', 3, $result);
         break;

@@ -26,6 +26,7 @@ use Xmf\Request;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
 use XoopsModules\Wgtransifex\Constants;
+use XoopsModules\Wgtransifex\Transifex;
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -133,7 +134,7 @@ switch ($op) {
         break;
     case 'savetx':
         //read translations
-        $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+        $transifex = Transifex::getInstance();
         $result = $transifex->readTranslations($traId, $proId, $langId);
         //update table projects
         $crTranslations = new \CriteriaCompo();
@@ -145,7 +146,7 @@ switch ($op) {
         \redirect_header('translations.php?op=list', 3, $result);
         break;
     case 'checktx':
-        $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+        $transifex = Transifex::getInstance();
         $result = $transifex->checkTranslations();
         \redirect_header('translations.php?op=list', 3, $ret['info']);
         break;

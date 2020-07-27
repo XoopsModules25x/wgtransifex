@@ -16,13 +16,17 @@ declare(strict_types=1);
  * @author          Michael Beck (aka Mamba)
  */
 
+use Xmf\Database\TableLoad;
+use Xmf\Module\Helper;
+use Xmf\Request;
+use Xmf\Yaml;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
 use XoopsModules\Wgtransifex\Utility;
 
 require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 require \dirname(__DIR__) . '/preloads/autoloader.php';
-$op = \Xmf\Request::getCmd('op', '');
+$op = Request::getCmd('op', '');
 $moduleDirName = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 $helper = Wgtransifex\Helper::getInstance();
@@ -30,7 +34,7 @@ $helper = Wgtransifex\Helper::getInstance();
 $helper->loadLanguage('common');
 switch ($op) {
     case 'load':
-        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == $_REQUEST['ok']) {
+        if (Request::hasVar('ok', 'REQUEST') && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 \redirect_header('../admin/index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -53,21 +57,21 @@ function loadSampleData()
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     $utility = new Wgtransifex\Utility();
     $configurator = new Common\Configurator();
-    $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
+    $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
     $language = 'english/';
     if (\is_dir(__DIR__ . '/' . $xoopsConfig['language'])) {
         $language = $xoopsConfig['language'] . '/';
     }
     // load module tables
     foreach ($tables as $table) {
-        $tabledata = \Xmf\Yaml::readWrapped($language . $table . '.yml');
-        \Xmf\Database\TableLoad::truncateTable($table);
-        \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
+        $tabledata = Yaml::readWrapped($language . $table . '.yml');
+        TableLoad::truncateTable($table);
+        TableLoad::loadTableFromArray($table, $tabledata);
     }
     // load permissions
     $table = 'group_permission';
-    $tabledata = \Xmf\Yaml::readWrapped($language . $table . '.yml');
-    $mid = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
+    $tabledata = Yaml::readWrapped($language . $table . '.yml');
+    $mid = Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
     loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
     //  ---  COPY test folder files ---------------
     if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
@@ -87,7 +91,7 @@ function saveSampleData()
     $configurator = new Common\Configurator();
     $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-    $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
+    $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
     $languageFolder = __DIR__ . '/' . $xoopsConfig['language'];
     if (!\file_exists($languageFolder . '/')) {
         Utility::createFolder($languageFolder . '/');
@@ -96,13 +100,13 @@ function saveSampleData()
     Utility::createFolder($exportFolder);
     // save module tables
     foreach ($tables as $table) {
-        \Xmf\Database\TableLoad::saveTableToYamlFile($table, $exportFolder . $table . '.yml');
+        TableLoad::saveTableToYamlFile($table, $exportFolder . $table . '.yml');
     }
     // save permissions
     $criteria = new \CriteriaCompo();
-    $criteria->add(new \Criteria('gperm_modid', \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid')));
+    $criteria->add(new \Criteria('gperm_modid', Helper::getHelper($moduleDirName)->getModule()->getVar('mid')));
     $skipColumns[] = 'gperm_id';
-    \Xmf\Database\TableLoad::saveTableToYamlFile('group_permission', $exportFolder . 'group_permission.yml', $criteria, $skipColumns);
+    TableLoad::saveTableToYamlFile('group_permission', $exportFolder . 'group_permission.yml', $criteria, $skipColumns);
     unset($criteria);
     //  ---  COPY test folder files ---------------
     if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {

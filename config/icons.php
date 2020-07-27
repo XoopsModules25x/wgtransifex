@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use Xmf\Module\Admin;
+
 /**
  * @return object
  */
 function getIcons()
 {
-    $pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
+    $pathIcon16 = Admin::iconUrl('', 16);
     $moduleDirName = \basename(\dirname(__DIR__));
 
     return (object)[

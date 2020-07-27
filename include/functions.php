@@ -25,6 +25,9 @@ declare(strict_types=1);
  * @param mixed $entries
  * @param mixed $cid
  */
+
+use XoopsModules\Wgtransifex\Helper;
+
 /**
  * Get the number of languages from the sub categories of a category or sub topics of or topic
  * @param $mytree
@@ -96,7 +99,7 @@ function wgtransifexMetaDescription($content)
 function wgtransifex_RewriteUrl($module, $array, $type = 'content')
 {
     $comment = '';
-    $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+    $helper = Helper::getInstance();
     $lenght_id = $helper->getConfig('lenght_id');
     $rewrite_url = $helper->getConfig('rewrite_url');
     if (0 != $lenght_id) {
@@ -180,7 +183,7 @@ function wgtransifex_RewriteUrl($module, $array, $type = 'content')
 function wgtransifex_Filter($url, $type = '')
 {
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
-    $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+    $helper = Helper::getInstance();
     $regular_expression = $helper->getConfig('regular_expression');
     $url = \strip_tags($url);
     $url .= \preg_replace("`\[.*\]`U", '', $url);

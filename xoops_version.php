@@ -21,7 +21,10 @@ declare(strict_types=1);
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
-$moduleDirName = \basename(__DIR__);
+
+use XoopsModules\Wgtransifex\Helper;
+
+$moduleDirName      = \basename(__DIR__);
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
@@ -120,7 +123,7 @@ $modversion['search'] = [
 // ------------------- Menu ------------------- //
 $currdirname = isset($GLOBALS['xoopsModule']) && \is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
 if ($currdirname == $moduleDirName) {
-    $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+    $helper = Helper::getInstance();
     $languagesHandler = $helper->getHandler('Languages');
     $packagesHandler = $helper->getHandler('Packages');
     $languagesAll = $languagesHandler->getAll();

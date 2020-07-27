@@ -26,6 +26,7 @@ use Xmf\Request;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Common;
 use XoopsModules\Wgtransifex\Constants;
+use XoopsModules\Wgtransifex\Transifex;
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -111,7 +112,7 @@ switch ($op) {
         $languagesHandler = $helper->getHandler('Languages');
 
         if ($pkgDownload) {
-            $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
+            $transifex = Transifex::getInstance();
             //read resources
             $result = $transifex->readResources(0, $pkgProId);
             //update table projects

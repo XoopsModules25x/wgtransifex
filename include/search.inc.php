@@ -23,6 +23,7 @@ declare(strict_types=1);
  */
 
 use XoopsModules\Wgtransifex;
+use XoopsModules\Wgtransifex\Helper;
 
 /**
  * search callback functions
@@ -37,7 +38,7 @@ use XoopsModules\Wgtransifex;
 function wgtransifex_search($queryarray, $andor, $limit, $offset, $userid)
 {
     $ret = [];
-    $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
+    $helper = Helper::getInstance();
 
     // search in table packages
     // search keywords
