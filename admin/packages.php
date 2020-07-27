@@ -327,7 +327,7 @@ require __DIR__ . '/footer.php';
 function clearDir($dir, $pattern = '*')
 {
     // Find all files and folders matching pattern
-    $files = \glob($dir . "/$pattern");
+    $files = \glob($dir . "/$pattern", GLOB_NOSORT);
 
     // Interate thorugh the files and folders
     foreach ($files as $file) {
