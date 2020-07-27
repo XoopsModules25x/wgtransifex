@@ -56,7 +56,7 @@ function loadSampleData()
     global $xoopsConfig;
     $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-    $utility = new Wgtransifex\Utility();
+    $utility = new Utility();
     $configurator = new Common\Configurator();
     $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
     $language = 'english/';

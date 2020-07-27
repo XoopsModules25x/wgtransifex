@@ -12,7 +12,8 @@ declare(strict_types=1);
  */
 
 use XoopsModules\Wgtransifex\{
-    Helper
+    Helper,
+    Utility
 };
 
 /**
@@ -40,7 +41,7 @@ function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     /** @var Helper $helper */
     $helper = Helper::getInstance();
-    $utility = new Wgtransifex\Utility();
+    $utility = new Utility();
     $success = true;
     $helper->loadLanguage('admin');
     //------------------------------------------------------------------

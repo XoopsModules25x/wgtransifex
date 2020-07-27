@@ -232,7 +232,7 @@ switch ($op) {
                 $maxheight = (int)$helper->getConfig('maxheight_image');
                 if ($maxwidth > 0 && $maxheight > 0) {
                     // Resize image
-                    $imgHandler = new Wgtransifex\Common\Resizer();
+                    $imgHandler = new Common\Resizer();
                     $imgHandler->sourceFile = WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
                     $imgHandler->endFile = WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
                     $imgHandler->imageMimetype = $imgMimetype;

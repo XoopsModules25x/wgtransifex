@@ -25,6 +25,7 @@ namespace XoopsModules\Wgtransifex\Common;
  * @license       GNU GPL2orlater(https://www.gnu.org/licenses/gpl-2.0.html)
  */
 
+use Xmf\Request;
 use XoopsModules\Wgtransifex;
 use XoopsModules\Wgtransifex\Helper;
 
