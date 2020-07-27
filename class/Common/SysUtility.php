@@ -86,26 +86,6 @@ class SysUtility
         return $select_view;
     }
 
-    /***************Blocks***************/
-    /**
-     * @param array $cats
-     * @return string
-     */
-    public static function blockAddCatSelect($cats)
-    {
-        $cat_sql = '';
-        if (is_array($cats) && !empty($cats)) {
-            $cat_sql = '(' . current($cats);
-            array_shift($cats);
-            foreach ($cats as $cat) {
-                $cat_sql .= ',' . $cat;
-            }
-            $cat_sql .= ')';
-        }
-
-        return $cat_sql;
-    }
-
     /**
      * @param $content
      */
