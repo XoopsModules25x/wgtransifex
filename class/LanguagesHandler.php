@@ -125,7 +125,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
 
     /**
      * Get primary language
-     * @return array
+     * @return array|int
      */
     public function getPrimaryLang()
     {
