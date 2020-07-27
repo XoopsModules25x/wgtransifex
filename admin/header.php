@@ -51,12 +51,7 @@ if (!isset($xoopsTpl) || !\is_object($xoopsTpl)) {
 // Load languages
 \xoops_loadLanguage('admin');
 \xoops_loadLanguage('modinfo');
-// Local admin menu class
-if (\file_exists($GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php'))) {
-    require_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
-} else {
-    \redirect_header('../../../admin.php', 5, \_AM_MODULEADMIN_MISSING);
-}
+
 xoops_cp_header();
 // System icons path
 $GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
