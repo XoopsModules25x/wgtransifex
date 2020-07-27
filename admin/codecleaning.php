@@ -20,7 +20,7 @@ declare(strict_types=1);
  *
  * @since           2.5.5
  *
- * @author          Txmod Xoops <support@txmodxoops.org>
+ * @author          Wedega - Email:<webmaster@wedega.com>
  */
 
 use Xmf\Request;
