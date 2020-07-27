@@ -23,9 +23,11 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Wgtransifex;
-use XoopsModules\Wgtransifex\Common;
-use XoopsModules\Wgtransifex\Constants;
+use XoopsModules\Wgtransifex\{
+    Common,
+    Constants,
+    Utility
+};
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_packages.tpl';
@@ -139,10 +141,10 @@ switch ($op) {
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_PACKAGES];
 // Keywords
-wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
+Utility::metaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
 unset($keywords);
 // Description
-wgtransifexMetaDescription(\_MA_WGTRANSIFEX_PACKAGES_DESC);
+Utility::metaDescription(\_MA_WGTRANSIFEX_PACKAGES_DESC);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL . '/packages.php');
 $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
 require __DIR__ . '/footer.php';

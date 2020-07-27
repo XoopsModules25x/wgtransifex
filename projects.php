@@ -25,7 +25,8 @@ declare(strict_types=1);
 use Xmf\Request;
 use XoopsModules\Wgtransifex\{
     Constants,
-    Transifex
+    Transifex,
+    Utility
 };
 
 require __DIR__ . '/header.php';
@@ -107,11 +108,11 @@ switch ($op) {
 $xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_PROJECTS];
 
 // Keywords
-wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
+Utility::metaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
 unset($keywords);
 
 // Description
-wgtransifexMetaDescription(\_MA_WGTRANSIFEX_PROJECTS_DESC);
+Utility::metaDescription(\_MA_WGTRANSIFEX_PROJECTS_DESC);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL . '/projects.php');
 $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
 

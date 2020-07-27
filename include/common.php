@@ -43,4 +43,4 @@ $localLogo = WGTRANSIFEX_IMAGE_URL . '/tdmxoops_logo.png';
 // Module Information
 $copyright = "<a href='http://xoops.org' title='XOOPS Project' target='_blank'><img src='" . $localLogo . "' alt='XOOPS Project'></a>";
 require_once XOOPS_ROOT_PATH . '/class/xoopsrequest.php';
-require_once WGTRANSIFEX_PATH . '/include/functions.php';
+//require_once WGTRANSIFEX_PATH . '/include/functions.php';
