@@ -86,7 +86,7 @@ class Translations extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormTranslations($action = false)
@@ -161,7 +161,7 @@ class Translations extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormTranslationsTx($action = false)

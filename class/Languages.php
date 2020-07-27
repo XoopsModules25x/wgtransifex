@@ -77,7 +77,7 @@ class Languages extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormLanguages($action = false)

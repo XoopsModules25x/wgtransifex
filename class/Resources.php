@@ -78,7 +78,7 @@ class Resources extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormResources($action = false)
@@ -138,7 +138,7 @@ class Resources extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormResourcesTx($action = false)

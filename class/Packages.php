@@ -75,7 +75,7 @@ class Packages extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormPackages($action = false)

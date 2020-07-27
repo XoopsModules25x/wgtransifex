@@ -79,7 +79,7 @@ class Projects extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormProjects($action = false)

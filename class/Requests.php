@@ -73,7 +73,7 @@ class Requests extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormRequests($action = false)
@@ -129,7 +129,7 @@ class Requests extends \XoopsObject
 
     /**
      * @public function getForm
-     * @param bool $action
+     * @param bool|string $action
      * @return \XoopsThemeForm
      */
     public function getFormRequestUser($action = false)
