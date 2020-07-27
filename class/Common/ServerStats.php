@@ -28,7 +28,7 @@ trait ServerStats
      */
     public static function getServerStats()
     {
-        $moduleDirName = \basename(dirname(__DIR__, 2));
+        $moduleDirName = \basename(\dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         \xoops_loadLanguage('common', $moduleDirName);
         $html = '';

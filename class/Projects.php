@@ -157,7 +157,7 @@ class Projects extends \XoopsObject
         $teams = '<ul>';
         $teams_short = '<ul>';
         $key = 0;
-        $teams_arr = \json_decode(html_entity_decode($this->getVar('pro_teams')), true);
+        $teams_arr = \json_decode(\html_entity_decode($this->getVar('pro_teams')), true);
         foreach ($teams_arr as $key => $value) {
             $teams .= '<li>' . $value . '</li>';
             if ($key < 4) {

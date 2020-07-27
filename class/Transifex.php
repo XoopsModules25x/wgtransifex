@@ -115,7 +115,7 @@ class Transifex
                     }
                     $projectsObj->setVar('pro_txresources', \count($project['resources']));
                     $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
-                    $teams = \json_encode($project['teams'], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
+                    $teams = \json_encode($project['teams'], \JSON_HEX_TAG | \JSON_HEX_APOS | \JSON_HEX_QUOT | \JSON_HEX_AMP | \JSON_UNESCAPED_UNICODE);
                     //\str_replace(']', '', $teams);
                     $projectsObj->setVar('pro_teams', $teams);
 

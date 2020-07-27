@@ -118,11 +118,11 @@ class Requests extends \XoopsObject
         $reqDate = $this->isNew() ? 0 : $this->getVar('req_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_REQUEST_DATE, 'req_date', '', $reqDate));
         // Form Select User reqSubmitter
-        $reqSubmitter = isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
+        $reqSubmitter = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_REQUEST_SUBMITTER, 'req_submitter', false, $reqSubmitter));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
-        $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
 
         return $form;
     }
@@ -162,7 +162,7 @@ class Requests extends \XoopsObject
 
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
-        $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
 
         return $form;
     }

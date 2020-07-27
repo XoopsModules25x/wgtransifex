@@ -63,7 +63,7 @@ class SysUtility
         global $start, $order, $file_cat, $sort, $xoopsModule;
 
         $select_view   = '';
-        $moduleDirName = basename(dirname(__DIR__, 2));
+        $moduleDirName = \basename(\dirname(__DIR__, 2));
         /** @var Helper $helper */
         $helper = Helper::getInstance();
 
@@ -94,10 +94,10 @@ class SysUtility
         global $xoopsTpl, $xoTheme;
         $myts    = \MyTextSanitizer::getInstance();
         $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-        if (null !== $xoTheme && is_object($xoTheme)) {
-            $xoTheme->addMeta('meta', 'keywords', strip_tags($content));
+        if (null !== $xoTheme && \is_object($xoTheme)) {
+            $xoTheme->addMeta('meta', 'keywords', \strip_tags($content));
         } else {    // Compatibility for old Xoops versions
-            $xoopsTpl->assign('xoops_metaKeywords', strip_tags($content));
+            $xoopsTpl->assign('xoops_metaKeywords', \strip_tags($content));
         }
     }
 
@@ -109,10 +109,10 @@ class SysUtility
         global $xoopsTpl, $xoTheme;
         $myts    = \MyTextSanitizer::getInstance();
         $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-        if (null !== $xoTheme && is_object($xoTheme)) {
-            $xoTheme->addMeta('meta', 'description', strip_tags($content));
+        if (null !== $xoTheme && \is_object($xoTheme)) {
+            $xoTheme->addMeta('meta', 'description', \strip_tags($content));
         } else {    // Compatibility for old Xoops versions
-            $xoopsTpl->assign('xoops_metaDescription', strip_tags($content));
+            $xoopsTpl->assign('xoops_metaDescription', \strip_tags($content));
         }
     }
 
@@ -137,7 +137,7 @@ class SysUtility
         }
 
         $row      = $GLOBALS['xoopsDB']->fetchBoth($result);
-        $enumList = explode(',', str_replace("'", '', substr($row['COLUMN_TYPE'], 5, - 6)));
+        $enumList = \explode(',', \str_replace("'", '', \substr($row['COLUMN_TYPE'], 5, - 6)));
         return $enumList;
     }
 
@@ -155,14 +155,14 @@ class SysUtility
         $table  = $GLOBALS['xoopsDB']->prefix($tableName);
         // copy content of the record you wish to clone
         $sql = "SELECT * FROM $table WHERE $id_field='$id' ";
-        $tempTable = $GLOBALS['xoopsDB']->fetchArray($GLOBALS['xoopsDB']->query($sql), MYSQLI_ASSOC);
+        $tempTable = $GLOBALS['xoopsDB']->fetchArray($GLOBALS['xoopsDB']->query($sql), \MYSQLI_ASSOC);
         if (!$tempTable) {
             exit($GLOBALS['xoopsDB']->error());
         }
         // set the auto-incremented id's value to blank.
         unset($tempTable[$id_field]);
         // insert cloned copy of the original  record
-        $sql    = "INSERT INTO $table (" . implode(', ', array_keys($tempTable)) . ") VALUES ('" . implode("', '", array_values($tempTable)) . "')";
+        $sql    = "INSERT INTO $table (" . \implode(', ', \array_keys($tempTable)) . ") VALUES ('" . \implode("', '", \array_values($tempTable)) . "')";
         $result = $GLOBALS['xoopsDB']->queryF($sql);
         if (!$result) {
             exit($GLOBALS['xoopsDB']->error());
@@ -330,8 +330,8 @@ class SysUtility
     public static function prepareFolder($folder)
     {
         try {
-            if (!@mkdir($folder) && !is_dir($folder)) {
-                throw new \RuntimeException(sprintf('Unable to create the %s directory', $folder));
+            if (!@\mkdir($folder) && !\is_dir($folder)) {
+                throw new \RuntimeException(\sprintf('Unable to create the %s directory', $folder));
             }
             file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
         } catch (\Exception $e) {

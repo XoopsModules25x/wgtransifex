@@ -55,7 +55,7 @@ function wgtransifex_search($queryarray, $andor, $limit, $offset, $userid)
     }
     // search user(s)
     if ($userid && \is_array($userid)) {
-        $userid = array_map('intval', $userid);
+        $userid = array_map('\intval', $userid);
         $crUser = new \CriteriaCompo();
         $crUser->add(new \Criteria('pkg_submitter', '(' . \implode(',', $userid) . ')', 'IN'), 'OR');
     } elseif (is_numeric($userid) && $userid > 0) {
