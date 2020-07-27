@@ -127,7 +127,7 @@ switch ($op) {
                 // Event broken notification
                 $tags = [];
                 $tags['ITEM_NAME'] = $pkgName;
-                $tags['ITEM_URL'] = XOOPS_URL . '/modules/wgtransifex/admin/packages.php?op=show&pkg_id=' . $pkgId;
+                $tags['ITEM_URL'] = $helper->url('admin/packages.php?op=show&pkg_id=' . $pkgId);
                 /** @var \XoopsNotificationHandler $notificationHandler */
                 $notificationHandler = \xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('packages', $pkgId, 'package_broken', $tags);

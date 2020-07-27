@@ -287,7 +287,7 @@ switch ($op) {
                 $pkgStatus = $packagesObj->getVar('pkg_status');
                 $tags = [];
                 $tags['ITEM_NAME'] = $pkgName;
-                $tags['ITEM_URL'] = XOOPS_URL . '/modules/wgtransifex/packages.php?op=show&pkg_id=' . $pkgId;
+                $tags['ITEM_URL'] = $helper->url('packages.php?op=show&pkg_id=' . $pkgId);
                 $notificationHandler = \xoops_getHandler('notification');
                 // Event new notification
                 $notificationHandler->triggerEvent('packages', $newPkgId, 'package_new', $tags);
