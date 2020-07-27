@@ -29,18 +29,18 @@ namespace XoopsModules\Wgtransifex\Common;
  */
 class XoopsConfirm
 {
-    private $hiddens = [];
-    private $action = '';
-    private $title = '';
-    private $label = '';
-    private $object = '';
+    private $hiddens;
+    private $action;
+    private $title;
+    private $label;
+    private $object;
 
     /**
      * @public function constructor class
      *
-     * @param        $hiddens
-     * @param        $action
-     * @param        $object
+     * @param array  $hiddens
+     * @param string $action
+     * @param string $object
      * @param string $title
      * @param string $label
      */
