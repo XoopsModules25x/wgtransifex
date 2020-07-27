@@ -110,12 +110,12 @@ class Requests extends \XoopsObject
         $reqStatusSelect->addOption(Constants::STATUS_CREATED, \_AM_WGTRANSIFEX_STATUS_CREATED);
         $form->addElement($reqStatusSelect);
         // Form Text Date Select reqStatusdate
-        $reqStatusdate = $this->isNew() ?: $this->getVar('req_statusdate');
+        $reqStatusdate = $this->isNew() ? 0 : $this->getVar('req_statusdate');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_REQUEST_STATUSDATE, 'req_statusdate', '', $reqStatusdate));
         // Form Select User reqStatusuid
         $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_REQUEST_STATUSUID, 'req_statusuid', false, $this->getVar('req_statusuid')));
         // Form Text Date Select reqDate
-        $reqDate = $this->isNew() ?: $this->getVar('req_date');
+        $reqDate = $this->isNew() ? 0 : $this->getVar('req_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_REQUEST_DATE, 'req_date', '', $reqDate));
         // Form Select User reqSubmitter
         $reqSubmitter = isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
