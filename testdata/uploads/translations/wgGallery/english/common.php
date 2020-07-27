@@ -269,7 +269,7 @@ declare(strict_types=1);
 \define('_CO_WGGALLERY_MAINTAINEDBY', 'Maintained By');
 \define('_CO_WGGALLERY_MAINTAINEDBY_DESC', 'Allow url of support site or community');
 
-$moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+$moduleDirName = \basename(dirname(__DIR__, 2));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 //Sample Data

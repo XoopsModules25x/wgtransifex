@@ -21,7 +21,7 @@ declare(strict_types=1);
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
-require \dirname(\dirname(__DIR__)) . '/mainfile.php';
+require dirname(__DIR__, 2) . '/mainfile.php';
 require __DIR__ . '/include/common.php';
 $moduleDirName = \basename(__DIR__);
 // Breadcrumbs

@@ -49,7 +49,7 @@ class Configurator
         //        $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         //        require \dirname(\dirname(__DIR__)) . '/config/config.php';
         //        $config = getConfig();
-        $config = include \dirname(\dirname(__DIR__)) . '/config/config.php';
+        $config = include dirname(__DIR__, 2) . '/config/config.php';
         $this->name = $config->name;
         $this->paths = $config->paths;
         $this->uploadFolders = $config->uploadFolders;

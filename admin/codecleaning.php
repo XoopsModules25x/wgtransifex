@@ -25,7 +25,7 @@ declare(strict_types=1);
 
 use Xmf\Request;
 
-$moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+$moduleDirName = \basename(dirname(__DIR__, 2));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // Define main template

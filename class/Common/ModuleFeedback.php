@@ -64,7 +64,7 @@ class ModuleFeedback extends \XoopsObject
      */
     public function getFormFeedback()
     {
-        $moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirName = \basename(dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
