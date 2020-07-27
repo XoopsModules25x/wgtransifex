@@ -42,11 +42,11 @@ $patKeys = [];
 $patValues = [];
 cloneFileFolder($src_path, $dst_path, $patKeys, $patValues);
 
-function_qualifier($dst_path);
+functionQualifier($dst_path);
 
 require __DIR__ . '/footer.php';
 
-function function_qualifier($dst_path)
+function functionQualifier($dst_path)
 {
     $sources = [];
 

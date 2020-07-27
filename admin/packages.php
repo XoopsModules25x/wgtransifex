@@ -188,7 +188,7 @@ switch ($op) {
         \unlink($zipcreate);
         if (1 == Request::getInt('pkg_zipfile', 0)) {
             $pkg_path = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $langFolder;
-            zip_files($pkg_path, $zipcreate);
+            zipFiles($pkg_path, $zipcreate);
         }
 
         // update table packages
@@ -358,7 +358,7 @@ function clearDir($dir, $pattern = '*')
  * @param $destination
  * @return bool
  */
-function zip_files($source, $destination)
+function zipFiles($source, $destination)
 {
     $zip = new ZipArchive();
 
