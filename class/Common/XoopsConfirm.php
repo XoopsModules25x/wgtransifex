@@ -23,7 +23,6 @@ namespace XoopsModules\Wgtransifex\Common;
  * @min_xoops      2.5.9
  * @author         Goffy - Email:<goffy@myxoops.org> - Website:<http://xoops.org>
  */
-\defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Object XoopsConfirm

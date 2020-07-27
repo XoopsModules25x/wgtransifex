@@ -29,7 +29,6 @@ namespace XoopsModules\Wgtransifex\Common;
  * $breadcrumb->addLink( 'bread 3', 'index3.php' );
  * echo $breadcrumb->render();
  */
-\defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
 
 /**
  * Class Breadcrumb

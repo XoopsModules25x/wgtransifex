@@ -22,7 +22,6 @@ namespace XoopsModules\Wgtransifex\Common;
  * @author         Wedega - Email:<webmaster@wedega.com>
  * @author         Fernando Santos (topet05) <fernando@mastop.com.br>
  */
-\defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Object ModuleFeedback

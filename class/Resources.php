@@ -26,7 +26,6 @@ namespace XoopsModules\Wgtransifex;
 
 use XoopsModules\Wgtransifex;
 
-\defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Object Resources

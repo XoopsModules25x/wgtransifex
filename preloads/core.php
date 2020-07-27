@@ -17,7 +17,6 @@ declare(strict_types=1);
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          XOOPS Project <www.xoops.org> <www.xoops.ir>
  */
-\defined('XOOPS_ROOT_PATH') || die('Restricted access.');
 
 /**
  * Class WgtransifexCorePreload
