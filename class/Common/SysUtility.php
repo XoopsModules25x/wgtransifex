@@ -329,8 +329,8 @@ class SysUtility
     }
 
     /**
-     * @param $fieldname
-     * @param $table
+     * @param string $fieldname
+     * @param string $table
      *
      * @return bool
      */
