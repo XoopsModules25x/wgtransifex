@@ -84,8 +84,8 @@ function b_wgtransifex_packages_show($options)
     if (\count($packagesAll) > 0) {
         foreach (\array_keys($packagesAll) as $i) {
             $block[$i]['id'] = $packagesAll[$i]->getVar('pkg_id');
-            $block[$i]['name'] = htmlspecialchars($packagesAll[$i]->getVar('pkg_name'));
-            $block[$i]['desc'] = htmlspecialchars($packagesAll[$i]->getVar('pkg_desc'));
+            $block[$i]['name'] = htmlspecialchars($packagesAll[$i]->getVar('pkg_name'), ENT_QUOTES | ENT_HTML5);
+            $block[$i]['desc'] = htmlspecialchars($packagesAll[$i]->getVar('pkg_desc'), ENT_QUOTES | ENT_HTML5);
             $languagesObj = $languagesHandler->get($packagesAll[$i]->getVar('pkg_lang_id'));
             $block[$i]['date'] = \formatTimestamp($packagesAll[$i]->getVar('pkg_date'), 'm');
             $block[$i]['lang_flag'] = $languagesObj->getVar('lang_flag');
