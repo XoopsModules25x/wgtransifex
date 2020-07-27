@@ -108,7 +108,7 @@ switch ($op) {
             $reqStatus = $requestsObj->getVar('req_status');
             $tags = [];
             $tags['ITEM_NAME'] = $reqProject;
-            $tags['ITEM_URL'] = XOOPS_URL . '/modules/wgtransifex/admin/requests.php?op=show&req_id=' . $reqId;
+            $tags['ITEM_URL'] = $helper->url('admin/requests.php?op=show&req_id=' . $reqId);
             $notificationHandler = \xoops_getHandler('notification');
             // Event approve notification
             /** @var \XoopsNotificationHandler $notificationHandler */
