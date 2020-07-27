@@ -65,7 +65,8 @@ function update_wgtransifex_v10($module)
         $tplids[] = $tplid;
     }
     if (\count($tplids) > 0) {
-        $tplfileHandler = \xoops_getHandler('tplfile');
+        /** @var \XoopsTplfileHandler $tplfileHandler */
+        $tplfileHandler  = \xoops_getHandler('tplfile');
         $duplicate_files = $tplfileHandler->getObjects(new \Criteria('tpl_id', '(' . \implode(',', $tplids) . ')', 'IN'));
         if (\count($duplicate_files) > 0) {
             foreach (\array_keys($duplicate_files) as $i) {

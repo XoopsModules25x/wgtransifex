@@ -356,7 +356,7 @@ class SysUtility
         $helper = Helper::getInstance();
         $lenght_id = $helper->getConfig('lenght_id');
         $rewrite_url = $helper->getConfig('rewrite_url');
-        if (0 != $lenght_id) {
+        if (0 !== $lenght_id) {
             $id = $array['content_id'];
             while (mb_strlen($id) < $lenght_id) {
                 $id = '0' . $id;

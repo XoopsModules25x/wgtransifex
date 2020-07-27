@@ -59,7 +59,7 @@ class Transifex
      *
      * @param $proId
      * @param bool $user
-     * @return bool
+     * @return bool|string
      */
     public function readProjects($proId, $user = false)
     {
@@ -161,7 +161,7 @@ class Transifex
      *
      * @param $resId
      * @param $proId
-     * @return bool
+     * @return bool|string
      */
     public function readResources($resId, $proId)
     {
@@ -234,7 +234,7 @@ class Transifex
      * @param $traId
      * @param $proId
      * @param $langId
-     * @return bool
+     * @return bool|string
      */
     public function readTranslations($traId, $proId, $langId)
     {
@@ -330,7 +330,7 @@ class Transifex
     /**
      * Check all existing translation whether there is a new translation on transifex
      *
-     * @return bool
+     * @return bool|string
      */
     public function checkTranslations()
     {
@@ -404,7 +404,7 @@ class Transifex
      * Get primary setting
      *
      * @param bool $user
-     * @return bool
+     * @return bool|array
      */
     private function getSetting($user = false)
     {
@@ -429,7 +429,7 @@ class Transifex
      * @param $toConvert
      * @param $langFolder
      * @param $langShort
-     * @return bool
+     * @return bool|string
      */
     private function getLocal($toConvert, $langFolder, $langShort)
     {

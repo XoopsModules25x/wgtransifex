@@ -128,6 +128,7 @@ switch ($op) {
                 $tags = [];
                 $tags['ITEM_NAME'] = $pkgName;
                 $tags['ITEM_URL'] = XOOPS_URL . '/modules/wgtransifex/admin/packages.php?op=show&pkg_id=' . $pkgId;
+                /** @var \XoopsNotificationHandler $notificationHandler */
                 $notificationHandler = \xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('packages', $pkgId, 'package_broken', $tags);
                 \redirect_header('packages.php', 3, \_MA_WGTRANSIFEX_FORM_OK);

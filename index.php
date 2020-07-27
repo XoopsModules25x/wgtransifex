@@ -25,7 +25,8 @@ declare(strict_types=1);
 use Xmf\Request;
 use XoopsModules\Wgtransifex\{
     Helper,
-    PackagesHandler
+    PackagesHandler,
+    Utility
 };
 
 /** @var Helper $helper */

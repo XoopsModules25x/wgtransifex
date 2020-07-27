@@ -26,6 +26,7 @@ use Xmf\Request;
 use Xmf\Module\Admin;
 use XoopsModules\Wgtransifex\{
     Common,
+    Constants,
     Helper,
     PackagesHandler,
     ProjectsHandler,

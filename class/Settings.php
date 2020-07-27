@@ -63,7 +63,7 @@ class Settings extends \XoopsObject
 
     /**
      * The new inserted $Id
-     * @return inserted id
+     * @return int inserted id
      */
     public function getNewInsertedIdSettings()
     {

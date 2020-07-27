@@ -111,6 +111,7 @@ switch ($op) {
             $tags['ITEM_URL'] = XOOPS_URL . '/modules/wgtransifex/admin/requests.php?op=show&req_id=' . $reqId;
             $notificationHandler = \xoops_getHandler('notification');
             // Event approve notification
+            /** @var \XoopsNotificationHandler $notificationHandler */
             $notificationHandler->triggerEvent('requests', $newReqId, 'request_new', $tags);
             // redirect after insert
             \redirect_header('index.php', 2, _MA_WGTRANSIFEX_FORM_OK);
