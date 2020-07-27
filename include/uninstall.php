@@ -38,7 +38,6 @@ function xoops_module_uninstall_wgtransifex(\XoopsModule $module)
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     /** @var Wgtransifex\Helper $helper */
     $helper = Wgtransifex\Helper::getInstance();
-    /** @var Wgtransifex\Utility $utility */
     $utility = new Wgtransifex\Utility();
     $success = true;
     $helper->loadLanguage('admin');
