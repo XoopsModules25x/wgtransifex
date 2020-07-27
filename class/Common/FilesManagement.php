@@ -147,12 +147,9 @@ trait FilesManagement
                     if (!$success = self::deleteDirectory($fileInfo->getRealPath())) {
                         break;
                     }
-                } else {
-                    // delete the file
-                    if (!($success = \unlink($fileInfo->getRealPath()))) {
+                } elseif (!($success = \unlink($fileInfo->getRealPath()))) {
                         break;
                     }
-                }
             }
             // now delete this (sub)directory if all the files are gone
             if ($success) {
