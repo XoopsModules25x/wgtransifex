@@ -308,9 +308,10 @@ $modversion['config'][] = [
     'default' => 1000,
 ];
 // Get groups
+/** @var \XoopsMemberHandler $memberHandler */
 $memberHandler = \xoops_getHandler('member');
-$xoopsGroups = $memberHandler->getGroupList();
-$groups = [];
+$xoopsGroups   = $memberHandler->getGroupList();
+$groups        = [];
 foreach ($xoopsGroups as $key => $group) {
     $groups[$group] = $key;
 }
