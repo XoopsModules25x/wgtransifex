@@ -112,7 +112,7 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
      * @param int            $limit
      * @param string         $sort
      * @param string         $order
-     * @return \CriteriaCompo
+     * @return \CriteriaCompo|int
      */
     private function getProjectsCriteria($crProjects, $start, $limit, $sort, $order)
     {

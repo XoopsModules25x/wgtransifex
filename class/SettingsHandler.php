@@ -112,7 +112,7 @@ class SettingsHandler extends \XoopsPersistableObjectHandler
      * @param int            $limit
      * @param string         $sort
      * @param string         $order
-     * @return \CriteriaCompo
+     * @return \CriteriaCompo|int
      */
     private function getSettingsCriteria($crSettings, $start, $limit, $sort, $order)
     {

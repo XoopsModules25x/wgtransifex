@@ -112,7 +112,7 @@ class TranslationsHandler extends \XoopsPersistableObjectHandler
      * @param int            $limit
      * @param string         $sort
      * @param string         $order
-     * @return \CriteriaCompo
+     * @return \CriteriaCompo|int
      */
     private function getTranslationsCriteria($crTranslations, $start, $limit, $sort, $order)
     {

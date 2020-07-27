@@ -112,7 +112,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
      * @param int            $limit
      * @param string         $sort
      * @param string         $order
-     * @return \CriteriaCompo
+     * @return \CriteriaCompo|int
      */
     private function getRequestsCriteria($crRequests, $start, $limit, $sort, $order)
     {
