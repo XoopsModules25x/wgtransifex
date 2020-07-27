@@ -222,7 +222,9 @@ function cloneFileFolder($src_path, $dst_path, $patKeys = [], $patValues = [])
     // open the source directory
     $dir = \opendir($src_path);
     // Make the destination directory if not exist
-    @\mkdir($dst_path);
+    if (!mkdir($dst_path) && !is_dir($dst_path)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $dst_path));
+    }
     // Loop through the files in source directory
     while ($file = \readdir($dir)) {
         if (('.' != $file) && ('..' != $file)) {

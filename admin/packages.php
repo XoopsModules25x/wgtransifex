@@ -141,10 +141,14 @@ switch ($op) {
 
         // Make the destination directory if not exist
         $pkg_path = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName;
-        @\mkdir($pkg_path);
+        if (!mkdir($pkg_path) && !is_dir($pkg_path)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+        }
         $pkg_path .= '/' . $langFolder;
         \clearDir($pkg_path);
-        @\mkdir($pkg_path);
+        if (!mkdir($pkg_path) && !is_dir($pkg_path)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+        }
 
         $count_ok = 0;
         $count_err = 0;
@@ -170,7 +174,9 @@ switch ($op) {
                         \file_put_contents($dst_file, $content);
                     } else {
                         $dst_path .= '/' . $files[$f];
-                        @\mkdir($dst_path);
+                        if (!mkdir($dst_path) && !is_dir($dst_path)) {
+                            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dst_path));
+                        }
                     }
                 }
             }
