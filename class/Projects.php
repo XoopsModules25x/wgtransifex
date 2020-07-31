@@ -50,9 +50,10 @@ class Projects extends \XoopsObject
         $this->initVar('pro_resources', \XOBJ_DTYPE_INT);
         $this->initVar('pro_translations', \XOBJ_DTYPE_INT);
         $this->initVar('pro_archived', \XOBJ_DTYPE_INT);
+        $this->initVar('pro_status', \XOBJ_DTYPE_INT);
+        $this->initVar('pro_type', \XOBJ_DTYPE_INT);
         $this->initVar('pro_date', \XOBJ_DTYPE_INT);
         $this->initVar('pro_submitter', \XOBJ_DTYPE_INT);
-        $this->initVar('pro_status', \XOBJ_DTYPE_INT);
     }
 
     /**
@@ -80,15 +81,16 @@ class Projects extends \XoopsObject
     /**
      * @public function getForm
      * @param bool|string $action
+     * @param int         $clonePro
      * @return \XoopsThemeForm
      */
-    public function getFormProjects($action = false)
+    public function getFormProjects($action = false, $clonePro = 0)
     {
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
-        $title = $this->isNew() ? \sprintf(\_AM_WGTRANSIFEX_PROJECT_ADD) : \sprintf(\_AM_WGTRANSIFEX_PROJECT_EDIT);
+        $title = $this->isNew() ? \_AM_WGTRANSIFEX_PROJECT_ADD : \_AM_WGTRANSIFEX_PROJECT_EDIT;
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
@@ -112,6 +114,7 @@ class Projects extends \XoopsObject
         $proStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PROJECT_STATUS, 'pro_status', $this->getVar('pro_status'));
         $proStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
         $proStatusSelect->addOption(Constants::STATUS_SUBMITTED, \_AM_WGTRANSIFEX_STATUS_SUBMITTED);
+        $proStatusSelect->addOption(Constants::STATUS_LOCAL, \_AM_WGTRANSIFEX_STATUS_LOCAL);
         $proStatusSelect->addOption(Constants::STATUS_BROKEN, \_AM_WGTRANSIFEX_STATUS_BROKEN);
         $proStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
         $proStatusSelect->addOption(Constants::STATUS_ARCHIVED, \_AM_WGTRANSIFEX_STATUS_ARCHIVED);
@@ -124,6 +127,12 @@ class Projects extends \XoopsObject
         // Form Radio Yes/No proArchived
         $proArchived = $this->isNew() ? 0 : $this->getVar('pro_archived');
         $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_PROJECT_ARCHIVED, 'pro_archived', $proArchived));
+        // Form Select proType
+        $proStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PROJECT_TYPE, 'pro_type', $this->getVar('pro_type'));
+        $proStatusSelect->addOption(Constants::PROTYPE_NONE, \_AM_WGTRANSIFEX_PROTYPE_NONE);
+        $proStatusSelect->addOption(Constants::PROTYPE_MODULE, \_AM_WGTRANSIFEX_PROTYPE_MODULE);
+        $proStatusSelect->addOption(Constants::PROTYPE_CORE, \_AM_WGTRANSIFEX_PROTYPE_CORE);
+        $form->addElement($proStatusSelect);
         // Form Text Date Select proDate
         $proDate = $this->isNew() ? 0 : $this->getVar('pro_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PROJECT_DATE, 'pro_date', '', $proDate));
@@ -131,8 +140,46 @@ class Projects extends \XoopsObject
         $proSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('pro_submitter');
         $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_PROJECT_SUBMITTER, 'pro_submitter', false, $proSubmitter));
         // To Save
+        if ($clonePro > 0) {
+            $form->addElement(new \XoopsFormHidden('clonePro', $clonePro));
+            $form->addElement(new \XoopsFormHidden('pro_id', 0));
+        }
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
+        return $form;
+    }
+
+    /**
+     * @public function getForm
+     * @param int         $cloneFrom
+     * @param bool|string $action
+     * @return \XoopsThemeForm
+     */
+    public function getFormCloneToProject($cloneFrom, $action = false)
+    {
+        $helper = Helper::getInstance();
+        if (!$action) {
+            $action = $_SERVER['REQUEST_URI'];
+        }
+        // Title
+        $title = \_AM_WGTRANSIFEX_PROJECT_CLONE;
+        // Get Theme Form
+        \xoops_load('XoopsFormLoader');
+        $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        // Form Table projects
+        $projectsHandler = $helper->getHandler('Projects');
+        $resPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_PRO_ID, 'cloneTo', 0);
+        $crProjects = new \CriteriaCompo();
+        $crProjects->add(new \Criteria('pro_resources', 0));
+        $crProjects->setSort('pro_name');
+        $resPro_idSelect->addOptionArray($projectsHandler->getList($crProjects));
+        $form->addElement($resPro_idSelect);
+        // To Save
+        $form->addElement(new \XoopsFormHidden('cloneFrom', $cloneFrom));
+        $form->addElement(new \XoopsFormHidden('op', 'save_clonepro'));
+        $form->addElement(new \XoopsFormButtonTray('', $title, 'submit', '', false));
 
         return $form;
     }
@@ -158,14 +205,16 @@ class Projects extends \XoopsObject
         $teams_short = '<ul>';
         $key = 0;
         $teams_arr = \json_decode(\html_entity_decode($this->getVar('pro_teams')), true);
-        foreach ($teams_arr as $key => $value) {
-            $teams .= '<li>' . $value . '</li>';
-            if ($key < 4) {
-                $teams_short .= '<li>' . $value . '</li>';
+        if(\is_array($teams_arr)) {
+            foreach ($teams_arr as $key => $value) {
+                $teams .= '<li>' . $value . '</li>';
+                if ($key < 4) {
+                    $teams_short .= '<li>' . $value . '</li>';
+                }
             }
-        }
-        if ($key > 3) {
-            $teams_short .= '<li>...</li>';
+            if ($key > 3) {
+                $teams_short .= '<li>...</li>';
+            }
         }
         $teams .= '</ul>';
         $teams_short .= '</ul>';
@@ -200,12 +249,33 @@ class Projects extends \XoopsObject
             case Constants::STATUS_DELETEDTX:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_DELETEDTX;
                 break;
+            case Constants::STATUS_LOCAL:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_LOCAL;
+                break;
             case -1:
             default:
                 $status_text = 'missing status text'; /* this should not be */
                 break;
         }
         $ret['status_text'] = $status_text;
+        $type = $this->getVar('pro_type');
+        $ret['type'] = $type;
+        switch ($type) {
+            case Constants::PROTYPE_NONE:
+                $type_text = \_AM_WGTRANSIFEX_PROTYPE_NONE;
+                break;
+            case Constants::PROTYPE_MODULE:
+                $type_text = \_AM_WGTRANSIFEX_PROTYPE_MODULE;
+                break;
+            case Constants::PROTYPE_CORE:
+                $type_text = \_AM_WGTRANSIFEX_PROTYPE_CORE;
+                break;
+            case -1:
+            default:
+                $type_text = 'missing status text'; /* this should not be */
+                break;
+        }
+        $ret['type_text'] = $type_text;
 
         return $ret;
     }

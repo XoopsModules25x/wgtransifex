@@ -107,6 +107,23 @@ class TransifexLib
     }
 
     /**
+     * TransifexLib::checkResource()
+     *
+     * @param       $project
+     * @param mixed $resource
+     * @return array
+     */
+    public function checkResource($project, $resource)
+    {
+        if ($resource) {
+            $resource .= '/';
+        }
+        $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource;
+
+        return $this->_get($url, true);
+    }
+
+    /**
      * TransifexLib::getLanguages()
      * Only the project owner or the project maintainers can perform this action.
      *
@@ -263,13 +280,13 @@ class TransifexLib
      * @param string $file
      * @return mixed
      */
-    public function createResource($project, $resource, $file)
+    public function createResource($project, $resource, $slug, $i18n_type, $file)
     {
         $url = static::BASE_URL . 'project/' . $project . '/resources';
         $body = [
             'name' => $resource,
-            'slug' => Text::slug($resource),
-            'i18n_type' => 'PO',
+            'slug' => $slug,
+            'i18n_type' => $i18n_type,
         ];
         if (\function_exists('curl_file_create')) {
             $body['file'] = \curl_file_create($file, $this->_getMimeType($file), \pathinfo($file, \PATHINFO_BASENAME));
@@ -277,7 +294,7 @@ class TransifexLib
             $body['file'] = '@' . $file;
         }
 
-        return $this->_post($url, $body);
+        return $this->_post($url, $body, 'POST', $resource);
     }
 
     /**
@@ -302,10 +319,11 @@ class TransifexLib
      * TransifexLib::_get()
      *
      * @param string $url
+     * @param bool   $checkOnly
      * @throws \RuntimeException Exception.
      * @return array
      */
-    protected function _get($url)
+    protected function _get($url, $checkOnly = false)
     {
         $error = false;
         $ch = \curl_init();
@@ -328,6 +346,9 @@ class TransifexLib
             $error = true;
         }
         \curl_close($ch);
+        if ($checkOnly) {
+            return (false == $error);
+        }
         if ($error) {
             //echo $url;
             //catch common errors
@@ -358,10 +379,11 @@ class TransifexLib
      * @param string $url
      * @param mixed  $data
      * @param string $requestType
+     * @param bool   $resource
      * @throws \RuntimeException
      * @return mixed
      */
-    protected function _post($url, $data, $requestType = 'POST')
+    protected function _post($url, $data, $requestType = 'POST', $resource = false)
     {
         $error = false;
         $ch = \curl_init();
@@ -382,8 +404,12 @@ class TransifexLib
             $error = true;
         }
         \curl_close($ch);
-        if ($error) {
-            throw new \RuntimeException(\_AM_WGTRANSIFEX_READTX_ERROR_API . $errMsg);
+        if ($error && $resource) {
+            throw new \RuntimeException(\_AM_WGTRANSIFEX_READTX_ERROR_API . ': '. $resource . ' - '. $result);
+        } else {
+            if ($error) {
+                throw new \RuntimeException(\_AM_WGTRANSIFEX_READTX_ERROR_API . $errMsg);
+            }
         }
 
         return \json_decode($result, true);

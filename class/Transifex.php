@@ -114,7 +114,9 @@ class Transifex
                         $projectsObj->setVar('pro_archived', 0);
                     }
                     $projectsObj->setVar('pro_txresources', \count($project['resources']));
-                    $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
+                    if (is_string($project['last_updated'])) {
+                        $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
+                    }
                     $teams = \json_encode($project['teams'], \JSON_HEX_TAG | \JSON_HEX_APOS | \JSON_HEX_QUOT | \JSON_HEX_AMP | \JSON_UNESCAPED_UNICODE);
                     //\str_replace(']', '', $teams);
                     $projectsObj->setVar('pro_teams', $teams);
@@ -401,6 +403,97 @@ class Transifex
     }
 
     /**
+     * Upload resources to existing project on transifex
+     *
+     * @param      $proId
+     * @param      $dirStart
+     * @param bool $skipExisting
+     * @param bool $skipExisting
+     * @return array
+     */
+    public function uploadResources($proId, $dirStart, $skipExisting = false, $uploadTest = false)
+    {
+        $setting = $this->getSetting();
+        $count_ok = 0;
+        $count_err = 0;
+        $count_skip = 0;
+        $infos = [];
+
+        global $xoopsUser;
+        $helper = Helper::getInstance();
+        $projectsHandler = $helper->getHandler('Projects');
+        $resourcesHandler = $helper->getHandler('Resources');
+        $projectsObj = $projectsHandler->get($proId);
+
+        //request data from transifex
+        $transifexLib = new TransifexLib();
+        $transifexLib->user = $setting['user'];
+        $transifexLib->password = $setting['pwd'];
+        $project = $projectsObj->getVar('pro_name');
+
+        // read resources data
+        $crResources = new \CriteriaCompo();
+        $crResources->add(new \Criteria('res_pro_id', $proId));
+        $resourcesCount = $resourcesHandler->getCount($crResources);
+        $resourcesAll = $resourcesHandler->getAll($crResources);
+        // Table view resources
+        if ($resourcesCount > 0) {
+            //load all resources and check, whether file exists
+            foreach (\array_keys($resourcesAll) as $i) {
+                $resources[$i]['name'] = $resourcesAll[$i]->getVar('res_name');
+                $resources[$i]['slug'] = $resourcesAll[$i]->getVar('res_slug');
+                $resources[$i]['i18n_type'] = $resourcesAll[$i]->getVar('res_i18n_type');
+                $resources[$i]['file'] = $dirStart . $this->getLocal($resources[$i]['name'], 'english', 'en');
+                if (file_exists($resources[$i]['file'])) {
+                    $infos[] = ['type' => 'ok', 'text' => 'File found: ' .  $resources[$i]['file']];
+                    $resources[$i]['local'] = true;
+                    //check whether resource already exists
+                    $resExists = $transifexLib->checkResource($project, $resources[$i]['slug']);
+                    if ($resExists) {
+                        if ($skipExisting) {
+                            $infos[] = ['type' => 'warning', 'text' => \_AM_WGTRANSIFEX_UPLOADTX_RESEXISTSSKIP . $resources[$i]['slug']];
+                            $count_skip++;
+                        } else {
+                            $infos[] = ['type' => 'error', 'text' => \_AM_WGTRANSIFEX_UPLOADTX_RESEXISTS . $resources[$i]['slug']];
+                            $count_err++;
+                        }
+                    } else {
+                        $infos[] = ['type' => 'ok', 'text' => \_AM_WGTRANSIFEX_UPLOADTX_RESNOTEXISTS . $resources[$i]['slug']];
+                    }
+                    $resources[$i]['exist'] = $resExists;
+                } else {
+                    $infos[] = ['type' => 'error', 'text' => \_AM_WGTRANSIFEX_UPLOADTX_FILENOTFOUND .  $resources[$i]['file']];
+                    $resources[$i]['local'] = false;
+                    $count_err++;
+                }
+            }
+
+            //create resource on tranisfex
+            if ($uploadTest) {
+                $infos[] = ['type' => 'warning', 'text' => \_AM_WGTRANSIFEX_UPLOADTX_NOTSTARTED];
+            } else {
+                if (0 === $count_err && !$uploadTest) {
+                    foreach ($resources as $resource) {
+                        if ($resource['exist']) {
+                            $infos[] = ['type' => 'warning', 'text' => \_AM_WGTRANSIFEX_UPLOADTX_FILEUPLOADSKIP . $resource['file']];
+                        } else {
+                            $transifexLib->createResource($project, $resource['name'], $resource['slug'], $resource['i18n_type'], $resource['file']);
+                            $count_ok++;
+                            $infos[] = ['type' => 'ok', 'text' => \_AM_WGTRANSIFEX_UPLOADTX_FILEUPLOADED . $resource['file']];
+                        }
+                    }
+                } else {
+                    $infos[] = ['type' => 'warning', 'text' => \_AM_WGTRANSIFEX_UPLOADTX_NOTSTARTED];
+                }
+            }
+        }
+
+        $ret = ['success' => $count_ok, 'errors' => $count_err, 'skipped' => $count_skip, 'infos' => $infos];
+
+        return $ret;
+    }
+
+    /**
      * Get primary setting
      *
      * @param bool $user
@@ -446,11 +539,22 @@ class Transifex
         if ('js.txt' == \mb_substr($ret, -6)) {
             $ret = \mb_substr($ret, 0, -4);
         }
-        $ret = \str_replace('[', '', $ret);
-        $ret = \str_replace(']', '/', $ret);
-        $ret = \str_replace('-', '/', $ret);
-        $ret = \str_replace('yourlang', $langFolder, $ret);
 
-        return \str_replace('yourshortlang', $langShort, $ret);
+        //replace language name placeholders
+        $ret = \str_replace('yourlang', $langFolder, $ret);
+        $ret = \str_replace('yourshortlang', $langShort, $ret);
+
+        //replace/add directory seperator
+        $pos = strpos($ret, ']');
+        if ($pos > 0) {
+            $part1 =  substr ( $ret , 0 , $pos + 1 );
+            $part2 =  substr ( $ret , $pos + 1 , 255);
+            $part1 = \str_replace('[', '', $part1);
+            $part1 = \str_replace(']', '/', $part1);
+            $part1 = \str_replace('-', '/', $part1);
+            $ret = $part1 . $part2;
+        }
+
+        return $ret;
     }
 }

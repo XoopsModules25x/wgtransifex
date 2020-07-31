@@ -78,5 +78,6 @@ $GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
 $GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);
 $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
+
 $adminObject = Admin::getInstance();
 $style       = WGTRANSIFEX_URL . '/assets/css/admin/style.css';

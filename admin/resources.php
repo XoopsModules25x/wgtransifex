@@ -25,6 +25,7 @@ declare(strict_types=1);
 use Xmf\Request;
 use Xmf\Module\Admin;
 use XoopsModules\Wgtransifex\{
+    Constants,
     Common,
     Helper,
     PackagesHandler,
@@ -54,16 +55,61 @@ $op = Request::getCmd('op', 'list');
 $resId = Request::getInt('res_id');
 $proId = Request::getInt('res_pro_id');
 switch ($op) {
+    case 'uploadtx':
+        $dirStart = '';
+        $GLOBALS['xoTheme']->addStylesheet($style, null);
+        $templateMain = 'wgtransifex_admin_resources.tpl';
+        $moduleUpload = Request::getString('module_upload');
+        $uploadTest = Request::getString('upload_test');
+        $projectsObj = $projectsHandler->get($proId);
+        $proType = (int)$projectsObj->getVar('pro_type');
+        if (Constants::PROTYPE_NONE === $proType) {
+            \redirect_header('resources.php?op=list', 3, \_AM_WGTRANSIFEX_UPLOADTX_ERR_PROTYPE);
+        }
+        if (Constants::PROTYPE_MODULE === $proType) {
+            if ('' === $moduleUpload) {
+                $form = $resourcesHandler->getFormResourcesModules();
+                $GLOBALS['xoopsTpl']->assign('form', $form->render());
+            } else {
+                $dirStart = $moduleUpload . 'language/english/';
+            }
+        }
+        if (Constants::PROTYPE_CORE === $proType) {
+            $dirStart = XOOPS_ROOT_PATH . '/';
+        }
+        if ('' !== $dirStart) {
+            if (\is_dir($dirStart)) {
+                $transifex = Transifex::getInstance();
+                $result = $transifex->uploadResources($proId, $dirStart, true, $uploadTest);
+
+                $GLOBALS['xoTheme']->addStylesheet($style, null);
+                $templateMain = 'wgtransifex_admin_resources.tpl';
+                $GLOBALS['xoopsTpl']->assign('uploadTxShow', true);
+                $GLOBALS['xoopsTpl']->assign('uploadTxErrors', $result['errors']);
+                $GLOBALS['xoopsTpl']->assign('uploadTxSuccess', $result['success']);
+                $GLOBALS['xoopsTpl']->assign('uploadTxSkipped', $result['skipped']);
+                $GLOBALS['xoopsTpl']->assign('uploadTxInfos', $result['infos']);
+            } else {
+                $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_UPLOADTX_ERR_DIR . $dirStart);
+            }
+        }
+        break;
     case 'list':
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
         $templateMain = 'wgtransifex_admin_resources.tpl';
+        $displayTxAdmin = $helper->getConfig('displayTxAdmin');
+        $GLOBALS['xoopsTpl']->assign('displayTxAdmin', $displayTxAdmin);
+        $GLOBALS['xoopsTpl']->assign('statusTxAdmin', Constants::STATUS_LOCAL);
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('resources.php'));
         if ($proId > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php?op=list', 'list');
         }
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES, 'resources.php?op=readtx', 'add');
+        if ($displayTxAdmin) {
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCE_ADD, 'resources.php?op=new', 'add');
+        }
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
@@ -172,13 +218,19 @@ switch ($op) {
         $resourcesObj->setVar('res_slug', Request::getString('res_slug', ''));
         $resourcesObj->setVar('res_categories', Request::getString('res_categories', ''));
         $resourcesObj->setVar('res_metadata', Request::getString('res_metadata', ''));
-        $resourceDate = \date_create_from_format(_SHORTDATESTRING, Request::getString('res_date'));
-        $resourcesObj->setVar('res_date', $resourceDate->getTimestamp());
+        $resourcesObj->setVar('res_date', \DateTime::createFromFormat(_SHORTDATESTRING, Request::getString('res_date')));
         $resourcesObj->setVar('res_submitter', Request::getInt('res_submitter', 0));
         $resourcesObj->setVar('res_status', Request::getInt('res_status', 0));
-        $resourcesObj->setVar('res_pro_id', Request::getInt('res_pro_id', 0));
+        $resProId = Request::getInt('res_pro_id', 0);
+        $resourcesObj->setVar('res_pro_id', $resProId);
         // Insert Data
         if ($resourcesHandler->insert($resourcesObj)) {
+            $crResources = new \CriteriaCompo();
+            $crResources->add(new \Criteria('res_pro_id', $resProId));
+            $resourcesCount = $resourcesHandler->getCount($crResources);
+            $projectsObj = $projectsHandler->get($resProId);
+            $projectsObj->setVar('pro_resources', $resourcesCount);
+            $projectsHandler->insert($projectsObj);
             \redirect_header('resources.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
@@ -232,17 +284,16 @@ switch ($op) {
                 $crTranslations = new \CriteriaCompo();
                 $crTranslations->add(new \Criteria('tra_res_id', $resId));
                 if ($translationsHandler->deleteAll($crTranslations)) {
-                    if ($resourcesHandler->delete($resourcesObj)) {
-                        if ($packagesHandler->deleteAll($crPackages)) {
-                            $success = true;
-                        } else {
-                            $GLOBALS['xoopsTpl']->assign('error', $packagesHandler->getHtmlErrors());
-                        }
-                    } else {
-                        $GLOBALS['xoopsTpl']->assign('error', $resourcesObj->getHtmlErrors());
-                    }
+                    $success = true;
                 } else {
                     $GLOBALS['xoopsTpl']->assign('error', $translationsHandler->getHtmlErrors());
+                    $success = false;
+                }
+                if ($resourcesHandler->delete($resourcesObj)) {
+                    $success = true;
+                } else {
+                    $GLOBALS['xoopsTpl']->assign('error', $resourcesObj->getHtmlErrors());
+                    $success = false;
                 }
             }
             if ($success) {
@@ -250,8 +301,11 @@ switch ($op) {
                 $translationsCount = $translationsHandler->getCount($crTranslations);
                 $projectsObj->setVar('pro_resources', $resourcesCount);
                 $projectsObj->setVar('pro_translations', $translationsCount);
-                $projectsHandler->insert($projectsObj);
-                \redirect_header('resources.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
+                if ($projectsHandler->insert($projectsObj, true)){
+                    \redirect_header('resources.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
+                } else {
+                    $GLOBALS['xoopsTpl']->assign('error', $projectsHandler->getHtmlErrors());
+                }
             }
         } else {
             if ('delete_all' == $op) {
@@ -262,7 +316,7 @@ switch ($op) {
                 );
             } else {
                 $xoopsconfirm = new Common\XoopsConfirm(
-                    ['ok' => 1, 'res_id' => $resId, 'op' => 'delete'],
+                    ['ok' => 1, 'res_id' => $resId, 'res_pro_id' => $proId, 'op' => 'delete'],
                     $_SERVER['REQUEST_URI'],
                     \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $resourcesObj->getVar('res_slug'))
                 );

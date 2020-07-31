@@ -25,7 +25,7 @@ namespace XoopsModules\Wgtransifex;
  */
 
 use XoopsModules\Wgtransifex;
-
+use XoopsModules\Wgtransifex\Helper;
 
 /**
  * Class Object Resources
@@ -97,26 +97,44 @@ class Resources extends \XoopsObject
         $projectsHandler = $helper->getHandler('Projects');
         $resPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_PRO_ID, 'res_pro_id', $this->getVar('res_pro_id'));
         $crProjects = new \CriteriaCompo();
-        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
-        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTXNEW), 'OR');
+        if ($this->isNew()) {
+            $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
+            $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTXNEW), 'OR');
+            $crProjects->add(new \Criteria('pro_status', Constants::STATUS_LOCAL), 'OR');
+        }
         $resPro_idSelect->addOptionArray($projectsHandler->getList($crProjects));
         $form->addElement($resPro_idSelect);
         // Form Text resSource_language_code
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCE_SOURCE_LANGUAGE_CODE, 'res_source_language_code', 50, 255, $this->getVar('res_source_language_code')));
+        $helper           = Helper::getInstance();
+        $languagesHandler = $helper->getHandler('Languages');
+        $langId = $this->isNew() ? $languagesHandler->getPrimaryLang() : $this->getVar('res_source_language_code');
+        $traLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'res_source_language_code', $langId);
+        $traLang_idSelect->addOptionArray($languagesHandler->getLangCode());
+        $form->addElement($traLang_idSelect);
         // Form Text resName
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCE_NAME, 'res_name', 50, 255, $this->getVar('res_name')));
+        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCE_NAME, 'res_name', 50, 255, $this->getVar('res_name')), true);
         // Form Text resI18n_type
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCE_I18N_TYPE, 'res_i18n_type', 50, 255, $this->getVar('res_i18n_type')));
+        $resI18nTypeSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_I18N_TYPE, 'res_i18n_type', $this->getVar('res_i18n_type'));
+        $resI18nTypeSelect->addOption('PHP_DEFINE');
+        $resI18nTypeSelect->addOption('TXT');
+        $resI18nTypeSelect->addOption('HTML');
+        $form->addElement($resI18nTypeSelect, true);
+        // Form Text res_slug
+        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCE_SLUG, 'res_slug', 50, 255, $this->getVar('res_slug')), true);
         // Form Text resPriority
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCE_PRIORITY, 'res_priority', 50, 255, $this->getVar('res_priority')));
+        $resPrioritySelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_PRIORITY, 'res_priority', $this->getVar('res_priority'));
+        $resPrioritySelect->addOption('0');
+        $resPrioritySelect->addOption('1');
+        $form->addElement($resPrioritySelect, true);
         // Form Text resCategories
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_RESOURCE_CATEGORIES, 'res_categories', 50, 255, $this->getVar('res_categories')));
         // Form Editor TextArea resMetadata
         $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_RESOURCE_METADATA, 'res_metadata', $this->getVar('res_metadata', 'e'), 4, 47));
         // Form Select Status resStatus
-        $resStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_STATUS, 'res_status', $this->getVar('res_status'));
+        $resStatus = $this->isNew() ? Constants::STATUS_LOCAL : $this->getVar('res_status');
+        $resStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_RESOURCE_STATUS, 'res_status', $resStatus);
         $resStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
-        $resStatusSelect->addOption(Constants::STATUS_SUBMITTED, \_AM_WGTRANSIFEX_STATUS_SUBMITTED);
+        $resStatusSelect->addOption(Constants::STATUS_LOCAL, \_AM_WGTRANSIFEX_STATUS_LOCAL);
         $resStatusSelect->addOption(Constants::STATUS_APPROVED, \_AM_WGTRANSIFEX_STATUS_APPROVED);
         $resStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
         $form->addElement($resStatusSelect);
