@@ -74,6 +74,8 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_MAXWIDTH_IMAGE_DESC', 'Set the max width which is allowed for uploading images (in pixel)<br>0 means that images keep original size<br>If original image is smaller the image will be not enlarged');
 \define('_MI_WGTRANSIFEX_MAXHEIGHT_IMAGE', 'Max height image');
 \define('_MI_WGTRANSIFEX_MAXHEIGHT_IMAGE_DESC', 'Set the max height which is allowed for uploading images (in pixel)<br>0 means that images keep original size<br>If original image is smaller the image will be not enlarged');
+\define('_MI_WGTRANSIFEX_SHOW_TXADMIN', 'Show Tx Admin Tools');
+\define('_MI_WGTRANSIFEX_SHOW_TXADMIN_DESC', 'Show Transifex Admin Tools (activate only, if you have admin permission in Transifex)');
 \define('_MI_WGTRANSIFEX_KEYWORDS', 'Keywords');
 \define('_MI_WGTRANSIFEX_KEYWORDS_DESC', 'Insert here the keywords (separate by comma)');
 \define('_MI_WGTRANSIFEX_NUMB_COL', 'Number Columns');

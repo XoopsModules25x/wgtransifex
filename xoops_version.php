@@ -325,6 +325,15 @@ $modversion['config'][] = [
     'default' => $groups,
     'options' => $groups,
 ];
+// Make Transifex Admin Tools visible?
+$modversion['config'][] = [
+    'name' => 'displayTxAdmin',
+    'title' => '_MI_WGTRANSIFEX_SHOW_TXADMIN',
+    'description' => '_MI_WGTRANSIFEX_SHOW_TXADMIN_DESC',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+];
 // Keywords
 $modversion['config'][] = [
     'name' => 'keywords',

@@ -152,4 +152,23 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
 
         return true;
     }
+
+    /**
+     * Get primary language
+     * @return array|int
+     */
+    public function getLangCode()
+    {
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->add(new \Criteria('lang_online', 1));
+        $crLanguages->setSort('lang_name');
+
+        $languagesAll = $this->getAll($crLanguages);
+        $langCode = [];
+        foreach (\array_keys($languagesAll) as $i) {
+            $langCode[$languagesAll[$i]->getVar('lang_code')] = $languagesAll[$i]->getVar('lang_name') . ' (' .$languagesAll[$i]->getVar('lang_code') . ')';
+        }
+
+        return $langCode;
+    }
 }

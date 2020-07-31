@@ -27,6 +27,7 @@ use Xmf\Request;
 use Xmf\Module\Admin;
 use XoopsModules\Wgtransifex\{
     Common,
+    Constants,
     Helper,
     ProjectsHandler,
     Transifex
@@ -53,6 +54,7 @@ switch ($op) {
         //$adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PROJECT, 'projects.php?op=new', 'add');
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_PROJECTS, 'projects.php?op=savetx', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        $GLOBALS['xoopsTpl']->assign('displayTxAdmin', $helper->getConfig('displayTxAdmin'));
         $projectsCount = $projectsHandler->getCountProjects();
         $projectsAll = $projectsHandler->getAllProjects($start, $limit, 'pro_id', 'DESC');
         $GLOBALS['xoopsTpl']->assign('projects_count', $projectsCount);
@@ -90,6 +92,31 @@ switch ($op) {
         $form = $projectsObj->getFormProjects();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
+    case 'clone':
+        $templateMain = 'wgtransifex_admin_projects.tpl';
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('projects.php'));
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_PROJECTS_LIST, 'projects.php', 'list');
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        $projectsObjNew = $projectsHandler->create();
+        $form = $projectsObjNew->getFormCloneToProject($proId);
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
+    case 'clonenew':
+        $templateMain = 'wgtransifex_admin_projects.tpl';
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('projects.php'));
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_PROJECTS_LIST, 'projects.php', 'list');
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        $projectsObjOld = $projectsHandler->get($proId);
+        // Form Create
+        $projectsObjNew = $projectsHandler->create();
+        $projectsObjNew->setVar('pro_description', $projectsObjOld->getVar('pro_description'));
+        $projectsObjNew->setVar('pro_slug', $projectsObjOld->getVar('pro_slug'));
+        $projectsObjNew->setVar('pro_name', $projectsObjOld->getVar('pro_name'));
+        $projectsObjNew->setVar('pro_source_language_code', $projectsObjOld->getVar('pro_source_language_code'));
+        unset($projectsObjOld);
+        $form = $projectsObjNew->getFormProjects(false, $proId);
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
     case 'save':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -113,15 +140,52 @@ switch ($op) {
         $projectsObj->setVar('pro_date', $projectLastupdated);
         $projectsObj->setVar('pro_teams', Request::getString('pro_teams', ''));
         $projectsObj->setVar('pro_archived', Request::getInt('pro_archived', 0));
+        $projectsObj->setVar('pro_type', Request::getInt('pro_type', 0));
         $projectDateArr = Request::getArray('pro_date');
         $projectDateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectDateArr['date']);
         $projectDateObj->setTime(0, 0, 0);
         $projectDate = $projectDateObj->getTimestamp() + (int)$projectDateArr['time'];
         $projectsObj->setVar('pro_date', $projectDate);
         $projectsObj->setVar('pro_submitter', Request::getInt('pro_submitter', 0));
-        $projectsObj->setVar('pro_status', Request::getInt('pro_status', 0));
+        if (Request::getInt('clonePro') > 0) {
+            $projectsObj->setVar('pro_status', Constants::STATUS_SUBMITTED);
+        } else {
+            $projectsObj->setVar('pro_status', Request::getInt('pro_status', 0));
+        }
         // Insert Data
         if ($projectsHandler->insert($projectsObj)) {
+            $newProId = $proId > 0 ? $proId : $projectsObj->getNewInsertedIdProjects();
+            if (Request::getInt('clonePro') > 0) {
+                $res_count = $resourcesHandler->cloneByProject(Request::getInt('clonePro'), $newProId);
+                unset($projectsObj);
+                $projectsObj = $projectsHandler->get($newProId);
+                $projectsObj->setVar('pro_resources', $res_count);
+                $projectsHandler->insert($projectsObj);
+            }
+            \redirect_header('projects.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+        }
+        // Get Form
+        $GLOBALS['xoopsTpl']->assign('error', $projectsObj->getHtmlErrors());
+        $form = $projectsObj->getFormProjects();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
+    case 'save_clonepro':
+        // Security Check
+        if (!$GLOBALS['xoopsSecurity']->check()) {
+            \redirect_header('projects.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+        }
+        $newProId = Request::getInt('cloneTo');
+        $projectsObj = $projectsHandler->get($newProId);
+
+        // Set Vars
+        $projectsObj->setVar('pro_status', Constants::STATUS_LOCAL);
+        // Insert Data
+        if ($projectsHandler->insert($projectsObj)) {
+            $res_count = $resourcesHandler->cloneByProject(Request::getInt('cloneFrom'), $newProId);
+            unset($projectsObj);
+            $projectsObj = $projectsHandler->get($newProId);
+            $projectsObj->setVar('pro_resources', $res_count);
+            $projectsHandler->insert($projectsObj);
             \redirect_header('projects.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
@@ -149,6 +213,18 @@ switch ($op) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 \redirect_header('projects.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
+            //delete all resources
+            $crResources = new \CriteriaCompo();
+            $crResources->add(new \Criteria('res_pro_id', $proId));
+             if (!$resourcesHandler->deleteAll($crResources)) {
+                 $GLOBALS['xoopsTpl']->assign('error', $resourcesHandler->getHtmlErrors());
+             }
+            //delete all translations
+            $crTranslations = new \CriteriaCompo();
+            $crTranslations->add(new \Criteria('res_pro_id', $proId));
+            if (!$translationsHandler->deleteAll($crTranslations)) {
+                $GLOBALS['xoopsTpl']->assign('error', $translationsHandler->getHtmlErrors());
+            }
             if ($projectsHandler->delete($projectsObj)) {
                 \redirect_header('projects.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
@@ -164,40 +240,5 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
-/*
-    case 'createpkg':
-        $templateMain = 'wgtransifex_admin_packages.tpl';
-        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
-        $projectsObj = $projectsHandler->get($proId);
-        $langId      = Request::getInt('lang_id');
-        $pkgLogo     = Request::getString('pkg_logo');
-        if ($langId > 0) {
-            $transifex = \XoopsModules\Wgtransifex\Transifex::getInstance();
-            //read resources
-            $result = $transifex->readResources(0, $proId);
-            //update table projects
-            $crResources = new \CriteriaCompo();
-            $crResources->add(new \Criteria('res_pro_id', $proId));
-            $resourcesCount = $resourcesHandler->getCount($crResources);
-            $projectsObj    = $projectsHandler->get($proId);
-            $projectsObj->setVar('pro_resources', $resourcesCount);
-            $projectsHandler->insert($projectsObj);
-
-            //read translations
-            $result = $transifex->readTranslations(0, $proId, $langId);
-            //update table projects
-            $crTranslations = new \CriteriaCompo();
-            $crTranslations->add(new \Criteria('tra_pro_id', $proId));
-            $translationsCount = $translationsHandler->getCount($crTranslations);
-            $projectsObj       = $projectsHandler->get($proId);
-            $projectsObj->setVar('pro_translations', $translationsCount);
-            $projectsHandler->insert($projectsObj);
-
-        } else {
-            $form = $projectsObj->getFormCreatePkg();
-            $GLOBALS['xoopsTpl']->assign('form', $form->render());
-        }
-        break;
-*/
 }
 require __DIR__ . '/footer.php';

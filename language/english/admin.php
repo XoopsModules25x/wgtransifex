@@ -108,11 +108,16 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_PROJECT_LANGUAGES', '%p - %l  (%t translations)');
 \define('_AM_WGTRANSIFEX_PROJECT_PKG_FORM', 'Create package directly from Transifex');
 \define('_AM_WGTRANSIFEX_PROJECT_PKG', 'Pay attention');
+\define('_AM_WGTRANSIFEX_PROJECT_CLONE', 'Clone resources to other project');
+\define('_AM_WGTRANSIFEX_PROJECT_CLONENEW', 'Clone resources to new project');
+\define('_AM_WGTRANSIFEX_PROJECT_TYPE', 'Project type');
 // Resource add/edit
 \define('_AM_WGTRANSIFEX_RESOURCE_ADD', 'Add Resource');
 \define('_AM_WGTRANSIFEX_RESOURCE_EDIT', 'Edit Resource');
 \define('_AM_WGTRANSIFEX_RESOURCES_SHOW', 'Show Resources');
 \define('_AM_WGTRANSIFEX_RESOURCES_SURE_DELETEALL', 'Do you really want to delete all resources and translations from %s');
+\define('_AM_WGTRANSIFEX_RESOURCES_UPLOADTX', 'Upload resources to Transifex');
+\define('_AM_WGTRANSIFEX_RESOURCES_UPLOADTX_TEST', 'Test data for uploading resources to Transifex');
 // Elements of Resource
 \define('_AM_WGTRANSIFEX_RESOURCES_NB', 'Number of resources');
 \define('_AM_WGTRANSIFEX_RESOURCE_ID', 'Id');
@@ -262,6 +267,26 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_STATUS_READTXNEW', 'New from Transifex');
 \define('_AM_WGTRANSIFEX_STATUS_PENDING', 'Pending');
 \define('_AM_WGTRANSIFEX_STATUS_OUTDATED', 'Outdated');
+\define('_AM_WGTRANSIFEX_STATUS_LOCAL', 'Local data');
+// Project types
+\define('_AM_WGTRANSIFEX_PROTYPE_NONE', 'Not defined');
+\define('_AM_WGTRANSIFEX_PROTYPE_MODULE', 'Upload from module');
+\define('_AM_WGTRANSIFEX_PROTYPE_CORE', 'XOOPS Core');
+// Upload to transifex
+\define('_AM_WGTRANSIFEX_UPLOADTX_ERR_PROTYPE', 'Error: project type is not defined');
+\define('_AM_WGTRANSIFEX_UPLOADTX_ERR_DIR', 'Error: directory for reading files not found: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_SUMMARY', 'Summary of upload procedure');
+\define('_AM_WGTRANSIFEX_UPLOADTX_SUCCESS', 'Uploads successful: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_ERRORS', 'Upload errors: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_SKIPPED', 'Skipped uploads: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_DETAILS', 'Details: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_NOTSTARTED', 'Upload not started');
+\define('_AM_WGTRANSIFEX_UPLOADTX_FILENOTFOUND', 'File not found: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_RESNOTEXISTS', 'Resource does not exists: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_RESEXISTS', 'Resource already exists: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_RESEXISTSSKIP', 'Skipped - Resource already exists: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_FILEUPLOADED', 'File uploaded: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_FILEUPLOADSKIP', 'File upload skipped: ');
 // ---------------- Admin Others ----------------
 \define('_AM_WGTRANSIFEX_MAINTAINEDBY', ' is maintained by ');
 \define('_AM_WGTRANSIFEX_NO_CURL', 'This module needs PHP curl functions. Please activate otherwise download will not work!');

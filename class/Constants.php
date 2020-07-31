@@ -47,4 +47,9 @@ interface Constants
     public const STATUS_READTX = 10;
     public const STATUS_READTXNEW = 11;
     public const STATUS_PENDING = 12;
+    public const STATUS_LOCAL = 13;
+    // Constants for project types
+    public const PROTYPE_NONE = 0;
+    public const PROTYPE_MODULE = 1;
+    public const PROTYPE_CORE = 2;
 }
