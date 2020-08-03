@@ -106,6 +106,11 @@
 			<img src="<{$modPathIcon16}><{$info.type}>.png" alt="<{$info.type}>"> <{$info.text}><br>
 		<{/foreach}>
 	</p>
+    <{if $uploadTxErrors == 0 && $uploadTxTest}>
+        <p><img src="<{$modPathIcon16}>ok.png" alt="<{$info.type}>"> <{$smarty.const._AM_WGTRANSIFEX_UPLOADTX_CHECK_NOERRORS}></p>
+        <p><a href="resources.php?op=uploadtx&amp;res_pro_id=<{$proId}>" title="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_UPLOADTX}>"><img class="wgt-icon24" src="<{$modPathIcon32}>uploadtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_UPLOADTX}>"><{$smarty.const._AM_WGTRANSIFEX_RESOURCES_UPLOADTX}></a></p>
+
+    <{/if}>
 <{/if}>
 <{if $form}>
 	<{$form}>

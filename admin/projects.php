@@ -49,12 +49,16 @@ switch ($op) {
         $GLOBALS['xoTheme']->addStylesheet($style, null);
         $start = Request::getInt('start', 0);
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $displayTxAdmin = (bool)$helper->getConfig('displayTxAdmin');
         $templateMain = 'wgtransifex_admin_projects.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('projects.php'));
-        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PROJECT, 'projects.php?op=new', 'add');
+        if ($displayTxAdmin) {
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PROJECT, 'projects.php?op=new', 'add');
+            $GLOBALS['xoopsTpl']->assign('typeModule', Constants::PROTYPE_MODULE);
+        }
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_PROJECTS, 'projects.php?op=savetx', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-        $GLOBALS['xoopsTpl']->assign('displayTxAdmin', $helper->getConfig('displayTxAdmin'));
+        $GLOBALS['xoopsTpl']->assign('displayTxAdmin', $displayTxAdmin);
         $projectsCount = $projectsHandler->getCountProjects();
         $projectsAll = $projectsHandler->getAllProjects($start, $limit, 'pro_id', 'DESC');
         $GLOBALS['xoopsTpl']->assign('projects_count', $projectsCount);

@@ -118,6 +118,7 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_RESOURCES_SURE_DELETEALL', 'Do you really want to delete all resources and translations from %s');
 \define('_AM_WGTRANSIFEX_RESOURCES_UPLOADTX', 'Upload resources to Transifex');
 \define('_AM_WGTRANSIFEX_RESOURCES_UPLOADTX_TEST', 'Test data for uploading resources to Transifex');
+\define('_AM_WGTRANSIFEX_RESOURCES_READM', 'Read resources of existing module');
 // Elements of Resource
 \define('_AM_WGTRANSIFEX_RESOURCES_NB', 'Number of resources');
 \define('_AM_WGTRANSIFEX_RESOURCE_ID', 'Id');
@@ -287,6 +288,8 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_UPLOADTX_RESEXISTSSKIP', 'Skipped - Resource already exists: ');
 \define('_AM_WGTRANSIFEX_UPLOADTX_FILEUPLOADED', 'File uploaded: ');
 \define('_AM_WGTRANSIFEX_UPLOADTX_FILEUPLOADSKIP', 'File upload skipped: ');
+\define('_AM_WGTRANSIFEX_UPLOADTX_CHECK_NOERRORS', 'Check finish - no errors found');
+\define('_AM_WGTRANSIFEX_UPLOADTX_MODULE', 'Select source module');
 // ---------------- Admin Others ----------------
 \define('_AM_WGTRANSIFEX_MAINTAINEDBY', ' is maintained by ');
 \define('_AM_WGTRANSIFEX_NO_CURL', 'This module needs PHP curl functions. Please activate otherwise download will not work!');

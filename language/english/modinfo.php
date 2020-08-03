@@ -77,7 +77,7 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_SHOW_TXADMIN', 'Show Tx Admin Tools');
 \define('_MI_WGTRANSIFEX_SHOW_TXADMIN_DESC', 'Show Transifex Admin Tools (activate only, if you have admin permission in Transifex)');
 \define('_MI_WGTRANSIFEX_KEYWORDS', 'Keywords');
-\define('_MI_WGTRANSIFEX_SHOW_TXADMIN_DESC', 'Insert here the keywords (separate by comma)');
+\define('_MI_WGTRANSIFEX_KEYWORDS_DESC', 'Insert here the keywords (separate by comma)');
 \define('_MI_WGTRANSIFEX_NUMB_COL', 'Number Columns');
 \define('_MI_WGTRANSIFEX_NUMB_COL_DESC', 'Number Columns to View.');
 \define('_MI_WGTRANSIFEX_DIVIDEBY', 'Divide By');

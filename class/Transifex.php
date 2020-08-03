@@ -429,7 +429,7 @@ class Transifex
         $transifexLib = new TransifexLib();
         $transifexLib->user = $setting['user'];
         $transifexLib->password = $setting['pwd'];
-        $project = $projectsObj->getVar('pro_name');
+        $project = $projectsObj->getVar('pro_slug');
 
         // read resources data
         $crResources = new \CriteriaCompo();
@@ -537,6 +537,9 @@ class Transifex
             $ret = \mb_substr($ret, 0, -4);
         }
         if ('js.txt' == \mb_substr($ret, -6)) {
+            $ret = \mb_substr($ret, 0, -4);
+        }
+        if ('sql.txt' == \mb_substr($ret, -7)) {
             $ret = \mb_substr($ret, 0, -4);
         }
 
