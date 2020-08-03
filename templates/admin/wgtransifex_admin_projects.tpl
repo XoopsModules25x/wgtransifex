@@ -50,6 +50,9 @@
 						<a href="projects.php?op=clone&amp;pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_CLONE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>clone.png" alt="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_CLONE}>"></a>
 						<a href="projects.php?op=clonenew&amp;pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_CLONENEW}>"><img class="wgt-icon24" src="<{$modPathIcon32}>clonenew.png" alt="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_CLONENEW}>"></a>
 					<{/if}>
+					<{if $project.resources == 0 && $project.type == $typeModule}>
+						<a href="resources.php?op=read_res&amp;res_pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_READM}>"><img class="wgt-icon24" src="<{$modPathIcon32}>resources_read.png" alt="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_READM}>"></a>
+					<{/if}>
 					<{if $project.archived == 0 && $project.txresources > 0}>
 						<a href="resources.php?op=savetx&amp;res_pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCES}>"><img class="wgt-icon24" src="<{$modPathIcon32}>resourcestx.png"" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCES}>"></a>
 					<{/if}>

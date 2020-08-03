@@ -163,11 +163,14 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
         $crResources->add(new \Criteria('res_pro_id', $proIdNew));
         return $this->getCount($crResources);
     }
+
     /**
      * get form with all existing modules
+     * @param $op
+     * @param bool $action
      * @return \XoopsThemeForm
      */
-    public function getFormResourcesModules($action = false)
+    public function getFormResourcesModules($op, $action = false)
     {
         $dir = XOOPS_ROOT_PATH . '/modules/';
         $cdir = \scandir($dir);
@@ -182,7 +185,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
-        $title = \_AM_WGTRANSIFEX_PROJECT_CLONE;
+        $title = \_AM_WGTRANSIFEX_UPLOADTX_MODULE;
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
@@ -192,7 +195,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
         $resPro_idSelect->addOptionArray($modules);
         $form->addElement($resPro_idSelect);
         // To Save
-        $form->addElement(new \XoopsFormHidden('op', 'uploadtx'));
+        $form->addElement(new \XoopsFormHidden('op', $op));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 
         return $form;

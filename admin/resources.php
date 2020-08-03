@@ -55,12 +55,11 @@ $op = Request::getCmd('op', 'list');
 $resId = Request::getInt('res_id');
 $proId = Request::getInt('res_pro_id');
 switch ($op) {
-    case 'uploadtx':
+    case 'read_res':
         $dirStart = '';
         $GLOBALS['xoTheme']->addStylesheet($style, null);
         $templateMain = 'wgtransifex_admin_resources.tpl';
         $moduleUpload = Request::getString('module_upload');
-        $uploadTest = Request::getString('upload_test');
         $projectsObj = $projectsHandler->get($proId);
         $proType = (int)$projectsObj->getVar('pro_type');
         if (Constants::PROTYPE_NONE === $proType) {
@@ -68,7 +67,102 @@ switch ($op) {
         }
         if (Constants::PROTYPE_MODULE === $proType) {
             if ('' === $moduleUpload) {
-                $form = $resourcesHandler->getFormResourcesModules();
+                $form = $resourcesHandler->getFormResourcesModules('read_res');
+                $GLOBALS['xoopsTpl']->assign('form', $form->render());
+            } else {
+                $dirStart = $moduleUpload . 'language/english/';
+            }
+        }
+        if ('' !== $dirStart) {
+            if (\is_dir($dirStart)) {
+                $directory = new \RecursiveDirectoryIterator($dirStart, \FilesystemIterator::FOLLOW_SYMLINKS);
+                $filter = new \RecursiveCallbackFilterIterator($directory, function ($current, $key, $iterator) {
+                    // Skip hidden files and directories.
+                    if ($current->getFilename()[0] === '.') {
+                        return FALSE;
+                    }
+                    if ($current->getFilename() === 'index.html') {
+                        return FALSE;
+                    }
+                    return $current->getFilename();
+                });
+                $iterator = new \RecursiveIteratorIterator($filter);
+                $files = array();
+                $len = strlen($dirStart);
+                foreach ($iterator as $info) {
+                    $file = $info->getPathname();
+                    $name = substr($info->getPathname(), $len, 255);
+                    if (strpos($name, '\\') > 0) {
+                        $subfolders = str_replace('\\', '-', substr($name, 0, strpos($name, '\\')));
+                        $res_name = '[' . $subfolders . ']' . $info->getFilename();
+                    } else {
+                        $res_name = $name;
+                    }
+                    if ('common.php' == $name || 'feedback.php' == $name) {
+                        $i18n_type = 'TXT';
+                    } else {
+                        switch (pathinfo($file, PATHINFO_EXTENSION)) {
+                            case 'php':
+                                $i18n_type = 'PHP_DEFINE';
+                                break;
+                            case 'html':
+                                $i18n_type = 'HTML';
+                                break;
+                            case 'tpl':
+                            default:
+                                $i18n_type = 'TXT';
+                                break;
+                        }
+                    }
+                    // replace non letter or digits by -
+                    $slug = preg_replace('~[^\pL\d]+~u', '', $res_name);
+                    // transliterate
+                    $slug = iconv('utf-8', 'us-ascii//TRANSLIT', $slug);
+                    // remove unwanted characters
+                    $slug = preg_replace('~[^-\w]+~', '', $slug);
+                    // lowercase
+                    $slug = strtolower($slug);
+                    $files[] = ['file' => $file, 'name' => $name,'res_name' => $res_name,  'i18n_type' => $i18n_type, 'slug' => $slug];
+                    $resourcesObj = $resourcesHandler->create();
+                    // Set Vars
+                    $resourcesObj->setVar('res_source_language_code', 'en_GB');
+                    $resourcesObj->setVar('res_name', $res_name);
+                    $resourcesObj->setVar('res_i18n_type', $i18n_type);
+                    $resourcesObj->setVar('res_slug', $slug);
+                    $resourcesObj->setVar('res_metadata', '');
+                    $resourcesObj->setVar('res_date', time());
+                    $resourcesObj->setVar('res_submitter', $GLOBALS['xoopsUser']->getVar('uid'));
+                    $resourcesObj->setVar('res_status', Constants::STATUS_LOCAL);
+                    $resourcesObj->setVar('res_pro_id', $proId);
+                    // Insert Data
+                    $resourcesHandler->insert($resourcesObj);
+                }
+                $crResources = new \CriteriaCompo();
+                $crResources->add(new \Criteria('res_pro_id', $proId));
+                $resourcesCount = $resourcesHandler->getCount($crResources);
+                $projectsObj = $projectsHandler->get($proId);
+                $projectsObj->setVar('pro_resources', $resourcesCount);
+                $projectsHandler->insert($projectsObj);
+                \redirect_header('resources.php?op=list&amp;res_pro_id=' . $proId, 2, \_AM_WGTRANSIFEX_FORM_OK);
+            } else {
+                $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_UPLOADTX_ERR_DIR . $dirStart);
+            }
+        }
+        break;
+    case 'uploadtx':
+        $dirStart = '';
+        $GLOBALS['xoTheme']->addStylesheet($style, null);
+        $templateMain = 'wgtransifex_admin_resources.tpl';
+        $moduleUpload = Request::getString('module_upload');
+        $uploadTest = Request::getBool('upload_test');
+        $projectsObj = $projectsHandler->get($proId);
+        $proType = (int)$projectsObj->getVar('pro_type');
+        if (Constants::PROTYPE_NONE === $proType) {
+            \redirect_header('resources.php?op=list', 3, \_AM_WGTRANSIFEX_UPLOADTX_ERR_PROTYPE);
+        }
+        if (Constants::PROTYPE_MODULE === $proType) {
+            if ('' === $moduleUpload) {
+                $form = $resourcesHandler->getFormResourcesModules('uploadtx');
                 $GLOBALS['xoopsTpl']->assign('form', $form->render());
             } else {
                 $dirStart = $moduleUpload . 'language/english/';
@@ -89,6 +183,8 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('uploadTxSuccess', $result['success']);
                 $GLOBALS['xoopsTpl']->assign('uploadTxSkipped', $result['skipped']);
                 $GLOBALS['xoopsTpl']->assign('uploadTxInfos', $result['infos']);
+                $GLOBALS['xoopsTpl']->assign('proId', $proId);
+                $GLOBALS['xoopsTpl']->assign('uploadTxTest', $uploadTest);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_UPLOADTX_ERR_DIR . $dirStart);
             }
@@ -267,18 +363,12 @@ switch ($op) {
             if ('delete_all' == $op) {
                 $crTranslations = new \CriteriaCompo();
                 $crTranslations->add(new \Criteria('tra_pro_id', $proId));
-                if ($translationsHandler->deleteAll($crTranslations)) {
-                    if ($resourcesHandler->deleteAll($crResources)) {
-                        if ($packagesHandler->deleteAll($crPackages)) {
-                            $success = true;
-                        } else {
-                            $GLOBALS['xoopsTpl']->assign('error', $packagesHandler->getHtmlErrors());
-                        }
-                    } else {
-                        $GLOBALS['xoopsTpl']->assign('error', $resourcesHandler->getHtmlErrors());
-                    }
+                $translationsHandler->deleteAll($crTranslations);
+                $packagesHandler->deleteAll($crPackages);
+                if ($resourcesHandler->deleteAll($crResources)) {
+                    $success = true;
                 } else {
-                    $GLOBALS['xoopsTpl']->assign('error', $translationsHandler->getHtmlErrors());
+                    $GLOBALS['xoopsTpl']->assign('error', $resourcesHandler->getHtmlErrors());
                 }
             } else {
                 $crTranslations = new \CriteriaCompo();
