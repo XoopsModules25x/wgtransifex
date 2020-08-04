@@ -62,7 +62,7 @@ switch ($op) {
         $packagesAll = $packagesHandler->getAllPackages($start, $limit, 'pkg_id', 'DESC');
         $GLOBALS['xoopsTpl']->assign('packages_count', $packagesCount);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
         // Table view packages
         if ($packagesCount > 0) {
             foreach (\array_keys($packagesAll) as $i) {
@@ -153,13 +153,13 @@ switch ($op) {
         $langFolder = $languagesObj->getVar('lang_folder');
 
         // Make the destination directory if not exist
-        $pkg_path = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName;
-        if (!mkdir($pkg_path) && !is_dir($pkg_path)) {
+        $pkg_path = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName;
+        if (!\is_dir($pkg_path) && !\mkdir($pkg_path)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
         }
         $pkg_path .= '/' . $langFolder;
         \clearDir($pkg_path);
-        if (!mkdir($pkg_path) && !is_dir($pkg_path)) {
+        if (!\is_dir($pkg_path) && !\mkdir($pkg_path)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
         }
 
@@ -190,6 +190,7 @@ switch ($op) {
                         if (!mkdir($dst_path) && !is_dir($dst_path)) {
                             throw new \RuntimeException(sprintf('Directory "%s" was not created', $dst_path));
                         }
+                        chmod($dst_path, 0777);
                     }
                 }
             }
@@ -197,10 +198,10 @@ switch ($op) {
             \redirect_header('packages.php?op=list', 5, \_AM_WGTRANSIFEX_PACKAGE_ERROR_NODATA);
         }
 
-        $zipcreate = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $pkgName . '_' . $langFolder . '.zip';
+        $zipcreate = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $pkgName . '_' . $langFolder . '.zip';
         \unlink($zipcreate);
         if (1 == Request::getInt('pkg_zipfile', 0)) {
-            $pkg_path = WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $langFolder;
+            $pkg_path = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $langFolder;
             zipFiles($pkg_path, $zipcreate);
         }
 
@@ -226,7 +227,7 @@ switch ($op) {
         $imgNameDef = Request::getString('pkg_name');
         $uploaderErrors = '';
         $uploader = new \XoopsMediaUploader(
-            WGTRANSIFEX_UPLOAD_PATH . '/logos/',
+            \WGTRANSIFEX_UPLOAD_PATH . '/logos/',
             $helper->getConfig('mimetypes_image'),
             $helper->getConfig('maxsize_image'),
             null,
@@ -246,8 +247,8 @@ switch ($op) {
                 if ($maxwidth > 0 && $maxheight > 0) {
                     // Resize image
                     $imgHandler = new Common\Resizer();
-                    $imgHandler->sourceFile = WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
-                    $imgHandler->endFile = WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
+                    $imgHandler->sourceFile = \WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
+                    $imgHandler->endFile = \WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
                     $imgHandler->imageMimetype = $imgMimetype;
                     $imgHandler->maxWidth = $maxwidth;
                     $imgHandler->maxHeight = $maxheight;
@@ -292,7 +293,7 @@ switch ($op) {
                 // Event new notification
                 $notificationHandler->triggerEvent('packages', $newPkgId, 'package_new', $tags);
 
-                \redirect_header('packages.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
+                \redirect_header('packages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
             }
         }
         // Get Form
@@ -382,11 +383,11 @@ function zipFiles($source, $destination)
             $iterator->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
             $files = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
             foreach ($files as $file) {
-                $file = \realpath($file);
-                if (\is_dir($file)) {
-                    $zip->addEmptyDir(\str_replace($source . DIRECTORY_SEPARATOR, '', $file . DIRECTORY_SEPARATOR));
-                } elseif (\is_file($file)) {
-                    $zip->addFile($file, \str_replace($source . DIRECTORY_SEPARATOR, '', $file));
+                $filepath = \realpath($file->getPathname());
+                if (\is_dir($filepath)) {
+                    $zip->addEmptyDir(\str_replace($source . DIRECTORY_SEPARATOR, '', $filepath . DIRECTORY_SEPARATOR));
+                } elseif (\is_file($filepath)) {
+                    $zip->addFile($filepath, \str_replace($source . DIRECTORY_SEPARATOR, '', $filepath));
                 }
             }
         } elseif (\is_file($source)) {
