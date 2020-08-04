@@ -1,0 +1,42 @@
+<div id="help-template" class="outer">
+<h1 class="head">Hilfe: Templates</h1>
+
+<h4 class="odd">Beschreibung</h4>
+
+    <p class="even">
+XOOPS ermöglicht die Trennung zwischen der Darstellung auf Ihrer Seite (the “<em>Aussehen</em>” oder User-Interface) und dem Code, der im Hintergrund ausgeführt wird. Das Erstere wird durch einen ausgeklügelten Mechanismus, basierend auf einem grafischen Theme, ausgeführt. Eine Theme includiert grundsätzlich ein HTML-Template, 
+das die visuelle Oberfläche Ihrer Seite definiert, und auch die Stylesheets und Bilder, die für den Aufbau Ihrer Oberfläche erforderlich sind. Thems können im Administrationsbereich gewechselt werden, sodass das Aussehen Ihrer XOOPS-Seite durch einen einfachen Klick im Auswahldropdown und einer abschlißenden Bestätigung vollständig verändert werden kann.
+XOOPS gibt den Administratoren auch die Möglichkeit, dass man sogar den Webseitengästen diese Wechselmöglichkeit für dafür freigegebene Themes einräumt.<br><br>
+
+Allgemein gesprochen, ein <strong><em>Theme</em></strong> ist ein visuellen High-Level-Framework Ihrer Seite: ein Theme bestimmt den generellen Aufbau und das Layout Ihrer Seite; andererseits hat es aber keine Einfluss die Aufteilung der Inhalte z.B. innerhalb eines Blocks. 
+Dies erfolgt durch mehrere Komponenten, dem sogenannten <em><strong>Template Set</strong></em>. Ein Template Set ist die Zusammenstellung von verschiedenen HTML-Templates, die die einzelnen Inhalte der Module bzw. Blöcke präsentieren und somit das Aussehen Ihrer Xoops-Seite beeinflussen. Wenn wir es anders ausdrücken möchten, dann könnte man sagen, das Theme ist wie
+ein Architekt eines Hauses, während das Template Set der Innenausstatter ist. Der Erste errichtet die Mauern und bestimmt die grundsätzliche Raumaufteilung, und der Zweite ist für die “<em>Gestaltung und Dekoration</em>”  der Wände zuständig. <br><br>
+
+Wenn es sich bei Ihrem Theme um ein sehr einfaches handelt, das nur die Theme-Datei sowie CSS- und Bilddateien, dann verwendet XOOPS für die Präsentation z.B. der Blöcke das eigene Standard-Theme dafür. Wenn Sie ein komplexeres Theme verwenden, dann wird dies auch Ihre eigenen Templates für alle Bereiche und Blöcke beinhalten.
+In diesem Fall muss der Webmaster über den Administratonsbereich auch beides, das Theme und die Templates, bedienen.<br><br>
+
+Und welche <em>Magie</em> bewerkstelligt die Befüllung des Theme, wie erhält ein HTML-Template seine dynamischen Inhalt? dies geschieht nicht mit Spiegeln und Rauch, sondern mit einer cleveren Template-Engine, genannt 
+<strong><a rel="external" href="http://www.smarty.net/">Smarty</a></strong>, dass mit der darin enthaltenen Funktion
+<em><strong>Variableninterpolation</strong></em> dies Aufgabe übernimmt. Vereinfacht ausgedrückt, das XOOPS-System verwendet PHP-Dateien für die Verwaltung und Bereitstellung der Module (Zugriff auf die Datenbank, Ermittlung der zu anzuzeigenden Inhalte, Rechteverwaltung,...), HTML-Dateien mit includierten Smarty-Variablen gestalten den aktuellen Seitenaufbau bzw. das Interface,
+und die Smarty Engine fügt die Werte und Texte in die dafür vorgesehenen Stellen innerhalb der HTML-Seite ein, um schließlich die für den Endanwender sichtbare Seite zu generieren. Alles in Allem bedeutet dies für Sie: Dank dem Themesystem von XOOPS können Designer mehr
+interessante und visuell ansprechendere Seiten erstellen, ohne sich damit befassen zu müssen, was im Hintergrund passiert.
+    </p>
+<h4 class="odd">Clonen und Herunterladen von Template Sets</h4>
+
+    <p class="even">
+Wenn Sie ein eigenes Template Set erstellen möchten, dann können Sie eine Kopie des Standardsets (oder jedes anderen) erstellen, indem Sie auf den ‘<em>Clonen</em>’ Link klicken. Sie werden dann aufgefordert, dem Set einen neuen Namen zu geben. Mit Ausnahme des Standard Sets (default) können alle anderen Sets frei bearbeitet werden.
+Sie können aber auch eine Kopie auf Ihrer Festplatte anlegen, indem Sie auf den ‘<em>Download</em>’ Link klicken, oder es mit dem ‘<em>Entfernen</em>’ Link  löschen. Manchmal wird Ihnen auch ein ‘<em>Generieren</em>’ Link angeboten, sofern für neue Module noch kein Template Set erstellt wurde.
+    </p>
+
+<h4 class="odd">Templates bearbeiten</h4>
+
+    <p class="even">
+In der Verzeichnisübersicht erhalten Sie eine vollständige Liste der verfügbaren Templates. Wenn Sie ein Template auswählen, öffnet XOOPS dieses mit einem Texteditor, in dem Sie das Template bearbeiten können. <br><br>
+
+Während dem Bearbeiten der Templates müssen Sie auch in den allgemeinen Einstellungen die automatische Überprüfung auf neue Templates aktivieren (Systemmodul => Einstellungen => Allgemein => Templates auf Änderungen prüfen? 
+ auf ‘<em>Ja</em>’),  damit Ihre Ansicht auch an die Änderungen angepasst wird. Dies gilt auch, wenn Sie neuere Templatedateien (.tpl) direkt in das Verzeichnis ' ../themes/dein_theme/templates ' kopieren. <br><br>
+Sollten Sie irgendwann einaml Ihr Template ruinieren, dann vergessen Sie nicht, dass die eine ‘<em>gute</em>’ Kopie vom Standardset machen können. Wenn Sie mit anderen Nicht-Standardtemplates arbeiten, sollten Sie zumindest am Anfang eine Sicherungskopie erstellen, bevor Sie mit der Bearbeitung beginnen.
+
+    </p>
+
+</div>
