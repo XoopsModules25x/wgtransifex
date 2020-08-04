@@ -143,7 +143,7 @@ switch ($op) {
                 $projectsObj = $projectsHandler->get($proId);
                 $projectsObj->setVar('pro_resources', $resourcesCount);
                 $projectsHandler->insert($projectsObj);
-                \redirect_header('resources.php?op=list&amp;res_pro_id=' . $proId, 2, \_AM_WGTRANSIFEX_FORM_OK);
+                \redirect_header('resources.php?op=uploadtx&amp;upload_test=1&amp;module_upload=' . $moduleUpload .'&amp;res_pro_id=' . $proId, 2, \_AM_WGTRANSIFEX_FORM_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_UPLOADTX_ERR_DIR . $dirStart);
             }
