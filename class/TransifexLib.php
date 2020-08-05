@@ -349,9 +349,7 @@ class TransifexLib
         if ($checkOnly) {
             return (false == $error);
         }
-        echo "<br>" . $url;
         if ($error) {
-            //echo $url;
             //catch common errors
             switch ((int)$info['http_code']) {
                 case 401:

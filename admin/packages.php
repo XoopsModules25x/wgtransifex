@@ -283,16 +283,18 @@ switch ($op) {
                         $requestsHandler->insert($requestsObj);
                     }
                 }
-                // Handle notification
-                $pkgName = $packagesObj->getVar('pkg_name');
-                $pkgStatus = $packagesObj->getVar('pkg_status');
-                $tags = [];
-                $tags['ITEM_NAME'] = $pkgName;
-                $tags['ITEM_URL'] = $helper->url('packages.php?op=show&pkg_id=' . $pkgId);
-                $notificationHandler = \xoops_getHandler('notification');
-                // Event new notification
-                $notificationHandler->triggerEvent('packages', $newPkgId, 'package_new', $tags);
-
+                if (0 == $pkgId) {
+                    // Handle notification
+                    $pkgName = $packagesObj->getVar('pkg_name');
+                    $pkgStatus = $packagesObj->getVar('pkg_status');
+                    $tags = [];
+                    $tags['ITEM_ID'] = $newPkgId;
+                    $tags['ITEM_NAME'] = $pkgName;
+                    $tags['ITEM_URL'] = $helper->url('packages.php?op=show&pkg_id=' . $newPkgId);
+                    $notificationHandler = \xoops_getHandler('notification');
+                    // Event new notification
+                    $notificationHandler->triggerEvent('global', 0, 'package_new', $tags);
+                }
                 \redirect_header('packages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
             }
         }

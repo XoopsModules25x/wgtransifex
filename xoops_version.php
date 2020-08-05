@@ -457,7 +457,7 @@ $modversion['notification']['category'][] = [
     'title' => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE,
     'description' => '',
     'subscribe_from' => ['index.php', 'packages.php'],
-    'item_name' => '',
+    'item_name' => 'pkg_id',
     'allow_bookmark' => 1,
 ];
 // Request Notify
@@ -466,14 +466,14 @@ $modversion['notification']['category'][] = [
     'title' => \_MI_WGTRANSIFEX_NOTIFY_REQUEST_ADMIN,
     'description' => '',
     'subscribe_from' => ['index.php', 'projects.php'],
-    'item_name' => '',
+    'item_name' => 'req_id',
     'allow_bookmark' => 1,
 ];
 // events notification
 // package new
 $modversion['notification']['event'][] = [
     'name' => 'package_new',
-    'category' => 'packages',
+    'category' => 'global',
     'admin_only' => 0,
     'title' => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_NEW,
     'caption' => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_NEW_CAPTION,
@@ -485,7 +485,7 @@ $modversion['notification']['event'][] = [
 // package broken
 $modversion['notification']['event'][] = [
     'name' => 'package_broken',
-    'category' => 'packages',
+    'category' => 'global',
     'admin_only' => 1,
     'title' => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_BROKEN,
     'caption' => \_MI_WGTRANSIFEX_NOTIFY_PACKAGE_BROKEN_CAPTION,
@@ -496,7 +496,7 @@ $modversion['notification']['event'][] = [
 // request new
 $modversion['notification']['event'][] = [
     'name' => 'request_new',
-    'category' => 'requests',
+    'category' => 'global',
     'admin_only' => 1,
     'title' => \_MI_WGTRANSIFEX_NOTIFY_REQUEST_NEW,
     'caption' => \_MI_WGTRANSIFEX_NOTIFY_REQUEST_NEW_CAPTION,
