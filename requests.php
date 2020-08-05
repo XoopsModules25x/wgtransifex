@@ -102,17 +102,18 @@ switch ($op) {
         $requestsObj->setVar('req_statusuid', $uid);
         // Insert Data
         if ($requestsHandler->insert($requestsObj)) {
-            $newReqId = $reqId > 0 ? $reqId : $requestsObj->getNewInsertedIdRequests();
+            $newReqId = $requestsObj->getNewInsertedIdRequests();
             // Handle notification
             $reqProject = $requestsObj->getVar('req_project');
             $reqStatus = $requestsObj->getVar('req_status');
             $tags = [];
+            $tags['ITEM_ID'] = $newReqId;
             $tags['ITEM_NAME'] = $reqProject;
-            $tags['ITEM_URL'] = $helper->url('admin/requests.php?op=show&req_id=' . $reqId);
+            $tags['ITEM_URL'] = $helper->url('admin/requests.php?op=show&req_id=' . $newReqId);
             $notificationHandler = \xoops_getHandler('notification');
             // Event approve notification
             /** @var \XoopsNotificationHandler $notificationHandler */
-            $notificationHandler->triggerEvent('requests', $newReqId, 'request_new', $tags);
+            $notificationHandler->triggerEvent('global', 0, 'request_new', $tags);
             // redirect after insert
             \redirect_header('index.php', 2, _MA_WGTRANSIFEX_FORM_OK);
         }

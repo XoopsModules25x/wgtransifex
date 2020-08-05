@@ -1,23 +1,23 @@
-Hello {X_UNAME},
+Hallo {X_UNAME},
 
-The package "{ITEM_NAME}" has been notified as broken at {X_SITENAME}.
+Das Paket "{ITEM_NAME}" wurde unter {X_SITENAME} als fehlerhaft gemeldet.
 
-You can view this package here:
+Sie können dieses Paket hier ansehen:
 {ITEM_URL}
 
 ------------------------------------------------------------------
 
-You are receiving this message because you selected to be notified when a package is notified as broken on our site.
+Sie erhalten diese Nachricht, weil Sie ausgewählt haben, benachrichtigt zu werden, wenn ein Paket auf unserer Website als fehlerhaft benachrichtigt wird.
 
-If this is an error or you wish not to receive further such notifications, please update your subscriptions by visiting the link below:
+Sollte es sich dabei um einen Fehler handeln oder Du kein Interesse mehr daran haben derartige Informationen zu erhalten, ändere die Einstellungen in Deinem Profil in dem Du folgenden URL aufrufst:
 {X_UNSUBSCRIBE_URL}
 
-Please do not reply to this message.
+Auf diese Nachricht bitte nicht antworten, da diese automatisch generiert wurde.
 
 ------------------------------------------------------------------
 
 {X_SITENAME} ({X_SITEURL})
-webmaster
+Webmaster
 {X_ADMINMAIL}
 
 ------------------------------------------------------------------

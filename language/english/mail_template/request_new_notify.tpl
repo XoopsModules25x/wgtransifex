@@ -1,6 +1,6 @@
 Hello {X_UNAME},
 
-The request "{ITEM_NAME}" has been sent at {X_SITENAME}.
+The request for a new language package has been sent to {X_SITENAME}.
 
 Please create the requested language package.
 

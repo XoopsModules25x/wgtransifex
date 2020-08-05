@@ -1,23 +1,23 @@
-Hello {X_UNAME},
+Hallo {X_UNAME},
 
-A new package "{ITEM_NAME}" is available at {X_SITENAME}.
+Ein neues Sprachpaket "{ITEM_NAME}" wurde auf {X_SITENAME} hinzugefügt.
 
-You can view this package here:
+Sie können dieses Paket hier ansehen:
 {ITEM_URL}
 
 ------------------------------------------------------------------
 
-You are receiving this message because you selected to be notified when a package is released on our site.
+Du erhältst diese Nachricht weil Du über neue Sprachpakete informiert werden möchtest.
 
-If this is an error or you wish not to receive further such notifications, please update your subscriptions by visiting the link below:
+Sollte es sich dabei um einen Fehler handeln oder Du kein Interesse mehr daran haben derartige Informationen zu erhalten, ändere die Einstellungen in Deinem Profil in dem Du folgenden URL aufrufst:
 {X_UNSUBSCRIBE_URL}
 
-Please do not reply to this message.
+Auf diese Nachricht bitte nicht antworten, da diese automatisch generiert wurde.
 
 ------------------------------------------------------------------
 
 {X_SITENAME} ({X_SITEURL})
-webmaster
+Webmaster
 {X_ADMINMAIL}
 
 ------------------------------------------------------------------

@@ -1,25 +1,25 @@
-Hello {X_UNAME},
+Hallo {X_UNAME},
 
-The request "{ITEM_NAME}" has been sent at {X_SITENAME}.
+Eine neue Anfrage für ein Sprachpaket ist auf {X_SITENAME} eingelangt.
 
-Please create the requested language package.
+Bitte erstelle das gewünschte Sprachpaket.
 
-You can view this request here:
+Du kannst die Änderungen hier ansehen:
 {ITEM_URL}
 
 ------------------------------------------------------------------
 
-You are receiving this message because you selected to be notified when a request is sent on our site.
+Du erhältst diese Nachricht weil Du über neue Anfragen für Sprachpakete informiert werden möchtest.
 
-If this is an error or you wish not to receive further such notifications, please update your subscriptions by visiting the link below:
+Sollte es sich dabei um einen Fehler handeln oder Du kein Interesse mehr daran haben derartige Informationen zu erhalten, ändere die Einstellungen in Deinem Profil in dem Du folgenden URL aufrufst:
 {X_UNSUBSCRIBE_URL}
 
-Please do not reply to this message.
+Auf diese Nachricht bitte nicht antworten, da diese automatisch generiert wurde.
 
 ------------------------------------------------------------------
 
 {X_SITENAME} ({X_SITEURL})
-webmaster
+Webmaster
 {X_ADMINMAIL}
 
 ------------------------------------------------------------------

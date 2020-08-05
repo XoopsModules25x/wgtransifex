@@ -6,6 +6,7 @@ Change Log for wgTransifex - 2020/07/26 12:35:41 Version 1.04 RC1
  - new preference 'Show Tx Admin Tools' (goffy)
  - added project type (goffy)
  - fixed problem with declare strict_types (goffy)
+ - fixed problems with notifications (goffy)
 
 ===================================================================
 Change Log for wgTransifex - 2020/07/26 12:35:41 Version 1.03 RC2

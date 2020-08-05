@@ -25,23 +25,15 @@ require_once __DIR__ . '/admin.php';
 // ---------------- Main ----------------
 \define('_MA_WGTRANSIFEX_INDEX', 'Home');
 \define('_MA_WGTRANSIFEX_TITLE', 'wgTransifex');
-\define('_MA_WGTRANSIFEX_DESC', 'This module is for doing following...');
-\define(
-    '_MA_WGTRANSIFEX_INDEX_DESC',
-    "Welcome to the homepage of your new module wgTransifex!<br>
-As you can see, you have created a page with a list of links at the top to navigate between the pages of your module. This description is only visible on the homepage of this module, the other pages you will see the content you created when you built this module with the module ModuleBuilder, and after creating new content in admin of this module. In order to expand this module with other resources, just add the code you need to extend the functionality of the same. The files are grouped by type, from the header to the footer to see how divided the source code.<br><br>If you see this message, it is because you have not created content for this module. Once you have created any type of content, you will not see this message.<br><br>If you liked the module ModuleBuilder and thanks to the long process for giving the opportunity to the new module to be created in a moment, consider making a donation to keep the module ModuleBuilder and make a donation using this button <a href='http://www.txmodxoops.org/modules/xdonations/index.php' title='Donation To Txmod Xoops'><img src='https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif' alt='Button Donations'></a><br>Thanks!<br><br>Use the link below to go to the admin and create content."
-);
+\define('_MA_WGTRANSIFEX_DESC', 'This module is for downloaded language packages from Transifex');
+\define('_MA_WGTRANSIFEX_INDEX_DESC','Welcome to the homepage of module wgTransifex!<br>With this module we want to provide you several language packages. If one is not available, send us a request.');
 \define('_MA_WGTRANSIFEX_DETAILS', 'Show details');
 \define('_MA_WGTRANSIFEX_BROKEN', 'Notify broken');
 \define('_MA_WGTRANSIFEX_INVALID_PARAM', 'Invalid parameter');
 \define('_MA_WGTRANSIFEX_NOPERM', 'You do not have the necessary permissions');
 \define('_MA_WGTRANSIFEX_FORM_OK', 'Successfully saved');
-//\define('_MA_WGTRANSIFEX_FORM_DELETE_OK', 'Successfully deleted');
-//\define('_MA_WGTRANSIFEX_FORM_SURE_DELETE', "Are you sure to delete: <b><span style='color : Red;'>%s </span></b>");
-//\define('_MA_WGTRANSIFEX_FORM_SURE_RENEW', "Are you sure to update: <b><span style='color : Red;'>%s </span></b>");
 \define('_MA_WGTRANSIFEX_FORM_SURE_BROKEN', "Are you sure to notify as broken: <b><span style='color : Red;'>%s </span></b>");
 // ---------------- Contents ----------------
-
 // Project
 \define('_MA_WGTRANSIFEX_PROJECT', 'Project');
 \define('_MA_WGTRANSIFEX_PROJECTS', 'Projects');
@@ -61,7 +53,6 @@ As you can see, you have created a page with a list of links at the top to navig
 \define('_MA_WGTRANSIFEX_PROJECT_DATE', 'Date');
 \define('_MA_WGTRANSIFEX_PROJECT_SUBMITTER', 'Submitter');
 \define('_MA_WGTRANSIFEX_PROJECT_STATUS', 'Status');
-
 // Package
 \define('_MA_WGTRANSIFEX_PACKAGE', 'Package');
 \define('_MA_WGTRANSIFEX_PACKAGES', 'Packages');
