@@ -356,10 +356,20 @@ class Transifex
                 $projectsObj = $projectsHandler->get($translationsAll[$i]->getVar('tra_pro_id'));
                 $project = $projectsObj->getVar('pro_slug');
                 $resourceObj = $resourcesHandler->get($translationsAll[$i]->getVar('tra_res_id'));
-                $resource = $resourceObj->getVar('res_slug');
+                $resource = '';
+                if (\is_object($resourceObj)) {
+                    $resource = $resourceObj->getVar('res_slug');
+                } else {
+                    $count_err++;
+                }
                 //$resSourceLang = $resourceObj->getVar('res_source_language_code');
                 $languagesObj = $languagesHandler->get($translationsAll[$i]->getVar('tra_lang_id'));
-                $language = $languagesObj->getVar('lang_code');
+                $language = '';
+                if (\is_object($languagesObj)) {
+                    $language = $languagesObj->getVar('lang_code');
+                } else {
+                    $count_err++;
+                }
                 //$item          = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
                 $stats = $transifexLib->getStats($project, $resource, $language);
                 $traLastUpdate = \strtotime($stats['last_update']);

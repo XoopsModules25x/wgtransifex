@@ -32,8 +32,8 @@ define('_AM_WGGALLERY_THEREARE_ALBUMTYPES', "There are <span class='bold'>%s</sp
 define('_AM_WGGALLERY_THEREARE_WATERMARKS', "There are <span class='bold'>%s</span> watermarks in the database");
 define('_AM_WGGALLERY_THEREARE_CATEGORIES', "There are <span class='bold'>%s</span> categories in the database");
 // There aren't
-define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "There aren't gallery types! For initialization/reset goto 'Maintenance' => 'Maintain gallerytypes' and click on button 'Set default settings'");
-define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "There aren't album types! For initialization/reset goto 'Maintenance' => 'Maintain albumtypes' and click on button 'Set default settings'");
+define('_AM_WGGALLERY_THEREARENT_GALLERYTYPES', "There aren't gallery types! For initialization/reset goto 'Maintenance' => 'Maintain gallery types' and click on button 'Set default settings'");
+define('_AM_WGGALLERY_THEREARENT_ALBUMTYPES', "There aren't album types! For initialization/reset goto 'Maintenance' => 'Maintain album types' and click on button 'Set default settings'");
 define('_AM_WGGALLERY_THEREARENT_WATERMARKS', 'Currently there are no watermarks defined!');
 define('_AM_WGGALLERY_THEREARENT_CATEGORIES', "There aren't categories!");
 // ---------------- Admin Files ----------------
@@ -137,7 +137,7 @@ define('_AM_WGGALLERY_OPTION_GT_SLIDESHOW_OPTIONS', 'Slideshow options (not all 
 define('_AM_WGGALLERY_OPTION_GT_COLORBOXSTYLE', 'Colorbox style');
 define('_AM_WGGALLERY_OPTION_GT_TRANSEFFECT', 'Transition effect');
 define('_AM_WGGALLERY_OPTION_GT_SPEEDOPEN', 'Speed for opening slideshow');
-define('_AM_WGGALLERY_OPTION_GT_AUTOOPEN', 'Open slidehow modal automatically');
+define('_AM_WGGALLERY_OPTION_GT_AUTOOPEN', 'Open slideshow modal automatically');
 define('_AM_WGGALLERY_OPTION_GT_SLIDESHOWTYPE', 'Slideshow type');
 define('_AM_WGGALLERY_OPTION_GT_BUTTTONCLOSE', 'Show close button');
 define('_AM_WGGALLERY_OPTION_GT_NAVBAR', 'Show navbar with thumbs');
@@ -148,11 +148,11 @@ define('_AM_WGGALLERY_OPTION_GT_SHOW_4', 'Show the navbar only when the screen w
 define('_AM_WGGALLERY_OPTION_GT_TOOLBAR', 'Show toolbar');
 define('_AM_WGGALLERY_OPTION_GT_TOOLBARZOOM', 'Show zoom buttons in toolbar');
 define('_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD', 'Show download buttons in toolbar');
-define('_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD_DESC', 'If you enable this option, always the source file will be downloaded. Pay attention: this ingore the permissions set in the album settings.');
+define('_AM_WGGALLERY_OPTION_GT_TOOLBARDOWNLOAD_DESC', 'If you enable this option, always the source file will be downloaded. Pay attention: this ignore the permissions set in the album settings.');
 define('_AM_WGGALLERY_OPTION_GT_FULLSCREEN', 'Switch to full screen when starting slideshow');
 define('_AM_WGGALLERY_OPTION_GT_TRANSDURATION', 'Transition speed');
 define('_AM_WGGALLERY_OPTION_GT_TRANSDURATION_DESC', 'Period of animation in milliseconds between 2 images');
-define('_AM_WGGALLERY_OPTION_GT_INDEXIMG', 'Type of image  on index page');
+define('_AM_WGGALLERY_OPTION_GT_INDEXIMG', 'Type of image on index page');
 define('_AM_WGGALLERY_OPTION_GT_INDEXIMGHEIGHT', 'Image height');
 define('_AM_WGGALLERY_OPTION_GT_SHOWLABEL', 'Show image index (Image {current} of {total}%)');
 define('_AM_WGGALLERY_OPTION_GT_LCLSKIN', 'Style commands');
@@ -201,7 +201,7 @@ define('_AM_WGGALLERY_OPTION_GT_LCLSLIDESHOW', "Show command 'Play'");
 // Albumtype add/edit
 define('_AM_WGGALLERY_ALBUMTYPE_ADD', 'Add Albumtype');
 define('_AM_WGGALLERY_ALBUMTYPE_EDIT', 'Edit Albumtype');
-// options  of Albumtypes
+// options  of Album types
 define('_AM_WGGALLERY_OPTION_AT_SET', 'Set options for selected album type');
 define('_AM_WGGALLERY_OPTION_AT_SETINFO', 'The settings for album types will be used for index page and album blocks');
 define('_AM_WGGALLERY_OPTION_AT_HOVER', 'Hover effect');
@@ -231,17 +231,17 @@ define('_AM_WGGALLERY_MAINTENANCE_ERROR_CREATE', 'Error when creating: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_DELETE', 'Error when deleting: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_RESIZE', 'Error when resizing: ');
 define('_AM_WGGALLERY_MAINTENANCE_ERROR_READDIR', 'Error when reading directory: ');
-define('_AM_WGGALLERY_MAINTENANCE_TYP', 'Typ of maintenance');
+define('_AM_WGGALLERY_MAINTENANCE_TYP', 'Type of maintenance');
 define('_AM_WGGALLERY_MAINTENANCE_DESC', 'Description');
 define('_AM_WGGALLERY_MAINTENANCE_RESULTS', 'Results');
-define('_AM_WGGALLERY_MAINTENANCE_GT', 'Maintain gallerytypes');
-define('_AM_WGGALLERY_MAINTENANCE_GT_DESC', 'Delete gallerytypes not supported anymore and/or reset all gallerytypes to default values');
+define('_AM_WGGALLERY_MAINTENANCE_GT', 'Maintain gallery types');
+define('_AM_WGGALLERY_MAINTENANCE_GT_DESC', 'Delete gallery types not supported anymore and/or reset all gallery types to default values');
 define('_AM_WGGALLERY_MAINTENANCE_GT_SURERESET', 'All existing gallery settings will be updated to default settings. Do you want to continue?');
-define('_AM_WGGALLERY_MAINTENANCE_GT_SUREDELETE', 'All existing gallerytypes (settings included) will be deleted and replaced by current gallerytypes. Do you want to continue?');
-define('_AM_WGGALLERY_MAINTENANCE_AT', 'Maintain albumtypes');
-define('_AM_WGGALLERY_MAINTENANCE_AT_DESC', 'Delete albumtypes not supported anymore and/or reset all albumtypes to default values');
-define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'All existing album settings will be updated to default albumtypes. Do you want to continue?');
-define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'All existing albumtypes (settings included) will be deleted and replaced by current albumtypes. Do you want to continue?');
+define('_AM_WGGALLERY_MAINTENANCE_GT_SUREDELETE', 'All existing gallery types (settings included) will be deleted and replaced by current gallery types. Do you want to continue?');
+define('_AM_WGGALLERY_MAINTENANCE_AT', 'Maintain album types');
+define('_AM_WGGALLERY_MAINTENANCE_AT_DESC', 'Delete album types not supported anymore and/or reset all album types to default values');
+define('_AM_WGGALLERY_MAINTENANCE_AT_SURERESET', 'All existing album settings will be updated to default album types. Do you want to continue?');
+define('_AM_WGGALLERY_MAINTENANCE_AT_SUREDELETE', 'All existing album types (settings included) will be deleted and replaced by current album types. Do you want to continue?');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE', 'Resize images');
 define('_AM_WGGALLERY_MAINTENANCE_RESIZE_DESC', 'Resize images or thumbs to max height corresponding module preferences.<br>Current settings:<ul>
 <li>large: max width %lw px / max height %lh px</li>
@@ -280,7 +280,7 @@ define('_AM_WGGALLERY_MAINTENANCE_CHECK_MS_DESC', 'Module setting allows %s Byte
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_PMS_INFO', 'Sets max size of post data allowed');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_PMS_DESC', 'Max file size for post: %s (%b Bytes)');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_FU_INFO', 'Whether or not to allow HTTP file uploads');
-define('_AM_WGGALLERY_MAINTENANCE_CHECK_FU_DESC', 'File upload allowes: ');
+define('_AM_WGGALLERY_MAINTENANCE_CHECK_FU_DESC', 'File upload allows: ');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_UMF_INFO', 'Sets max size for file upload');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_UMF_DESC', 'Max file size for file upload: %s (%b Bytes)');
 define('_AM_WGGALLERY_MAINTENANCE_CHECK_ML_INFO1', 'Sets the maximum amount of memory in bytes that a script is allowed to allocate');

@@ -5,7 +5,7 @@ The album "{ALBUM_NAME}" has been deleted from {X_SITENAME}.
 
 -----------
 
-You are receiving this message because you selected to be notified when new stories are added to our site.
+You are receiving this message because you selected to be notified when albums are deleted from our site.
 
 If this is an error or you wish not to receive further such notifications, please update your subscriptions by visiting the link below:
 {X_UNSUBSCRIBE_URL}
