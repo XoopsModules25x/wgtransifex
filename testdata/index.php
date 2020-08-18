@@ -65,6 +65,7 @@ function loadSampleData()
     }
     // load module tables
     foreach ($tables as $table) {
+        echo "<br>".$table;
         $tabledata = Yaml::readWrapped($language . $table . '.yml');
         TableLoad::truncateTable($table);
         TableLoad::loadTableFromArray($table, $tabledata);
