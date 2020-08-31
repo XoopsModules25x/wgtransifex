@@ -32,7 +32,7 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_THEREARE_LANGUAGES', "Es gibt <span class='bold'>%s</span> Sprachen in der Datenbank");
 \define('_AM_WGTRANSIFEX_THEREARE_TRANSLATIONS', "Es gibt <span class='bold'>%s</span> Übersetzungen in der Datenbank");
 \define('_AM_WGTRANSIFEX_THEREARE_PACKAGES', "Es sind <span class='bold'>%s</span>Pakete in der Datenbank");
-\define('_AM_WGTRANSIFEX_THEREARE_REQUESTS', "Es sind <span class='bold'>%s</span>Löschanfragen in der Datenbank");
+\define('_AM_WGTRANSIFEX_THEREARE_REQUESTS', "Es sind <span class='bold'>%s</span>Anfragen für Sprachpakete in der Datenbank");
 // ---------------- Admin Files ----------------
 // There aren't
 \define('_AM_WGTRANSIFEX_THEREARENT_PROJECTS', "Es gibt keine Projekte");
