@@ -61,16 +61,8 @@ switch ($op) {
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
         $templateMain = 'wgtransifex_admin_translations.tpl';
-        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
-        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_TRANSLATION, 'translations.php?op=new', 'add');
-        if ($proId > 0) {
-            $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
-        }
-        if (0 == $proId) {
-            $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx', 'add');
-            $adminObject->addItemButton(\_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
-        }
-        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        $projectsCount = (int)$projectsHandler->getCountProjects();
+        $translationsCount = 0;
         $start_pro = Request::getInt('start_pro', 0);
         $start_tra = Request::getInt('start_tra', 0);
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
@@ -81,15 +73,15 @@ switch ($op) {
                 $crTranslations->setGroupBy('`tra_pro_id`');
                 $crTranslations->setStart($start_pro);
                 $crTranslations->setLimit($limit);
-                $translationsCount = $translationsHandler->getCount($crTranslations);
+                $translationsCount = $translationsHandler->getCount($crTranslations); //recount for pagenav
                 $translationsAll = $translationsHandler->getAll($crTranslations);
                 // Table view projects
                 foreach (\array_keys($translationsAll) as $i) {
-                    $proId = $translationsAll[$i]->getVar('tra_pro_id');
-                    $project = $projectsHandler->get($proId)->getValuesProjects();
+                    $traProId = $translationsAll[$i]->getVar('tra_pro_id');
+                    $project = $projectsHandler->get($traProId)->getValuesProjects();
                     $languages = [];
                     $crTranslations2 = new \CriteriaCompo();
-                    $crTranslations2->add(new \Criteria('tra_pro_id', $proId));
+                    $crTranslations2->add(new \Criteria('tra_pro_id', $traProId));
                     $crTranslations2->setGroupBy('`tra_pro_id`, `tra_lang_id`, `tra_status`');
                     $translationsAll2 = $translationsHandler->getAll($crTranslations2);
                     foreach (\array_keys($translationsAll2) as $l) {
@@ -142,6 +134,16 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_TRANSLATIONS);
             }
         }
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
+        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_TRANSLATION, 'translations.php?op=new', 'add');
+        if ($proId > 0) {
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
+        }
+        if (0 == $proId && $projectsCount > 0) {
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx', 'add');
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
+        }
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         break;
     case 'readtx':
         $templateMain = 'wgtransifex_admin_translations.tpl';

@@ -7,6 +7,8 @@ Change Log for wgTransifex - 2020/07/26 12:35:41 Version 1.04 RC1
  - added project type (goffy)
  - fixed problem with declare strict_types (goffy)
  - fixed problems with notifications (goffy)
+ - hide buttons "Read translations from Transifex" and "Check dates last translations from Transifex" if no project exists (Cesagonchu/goffy)
+ - fixed problems with breadcrumb template (cesagonchu/goffy)
 
 ===================================================================
 Change Log for wgTransifex - 2020/07/26 12:35:41 Version 1.03 RC2
