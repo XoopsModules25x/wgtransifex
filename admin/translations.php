@@ -61,8 +61,7 @@ switch ($op) {
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
         $templateMain = 'wgtransifex_admin_translations.tpl';
-        $projectsCount = (int)$projectsHandler->getCountProjects();
-        $translationsCount = 0;
+        $resourcesCount = (int)$resourcesHandler->getCountResources();
         $start_pro = Request::getInt('start_pro', 0);
         $start_tra = Request::getInt('start_tra', 0);
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
@@ -139,8 +138,10 @@ switch ($op) {
         if ($proId > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
         }
-        if (0 == $proId && $projectsCount > 0) {
+        if (0 == $proId && $resourcesCount > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx', 'add');
+        }
+        if ($translationsCount > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
         }
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
