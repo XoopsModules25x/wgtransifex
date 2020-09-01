@@ -72,29 +72,23 @@ switch ($op) {
                 $crTranslations->setGroupBy('`tra_pro_id`');
                 $crTranslations->setStart($start_pro);
                 $crTranslations->setLimit($limit);
-                $translationsCount = $translationsHandler->getCount($crTranslations); //recount for pagenav
-                $translationsAll = $translationsHandler->getAll($crTranslations);
-                // Table view projects
-                foreach (\array_keys($translationsAll) as $i) {
-                    $traProId = $translationsAll[$i]->getVar('tra_pro_id');
+                $translationsCount = $translationsHandler->getCount($crTranslations); //recount for pagenav              
+                $result1 = $xoopsDB->query('SELECT `tra_pro_id` FROM ' . $xoopsDB->prefix('wgtransifex_translations') . ' GROUP BY `tra_pro_id`');
+                while (list($traProId) = $xoopsDB->fetchRow($result1)) {
                     $project = $projectsHandler->get($traProId)->getValuesProjects();
                     $languages = [];
-                    $crTranslations2 = new \CriteriaCompo();
-                    $crTranslations2->add(new \Criteria('tra_pro_id', $traProId));
-                    $crTranslations2->setGroupBy('`tra_pro_id`, `tra_lang_id`, `tra_status`');
-                    $translationsAll2 = $translationsHandler->getAll($crTranslations2);
-                    foreach (\array_keys($translationsAll2) as $l) {
-                        $langId = $translationsAll2[$l]->getVar('tra_lang_id');
-                        $languages[$langId]['id'] = $langId;
-                        $languages[$langId]['name'] = $languagesHandler->get($langId)->getVar('lang_name');
-                        if (Constants::STATUS_OUTDATED == $translationsAll2[$l]->getVar('tra_status')) {
-                            $languages[$langId]['outdated'] = Constants::STATUS_OUTDATED;
-                            $languages[$langId]['outdatedtext'] = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
+                    $result2 = $xoopsDB->query('SELECT `tra_pro_id`, `tra_lang_id`, `tra_status` FROM ' . $xoopsDB->prefix('wgtransifex_translations') . ' WHERE `tra_pro_id`=' . $traProId . ' GROUP BY `tra_pro_id`, `tra_lang_id`, `tra_status`');
+                    while (list($traProId, $traLangId, $traStatus) = $xoopsDB->fetchRow($result2)) {
+                        $languages[$traLangId]['id'] = $traLangId;
+                        $languages[$traLangId]['name'] = $languagesHandler->get($traLangId)->getVar('lang_name');
+                        if (Constants::STATUS_OUTDATED == (int)$traStatus) {
+                            $languages[$traLangId]['outdated'] = Constants::STATUS_OUTDATED;
+                            $languages[$traLangId]['outdatedtext'] = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
                         }
                     }
                     $project['languages'] = $languages;
                     $GLOBALS['xoopsTpl']->append('projects_list', $project);
-                    unset($project, $crTranslations2);
+                    unset($project);
                 }
                 // Display Navigation
                 if ($translationsCount > $limit) {
