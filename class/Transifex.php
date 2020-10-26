@@ -305,7 +305,9 @@ class Transifex
                     $translationsObj->setVar('tra_translated_entities', $stats['translated_entities']);
                     $translationsObj->setVar('tra_translated_words', $stats['translated_words']);
                     $translationsObj->setVar('tra_untranslated_entities', $stats['untranslated_entities']);
-                    $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
+                    if (is_string($stats['last_update'])) {
+                        $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
+                    }
                     $translationsObj->setVar('tra_local', $this->getLocal($resName, $langFolder, $langShort));
                     $translationsObj->setVar('tra_status', Constants::STATUS_READTX);
                     $translationsObj->setVar('tra_date', \time());

@@ -28,8 +28,8 @@ $moduleDirName      = \basename(__DIR__);
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
-    'version' => 1.04,
-    'module_status' => 'final',
+    'version' => 1.05,
+    'module_status' => 'alpha',
     'release_date' => '2020/10/11',
     'name' => \_MI_WGTRANSIFEX_NAME,
     'description' => \_MI_WGTRANSIFEX_DESC,
