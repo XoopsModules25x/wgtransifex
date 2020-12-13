@@ -1,8 +1,11 @@
 ===================================================================
-2020/10/11 Version 1.05 alpha
+2020/12/13 Version 1.05 alpha
 ===================================================================
  - fixed problem with missing date last update (goffy)
- 
+ - added default logo for projects (goffy)
+ - added bulk download for resources and translations (goffy)
+ - bulk creation of language packages (goffy)
+ - added display type for index page (goffy)
 ===================================================================
 2020/10/11 Version 1.04 final
 ===================================================================

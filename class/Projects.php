@@ -33,6 +33,15 @@ use XoopsModules\Wgtransifex;
 class Projects extends \XoopsObject
 {
     /**
+     * @var int
+     */
+    public $start;
+    /**
+     * @var int
+     */
+    public $limit;
+
+    /**
      * Constructor
      *
      * @param null
@@ -52,6 +61,7 @@ class Projects extends \XoopsObject
         $this->initVar('pro_archived', \XOBJ_DTYPE_INT);
         $this->initVar('pro_status', \XOBJ_DTYPE_INT);
         $this->initVar('pro_type', \XOBJ_DTYPE_INT);
+        $this->initVar('pro_logo', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('pro_date', \XOBJ_DTYPE_INT);
         $this->initVar('pro_submitter', \XOBJ_DTYPE_INT);
     }
@@ -86,6 +96,7 @@ class Projects extends \XoopsObject
      */
     public function getFormProjects($action = false, $clonePro = 0)
     {
+        $helper = Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -117,6 +128,8 @@ class Projects extends \XoopsObject
         $proStatusSelect->addOption(Constants::STATUS_LOCAL, \_AM_WGTRANSIFEX_STATUS_LOCAL);
         $proStatusSelect->addOption(Constants::STATUS_BROKEN, \_AM_WGTRANSIFEX_STATUS_BROKEN);
         $proStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
+        $proStatusSelect->addOption(Constants::STATUS_READTXNEW, \_AM_WGTRANSIFEX_STATUS_READTXNEW);
+        $proStatusSelect->addOption(Constants::STATUS_OUTDATED, \_AM_WGTRANSIFEX_STATUS_OUTDATED);
         $proStatusSelect->addOption(Constants::STATUS_ARCHIVED, \_AM_WGTRANSIFEX_STATUS_ARCHIVED);
         $proStatusSelect->addOption(Constants::STATUS_DELETEDTX, \_AM_WGTRANSIFEX_STATUS_DELETEDTX);
         $form->addElement($proStatusSelect);
@@ -133,6 +146,25 @@ class Projects extends \XoopsObject
         $proStatusSelect->addOption(Constants::PROTYPE_MODULE, \_AM_WGTRANSIFEX_PROTYPE_MODULE);
         $proStatusSelect->addOption(Constants::PROTYPE_CORE, \_AM_WGTRANSIFEX_PROTYPE_CORE);
         $form->addElement($proStatusSelect);
+        // Form Frameworks Images langFlag: Select Uploaded Image
+        $getPro_logo = $this->getVar('pro_logo');
+        $proLogo = $getPro_logo ?: 'blank.gif';
+        $imageDirectory = '/uploads/wgtransifex/logos';
+        $imageTray = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_PROJECT_LOGO, '<br>');
+        $imageSelect = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_PACKAGE_LOGO_UPLOADS, ".{$imageDirectory}/"), 'pro_logo', $proLogo, 5);
+        $imageArray = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
+        foreach ($imageArray as $image1) {
+            $imageSelect->addOption($image1, $image1);
+        }
+        $imageSelect->setExtra("onchange='showImgSelected(\"imglabel_pro_logo\", \"pro_logo\", \"" . $imageDirectory . '", "", "' . XOOPS_URL . "\")'");
+        $imageTray->addElement($imageSelect, false);
+        $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $imageDirectory . '/' . $proLogo . "' id='imglabel_pro_logo' alt='' style='max-width:100px'>"));
+        // Form Frameworks Images langFlag: Upload new image
+        $fileSelectTray = new \XoopsFormElementTray('', '<br>');
+        $fileSelectTray->addElement(new \XoopsFormFile(\_AM_WGTRANSIFEX_FORM_UPLOAD_NEW, 'pro_logo', $helper->getConfig('maxsize_image')));
+        $fileSelectTray->addElement(new \XoopsFormLabel(''));
+        $imageTray->addElement($fileSelectTray);
+        $form->addElement($imageTray);
         // Form Text Date Select proDate
         $proDate = $this->isNew() ? 0 : $this->getVar('pro_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_PROJECT_DATE, 'pro_date', '', $proDate));
@@ -145,6 +177,8 @@ class Projects extends \XoopsObject
             $form->addElement(new \XoopsFormHidden('pro_id', 0));
         }
         $form->addElement(new \XoopsFormHidden('op', 'save'));
+        $form->addElement(new \XoopsFormHidden('start', $this->start));
+        $form->addElement(new \XoopsFormHidden('limit', $this->limit));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
 
         return $form;
@@ -252,6 +286,9 @@ class Projects extends \XoopsObject
             case Constants::STATUS_LOCAL:
                 $status_text = \_AM_WGTRANSIFEX_STATUS_LOCAL;
                 break;
+            case Constants::STATUS_OUTDATED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
+                break;
             case -1:
             default:
                 $status_text = 'missing status text'; /* this should not be */
@@ -276,6 +313,8 @@ class Projects extends \XoopsObject
                 break;
         }
         $ret['type_text'] = $type_text;
+        $logo = '' === $this->getVar('pro_logo') ? 'blank.gif' : $this->getVar('pro_logo');
+        $ret['logo'] = $logo;
 
         return $ret;
     }

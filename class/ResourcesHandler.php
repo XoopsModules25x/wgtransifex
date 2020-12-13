@@ -200,4 +200,32 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
 
         return $form;
     }
+
+    /**
+     * @public function to update number of translations in table resources
+     * @param $proId
+     * @return bool
+     */
+    public function updateResourceTranslations($proId)
+    {
+        $helper = Helper::getInstance();
+        $resourcesHandler = $helper->getHandler('Resources');
+        $translationsHandler = $helper->getHandler('Translations');
+        $crResources = new \CriteriaCompo();
+        $crResources->add(new \Criteria('res_pro_id', $proId));
+        $resourcesAll = $resourcesHandler->getAll();
+        foreach (\array_keys($resourcesAll) as $i) {
+            $resId = $resourcesAll[$i]->getVar('res_id');
+            $crTranslations = new \CriteriaCompo();
+            $crTranslations->add(new \Criteria('tra_res_id', $resId));
+            $translationsCount = $translationsHandler->getCount($crTranslations);
+            $resourcesObj = $resourcesHandler->get($resId);
+            $resourcesObj->setVar('res_translations', $translationsCount);
+            if (!$resourcesHandler->insert($resourcesObj)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

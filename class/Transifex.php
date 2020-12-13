@@ -61,7 +61,7 @@ class Transifex
      * @param bool $user
      * @return bool|string
      */
-    public function readProjects($proId, $user = false)
+    public function readProjects($proId = 0, $user = false)
     {
         $setting = $this->getSetting($user);
         global $xoopsUser;
@@ -92,6 +92,7 @@ class Transifex
                     $projectsObj = $projectsHandler->get($projectsObjExist[0]->getVar('pro_id'));
                 }
                 $proStatus = Constants::STATUS_READTX;
+                $proLastUpdated = $projectsObjExist[0]->getVar('pro_last_updated');
                 $oldProject = true;
             } else {
                 $projectsObj = $projectsHandler->create();
@@ -106,6 +107,16 @@ class Transifex
                     $projectsObj->setVar('pro_source_language_code', $project['source_language_code']);
                     $projectsObj->setVar('pro_slug', $project['slug']);
                     $projectsObj->setVar('pro_name', $project['name']);
+                    $projectsObj->setVar('pro_txresources', \count($project['resources']));
+                    if (is_string($project['last_updated'])) {
+                        if (Constants::STATUS_READTX == $proStatus && $proLastUpdated < \strtotime($project['last_updated'])) {
+                            $proStatus = Constants::STATUS_OUTDATED;
+                        }
+                        $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
+                    }
+                    $teams = \json_encode($project['teams'], \JSON_HEX_TAG | \JSON_HEX_APOS | \JSON_HEX_QUOT | \JSON_HEX_AMP | \JSON_UNESCAPED_UNICODE);
+                    //\str_replace(']', '', $teams);
+                    $projectsObj->setVar('pro_teams', $teams);
                     if ($archived) {
                         $projectsObj->setVar('pro_status', Constants::STATUS_ARCHIVED);
                         $projectsObj->setVar('pro_archived', 1);
@@ -113,14 +124,6 @@ class Transifex
                         $projectsObj->setVar('pro_status', $proStatus);
                         $projectsObj->setVar('pro_archived', 0);
                     }
-                    $projectsObj->setVar('pro_txresources', \count($project['resources']));
-                    if (is_string($project['last_updated'])) {
-                        $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
-                    }
-                    $teams = \json_encode($project['teams'], \JSON_HEX_TAG | \JSON_HEX_APOS | \JSON_HEX_QUOT | \JSON_HEX_AMP | \JSON_UNESCAPED_UNICODE);
-                    //\str_replace(']', '', $teams);
-                    $projectsObj->setVar('pro_teams', $teams);
-
                     $projectsObj->setVar('pro_date', \time());
                     $projectsObj->setVar('pro_submitter', $xoopsUser->getVar('uid'));
                     // Insert Data
@@ -231,14 +234,35 @@ class Transifex
     }
 
     /**
-     * Get data of all resources of a project on transifex
+     * Get all languages of  a project on transifex
      *
-     * @param $traId
-     * @param $proId
-     * @param $langId
+     * @param $proSlug
+     * @return bool|array
+     */
+    public function readLanguages($proSlug)
+    {
+        $setting = $this->getSetting();
+
+        $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib();
+        $transifexLib->user = $setting['user'];
+        $transifexLib->password = $setting['pwd'];
+        $langs = $transifexLib->getLanguages($proSlug);
+
+        return $langs;
+    }
+
+    /**
+     * Get data of all translations of a project on transifex
+     *
+     * @param      $traId
+     * @param      $proId
+     * @param      $langId
+     * @param bool $reviewedOnly
+     * @param bool $skipMissing
+     * @param int  $resId
      * @return bool|string
      */
-    public function readTranslations($traId, $proId, $langId)
+    public function readTranslations($traId, $proId, $langId, $reviewedOnly = false, $skipMissing = false, $resId = 0)
     {
         $setting = $this->getSetting();
         global $xoopsUser;
@@ -256,6 +280,9 @@ class Transifex
         $count_ok = 0;
         $count_err = 0;
         $crResources = new \CriteriaCompo();
+        if ($resId > 0) {
+            $crResources->add(new \Criteria('res_id', $resId));
+        }
         $crResources->add(new \Criteria('res_pro_id', $proId));
         $resourcesCount = $resourcesHandler->getCount($crResources);
         if ($resourcesCount > 0) {
@@ -269,7 +296,7 @@ class Transifex
                 $resource = $resourcesAll[$i]->getVar('res_slug');
                 $resName = $resourcesAll[$i]->getVar('res_name');
                 $resSourceLang = $resourcesAll[$i]->getVar('res_source_language_code');
-                $item = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
+                $item = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang, $reviewedOnly, $skipMissing);
                 $translationsObj = null;
                 $crTranslations = new \CriteriaCompo();
                 $crTranslations->add(new \Criteria('tra_res_id', $resId));
@@ -289,34 +316,36 @@ class Transifex
                 }
                 if (\is_object($translationsObj)) {
                     $stats = $transifexLib->getStats($project, $resource, $language);
-                    // Set Vars
-                    $translationsObj->setVar('tra_content', $item['content']);
-                    $translationsObj->setVar('tra_mimetype', $item['mimetype']);
-                    $translationsObj->setVar('tra_pro_id', $proId);
-                    $translationsObj->setVar('tra_res_id', $resId);
-                    $translationsObj->setVar('tra_lang_id', $langId);
-                    $translationsObj->setVar('tra_proofread', $stats['proofread']);
-                    $translationsObj->setVar('tra_proofread_percentage', $stats['proofread_percentage']);
-                    $translationsObj->setVar('tra_reviewed_percentage', $stats['reviewed_percentage']);
-                    $translationsObj->setVar('tra_completed', $stats['completed']);
-                    $translationsObj->setVar('tra_untranslated_words', $stats['untranslated_words']);
-                    $translationsObj->setVar('tra_last_commiter', $stats['last_commiter']);
-                    $translationsObj->setVar('tra_reviewed', $stats['reviewed']);
-                    $translationsObj->setVar('tra_translated_entities', $stats['translated_entities']);
-                    $translationsObj->setVar('tra_translated_words', $stats['translated_words']);
-                    $translationsObj->setVar('tra_untranslated_entities', $stats['untranslated_entities']);
-                    if (is_string($stats['last_update'])) {
-                        $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
-                    }
-                    $translationsObj->setVar('tra_local', $this->getLocal($resName, $langFolder, $langShort));
-                    $translationsObj->setVar('tra_status', Constants::STATUS_READTX);
-                    $translationsObj->setVar('tra_date', \time());
-                    $translationsObj->setVar('tra_submitter', $xoopsUser->getVar('uid'));
-                    // Insert Data
-                    if ($translationsHandler->insert($translationsObj)) {
-                        $count_ok++;
-                    } else {
-                        $count_err++;
+                    if (\count($stats) > 0) {
+                        // Set Vars
+                        $translationsObj->setVar('tra_content', $item['content']);
+                        $translationsObj->setVar('tra_mimetype', $item['mimetype']);
+                        $translationsObj->setVar('tra_pro_id', $proId);
+                        $translationsObj->setVar('tra_res_id', $resId);
+                        $translationsObj->setVar('tra_lang_id', $langId);
+                        $translationsObj->setVar('tra_proofread', $stats['proofread']);
+                        $translationsObj->setVar('tra_proofread_percentage', $stats['proofread_percentage']);
+                        $translationsObj->setVar('tra_reviewed_percentage', $stats['reviewed_percentage']);
+                        $translationsObj->setVar('tra_completed', $stats['completed']);
+                        $translationsObj->setVar('tra_untranslated_words', $stats['untranslated_words']);
+                        $translationsObj->setVar('tra_last_commiter', $stats['last_commiter']);
+                        $translationsObj->setVar('tra_reviewed', $stats['reviewed']);
+                        $translationsObj->setVar('tra_translated_entities', $stats['translated_entities']);
+                        $translationsObj->setVar('tra_translated_words', $stats['translated_words']);
+                        $translationsObj->setVar('tra_untranslated_entities', $stats['untranslated_entities']);
+                        if (is_string($stats['last_update'])) {
+                            $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
+                        }
+                        $translationsObj->setVar('tra_local', $this->getLocal($resName, $langFolder, $langShort));
+                        $translationsObj->setVar('tra_status', Constants::STATUS_READTX);
+                        $translationsObj->setVar('tra_date', \time());
+                        $translationsObj->setVar('tra_submitter', $xoopsUser->getVar('uid'));
+                        // Insert Data
+                        if ($translationsHandler->insert($translationsObj)) {
+                            $count_ok++;
+                        } else {
+                            $count_err++;
+                        }
                     }
                 }
             }
@@ -374,7 +403,10 @@ class Transifex
                 }
                 //$item          = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
                 $stats = $transifexLib->getStats($project, $resource, $language);
-                $traLastUpdate = \strtotime($stats['last_update']);
+                $traLastUpdate = 0;
+                if (\is_string($stats['last_update'])) {
+                    $traLastUpdate = \strtotime($stats['last_update']);
+                }
                 if ($traLastUpdate > $translationsAll[$i]->getVar('tra_date')) {
                     $translationsObj = $translationsHandler->get($translationsAll[$i]->getVar('tra_id'));
                     $translationsObj->setVar('tra_proofread', $stats['proofread']);
@@ -511,7 +543,7 @@ class Transifex
      * @param bool $user
      * @return bool|array
      */
-    private function getSetting($user = false)
+    public function getSetting($user = false)
     {
         $helper = Helper::getInstance();
         $settingsHandler = $helper->getHandler('Settings');

@@ -212,6 +212,44 @@ class Translations extends \XoopsObject
     }
 
     /**
+     * @public function getForm
+     * @param bool|string $action
+     * @return \XoopsThemeForm
+     */
+    public function getFormTranslationsTxAll($action = false)
+    {
+        $helper = Helper::getInstance();
+        if (!$action) {
+            $action = $_SERVER['REQUEST_URI'];
+        }
+        // Title
+        $title = \_AM_WGTRANSIFEX_READTX_TRANSLATIONS;
+        // Get Theme Form
+        \xoops_load('XoopsFormLoader');
+        $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        // Form Select type
+        $traStatusSelect = new \XoopsFormRadio(\_AM_WGTRANSIFEX_READTX, 'read_type', Constants::READTYPE_MISS);
+        $traStatusSelect->addOption(Constants::READTYPE_MISS, \_AM_WGTRANSIFEX_READTX_TRANSLATIONS_MISS);
+        $traStatusSelect->addOption(Constants::READTYPE_ALL, \_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ALL);
+        $form->addElement($traStatusSelect, true);
+        // Form Table languages
+        $languagesHandler = $helper->getHandler('Languages');
+        $langId = $languagesHandler->getPrimaryLang();
+        $traLangIdsSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'traLangIds', $langId, 10, true);
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->add(new \Criteria('lang_online', 1));
+        $crLanguages->setSort('lang_name');
+        $traLangIdsSelect->addOptionArray($languagesHandler->getList($crLanguages));
+        $form->addElement($traLangIdsSelect);
+        // To Save
+        $form->addElement(new \XoopsFormHidden('op', 'savetxall'));
+        $form->addElement(new \XoopsFormButtonTray('', $title, 'submit', '', false));
+
+        return $form;
+    }
+
+    /**
      * Get Values
      * @param null $keys
      * @param null $format

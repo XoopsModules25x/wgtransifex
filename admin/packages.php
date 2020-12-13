@@ -31,7 +31,8 @@ use XoopsModules\Wgtransifex\{
     PackagesHandler,
     TranslationsHandler,
     RequestsHandler,
-    Transifex
+    Transifex,
+    TransifexLib
 };
 
 /** @var Admin $adminObject */
@@ -57,6 +58,7 @@ switch ($op) {
         $templateMain = 'wgtransifex_admin_packages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_PACKAGES_AUTOCREATE, 'packages.php?op=auto_create', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $packagesCount = $packagesHandler->getCountPackages();
         $packagesAll = $packagesHandler->getAllPackages($start, $limit, 'pkg_id', 'DESC');
@@ -165,6 +167,8 @@ switch ($op) {
 
         $count_ok = 0;
         $count_err = 0;
+        $traDone = 0;
+        $traUndone = 0;
 
         //read data from table translations
         $crTranslations = new \CriteriaCompo();
@@ -176,6 +180,8 @@ switch ($op) {
             $crTranslations->setOrder('ASC');
             $translationsAll = $translationsHandler->getAll($crTranslations);
             foreach (\array_keys($translationsAll) as $i) {
+                $traDone += $translationsAll[$i]->getVar('tra_translated_entities');
+                $traUndone += $translationsAll[$i]->getVar('tra_untranslated_entities');
                 $dst_path = $pkg_path;
                 $files = \explode('/', $translationsAll[$i]->getVar('tra_local'));
                 foreach (\array_keys($files) as $f) {
@@ -197,6 +203,7 @@ switch ($op) {
         } else {
             \redirect_header('packages.php?op=list', 5, \_AM_WGTRANSIFEX_PACKAGE_ERROR_NODATA);
         }
+        $traPercentage = (int)($traDone / ($traDone + $traUndone) * 100);
 
         $zipcreate = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $pkgName . '_' . $langFolder . '.zip';
         \unlink($zipcreate);
@@ -220,6 +227,7 @@ switch ($op) {
         $packagesObj->setVar('pkg_date', \time());
         $packagesObj->setVar('pkg_submitter', Request::getInt('pkg_submitter', 0));
         $packagesObj->setVar('pkg_status', Constants::STATUS_CREATED);
+        $packagesObj->setVar('pkg_traperc', $traPercentage);
         // Set Var pkg_logo
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $filename = $_FILES['pkg_logo']['name'];
@@ -301,6 +309,173 @@ switch ($op) {
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $packagesObj->getHtmlErrors());
         $form = $packagesObj->getFormPackages();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
+    case 'auto_create':
+        $templateMain = 'wgtransifex_admin_packages.tpl';
+        $form = $packagesHandler->getFormAllPackages();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+
+        break;
+    case 'save_all':
+        // Security Check
+        if (!$GLOBALS['xoopsSecurity']->check()) {
+            \redirect_header('packages.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+        }
+        $pkgProIds = Request::getArray('pkgProIds');
+        $pkgLangIds = Request::getArray('pkgLangIds');
+        $pkgTraPerc = Request::getInt('pkgTraperc', 101);
+        $submitter = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
+        foreach ($pkgProIds as $pkgProId) {
+            $projectsObj = $projectsHandler->get($pkgProId);
+            foreach ($pkgLangIds as $pkgLangId) {
+                $languagesObj = $languagesHandler->get($pkgLangId);
+                $sql = 'SELECT tra_lang_id, Sum(tra_translated_entities) AS sum_translated, Sum(tra_untranslated_entities) AS sum_untranslated ';
+                $sql .= 'FROM ' . $GLOBALS['xoopsDB']->prefix('wgtransifex_projects') . ' INNER JOIN ' . $GLOBALS['xoopsDB']->prefix('wgtransifex_translations');
+                $sql .= ' ON (pro_id = tra_pro_id) ';
+                $sql .= 'WHERE (((tra_pro_id)=' . $pkgProId . ') AND ((tra_lang_id)=' . $pkgLangId . ')) ';
+                $sql .= 'GROUP BY tra_lang_id';
+                $resTra = $GLOBALS['xoopsDB']->queryF($sql);
+                while (list($langId, $traDone, $traUndone) = $xoopsDB->fetchRow($resTra)) {
+                    $traPercentage = (int)($traDone / ($traDone + $traUndone) * 100);
+                    if ($traPercentage > $pkgTraPerc) {
+                        $pkgName = \preg_replace("/[^A-Za-z0-9]/", '', $projectsObj->getVar('pro_name'));
+                        $pkgLogo = $projectsObj->getVar('pro_logo');
+                        if ('' === $pkgLogo) {
+                            $pkgLogo = 'blank.gif';
+                        }
+                        $langFolder = $languagesObj->getVar('lang_folder');
+
+                        // Make the destination directory if not exist
+                        $pkg_path = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName;
+                        if (!\is_dir($pkg_path) && !\mkdir($pkg_path)) {
+                            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+                        }
+                        $pkg_path .= '/' . $langFolder;
+                        \clearDir($pkg_path);
+                        if (!\is_dir($pkg_path) && !\mkdir($pkg_path)) {
+                            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+                        }
+
+                        $count_ok = 0;
+                        $count_err = 0;
+
+                        //read data from table translations
+                        $crTranslations = new \CriteriaCompo();
+                        $crTranslations->add(new \Criteria('tra_pro_id', $pkgProId));
+                        $crTranslations->add(new \Criteria('tra_lang_id', $pkgLangId));
+                        $translationsCount = $translationsHandler->getCount($crTranslations);
+                        if ($translationsCount > 0) {
+                            $crTranslations->setSort('tra_local');
+                            $crTranslations->setOrder('ASC');
+                            $translationsAll = $translationsHandler->getAll($crTranslations);
+                            foreach (\array_keys($translationsAll) as $i) {
+                                $dst_path = $pkg_path;
+                                $files = \explode('/', $translationsAll[$i]->getVar('tra_local'));
+                                foreach (\array_keys($files) as $f) {
+                                    end($files);
+                                    if (key($files) == $f) {
+                                        $content = $translationsAll[$i]->getVar('tra_content', 'n');
+                                        $dst_file = $dst_path . '/' . $files[$f];
+                                        \unlink($dst_file);
+                                        \file_put_contents($dst_file, $content);
+                                    } else {
+                                        $dst_path .= '/' . $files[$f];
+                                        if (!mkdir($dst_path) && !is_dir($dst_path)) {
+                                            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dst_path));
+                                        }
+                                        chmod($dst_path, 0777);
+                                    }
+                                }
+                            }
+                            $zipcreate = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $pkgName . '_' . $langFolder . '.zip';
+                            \unlink($zipcreate);
+                            $pkg_path = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $langFolder;
+                            zipFiles($pkg_path, $zipcreate);
+
+                            $packagesHandler->clearDir($pkg_path);
+                            \rmdir($pkg_path);
+
+                            // update table packages
+                            $crPackages = new \CriteriaCompo();
+                            $crPackages->add(new \Criteria('pkg_pro_id', $pkgProId));
+                            $crPackages->add(new \Criteria('pkg_lang_id', $pkgLangId));
+                            $packagesCount = $packagesHandler->getCount($crPackages);
+                            if ($packagesCount > 0) {
+                                $packagesAll = $packagesHandler->getAll($crPackages);
+                                foreach (\array_keys($packagesAll) as $p) {
+                                    $pkgId = $packagesAll[$p]->getVar('pkg_id');
+                                }
+                            }
+                            unset($crPackages,$packagesAll);
+                            if ($pkgId > 0) {
+                                $packagesObj = $packagesHandler->get($pkgId);
+                                $pkgDesc = Request::getText('pkg_desc', '');
+                            } else {
+                                $packagesObj = $packagesHandler->create();
+                                $pkgDesc = '';
+                            }
+                            // Set Vars
+                            $packagesObj->setVar('pkg_name', $pkgName);
+                            $packagesObj->setVar('pkg_desc', $pkgDesc);
+                            $packagesObj->setVar('pkg_pro_id', $pkgProId);
+                            $packagesObj->setVar('pkg_lang_id', $pkgLangId);
+                            $packagesObj->setVar('pkg_zip', $zipcreate);
+                            $packagesObj->setVar('pkg_date', \time());
+                            $packagesObj->setVar('pkg_submitter', $submitter);
+                            $packagesObj->setVar('pkg_status', Constants::STATUS_CREATED);
+                            $packagesObj->setVar('pkg_logo', $pkgLogo);
+                            $packagesObj->setVar('pkg_traperc', $traPercentage);
+                            // Insert Data
+                            if ($packagesHandler->insert($packagesObj)) {
+                                $newPkgId = $pkgId > 0 ? $pkgId : $packagesObj->getNewInsertedIdPackages();
+                                //change status of request, if exist
+                                $crRequests = new \CriteriaCompo();
+                                $crRequests->add(new \Criteria('req_pro_id', $pkgProId));
+                                $crRequests->add(new \Criteria('req_lang_id', $pkgLangId));
+                                $requestsCount = $requestsHandler->getCount($crRequests);
+                                if ($translationsCount > 0) {
+                                    $requestsAll = $requestsHandler->getAll($crRequests);
+                                    foreach (\array_keys($requestsAll) as $i) {
+                                        $requestsObj = $requestsHandler->get($requestsAll[$i]->getVar('req_id'));
+                                        $requestsObj->setVar('req_status', Constants::STATUS_CREATED);
+                                        $requestsObj->setVar('req_statusdate', \time());
+                                        $requestsObj->setVar('req_statusuid', $GLOBALS['xoopsUser']->getVar('uid'));
+                                        $requestsHandler->insert($requestsObj);
+                                    }
+                                }
+                                if (0 == $pkgId) {
+                                    // Handle notification
+                                    $pkgName = $packagesObj->getVar('pkg_name');
+                                    $pkgStatus = $packagesObj->getVar('pkg_status');
+                                    $tags = [];
+                                    $tags['ITEM_ID'] = $newPkgId;
+                                    $tags['ITEM_NAME'] = $pkgName;
+                                    $tags['ITEM_URL'] = $helper->url('packages.php?op=show&pkg_id=' . $newPkgId);
+                                    $notificationHandler = \xoops_getHandler('notification');
+                                    // Event new notification
+                                    $notificationHandler->triggerEvent('global', 0, 'package_new', $tags);
+                                }
+                                $count_ok++;
+                            }
+                        }
+                    } else {
+                        echo '<br>skip lang:' . $languagesObj->getVar('lang_name') . ' total:' . $traPercentage;
+                    }
+                }
+            }
+        }
+        if ($count_err > 0) {
+            \redirect_header('packages.php?op=list', 2, \_AM_WGTRANSIFEX_PACKAGES_ERROR);
+        }
+        if ($count_ok > 0) {
+            \redirect_header('packages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+        }
+
+        // Get Form
+        $templateMain = 'wgtransifex_admin_packages.tpl';
+        $form = $packagesHandler->getFormAllPackages();
+        $GLOBALS['xoopsTpl']->assign('error', 'Unexpected Error');
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'edit':

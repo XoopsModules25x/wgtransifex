@@ -67,6 +67,7 @@ require_once __DIR__ . '/admin.php';
 \define('_MA_WGTRANSIFEX_PACKAGE_DATE', 'Date of creation');
 \define('_MA_WGTRANSIFEX_PACKAGE_SUBMITTER', 'Submitter');
 \define('_MA_WGTRANSIFEX_PACKAGE_STATUS', 'Status');
+\define('_MA_WGTRANSIFEX_PACKAGE_TRAPERC', 'Percentage translation');
 \define('_MA_WGTRANSIFEX_INDEX_THEREARE', 'There are %s Packages');
 \define('_MA_WGTRANSIFEX_INDEX_LATEST_LIST', 'List of newest language packages');
 // Languages

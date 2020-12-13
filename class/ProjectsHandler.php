@@ -123,4 +123,23 @@ class ProjectsHandler extends \XoopsPersistableObjectHandler
 
         return $crProjects;
     }
+
+    /**
+     * @public function to update number of translations in table projects
+     * @param $proId
+     * @return bool
+     */
+    public function updateProjectTranslations($proId)
+    {
+        $helper = Helper::getInstance();
+        $projectsHandler = $helper->getHandler('Projects');
+        $translationsHandler = $helper->getHandler('Translations');
+        $crTranslations = new \CriteriaCompo();
+        $crTranslations->add(new \Criteria('tra_pro_id', $proId));
+        $translationsCount = $translationsHandler->getCount($crTranslations);
+        $projectsObj = $projectsHandler->get($proId);
+        $projectsObj->setVar('pro_translations', $translationsCount);
+
+        return $projectsHandler->insert($projectsObj);
+    }
 }

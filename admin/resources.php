@@ -203,6 +203,7 @@ switch ($op) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php?op=list', 'list');
         }
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES, 'resources.php?op=readtx', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES_ALL, 'resources.php?op=savetxall', 'add');
         if ($displayTxAdmin) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCE_ADD, 'resources.php?op=new', 'add');
         }
@@ -285,6 +286,35 @@ switch ($op) {
         $projectsObj->setVar('pro_resources', $resourcesCount);
         $projectsHandler->insert($projectsObj);
         \redirect_header('resources.php?op=list', 3, $result);
+        break;
+    case 'savetxall':
+        $errors = 0;
+        $crProjects = new \CriteriaCompo();
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTXNEW), 'OR');
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_OUTDATED), 'OR');
+        $crProjects->setSort('pro_name');
+        $projectsAll = $projectsHandler->getAll($crProjects);
+        foreach (\array_keys($projectsAll) as $i) {
+            $proId = $projectsAll[$i]->getVar('pro_id');
+            //read resources
+            $transifex = Transifex::getInstance();
+            $result = $transifex->readResources($resId, $proId);
+            //update table projects
+            $crResources = new \CriteriaCompo();
+            $crResources->add(new \Criteria('res_pro_id', $proId));
+            $resourcesCount = $resourcesHandler->getCount($crResources);
+            $projectsObj = $projectsHandler->get($proId);
+            $projectsObj->setVar('pro_resources', $resourcesCount);
+            if (!$projectsHandler->insert($projectsObj)) {
+                $errors++;
+            }
+        }
+        if ($errors > 0) {
+            \redirect_header('resources.php?op=list', 3, \_AM_WGTRANSIFEX_READTX_ERROR);
+        } else  {
+            \redirect_header('resources.php?op=list', 3, \_AM_WGTRANSIFEX_READTX_OK);
+        }
         break;
     case 'new':
         $templateMain = 'wgtransifex_admin_resources.tpl';
