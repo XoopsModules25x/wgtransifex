@@ -52,4 +52,8 @@ interface Constants
     public const PROTYPE_NONE = 0;
     public const PROTYPE_MODULE = 1;
     public const PROTYPE_CORE = 2;
+    // Constants for project types
+    public const READTYPE_ALL = 0;
+    public const READTYPE_MISS = 1;
+
 }

@@ -4,15 +4,15 @@
 <{if $projects_list}>
 	<table class='table table-bordered'>
 		<thead>
-		<tr class='head'>
-			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_ID}></th>
-			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_NAME}></th>
-			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_STATUS}></th>
-			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCES_NB}></th>
-			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_NB}></th>
-			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_DATE}></th>
-			<th class="center"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
-		</tr>
+			<tr class='head'>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_ID}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_NAME}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_STATUS}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCES_NB}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_NB}></th>
+				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_DATE}></th>
+				<th colspan="2" class="center"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
+			</tr>
 		</thead>
 		<tbody>
 		<{foreach item=project from=$projects_list}>
@@ -24,13 +24,21 @@
 				<td class='center'><{$project.translations}></td>
 				<td class='center'><{$project.date}></td>
 				<td class='center'>
-					<{foreach item=language from=$project.languages}>
+					<{foreach name=language item=language from=$project.languages}>
+						<{if $smarty.foreach.language.index < $maxList}>
 						<a href="translations.php?op=list&amp;tra_pro_id=<{$project.id}>&amp;tra_lang_id=<{$language.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>">
 							<{if $language.outdated > 0}>
                                 <img class="wgt-icon24" src="<{$modPathIcon32}>status<{$language.outdated}>.png" alt="<{$language.outdated}>" title="<{$language.outdatedtext}>">
                             <{/if}>
                             <img class="wgt-icon24" src="<{$modPathIcon32}>translations.png" alt="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}>">&nbsp;<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOW}> <{$language.name}></a><br>
+						<{/if}>
+						<{if $smarty.foreach.language.index == $maxList}>
+							<br><a href="translations.php?op=list&amp;list_pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOWMORE}>"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_SHOWMORE}></a>
+						<{/if}>
 					<{/foreach}>
+				</td>
+				<td class='center'>
+					<a href="translations.php?op=deleteall&amp;tra_pro_id=<{$project.id}>" title="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_DELETE}>"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_DELETE}></a>
 				</td>
 			</tr>
 			<{/foreach}>

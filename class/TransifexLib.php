@@ -172,9 +172,10 @@ class TransifexLib
      * @param string $language
      * @param        $language_source
      * @param bool   $reviewedOnly
+     * @param bool   $skipMissing
      * @return array
      */
-    public function getTranslation($project, $resource, $language, $language_source, $reviewedOnly = false)
+    public function getTranslation($project, $resource, $language, $language_source, $reviewedOnly = false, $skipMissing = false)
     {
         if ($language == $language_source) {
             $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource . '/content/';
@@ -320,10 +321,11 @@ class TransifexLib
      *
      * @param string $url
      * @param bool   $checkOnly
+     * @param bool   $skipMissing
      * @throws \RuntimeException Exception.
-     * @return array
+     * @return bool|array
      */
-    protected function _get($url, $checkOnly = false)
+    protected function _get($url, $checkOnly = false, $skipMissing = false)
     {
         $error = false;
         $ch = \curl_init();
@@ -359,6 +361,10 @@ class TransifexLib
                     throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_403 . '"');
                     break;
                 case 404:
+                    if ($skipMissing) {
+                        return false;
+                        break;
+                    }
                     throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_404 . '"');
                     break;
                 case 405:

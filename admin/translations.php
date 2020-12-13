@@ -54,12 +54,18 @@ require __DIR__ . '/header.php';
 $op = Request::getCmd('op', 'list');
 $traId = Request::getInt('tra_id');
 $proId = Request::getInt('tra_pro_id');
+$listProId = Request::getInt('list_pro_id');
 $langId = Request::getInt('tra_lang_id');
 switch ($op) {
     case 'list':
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
+        if ($listProId > 0) {
+            $GLOBALS['xoopsTpl']->assign('maxList', 99);
+        } else {
+            $GLOBALS['xoopsTpl']->assign('maxList', 4);
+        }
         $templateMain = 'wgtransifex_admin_translations.tpl';
         $resourcesCount = (int)$resourcesHandler->getCountResources();
         $start_pro = Request::getInt('start_pro', 0);
@@ -67,13 +73,21 @@ switch ($op) {
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         if (0 == $proId) {
             $crTranslations = new \CriteriaCompo();
+            if ($listProId > 0) {
+                $crTranslations->add(new \Criteria('tra_pro_id', $listProId));
+            }
             $translationsCount = $translationsHandler->getCount($crTranslations);
             if ($translationsCount > 0) {
                 $crTranslations->setGroupBy('`tra_pro_id`');
                 $crTranslations->setStart($start_pro);
                 $crTranslations->setLimit($limit);
                 $translationsCount = $translationsHandler->getCount($crTranslations); //recount for pagenav              
-                $result1 = $xoopsDB->query('SELECT `tra_pro_id` FROM ' . $xoopsDB->prefix('wgtransifex_translations') . ' GROUP BY `tra_pro_id`');
+                $sql = 'SELECT `tra_pro_id` FROM ' . $xoopsDB->prefix('wgtransifex_translations');
+                if ($listProId > 0) {
+                    $sql .= ' WHERE `tra_pro_id`=' . $listProId;
+                }
+                $sql .= ' GROUP BY `tra_pro_id`';
+                $result1 = $xoopsDB->query($sql);
                 while (list($traProId) = $xoopsDB->fetchRow($result1)) {
                     $project = $projectsHandler->get($traProId)->getValuesProjects();
                     $languages = [];
@@ -129,12 +143,13 @@ switch ($op) {
         }
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
         //$adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_TRANSLATION, 'translations.php?op=new', 'add');
-        if ($proId > 0) {
+        if ($proId > 0 || $listProId > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
         }
         if (0 == $proId && $resourcesCount > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx', 'add');
         }
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ALL, 'translations.php?op=readtxall', 'add');
         if ($translationsCount > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
         }
@@ -150,18 +165,80 @@ switch ($op) {
         $form = $translationsObj->getFormTranslationsTx();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
+    case 'readtxall':
+        $templateMain = 'wgtransifex_admin_translations.tpl';
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_TRANSLATIONS_LIST, 'translations.php', 'list');
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        // Form Create
+        $translationsObj = $translationsHandler->create();
+        $form = $translationsObj->getFormTranslationsTxAll();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
     case 'savetx':
         //read translations
         $transifex = Transifex::getInstance();
         $result = $transifex->readTranslations($traId, $proId, $langId);
         //update table projects
-        $crTranslations = new \CriteriaCompo();
-        $crTranslations->add(new \Criteria('tra_pro_id', $proId));
-        $translationsCount = $translationsHandler->getCount($crTranslations);
-        $projectsObj = $projectsHandler->get($proId);
-        $projectsObj->setVar('pro_translations', $translationsCount);
-        $projectsHandler->insert($projectsObj);
+        $projectsHandler->updateProjectTranslations($proId);
+        $resourcesHandler->updateResourceTranslations($proId);
         \redirect_header('translations.php?op=list', 3, $result);
+        break;
+    case 'savetxall':
+        // list of projects should be up to date
+        // list of resources should be up to date
+        //most important languages after checking transifex.com
+        $traLangIds = Request::getArray('traLangIds');
+
+        $errors = 0;
+        $transifex = Transifex::getInstance();
+        $setting = $transifex->getSetting();
+
+        $readType = Request::getInt('read_type');
+        $crProjects = new \CriteriaCompo();
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTXNEW), 'OR');
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_OUTDATED), 'OR');
+        $crProjects->setSort('pro_name');
+        $projectsAll = $projectsHandler->getAll($crProjects);
+        foreach (\array_keys($projectsAll) as $i) {
+            $proId = $projectsAll[$i]->getVar('pro_id');
+            //download all translations
+            $crResources = new \CriteriaCompo();
+            $crResources->add(new \Criteria('res_pro_id', $proId));
+            $resourcesCount = $resourcesHandler->getCount($crResources);
+            if ($resourcesCount > 0) {
+                $resourcesAll = $resourcesHandler->getAll($crResources);
+                foreach (\array_keys($resourcesAll) as $r) {
+                    $resId   = $resourcesAll[$r]->getVar('res_id');
+                    $resSlug = $resourcesAll[$r]->getVar('res_slug');
+                    foreach ($traLangIds as $langId) {
+                        $crTranslations = new \CriteriaCompo();
+                        $crTranslations->add(new \Criteria('tra_pro_id', $proId));
+                        $crTranslations->add(new \Criteria('tra_res_id', $resId));
+                        $crTranslations->add(new \Criteria('tra_lang_id', $langId));
+                        $translationsCount = $translationsHandler->getCount($crTranslations);
+                        if (Constants::READTYPE_ALL == $readType || 0 == $translationsCount) {
+                            $result = $transifex->readTranslations(0, $proId, $langId, false, true, $resId);
+                        }
+                    }
+                    //update table projects
+                    if (!$projectsHandler->updateProjectTranslations($proId)) {
+                        $errors++;
+                    }
+                    //update table resources
+                    if (!$resourcesHandler->updateResourceTranslations($proId)) {
+                        $errors++;
+                    }
+                }
+
+            }
+        }
+        if ($errors > 0) {
+            \redirect_header('translations.php?op=list', 3, \_AM_WGTRANSIFEX_READTX_ERROR);
+        } else  {
+            \redirect_header('translations.php?op=list', 3, \_AM_WGTRANSIFEX_READTX_OK);
+        }
         break;
     case 'checktx':
         $transifex = Transifex::getInstance();
@@ -189,7 +266,8 @@ switch ($op) {
             $translationsObj = $translationsHandler->create();
         }
         // Set Vars
-        $translationsObj->setVar('tra_pro_id', Request::getInt('tra_pro_id', 0));
+        $proId = Request::getInt('tra_pro_id', 0);
+        $translationsObj->setVar('tra_pro_id', $proId);
         $translationsObj->setVar('tra_res_id', Request::getInt('tra_res_id', 0));
         $translationsObj->setVar('tra_lang_id', Request::getInt('tra_lang_id', 0));
         $translationsObj->setVar('tra_content', Request::getString('tra_content', ''));
@@ -215,6 +293,8 @@ switch ($op) {
         $translationsObj->setVar('tra_submitter', Request::getInt('tra_submitter', 0));
         // Insert Data
         if ($translationsHandler->insert($translationsObj)) {
+            $projectsHandler->updateProjectTranslations($proId);
+            $resourcesHandler->updateResourceTranslations($proId);
             \redirect_header('translations.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
@@ -243,6 +323,9 @@ switch ($op) {
                 \redirect_header('translations.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($translationsHandler->delete($translationsObj)) {
+                //update table projects
+                $projectsHandler->updateProjectTranslations($traPro_id);
+                $resourcesHandler->updateResourceTranslations($traPro_id);
                 \redirect_header('translations.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $translationsObj->getHtmlErrors());
@@ -252,6 +335,35 @@ switch ($op) {
                 ['ok' => 1, 'tra_id' => $traId, 'op' => 'delete'],
                 $_SERVER['REQUEST_URI'],
                 \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $translationsObj->getVar('tra_pro_id'))
+            );
+            $form = $xoopsconfirm->getFormXoopsConfirm();
+            $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        }
+        break;
+    case 'deleteall':
+        $templateMain = 'wgtransifex_admin_translations.tpl';
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('translations.php'));
+        $projectsObj = $projectsHandler->get($proId);
+        $proName = $projectsObj->getVar('pro_name');
+        if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
+            if (!$GLOBALS['xoopsSecurity']->check()) {
+                \redirect_header('translations.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+            }
+            $crTranslations = new \CriteriaCompo();
+            $crTranslations->add(new \Criteria('tra_pro_id', $proId));
+            if ($translationsHandler->deleteAll($crTranslations)) {
+                //update table projects
+                $projectsHandler->updateProjectTranslations($proId);
+                $resourcesHandler->updateResourceTranslations($proId);
+                \redirect_header('translations.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
+            } else {
+                $GLOBALS['xoopsTpl']->assign('error', $translationsObj->getHtmlErrors());
+            }
+        } else {
+            $xoopsconfirm = new Common\XoopsConfirm(
+                ['ok' => 1, 'tra_pro_id' => $proId, 'op' => 'deleteall'],
+                $_SERVER['REQUEST_URI'],
+                \sprintf(\_AM_WGTRANSIFEX_TRANSLATIONS_DELETE_SURE, $proName)
             );
             $form = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());

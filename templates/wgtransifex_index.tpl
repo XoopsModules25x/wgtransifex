@@ -27,22 +27,44 @@
 </table>
 <!-- End index list -->
 
-<div class='wgtransifex-linetitle'><{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}></div>
-<{if $packagesCount > 0}>
-	<!-- Start show new packages in index -->
-	<table class='table table-<{$table_type}>'>
-		<tr>
-			<!-- Start new link loop -->
-			<{section name=i loop=$packages}>
+<{if $displaySingle}>
+	<div class='wgtransifex-linetitle'><{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}></div>
+	<{if $packagesCount > 0}>
+		<!-- Start show new packages in index -->
+		<table class='table table-<{$table_type}>'>
+			<tr>
+				<!-- Start new link loop -->
+				<{section name=i loop=$packages}>
+					<td class='col_width<{$numb_col}> top center'>
+						<{include file='db:wgtransifex_packages_list.tpl' package=$packages[i]}>
+					</td>
+					<{if $packages[i].count is div by $divideby}>
+						</tr><tr>
+					<{/if}>
+				<{/section}>
+				<!-- End new link loop -->
+			</tr>
+		</table>
+	<{/if}>
+<{/if}>
+
+<{if $displayCollection}>
+	<div class='wgtransifex-linetitle'><{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}></div>
+	<{if $projectsCount > 0}>
+		<table class='table table-<{$table_type}>'>
+			<tr>
+				<!-- Start new link loop -->
+				<{foreach item=packages from=$packagesList}>
 				<td class='col_width<{$numb_col}> top center'>
-					<{include file='db:wgtransifex_packages_list.tpl' package=$packages[i]}>
+					<{include file='db:wgtransifex_packages_prolist.tpl' packages=$packages}>
 				</td>
-				<{if $packages[i].count is div by $divideby}>
-					</tr><tr>
+				<{if $packages.count is div by $divideby}>
+			</tr><tr>
 				<{/if}>
-			<{/section}>
-			<!-- End new link loop -->
-		</tr>
-	</table>
+				<{/foreach}>
+				<!-- End new link loop -->
+			</tr>
+		</table>
+	<{/if}>
 <{/if}>
 <{include file='db:wgtransifex_footer.tpl' }>

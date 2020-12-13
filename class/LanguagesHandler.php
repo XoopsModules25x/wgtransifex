@@ -154,7 +154,7 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * Get primary language
+     * Get language with code
      * @return array|int
      */
     public function getLangCode()
@@ -170,5 +170,23 @@ class LanguagesHandler extends \XoopsPersistableObjectHandler
         }
 
         return $langCode;
+    }
+
+    /**
+     * Get language id
+     * @param $code
+     * @return int
+     */
+    public function getLangId($code)
+    {
+        $crLanguages = new \CriteriaCompo();
+        $crLanguages->add(new \Criteria('lang_code', $code));
+        $languagesAll = $this->getAll($crLanguages);
+        $langId = 0;
+        foreach (\array_keys($languagesAll) as $i) {
+            $langId = $languagesAll[$i]->getVar('lang_id');
+        }
+
+        return $langId;
     }
 }

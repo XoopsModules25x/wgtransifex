@@ -97,6 +97,7 @@ $modversion['templates'] = [
     ['file' => 'wgtransifex_languages_item.tpl', 'description' => ''],
     ['file' => 'wgtransifex_packages.tpl', 'description' => ''],
     ['file' => 'wgtransifex_packages_list.tpl', 'description' => ''],
+    ['file' => 'wgtransifex_packages_prolist.tpl', 'description' => ''],
     ['file' => 'wgtransifex_packages_item.tpl', 'description' => ''],
     ['file' => 'wgtransifex_requests.tpl', 'description' => ''],
     ['file' => 'wgtransifex_breadcrumbs.tpl', 'description' => ''],
@@ -400,6 +401,16 @@ $modversion['config'][] = [
     'valuetype' => 'text',
     'default' => 'default',
     'options' => ['default' => 'default', 'primary' => 'primary', 'success' => 'success', 'info' => 'info', 'warning' => 'warning', 'danger' => 'danger'],
+];
+// Panel by
+$modversion['config'][] = [
+    'name' => 'index_display',
+    'title' => '\_MI_WGTRANSIFEX_INDEX_DISPLAY',
+    'description' => '\_MI_WGTRANSIFEX_INDEX_DISPLAY_DESC',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'default' => 'single',
+    'options' => [\_MI_WGTRANSIFEX_INDEX_DISPLAY_SINGLE => 'single', \_MI_WGTRANSIFEX_INDEX_DISPLAY_COLLECTION => 'collection'],
 ];
 // Advertise
 $modversion['config'][] = [

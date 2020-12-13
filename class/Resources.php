@@ -177,6 +177,7 @@ class Resources extends \XoopsObject
         $crProjects = new \CriteriaCompo();
         $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
         $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTXNEW), 'OR');
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_OUTDATED), 'OR');
         $crProjects->setSort('pro_name');
         $resPro_idSelect->addOptionArray($projectsHandler->getList($crProjects));
         $form->addElement($resPro_idSelect);

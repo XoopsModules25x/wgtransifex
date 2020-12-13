@@ -47,6 +47,7 @@ class Packages extends \XoopsObject
         $this->initVar('pkg_zip', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('pkg_logo', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('pkg_status', \XOBJ_DTYPE_INT);
+        $this->initVar('pkg_traperc', \XOBJ_DTYPE_INT);
         $this->initVar('pkg_date', \XOBJ_DTYPE_INT);
         $this->initVar('pkg_submitter', \XOBJ_DTYPE_INT);
     }
@@ -116,6 +117,7 @@ class Packages extends \XoopsObject
         $crProjects = new \CriteriaCompo();
         $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX));
         $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTXNEW), 'OR');
+        $crProjects->add(new \Criteria('pro_status', Constants::STATUS_OUTDATED), 'OR');
         $pkgPro_idSelect->addOptionArray($projectsHandler->getList($crProjects));
         $form->addElement($pkgPro_idSelect, true);
         // Form Table languages
@@ -153,6 +155,8 @@ class Packages extends \XoopsObject
         $fileSelectTray->addElement(new \XoopsFormLabel(''));
         $imageTray->addElement($fileSelectTray);
         $form->addElement($imageTray);
+        // Form Text pkgTraperc
+        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_PACKAGE_TRAPERC, 'pkg_traperc', 50, 255, $this->getVar('pkg_traperc')), true);
 
         $pkgSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('pkg_submitter');
         if ($this->isNew()) {
@@ -199,6 +203,7 @@ class Packages extends \XoopsObject
         $languagesObj = $languagesHandler->get($this->getVar('pkg_lang_id'));
         $ret['lang_id'] = $languagesObj->getVar('lang_name');
         $ret['lang_flag'] = $languagesObj->getVar('lang_flag');
+        $ret['lang_primary'] = $languagesObj->getVar('lang_primary');
         $ret['zip'] = $this->getVar('pkg_zip');
         $ret['logo'] = $this->getVar('pkg_logo');
         $ret['date'] = \formatTimestamp($this->getVar('pkg_date'), 'm');
@@ -219,6 +224,9 @@ class Packages extends \XoopsObject
                 break;
         }
         $ret['status_text'] = $status_text;
+        $traperc = $this->getVar('pkg_traperc');
+        $ret['traperc'] = $traperc;
+        $ret['traperc_text'] = $traperc . '%';
 
         return $ret;
     }

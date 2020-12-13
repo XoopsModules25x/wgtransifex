@@ -52,7 +52,10 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_READTX', 'Read data from Transifex');
 \define('_AM_WGTRANSIFEX_READTX_PROJECTS', 'Read all projects from Transifex');
 \define('_AM_WGTRANSIFEX_READTX_RESOURCES', 'Read resources from Transifex');
+\define('_AM_WGTRANSIFEX_READTX_RESOURCES_ALL', 'Read resources of all projects from Transifex');
 \define('_AM_WGTRANSIFEX_READTX_TRANSLATIONS', 'Read translations from Transifex');
+\define('_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ALL', 'Read all translations of all projects from Transifex');
+\define('_AM_WGTRANSIFEX_READTX_TRANSLATIONS_MISS', 'Read missing translations of projects from Transifex');
 \define('_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS', 'Check dates last translations from Transifex');
 //\define('_AM_WGTRANSIFEX_READTX_LANGUAGES', 'Read all languages from Transifex');
 \define('_AM_WGTRANSIFEX_READTX_OK', 'Reading data from Transifex successfully finished');
@@ -111,6 +114,7 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_PROJECT_CLONE', 'Clone resources to other project');
 \define('_AM_WGTRANSIFEX_PROJECT_CLONENEW', 'Clone resources to new project');
 \define('_AM_WGTRANSIFEX_PROJECT_TYPE', 'Project type');
+\define('_AM_WGTRANSIFEX_PROJECT_LOGO', 'Default project logo');
 // Resource add/edit
 \define('_AM_WGTRANSIFEX_RESOURCE_ADD', 'Add Resource');
 \define('_AM_WGTRANSIFEX_RESOURCE_EDIT', 'Edit Resource');
@@ -173,6 +177,9 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_TRANSLATION_ADD', 'Add Translation');
 \define('_AM_WGTRANSIFEX_TRANSLATION_EDIT', 'Edit Translation');
 \define('_AM_WGTRANSIFEX_TRANSLATIONS_SHOW', 'Show Translations');
+\define('_AM_WGTRANSIFEX_TRANSLATIONS_SHOWMORE', 'Show more Translations');
+\define('_AM_WGTRANSIFEX_TRANSLATIONS_DELETE', 'Delete Translations');
+\define('_AM_WGTRANSIFEX_TRANSLATIONS_DELETE_SURE', 'Delete all translations of project: %s');
 // Elements of Translation
 \define('_AM_WGTRANSIFEX_TRANSLATIONS_NB', 'Number of Translations');
 \define('_AM_WGTRANSIFEX_TRANSLATION_ID', 'Id');
@@ -200,6 +207,8 @@ require_once __DIR__ . '/main.php';
 // Package add/edit
 \define('_AM_WGTRANSIFEX_PACKAGE_ADD', 'Create new package');
 \define('_AM_WGTRANSIFEX_PACKAGE_EDIT', 'Edit Package');
+\define('_AM_WGTRANSIFEX_PACKAGES_AUTOCREATE', 'Create all available packages automatically');
+\define('_AM_WGTRANSIFEX_PACKAGES_ERROR', 'Error when creating language packages');
 // Elements of Package
 \define('_AM_WGTRANSIFEX_PACKAGE_ID', 'Id');
 \define('_AM_WGTRANSIFEX_PACKAGE_NAME', 'Name');
@@ -222,6 +231,7 @@ require_once __DIR__ . '/main.php';
 <ul><li>if yes: non existing resources and translations will be downloaded / existing resources and translations will be overwritten!</li>
 <li>if no: resources and translations must be downloaded before, otherwise package will be incomplete!</li></ul>
 ');
+\define('_AM_WGTRANSIFEX_PACKAGE_TRAPERC', 'Minimum percentage of already done translations');
 // Broken
 \define('_AM_WGTRANSIFEX_BROKEN_RESULT', 'Broken items in table %s');
 \define('_AM_WGTRANSIFEX_BROKEN_NODATA', 'No broken items in table %s');

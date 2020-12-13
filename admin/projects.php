@@ -77,6 +77,8 @@ switch ($op) {
                 $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
+            $op_params = '&amp;start=' . $start . '&amp;limit=' . $limit;
+            $GLOBALS['xoopsTpl']->assign('op_params', $op_params);
         } else {
             $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_PROJECTS);
         }
@@ -126,6 +128,8 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             \redirect_header('projects.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
+        $start = Request::getInt('start', 0);
+        $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         if ($proId > 0) {
             $projectsObj = $projectsHandler->get($proId);
         } else {
@@ -137,14 +141,57 @@ switch ($op) {
         $projectsObj->setVar('pro_slug', Request::getString('pro_slug', ''));
         $projectsObj->setVar('pro_name', Request::getString('pro_name', ''));
         $projectsObj->setVar('pro_txresources', Request::getInt('pro_txresources', 0));
-        $projectLastupdatedArr = Request::getArray('pro_date');
+        $projectLastupdatedArr = Request::getArray('pro_last_updated');
         $projectLastupdatedObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectLastupdatedArr['date']);
         $projectLastupdatedObj->setTime(0, 0, 0);
         $projectLastupdated = $projectLastupdatedObj->getTimestamp() + (int)$projectLastupdatedArr['time'];
-        $projectsObj->setVar('pro_date', $projectLastupdated);
+        $projectsObj->setVar('pro_last_updated', $projectLastupdated);
         $projectsObj->setVar('pro_teams', Request::getString('pro_teams', ''));
         $projectsObj->setVar('pro_archived', Request::getInt('pro_archived', 0));
         $projectsObj->setVar('pro_type', Request::getInt('pro_type', 0));
+
+        // Set Var pro_logo
+        require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        $filename = $_FILES['pro_logo']['name'];
+        $imgMimetype = $_FILES['pro_logo']['type'];
+        $imgNameDef = Request::getString('pro_name');
+        $uploaderErrors = '';
+        $uploader = new \XoopsMediaUploader(
+            \WGTRANSIFEX_UPLOAD_PATH . '/logos/',
+            $helper->getConfig('mimetypes_image'),
+            $helper->getConfig('maxsize_image'),
+            null,
+            null
+        );
+        if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
+            $extension = \preg_replace('/^.+\.([^.]+)$/sU', '', $filename);
+            $imgName = \str_replace(' ', '', $imgNameDef) . '.' . $extension;
+            $uploader->setPrefix($imgName);
+            $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
+            if (!$uploader->upload()) {
+                $uploaderErrors = $uploader->getErrors();
+            } else {
+                $savedFilename = $uploader->getSavedFileName();
+                $maxwidth = (int)$helper->getConfig('maxwidth_image');
+                $maxheight = (int)$helper->getConfig('maxheight_image');
+                if ($maxwidth > 0 && $maxheight > 0) {
+                    // Resize image
+                    $imgHandler = new Common\Resizer();
+                    $imgHandler->sourceFile = \WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
+                    $imgHandler->endFile = \WGTRANSIFEX_UPLOAD_PATH . '/logos/' . $savedFilename;
+                    $imgHandler->imageMimetype = $imgMimetype;
+                    $imgHandler->maxWidth = $maxwidth;
+                    $imgHandler->maxHeight = $maxheight;
+                    $result = $imgHandler->resizeImage();
+                }
+                $projectsObj->setVar('pro_logo', $savedFilename);
+            }
+        } else {
+            if ($filename > '') {
+                $uploaderErrors = $uploader->getErrors();
+            }
+            $projectsObj->setVar('pro_logo', Request::getString('pro_logo'));
+        }
         $projectDateArr = Request::getArray('pro_date');
         $projectDateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectDateArr['date']);
         $projectDateObj->setTime(0, 0, 0);
@@ -166,7 +213,7 @@ switch ($op) {
                 $projectsObj->setVar('pro_resources', $res_count);
                 $projectsHandler->insert($projectsObj);
             }
-            \redirect_header('projects.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('projects.php?op=list&amp;start=' . $start . '&amp;limit=' . $limit, 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $projectsObj->getHtmlErrors());
@@ -205,6 +252,8 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $projectsObj = $projectsHandler->get($proId);
+        $projectsObj->start = Request::getInt('start', 0);
+        $projectsObj->limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         $form = $projectsObj->getFormProjects();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;

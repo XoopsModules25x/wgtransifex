@@ -24,15 +24,15 @@
     lang_submitter: '1'
 -
     lang_id: '3'
-    lang_name: French
+    lang_name: 'French (France)'
     lang_code: fr_FR
-    lang_folder: french
+    lang_folder: french_fr
     lang_iso_639_1: fr
-    lang_iso_639_2: fra
+    lang_iso_639_2: ''
     lang_flag: fr.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1592123476'
+    lang_date: '1592161625'
     lang_submitter: '1'
 -
     lang_id: '4'
@@ -84,15 +84,15 @@
     lang_submitter: '1'
 -
     lang_id: '8'
-    lang_name: Russian
+    lang_name: 'Russian (Russia)'
     lang_code: ru_RU
     lang_folder: russian
     lang_iso_639_1: ru
-    lang_iso_639_2: rus
+    lang_iso_639_2: ''
     lang_flag: ru.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593419569'
+    lang_date: '1593423949'
     lang_submitter: '1'
 -
     lang_id: '9'
@@ -134,13 +134,13 @@
     lang_id: '12'
     lang_name: 'Chinese (Taiwan)'
     lang_code: zh_TW
-    lang_folder: ''
+    lang_folder: chinese_tw
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: tw.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593419637'
+    lang_date: '1593417604'
     lang_submitter: '1'
 -
     lang_id: '13'
@@ -158,25 +158,25 @@
     lang_id: '14'
     lang_name: 'Persian (Iran)'
     lang_code: fa_IR
-    lang_folder: persian
+    lang_folder: persian_ir
     lang_iso_639_1: fa
-    lang_iso_639_2: fas
+    lang_iso_639_2: ''
     lang_flag: ir.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593419665'
+    lang_date: '1593417746'
     lang_submitter: '1'
 -
     lang_id: '15'
     lang_name: Arabic
     lang_code: ar
-    lang_folder: persian
+    lang_folder: persian_ar
     lang_iso_639_1: ar
     lang_iso_639_2: ''
     lang_flag: blank.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593460998'
+    lang_date: '1593417720'
     lang_submitter: '1'
 -
     lang_id: '16'
@@ -230,13 +230,13 @@
     lang_id: '20'
     lang_name: 'Chinese (China)'
     lang_code: zh_CN
-    lang_folder: ''
+    lang_folder: chinese_cn
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: cn.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593421973'
+    lang_date: '1593417592'
     lang_submitter: '1'
 -
     lang_id: '21'
@@ -302,13 +302,13 @@
     lang_id: '26'
     lang_name: 'English (Canada)'
     lang_code: en_CA
-    lang_folder: ''
+    lang_folder: english_ca
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: ca.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593422588'
+    lang_date: '1593417640'
     lang_submitter: '1'
 -
     lang_id: '27'
@@ -372,15 +372,15 @@
     lang_submitter: '1'
 -
     lang_id: '32'
-    lang_name: Bosnian
+    lang_name: 'Bosnian (Bosnia Herzegovina)'
     lang_code: bs_BA
-    lang_folder: bosnian
+    lang_folder: bosnian_ba
     lang_iso_639_1: bs
     lang_iso_639_2: ''
     lang_flag: ba.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593430107'
+    lang_date: '1593423993'
     lang_submitter: '1'
 -
     lang_id: '33'
@@ -434,37 +434,37 @@
     lang_id: '37'
     lang_name: 'Catalan (Spain)'
     lang_code: ca_ES
-    lang_folder: ''
+    lang_folder: catalan
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: blank.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593423233'
+    lang_date: '1593420941'
     lang_submitter: '1'
 -
     lang_id: '38'
     lang_name: 'English (United States)'
     lang_code: en_US
-    lang_folder: ''
+    lang_folder: english_us
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: us.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593423287'
+    lang_date: '1593417650'
     lang_submitter: '1'
 -
     lang_id: '39'
     lang_name: 'French (Canada)'
     lang_code: fr_CA
-    lang_folder: ''
+    lang_folder: french_ca
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: ca.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593423353'
+    lang_date: '1593417664'
     lang_submitter: '1'
 -
     lang_id: '40'
@@ -525,4 +525,40 @@
     lang_primary: '0'
     lang_online: '1'
     lang_date: '1593423595'
+    lang_submitter: '1'
+-
+    lang_id: '45'
+    lang_name: Bosnian
+    lang_code: bs
+    lang_folder: bosnian
+    lang_iso_639_1: ''
+    lang_iso_639_2: ''
+    lang_flag: bs.png
+    lang_primary: '0'
+    lang_online: '1'
+    lang_date: '1606987753'
+    lang_submitter: '1'
+-
+    lang_id: '46'
+    lang_name: French
+    lang_code: fr
+    lang_folder: french
+    lang_iso_639_1: ''
+    lang_iso_639_2: ''
+    lang_flag: fr.png
+    lang_primary: '0'
+    lang_online: '1'
+    lang_date: '1606988036'
+    lang_submitter: '1'
+-
+    lang_id: '47'
+    lang_name: Russian
+    lang_code: ru
+    lang_folder: russian
+    lang_iso_639_1: ''
+    lang_iso_639_2: ''
+    lang_flag: ru.png
+    lang_primary: '0'
+    lang_online: '1'
+    lang_date: '1606988728'
     lang_submitter: '1'
