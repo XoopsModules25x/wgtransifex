@@ -33,7 +33,7 @@ require_once XOOPS_ROOT_PATH . '/modules/wgtransifex/include/common.php';
  */
 function b_wgtransifex_packages_show($options)
 {
-    $myts = \MyTextSanitizer::getInstance();
+    //$myts = \MyTextSanitizer::getInstance();
     $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
     $GLOBALS['xoopsTpl']->assign('modPathIconFlags', WGTRANSIFEX_IMAGE_URL . '/flags/');
     $block = [];

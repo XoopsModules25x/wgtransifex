@@ -138,7 +138,6 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        $isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
 
         // Get Theme Form
         \xoops_load('XoopsFormLoader');

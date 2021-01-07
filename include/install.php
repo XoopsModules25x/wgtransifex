@@ -29,6 +29,7 @@ use XoopsModules\Wgtransifex\{
 };
 
 /**
+ * @param XoopsModule $module
  * @return bool
  */
 function xoops_module_pre_install_wgtransifex(\XoopsModule $module)
@@ -51,6 +52,7 @@ function xoops_module_pre_install_wgtransifex(\XoopsModule $module)
 }
 
 /**
+ * @param XoopsModule $module
  * @return bool|string
  */
 function xoops_module_install_wgtransifex(\XoopsModule $module)

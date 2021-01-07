@@ -459,7 +459,7 @@ class Transifex
      * @param      $proId
      * @param      $dirStart
      * @param bool $skipExisting
-     * @param bool $skipExisting
+     * @param bool $uploadTest
      * @return array
      */
     public function uploadResources($proId, $dirStart, $skipExisting = false, $uploadTest = false)
@@ -470,7 +470,6 @@ class Transifex
         $count_skip = 0;
         $infos = [];
 
-        global $xoopsUser;
         $helper = Helper::getInstance();
         $projectsHandler = $helper->getHandler('Projects');
         $resourcesHandler = $helper->getHandler('Resources');

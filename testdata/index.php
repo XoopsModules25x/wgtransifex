@@ -206,7 +206,7 @@ function wgLoadSampleData()
     }
     // load module tables
     foreach ($tables as $table) {
-        echo "<br>".$table;
+        //echo "<br>".$table;
         $handle = fopen($language . $table . '.yml', "r");
         if ($handle) {
             $columns = [];
@@ -285,7 +285,6 @@ function wgLoadSampleData()
             $sql .= '( ' . implode(', ', $values) . '),';
             $sql = substr($sql, 0, - 1) . ';';
             $result = $GLOBALS['xoopsDB']->queryF($sql);
-            $fields = 1;
         }
     }
     // load permissions
