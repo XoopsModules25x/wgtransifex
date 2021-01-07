@@ -1,1 +1,36 @@
-{  }
+-
+    pkg_id: '1'
+    pkg_name: 'Xoops 2.5.11'
+    pkg_desc: 'Sprachpaket für XOOPS Core 2.5.11'
+    pkg_pro_id: '29'
+    pkg_lang_id: '2'
+    pkg_status: '6'
+    pkg_zip: 'C:/Homepages/wamp/www/wgtransifex/htdocs/uploads/wgtransifex/translations/Xoops 2.5.11/Xoops 2.5.11_german.zip'
+    pkg_logo: xoops2.jpg
+    pkg_traperc: '100'
+    pkg_date: '1610019435'
+    pkg_submitter: '1'
+-
+    pkg_id: '2'
+    pkg_name: 'Xoops 2.5.11'
+    pkg_desc: 'Pack de langue pour XOOPS Core 2.5.11'
+    pkg_pro_id: '29'
+    pkg_lang_id: '3'
+    pkg_status: '6'
+    pkg_zip: 'C:/Homepages/wamp/www/wgtransifex/htdocs/uploads/wgtransifex/translations/Xoops 2.5.11/Xoops 2.5.11_french_fr.zip'
+    pkg_logo: xoops2.jpg
+    pkg_traperc: '96'
+    pkg_date: '1610019521'
+    pkg_submitter: '1'
+-
+    pkg_id: '3'
+    pkg_name: 'Xoops 2.5.11'
+    pkg_desc: 'Языковой пакет для XOOPS Core 2.5.11'
+    pkg_pro_id: '29'
+    pkg_lang_id: '8'
+    pkg_status: '6'
+    pkg_zip: 'C:/Homepages/wamp/www/wgtransifex/htdocs/uploads/wgtransifex/translations/Xoops 2.5.11/Xoops 2.5.11_russian.zip'
+    pkg_logo: xoops2.jpg
+    pkg_traperc: '100'
+    pkg_date: '1610019606'
+    pkg_submitter: '1'

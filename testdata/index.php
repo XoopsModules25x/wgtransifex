@@ -39,7 +39,7 @@ switch ($op) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 \redirect_header('../admin/index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
-            loadSampleData();
+            wgLoadSampleData();
         } else {
             xoops_cp_header();
             xoops_confirm(['ok' => 1, 'op' => 'load'], 'index.php', \sprintf(\constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA_OK')), \constant('CO_' . $moduleDirNameUpper . '_' . 'CONFIRM'), true);
@@ -183,4 +183,123 @@ function loadTableFromArrayWithReplace($table, $data, $search, $replace)
     }
 
     return $count;
+}
+
+
+/**
+ * wgLoadSampleData
+ * load data from yaml file without using xmf/yaml
+ *
+ * @return void
+ */
+function wgLoadSampleData()
+{
+    global $xoopsConfig;
+    $moduleDirName = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+    $utility = new Utility();
+    $configurator = new Common\Configurator();
+    $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
+    $language = 'english/';
+    if (\is_dir(__DIR__ . '/' . $xoopsConfig['language'])) {
+        $language = $xoopsConfig['language'] . '/';
+    }
+    // load module tables
+    foreach ($tables as $table) {
+        //echo "<br>".$table;
+        $handle = fopen($language . $table . '.yml', "r");
+        if ($handle) {
+            $columns = [];
+            $values = [];
+            $fields = 0;
+            $lines = 0;
+            //delete all data
+            $sql = 'DELETE FROM `' . $GLOBALS['xoopsDB']->prefix($table) . '`;';
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
+            while (($line = fgets($handle)) !== false) {
+                // process the line read.
+                $lines++;
+                if ("-\n" == $line) {
+                    if (count($values) > 0) {
+                        //store previous values
+                        $sql = 'INSERT INTO `' . $GLOBALS['xoopsDB']->prefix($table) . '` (';
+                        $sql .= implode(', ', $columns);
+                        $sql .= ') VALUE ';
+                        $sql .= '( ' . implode(', ', $values) . '),';
+                        $sql = substr($sql, 0, - 1) . ';';
+                        $result = $GLOBALS['xoopsDB']->queryF($sql);
+                        $fields = 1;
+                    }
+                    //reset for next
+                    $values = [];
+                } else {
+                    $posDelimiter = strpos($line, ':');
+                    if (0 == $fields) {
+                        $columns[] = trim(substr($line, 1, $posDelimiter - 1));
+                    }
+                    $value = trim(substr($line, $posDelimiter + 2), "\t\n");
+                    //remove existing quotes
+                    if ("'" == substr($value, 0, 1) || '"' == substr($value, 0, 1)) {
+                        $value = substr($value, 1, - 1);
+                    }
+
+                    $value = str_replace("''", "'", $value);
+                    if (0 == strpos($value, "'")) {
+                        $value = "'" . $value . "'";
+                    } elseif (0 == strpos($value, '"')) {
+                        $value = '"' . $value . '"';
+                    } elseif (strpos($value, '\"') > 0) {
+                        $value = '"' . $value . '"';
+                    } elseif (strpos($value, '"') > 0) {
+                        $value = str_replace('"', '\"', $value);
+                        if (strpos($value, "\'") > 0) {
+                            $value = str_replace("'", "\'", $value);
+                        }
+                        $value = '"' . $value . '"';
+                    } elseif (strpos($value, "\'") > 0) {
+                        $value = str_replace("'", "\'", $value);
+                        $value = "'" . $value . "'";
+                    } elseif (strpos($value, '"') > 0) {
+                        if (0 == strpos($value, "\'")) {
+                            $value = str_replace("'", "\'", $value);
+                        }
+                        $value = "'" . $value . "'";
+                    } elseif (strpos($value, "'") > 0) {
+                        $value = '"' . $value . '"';
+                    } else {
+                        $value = "'" . $value . "'";
+                    }
+                    $values[] = $value;
+                }
+            }
+            fclose($handle);
+        } else {
+            echo 'error opening the file';
+        }
+        //add last item
+        if ($lines > 1 && count($values) > 0) {
+            //store previous values
+            $sql = 'INSERT INTO `' . $GLOBALS['xoopsDB']->prefix($table) . '` (';
+            $sql .= implode(', ', $columns);
+            $sql .= ') VALUE ';
+            $sql .= '( ' . implode(', ', $values) . '),';
+            $sql = substr($sql, 0, - 1) . ';';
+            $result = $GLOBALS['xoopsDB']->queryF($sql);
+        }
+    }
+    // load permissions
+    $table = 'group_permission';
+    $tabledata = Yaml::readWrapped($language . $table . '.yml');
+    $mid = Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
+    loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
+    //  ---  COPY test folder files ---------------
+    if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
+        //        $file =  dirname(__DIR__) . '/testdata/images/';
+        foreach (\array_keys($configurator->copyTestFolders) as $i) {
+            $src = $configurator->copyTestFolders[$i][0];
+            $dest = $configurator->copyTestFolders[$i][1];
+            $utility::rcopy($src, $dest);
+        }
+    }
+    \redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
 }

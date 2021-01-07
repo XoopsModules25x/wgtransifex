@@ -172,10 +172,9 @@ class TransifexLib
      * @param string $language
      * @param        $language_source
      * @param bool   $reviewedOnly
-     * @param bool   $skipMissing
      * @return array
      */
-    public function getTranslation($project, $resource, $language, $language_source, $reviewedOnly = false, $skipMissing = false)
+    public function getTranslation($project, $resource, $language, $language_source, $reviewedOnly = false)
     {
         if ($language == $language_source) {
             $url = static::BASE_URL . 'project/' . $project . '/resource/' . $resource . '/content/';
@@ -276,9 +275,11 @@ class TransifexLib
     /**
      * TransifexLib::createResource()
      *
-     * @param        $project
-     * @param string $resource
-     * @param string $file
+     * @param $project
+     * @param $resource
+     * @param $slug
+     * @param $i18n_type
+     * @param $file
      * @return mixed
      */
     public function createResource($project, $resource, $slug, $i18n_type, $file)

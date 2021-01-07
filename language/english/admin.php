@@ -231,7 +231,8 @@ require_once __DIR__ . '/main.php';
 <ul><li>if yes: non existing resources and translations will be downloaded / existing resources and translations will be overwritten!</li>
 <li>if no: resources and translations must be downloaded before, otherwise package will be incomplete!</li></ul>
 ');
-\define('_AM_WGTRANSIFEX_PACKAGE_TRAPERC', 'Minimum percentage of already done translations');
+\define('_AM_WGTRANSIFEX_PACKAGE_TRAPERC', 'Percentage of already done translations');
+\define('_AM_WGTRANSIFEX_PACKAGE_TRAPERC_MIN', 'Minimum percentage of already done translations');
 // Broken
 \define('_AM_WGTRANSIFEX_BROKEN_RESULT', 'Broken items in table %s');
 \define('_AM_WGTRANSIFEX_BROKEN_NODATA', 'No broken items in table %s');
@@ -254,6 +255,13 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST', '--- Not in the list ---');
 \define('_AM_WGTRANSIFEX_REQUEST_INFO', 'Not in the list');
 \define('_AM_WGTRANSIFEX_REQUEST_INFO_DESC', 'If the project/module which you would like to have is not in the list, then please type in here the name');
+// bulk actions
+\define('_AM_WGTRANSIFEX_BULKACTION_INFO1', 'With the bulk actions you can execute severall actions at once. You should use this feature only if you are familiar with functions of this module!');
+\define('_AM_WGTRANSIFEX_BULKACTION_INFO2', 'Attention: During bulk actions there can appear several php errors (e.g. php time limit). After restarting the buld actions module will continue at previous breakpoint.');
+\define('_AM_WGTRANSIFEX_BULKACTION_DESC', 'Description');
+\define('_AM_WGTRANSIFEX_BULKACTION_DESC_RES', 'Bulk download of resources: the resources of current existing projects will be downloaded');
+\define('_AM_WGTRANSIFEX_BULKACTION_DESC_TRA', 'Bulk download of translations: multiple projects with multiple languages can be downloaded at once');
+\define('_AM_WGTRANSIFEX_BULKACTION_DESC_PKG', 'Bulk creation of packages: packages of multiple projects and multiple languages can be created at once. You can set a minimum limit of done translations.');
 // General
 \define('_AM_WGTRANSIFEX_FORM_UPLOAD', 'Upload file');
 \define('_AM_WGTRANSIFEX_FORM_UPLOAD_NEW', 'Upload new file: ');

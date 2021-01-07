@@ -37,6 +37,7 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_ADMENU9', 'Feedback');
 \define('_MI_WGTRANSIFEX_ADMENU10', 'Requests');
 \define('_MI_WGTRANSIFEX_ADMENU11', 'Permissions');
+\define('_MI_WGTRANSIFEX_ADMENU12', 'Bulk actions');
 \define('_MI_WGTRANSIFEX_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
 \define('_MI_WGTRANSIFEX_ADMIN_PAGER', 'Admin pager');
@@ -104,6 +105,8 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_DISQUS_COMMENTS_DESC', 'Allow Disqus comments in the single page');
 \define('_MI_WGTRANSIFEX_GROUPS_REQUEST', 'Groups requests');
 \define('_MI_WGTRANSIFEX_GROUPS_REQUEST_DESC', 'Define the groups which are allowed to send requests for language packages');
+\define('_MI_WGTRANSIFEX_BULKACTIONS', 'Show bulk actions');
+\define('_MI_WGTRANSIFEX_BULKACTIONS_DESC', 'Show tab with bulk actions');
 // Global notifications
 \define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL', 'Global notification');
 \define('_MI_WGTRANSIFEX_NOTIFY_PACKAGE', 'Package notification');

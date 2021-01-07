@@ -138,7 +138,6 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        $isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
 
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
@@ -163,7 +162,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
         $pkgLangIdsSelect->addOptionArray($languagesHandler->getList($crLanguages));
         $form->addElement($pkgLangIdsSelect, true);
         // Form Table percentage
-        $trapercSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_TRAPERC, 'pkgTraperc', 75);
+        $trapercSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_TRAPERC_MIN, 'pkgTraperc', 75);
         for ($i = 10; $i <= 100; $i = $i+5) {
             $trapercSelect->addOption($i, $i . '%');
         }

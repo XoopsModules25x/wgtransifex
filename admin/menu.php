@@ -12,6 +12,9 @@ declare(strict_types=1);
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use XoopsModules\Wgtransifex\Helper;
+
+
 /**
  * wgTransifex module for xoops
  *
@@ -26,6 +29,10 @@ $moduleHandler = \xoops_getHandler('module');
 $xoopsModule = XoopsModule::getByDirname($dirname);
 $moduleInfo = $moduleHandler->get($xoopsModule->getVar('mid'));
 $sysPathIcon32 = $moduleInfo->getInfo('sysicons32');
+
+require_once \dirname(__DIR__) . '/preloads/autoloader.php';
+$helper = Helper::getInstance();
+
 $adminmenu[] = [
     'title' => \_MI_WGTRANSIFEX_ADMENU1,
     'link' => 'admin/index.php',
@@ -66,6 +73,13 @@ $adminmenu[] = [
     'link' => 'admin/languages.php',
     'icon' => 'assets/icons/32/languages.png',
 ];
+if (is_object($helper) && $helper->getConfig('bulkactions')) {
+    $adminmenu[] = [
+        'title' => \_MI_WGTRANSIFEX_ADMENU12,
+        'link' => 'admin/bulkactions.php',
+        'icon' => 'assets/icons/32/bulkactions.png',
+    ];
+}
 $adminmenu[] = [
     'title' => \_MI_WGTRANSIFEX_ADMENU7,
     'link' => 'admin/settings.php',

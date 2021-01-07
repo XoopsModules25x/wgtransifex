@@ -86,6 +86,7 @@ $modversion['templates'] = [
     ['file' => 'wgtransifex_admin_packages.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wgtransifex_admin_broken.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wgtransifex_admin_requests.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'wgtransifex_admin_bulkactions.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wgtransifex_admin_footer.tpl', 'description' => '', 'type' => 'admin'],
     // User templates
     ['file' => 'wgtransifex_header.tpl', 'description' => ''],
@@ -411,6 +412,15 @@ $modversion['config'][] = [
     'valuetype' => 'text',
     'default' => 'single',
     'options' => [\_MI_WGTRANSIFEX_INDEX_DISPLAY_SINGLE => 'single', \_MI_WGTRANSIFEX_INDEX_DISPLAY_COLLECTION => 'collection'],
+];
+// Make tab bulk visible?
+$modversion['config'][] = [
+    'name' => 'bulkactions',
+    'title' => '\_MI_WGTRANSIFEX_BULKACTIONS',
+    'description' => '\_MI_WGTRANSIFEX_BULKACTIONS_DESC',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
 ];
 // Advertise
 $modversion['config'][] = [

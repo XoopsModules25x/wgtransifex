@@ -203,7 +203,7 @@ switch ($op) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php?op=list', 'list');
         }
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES, 'resources.php?op=readtx', 'add');
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES_ALL, 'resources.php?op=savetxall', 'add');
+        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES_ALL, 'resources.php?op=savetxall', 'add');
         if ($displayTxAdmin) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCE_ADD, 'resources.php?op=new', 'add');
         }

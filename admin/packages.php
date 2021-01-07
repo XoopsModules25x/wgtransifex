@@ -58,7 +58,7 @@ switch ($op) {
         $templateMain = 'wgtransifex_admin_packages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_PACKAGES_AUTOCREATE, 'packages.php?op=auto_create', 'add');
+        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_PACKAGES_AUTOCREATE, 'packages.php?op=auto_create', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $packagesCount = $packagesHandler->getCountPackages();
         $packagesAll = $packagesHandler->getAllPackages($start, $limit, 'pkg_id', 'DESC');
