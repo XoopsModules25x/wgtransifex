@@ -51,11 +51,12 @@ use XoopsModules\Wgtransifex\{
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op = Request::getCmd('op', 'list');
-$traId = Request::getInt('tra_id');
-$proId = Request::getInt('tra_pro_id');
+$op        = Request::getCmd('op', 'list');
+$traId     = Request::getInt('tra_id');
+$proId     = Request::getInt('tra_pro_id');
 $listProId = Request::getInt('list_pro_id');
-$langId = Request::getInt('tra_lang_id');
+$langId    = Request::getInt('tra_lang_id');
+
 switch ($op) {
     case 'list':
     default:
@@ -89,20 +90,23 @@ switch ($op) {
                 $sql .= ' GROUP BY `tra_pro_id`';
                 $result1 = $xoopsDB->query($sql);
                 while (list($traProId) = $xoopsDB->fetchRow($result1)) {
-                    $project = $projectsHandler->get($traProId)->getValuesProjects();
-                    $languages = [];
-                    $result2 = $xoopsDB->query('SELECT `tra_pro_id`, `tra_lang_id`, `tra_status` FROM ' . $xoopsDB->prefix('wgtransifex_translations') . ' WHERE `tra_pro_id`=' . $traProId . ' GROUP BY `tra_pro_id`, `tra_lang_id`, `tra_status`');
-                    while (list($traProId, $traLangId, $traStatus) = $xoopsDB->fetchRow($result2)) {
-                        $languages[$traLangId]['id'] = $traLangId;
-                        $languages[$traLangId]['name'] = $languagesHandler->get($traLangId)->getVar('lang_name');
-                        if (Constants::STATUS_OUTDATED == (int)$traStatus) {
-                            $languages[$traLangId]['outdated'] = Constants::STATUS_OUTDATED;
-                            $languages[$traLangId]['outdatedtext'] = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
+                    $projectObj = $projectsHandler->get($traProId);
+                    if (is_object($projectObj)) {
+                        $project = $projectObj->getValuesProjects();
+                        $languages = [];
+                        $result2 = $xoopsDB->query('SELECT `tra_pro_id`, `tra_lang_id`, `tra_status` FROM ' . $xoopsDB->prefix('wgtransifex_translations') . ' WHERE `tra_pro_id`=' . $traProId . ' GROUP BY `tra_pro_id`, `tra_lang_id`, `tra_status`');
+                        while (list($traProId, $traLangId, $traStatus) = $xoopsDB->fetchRow($result2)) {
+                            $languages[$traLangId]['id'] = $traLangId;
+                            $languages[$traLangId]['name'] = $languagesHandler->get($traLangId)->getVar('lang_name');
+                            if (Constants::STATUS_OUTDATED == (int)$traStatus) {
+                                $languages[$traLangId]['outdated'] = Constants::STATUS_OUTDATED;
+                                $languages[$traLangId]['outdatedtext'] = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
+                            }
                         }
+                        $project['languages'] = $languages;
+                        $GLOBALS['xoopsTpl']->append('projects_list', $project);
+                        unset($project);
                     }
-                    $project['languages'] = $languages;
-                    $GLOBALS['xoopsTpl']->append('projects_list', $project);
-                    unset($project);
                 }
                 // Display Navigation
                 if ($translationsCount > $limit) {
@@ -149,7 +153,7 @@ switch ($op) {
         if (0 == $proId && $resourcesCount > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx', 'add');
         }
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ALL, 'translations.php?op=readtxall', 'add');
+        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ALL, 'translations.php?op=readtxall', 'add');
         if ($translationsCount > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
         }
@@ -220,18 +224,20 @@ switch ($op) {
                         $translationsCount = $translationsHandler->getCount($crTranslations);
                         if (Constants::READTYPE_ALL == $readType || 0 == $translationsCount) {
                             $result = $transifex->readTranslations(0, $proId, $langId, false, true, $resId);
+                            if (\_AM_WGTRANSIFEX_READTX_OK == $result) {
+                                //update table projects
+                                if (!$projectsHandler->updateProjectTranslations($proId)) {
+                                    $errors++;
+                                }
+                                //update table resources
+                                if (!$resourcesHandler->updateResourceTranslations($proId)) {
+                                    $errors++;
+                                }
+                            }
                         }
-                    }
-                    //update table projects
-                    if (!$projectsHandler->updateProjectTranslations($proId)) {
-                        $errors++;
-                    }
-                    //update table resources
-                    if (!$resourcesHandler->updateResourceTranslations($proId)) {
-                        $errors++;
+                        unset($crTranslations);
                     }
                 }
-
             }
         }
         if ($errors > 0) {

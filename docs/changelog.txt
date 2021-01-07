@@ -6,6 +6,9 @@
  - added bulk download for resources and translations (goffy)
  - bulk creation of language packages (goffy)
  - added display type for index page (goffy)
+ - increased field size for translation contents (goffy)
+ - restructured bulk download (goffy)
+
 ===================================================================
 2020/10/11 Version 1.04 final
 ===================================================================

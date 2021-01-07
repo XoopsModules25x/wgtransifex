@@ -37,6 +37,7 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_ADMENU9', 'Feedback');
 \define('_MI_WGTRANSIFEX_ADMENU10', 'Anfragen');
 \define('_MI_WGTRANSIFEX_ADMENU11', 'Festlegung Berechtigungen');
+\define('_MI_WGTRANSIFEX_ADMENU12', 'Massenaktionen');
 \define('_MI_WGTRANSIFEX_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
 \define('_MI_WGTRANSIFEX_ADMIN_PAGER', 'Admin Listenzeilen');
@@ -104,6 +105,8 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_DISQUS_COMMENTS_DESC', 'Disqus-Kommentare in den Seiten zulassen');
 \define('_MI_WGTRANSIFEX_GROUPS_REQUEST', 'Gruppen für Anfragen');
 \define('_MI_WGTRANSIFEX_GROUPS_REQUEST_DESC', 'Definiere die Gruppen, die eine Anfrage für neue Sprachpakete einsenden dürfen');
+\define('_MI_WGTRANSIFEX_BULKACTIONS', 'Massenaktionen anzeigen');
+\define('_MI_WGTRANSIFEX_BULKACTIONS_DESC', 'Tab mit Massenaktionen anzeigen');
 // Global notifications
 \define('_MI_WGTRANSIFEX_NOTIFY_GLOBAL', 'Globale Benachrichtigungen');
 \define('_MI_WGTRANSIFEX_NOTIFY_PACKAGE', 'Benachrichtigungen Pakete');

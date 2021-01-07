@@ -63,7 +63,7 @@ CREATE TABLE `wgtransifex_translations` (
     `tra_pro_id`                INT(10)         NOT NULL DEFAULT '0',
     `tra_res_id`                INT(10)         NOT NULL DEFAULT '0',
     `tra_lang_id`               INT(10)         NOT NULL DEFAULT '0',
-    `tra_content`               TEXT            NOT NULL,
+    `tra_content`               MEDIUMTEXT      NOT NULL,
     `tra_mimetype`              VARCHAR(100)    NOT NULL DEFAULT '',
     `tra_proofread`             INT(10)         NOT NULL DEFAULT '0',
     `tra_proofread_percentage`  INT(10)         NOT NULL DEFAULT '0',
@@ -82,7 +82,8 @@ CREATE TABLE `wgtransifex_translations` (
     `tra_submitter`             INT(10)         NOT NULL DEFAULT '0',
     PRIMARY KEY (`tra_id`)
 )
-    ENGINE = InnoDB;
+    ENGINE = MyISAM
+    DEFAULT CHARSET = utf8;
 
 #
 # Structure table for `wgtransifex_settings` 7

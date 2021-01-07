@@ -378,58 +378,65 @@ class Transifex
         $count_err = 0;
         $translationsCount = $translationsHandler->getCount();
         if ($translationsCount > 0) {
+            $limit = 100;
             //request data from transifex
             $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib();
             $transifexLib->user = $setting['user'];
             $transifexLib->password = $setting['pwd'];
-            $translationsAll = $translationsHandler->getAll();
-            foreach (\array_keys($translationsAll) as $i) {
-                $projectsObj = $projectsHandler->get($translationsAll[$i]->getVar('tra_pro_id'));
-                $project = $projectsObj->getVar('pro_slug');
-                $resourceObj = $resourcesHandler->get($translationsAll[$i]->getVar('tra_res_id'));
-                $resource = '';
-                if (\is_object($resourceObj)) {
-                    $resource = $resourceObj->getVar('res_slug');
-                } else {
-                    $count_err++;
-                }
-                //$resSourceLang = $resourceObj->getVar('res_source_language_code');
-                $languagesObj = $languagesHandler->get($translationsAll[$i]->getVar('tra_lang_id'));
-                $language = '';
-                if (\is_object($languagesObj)) {
-                    $language = $languagesObj->getVar('lang_code');
-                } else {
-                    $count_err++;
-                }
-                //$item          = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
-                $stats = $transifexLib->getStats($project, $resource, $language);
-                $traLastUpdate = 0;
-                if (\is_string($stats['last_update'])) {
-                    $traLastUpdate = \strtotime($stats['last_update']);
-                }
-                if ($traLastUpdate > $translationsAll[$i]->getVar('tra_date')) {
-                    $translationsObj = $translationsHandler->get($translationsAll[$i]->getVar('tra_id'));
-                    $translationsObj->setVar('tra_proofread', $stats['proofread']);
-                    $translationsObj->setVar('tra_proofread_percentage', $stats['proofread_percentage']);
-                    $translationsObj->setVar('tra_reviewed_percentage', $stats['reviewed_percentage']);
-                    $translationsObj->setVar('tra_completed', $stats['completed']);
-                    $translationsObj->setVar('tra_untranslated_words', $stats['untranslated_words']);
-                    $translationsObj->setVar('tra_last_commiter', $stats['last_commiter']);
-                    $translationsObj->setVar('tra_reviewed', $stats['reviewed']);
-                    $translationsObj->setVar('tra_translated_entities', $stats['translated_entities']);
-                    $translationsObj->setVar('tra_translated_words', $stats['translated_words']);
-                    $translationsObj->setVar('tra_untranslated_entities', $stats['untranslated_entities']);
-                    $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
-                    $translationsObj->setVar('tra_status', Constants::STATUS_OUTDATED);
-                    // Insert Data
-                    if ($translationsHandler->insert($translationsObj, true)) {
-                        $count_update++;
+            for ($start = 0; $start <= $translationsCount; $start+=$limit) {
+                $crTranslations = new \CriteriaCompo();
+                $crTranslations->setStart($start);
+                $crTranslations->setLimit($limit);
+                $translationsAll = $translationsHandler->getAll($crTranslations);
+                foreach (\array_keys($translationsAll) as $i) {
+                    $projectsObj = $projectsHandler->get($translationsAll[$i]->getVar('tra_pro_id'));
+                    $project = $projectsObj->getVar('pro_slug');
+                    $resourceObj = $resourcesHandler->get($translationsAll[$i]->getVar('tra_res_id'));
+                    $resource = '';
+                    if (\is_object($resourceObj)) {
+                        $resource = $resourceObj->getVar('res_slug');
                     } else {
                         $count_err++;
                     }
-                } else {
-                    $count_ok++;
+                    //$resSourceLang = $resourceObj->getVar('res_source_language_code');
+                    $languagesObj = $languagesHandler->get($translationsAll[$i]->getVar('tra_lang_id'));
+                    $language = '';
+                    if (\is_object($languagesObj)) {
+                        $language = $languagesObj->getVar('lang_code');
+                    } else {
+                        $count_err++;
+                    }
+                    //$item          = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang);
+                    $stats = $transifexLib->getStats($project, $resource, $language);
+                    $traLastUpdate = 0;
+                    if (\is_string($stats['last_update'])) {
+                        $traLastUpdate = \strtotime($stats['last_update']);
+                    }
+                    if ($traLastUpdate > $translationsAll[$i]->getVar('tra_date')) {
+                        $translationsObj = $translationsHandler->get($translationsAll[$i]->getVar('tra_id'));
+                        $translationsObj->setVar('tra_proofread', $stats['proofread']);
+                        $translationsObj->setVar('tra_proofread_percentage', $stats['proofread_percentage']);
+                        $translationsObj->setVar('tra_reviewed_percentage', $stats['reviewed_percentage']);
+                        $translationsObj->setVar('tra_completed', $stats['completed']);
+                        $translationsObj->setVar('tra_untranslated_words', $stats['untranslated_words']);
+                        $translationsObj->setVar('tra_last_commiter', $stats['last_commiter']);
+                        $translationsObj->setVar('tra_reviewed', $stats['reviewed']);
+                        $translationsObj->setVar('tra_translated_entities', $stats['translated_entities']);
+                        $translationsObj->setVar('tra_translated_words', $stats['translated_words']);
+                        $translationsObj->setVar('tra_untranslated_entities', $stats['untranslated_entities']);
+                        $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
+                        $translationsObj->setVar('tra_status', Constants::STATUS_OUTDATED);
+                        // Insert Data
+                        if ($translationsHandler->insert($translationsObj, true)) {
+                            $count_update++;
+                        } else {
+                            $count_err++;
+                        }
+                    } else {
+                        $count_ok++;
+                    }
                 }
+                unset($crTranslations);
             }
         }
         if ($count_err > 0) {

@@ -228,10 +228,11 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_PACKAGE_LOGO_UPLOADS', 'Existierende Logos im Uploadverzeichnis: %s');
 \define('_AM_WGTRANSIFEX_PACKAGE_DOWNLOAD', 'Willst Du die Dateien von Transifex herunterladen?');
 \define('_AM_WGTRANSIFEX_PACKAGE_DOWNLOAD_DESC', 'Achtung: 
-<ul><li>Wenn Ja: nicht existierende Ressourcen und Übersetzungen werden heruntergeladen / existierende Ressourcen und Übersetzungen werden überrschrieben!</li>
+<ul><li>Wenn Ja: nicht existierende Ressourcen und Übersetzungen werden heruntergeladen / existierende Ressourcen und Übersetzungen werden überschrieben!</li>
 <li>Wenn Nein:  Ressourcen und Übersetzungen müssen vorher heruntergeladen worden sein, ansonsten ist das sprachpaket eventuell unvollständig!</li></ul>
 ');
-\define('_AM_WGTRANSIFEX_PACKAGE_TRAPERC', 'Mindestprozentsatz an bereits erfolgter Übersetzungen');
+\define('_AM_WGTRANSIFEX_PACKAGE_TRAPERC', 'Prozentsatz an bereits erfolgter Übersetzungen');
+\define('_AM_WGTRANSIFEX_PACKAGE_TRAPERC_MIN', 'Mindestprozentsatz an bereits erfolgter Übersetzungen');
 // Broken
 \define('_AM_WGTRANSIFEX_BROKEN_RESULT', 'Fehlerhafte Einträge in Tabelle %s');
 \define('_AM_WGTRANSIFEX_BROKEN_NODATA', 'Keine fehlerhaften Einträge in Tabelle %s');
@@ -254,6 +255,13 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST', '--- Nicht in der Liste ---');
 \define('_AM_WGTRANSIFEX_REQUEST_INFO', 'Nicht in der Liste');
 \define('_AM_WGTRANSIFEX_REQUEST_INFO_DESC', 'Wenn das gewünschte Projekt/Modul nicht in der List ist, dann bitte den entsprechenden Namen hier eingeben');
+// bulk actions
+\define('_AM_WGTRANSIFEX_BULKACTION_INFO1', 'Mit den Massenaktionen kannst Du zahlreiche Aktionen auf einmal durchführen lassen. Du solltest diese Features nur verwenden, wenn Du mit den Funktionalitäten des Moduls vertraut bist!');
+\define('_AM_WGTRANSIFEX_BULKACTION_INFO2', 'Achtung: Während der Massenaktionen kann es zu diversen PHP-Fehlermeldungen kommen (z.B. php time limit). Bei einem Neustart der jeweiligen Massenaktion sollte am vorherigen Breakpoint fortgesetzt werden.');
+\define('_AM_WGTRANSIFEX_BULKACTION_DESC', 'Beschreibung');
+\define('_AM_WGTRANSIFEX_BULKACTION_DESC_RES', 'Massendownload der Ressourcen: es werden alle Ressourcen von allen derzeit eingelesenen Projekte heruntergeladen');
+\define('_AM_WGTRANSIFEX_BULKACTION_DESC_TRA', 'Massendownload der Übersetzungen: es werden mehrere Projekte und mehrere Sprachen auf einmal heruntergeladen werden');
+\define('_AM_WGTRANSIFEX_BULKACTION_DESC_PKG', 'Massenerstellung von Paketen: Pakete für mehrere Projekte und mehrere Sprachen können auf einmal erstellt werden. Dabei ist eine Einschränkung auf eine Mindestqoute an Übersetzung möglich.');
 // General
 \define('_AM_WGTRANSIFEX_FORM_UPLOAD', 'Datei hochladen');
 \define('_AM_WGTRANSIFEX_FORM_UPLOAD_NEW', 'Neue Datei hochladen:');

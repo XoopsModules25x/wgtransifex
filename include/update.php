@@ -295,5 +295,9 @@ function wgtransifex_check_db($module)
         }
     }
 
+    $table = $GLOBALS['xoopsDB']->prefix('wgtransifex_translations');
+    $sql = "ALTER TABLE `$table` CHANGE `tra_content` `tra_content` MEDIUMTEXT NOT NULL;";
+    $result = $GLOBALS['xoopsDB']->queryF($sql);
+
     return $ret;
 }

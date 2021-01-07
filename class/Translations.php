@@ -264,7 +264,11 @@ class Translations extends \XoopsObject
         $ret['id'] = $this->getVar('tra_id');
         $projectsHandler = $helper->getHandler('Projects');
         $projectsObj = $projectsHandler->get($this->getVar('tra_pro_id'));
-        $ret['pro_id'] = $projectsObj->getVar('pro_slug');
+        if (\is_object($projectsObj)) {
+            $ret['pro_id'] = $projectsObj->getVar('pro_slug');
+        } else {
+            $ret['pro_id'] = '***** missing pro_slug *****';
+        }
         $resourcesHandler = $helper->getHandler('Resources');
         $resourcesObj = $resourcesHandler->get($this->getVar('tra_res_id'));
         $ret['res_id'] = $resourcesObj->getVar('res_slug');

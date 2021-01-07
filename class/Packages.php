@@ -155,9 +155,10 @@ class Packages extends \XoopsObject
         $fileSelectTray->addElement(new \XoopsFormLabel(''));
         $imageTray->addElement($fileSelectTray);
         $form->addElement($imageTray);
-        // Form Text pkgTraperc
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_PACKAGE_TRAPERC, 'pkg_traperc', 50, 255, $this->getVar('pkg_traperc')), true);
-
+        // Form Label pkgTraperc
+        if (!$this->isNew()) {
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_PACKAGE_TRAPERC, $this->getVar('pkg_traperc')));
+        }
         $pkgSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('pkg_submitter');
         if ($this->isNew()) {
             $form->addElement(new \XoopsFormHidden('pkg_submitter', $pkgSubmitter));
@@ -198,7 +199,11 @@ class Packages extends \XoopsObject
         $ret['desc'] = $this->getVar('pkg_desc');
         $projectsHandler = $helper->getHandler('Projects');
         $projectsObj = $projectsHandler->get($this->getVar('pkg_pro_id'));
-        $ret['pro_id'] = $projectsObj->getVar('pro_slug');
+        if (\is_object($projectsObj)) {
+            $ret['pro_id'] = $projectsObj->getVar('pro_slug');
+        } else {
+            $ret['pro_id'] = '***** missing pro_slug *****';
+        }
         $languagesHandler = $helper->getHandler('Languages');
         $languagesObj = $languagesHandler->get($this->getVar('pkg_lang_id'));
         $ret['lang_id'] = $languagesObj->getVar('lang_name');

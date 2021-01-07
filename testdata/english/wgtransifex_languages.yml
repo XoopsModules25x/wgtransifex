@@ -26,13 +26,13 @@
     lang_id: '3'
     lang_name: 'French (France)'
     lang_code: fr_FR
-    lang_folder: french_fr
+    lang_folder: french
     lang_iso_639_1: fr
     lang_iso_639_2: ''
     lang_flag: fr.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1592161625'
+    lang_date: '1592135146'
     lang_submitter: '1'
 -
     lang_id: '4'
@@ -146,13 +146,13 @@
     lang_id: '13'
     lang_name: Polish
     lang_code: pl_PL
-    lang_folder: Polish
+    lang_folder: polish
     lang_iso_639_1: pl
-    lang_iso_639_2: pol
+    lang_iso_639_2: ''
     lang_flag: pl.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593419651'
+    lang_date: '1593431266'
     lang_submitter: '1'
 -
     lang_id: '14'
@@ -302,13 +302,13 @@
     lang_id: '26'
     lang_name: 'English (Canada)'
     lang_code: en_CA
-    lang_folder: english_ca
+    lang_folder: english
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: ca.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593417640'
+    lang_date: '1593431335'
     lang_submitter: '1'
 -
     lang_id: '27'
@@ -374,13 +374,13 @@
     lang_id: '32'
     lang_name: 'Bosnian (Bosnia Herzegovina)'
     lang_code: bs_BA
-    lang_folder: bosnian_ba
+    lang_folder: bosnian
     lang_iso_639_1: bs
     lang_iso_639_2: ''
     lang_flag: ba.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593423993'
+    lang_date: '1593431317'
     lang_submitter: '1'
 -
     lang_id: '33'
@@ -446,25 +446,25 @@
     lang_id: '38'
     lang_name: 'English (United States)'
     lang_code: en_US
-    lang_folder: english_us
+    lang_folder: english
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: us.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593417650'
+    lang_date: '1593431351'
     lang_submitter: '1'
 -
     lang_id: '39'
     lang_name: 'French (Canada)'
     lang_code: fr_CA
-    lang_folder: french_ca
+    lang_folder: french
     lang_iso_639_1: ''
     lang_iso_639_2: ''
     lang_flag: ca.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1593417664'
+    lang_date: '1593431383'
     lang_submitter: '1'
 -
     lang_id: '40'
@@ -548,7 +548,7 @@
     lang_flag: fr.png
     lang_primary: '0'
     lang_online: '1'
-    lang_date: '1606988036'
+    lang_date: '1606996168'
     lang_submitter: '1'
 -
     lang_id: '47'
