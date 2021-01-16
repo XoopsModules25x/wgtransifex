@@ -2,6 +2,8 @@
 2020/12/13 Version 1.05 beta
 ===================================================================
  - added download of module images from GitHub (goffy)
+ - fixed problem with strict_types (goffy)
+ - added image size (goffy)
 
 ===================================================================
 2020/12/13 Version 1.05 alpha
