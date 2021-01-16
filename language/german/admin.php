@@ -26,13 +26,13 @@ require_once __DIR__ . '/main.php';
 // ---------------- Admin Index ----------------
 \define('_AM_WGTRANSIFEX_STATISTICS', 'Statistiken');
 // There are
-\define('_AM_WGTRANSIFEX_THEREARE_PROJECTS', "Es gibt <span class='bold'>%s</span>Projekte in der Datenbank");
-\define('_AM_WGTRANSIFEX_THEREARE_RESOURCES', "Es sind <span class='bold'>%s</span>Ressourcen in der Datenbank");
-\define('_AM_WGTRANSIFEX_THEREARE_SETTINGS', "Es gibt <span class='bold'>%s</span>Einstellungen in der Datenbank");
+\define('_AM_WGTRANSIFEX_THEREARE_PROJECTS', "Es gibt <span class='bold'>%s</span> Projekte in der Datenbank");
+\define('_AM_WGTRANSIFEX_THEREARE_RESOURCES', "Es sind <span class='bold'>%s</span> Ressourcen in der Datenbank");
+\define('_AM_WGTRANSIFEX_THEREARE_SETTINGS', "Es gibt <span class='bold'>%s</span> Einstellungen in der Datenbank");
 \define('_AM_WGTRANSIFEX_THEREARE_LANGUAGES', "Es gibt <span class='bold'>%s</span> Sprachen in der Datenbank");
 \define('_AM_WGTRANSIFEX_THEREARE_TRANSLATIONS', "Es gibt <span class='bold'>%s</span> Übersetzungen in der Datenbank");
-\define('_AM_WGTRANSIFEX_THEREARE_PACKAGES', "Es sind <span class='bold'>%s</span>Pakete in der Datenbank");
-\define('_AM_WGTRANSIFEX_THEREARE_REQUESTS', "Es sind <span class='bold'>%s</span>Anfragen für Sprachpakete in der Datenbank");
+\define('_AM_WGTRANSIFEX_THEREARE_PACKAGES', "Es sind <span class='bold'>%s</span> Pakete in der Datenbank");
+\define('_AM_WGTRANSIFEX_THEREARE_REQUESTS', "Es sind <span class='bold'>%s</span> Anfragen für Sprachpakete in der Datenbank");
 // ---------------- Admin Files ----------------
 // There aren't
 \define('_AM_WGTRANSIFEX_THEREARENT_PROJECTS', "Es gibt keine Projekte");

@@ -72,14 +72,14 @@ class Resizer
                 } else {
                     $new_width = $this->maxWidth;
                     $divisor = $width / $new_width;
-                    $new_height = \floor($height / $divisor);
+                    $new_height = (int)\floor($height / $divisor);
                 }
             } elseif ($height < $this->maxHeight) {
                 $new_height = $height;
             } else {
                 $new_height = $this->maxHeight;
                 $divisor = $height / $new_height;
-                $new_width = \floor($width / $divisor);
+                $new_width = (int)\floor($width / $divisor);
             }
             // Create a new temporary image.
             $tmpimg = \imagecreatetruecolor($new_width, $new_height);

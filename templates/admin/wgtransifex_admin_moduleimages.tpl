@@ -96,10 +96,11 @@
 	<div class="wgt-admin-card">
 		<img class="wgt-admin-card-img" src="<{$wgtransifex_upload_url_logos}>/<{$image.src}>" style="cursor:pointer"
 				onclick="onClick(this)" class="modal-hover-opacity" alt="<{$image.name}>">
+		<p><{$image.name}></p>
 		<p>
-			<{$image.name}>
-			<a href="moduleimages.php?op=delete&img_name=<{$image.name}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}>"></a>
+			<{$image.width}> x <{$image.height}><a href="moduleimages.php?op=delete&img_name=<{$image.name}>" title="<{$smarty.const._DELETE}>"><img class="pull-right" src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}>"></a>
 		</p>
+
 	</div>
 	<{/foreach}>
 

@@ -48,13 +48,15 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('activeWgGithub', $activeWgGithub);
 
         // Table view packages
-        $images_list = XoopsLists::getImgListAsArray(\WGTRANSIFEX_UPLOAD_PATH . '/logos/');
+        $logosDirectory = WGTRANSIFEX_UPLOAD_PATH . '/logos/';
+        $images_list = XoopsLists::getImgListAsArray($logosDirectory);
 
         if (\count($images_list) > 0) {
             natcasesort($images_list);
             foreach ($images_list as $logo) {
                 if ('blank.gif' !== $logo && 'blank.png' !== $logo ) {
-                    $image = ['name' => $logo, 'src' => $logo];
+                    list($width, $height, $type, $attr) = getimagesize($logosDirectory . $logo);
+                    $image = ['name' => $logo, 'src' => $logo, 'width' => $width, 'height' => $height];
                     $GLOBALS['xoopsTpl']->append('images_list', $image);
                 }
             }
@@ -86,9 +88,6 @@ switch ($op) {
             $helper->getConfig('mimetypes_image'),
             $helper->getConfig('maxsize_image'), null, null);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-            $extension = \preg_replace('/^.+\.([^.]+)$/sU', '', $filename);
-            $imgName = \str_replace(' ', '', $imgNameDef) . '.' . $extension;
-            $uploader->setPrefix($imgName);
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
             if (!$uploader->upload()) {
                 $uploaderErrors = $uploader->getErrors();

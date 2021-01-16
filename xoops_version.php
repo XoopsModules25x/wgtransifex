@@ -300,7 +300,7 @@ $modversion['config'][] = [
     'description' => '\_MI_WGTRANSIFEX_MAXWIDTH_IMAGE_DESC',
     'formtype' => 'textbox',
     'valuetype' => 'int',
-    'default' => 1000,
+    'default' => 1280,
 ];
 $modversion['config'][] = [
     'name' => 'maxheight_image',
@@ -308,7 +308,7 @@ $modversion['config'][] = [
     'description' => '\_MI_WGTRANSIFEX_MAXHEIGHT_IMAGE_DESC',
     'formtype' => 'textbox',
     'valuetype' => 'int',
-    'default' => 1000,
+    'default' => 640,
 ];
 // Get groups
 /** @var \XoopsMemberHandler $memberHandler */
