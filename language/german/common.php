@@ -159,3 +159,6 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 \define('CO_' . $moduleDirNameUpper . '_' . 'TOTAL_PUBLISHED', 'Veröffentlicht');
 \define('CO_' . $moduleDirNameUpper . '_' . 'TOTAL_REJECTED', 'Zurückgewiesen');
 \define('CO_' . $moduleDirNameUpper . '_' . 'TOTAL_SUBMITTED', 'Eingesendet');
+//Xoops form Delete
+\define('CO_' . $moduleDirNameUpper . '_DELETE_CONFIRM', 'Bestätigen Löschen');
+\define('CO_' . $moduleDirNameUpper . '_DELETE_LABEL', 'Wollen Sie wirklich löschen:');

@@ -87,6 +87,7 @@ $modversion['templates'] = [
     ['file' => 'wgtransifex_admin_broken.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wgtransifex_admin_requests.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wgtransifex_admin_bulkactions.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'wgtransifex_admin_moduleimages.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'wgtransifex_admin_footer.tpl', 'description' => '', 'type' => 'admin'],
     // User templates
     ['file' => 'wgtransifex_header.tpl', 'description' => ''],

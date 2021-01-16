@@ -42,9 +42,11 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_THEREARENT_TRANSLATIONS', "There aren't translations");
 \define('_AM_WGTRANSIFEX_THEREARENT_PACKAGES', "There aren't packages");
 \define('_AM_WGTRANSIFEX_THEREARENT_REQUESTS', "There aren't requests");
+\define('_AM_WGTRANSIFEX_THEREARENT_MODULEIMAGES', "There aren't module images");
 // Save/Delete
 \define('_AM_WGTRANSIFEX_FORM_OK', 'Successfully saved');
 \define('_AM_WGTRANSIFEX_FORM_DELETE_OK', 'Successfully deleted');
+\define('_AM_WGTRANSIFEX_FORM_DELETE_ERROR', 'Error when deleting');
 \define('_AM_WGTRANSIFEX_FORM_SURE_DELETE', "Are you sure to delete: <b><span style='color : Red;'>%s </span></b>");
 \define('_AM_WGTRANSIFEX_FORM_SURE_RENEW', "Are you sure to update: <b><span style='color : Red;'>%s </span></b>");
 \define('_AM_WGTRANSIFEX_INVALID_PARAM', 'Invalid parameter');
@@ -80,6 +82,7 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_ADD_TRANSLATION', 'Add New Translation');
 \define('_AM_WGTRANSIFEX_ADD_PACKAGE', 'Create New Package');
 \define('_AM_WGTRANSIFEX_ADD_REQUEST', 'Add New Request');
+\define('_AM_WGTRANSIFEX_ADD_MODULEIMAGES', 'Add New Image');
 // Lists
 \define('_AM_WGTRANSIFEX_PROJECTS_LIST', 'List of Projects');
 \define('_AM_WGTRANSIFEX_RESOURCES_LIST', 'List of Projects with Resources');
@@ -88,6 +91,7 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_TRANSLATIONS_LIST', 'List of Projects with Translations');
 \define('_AM_WGTRANSIFEX_PACKAGES_LIST', 'List of Packages');
 \define('_AM_WGTRANSIFEX_REQUESTS_LIST', 'List of Requests');
+\define('_AM_WGTRANSIFEX_MODULEIMAGES_LIST', 'List of Module Images');
 // ---------------- Admin Classes ----------------
 // Project add/edit
 \define('_AM_WGTRANSIFEX_PROJECT_ADD', 'Add Project');
@@ -308,6 +312,19 @@ require_once __DIR__ . '/main.php';
 \define('_AM_WGTRANSIFEX_UPLOADTX_FILEUPLOADSKIP', 'File upload skipped: ');
 \define('_AM_WGTRANSIFEX_UPLOADTX_CHECK_NOERRORS', 'Check finish - no errors found');
 \define('_AM_WGTRANSIFEX_UPLOADTX_MODULE', 'Select source module');
+// modules images
+\define('_AM_WGTRANSIFEX_MODULEIMAGES_UPLOADS', 'Currently existing module images in upload folder');
+\define('_AM_WGTRANSIFEX_MODULEIMAGES_GH_TITLE', 'Images on Github XoopsModules25x/moduleimages');
+\define('_AM_WGTRANSIFEX_MODULEIMAGES_GH_INFO', 'The XOOPS developers can store the module image on Github <a href="https://github.com/XoopsModules25x/moduleimages" title="Github" target="_blank">XoopsModules25x/moduleimages</a>.<br> 
+The idea is to use the same logos e.g. in news, blogs or to illustrate the translation packages in wgTransifex.');
+\define('_AM_WGTRANSIFEX_MODULEIMAGES_GH_NOTFOUND', 'For direct download of these images into wgTransifex you have to install the module <a href="https://github.com/XoopsModules25x/wggithub" title="wgGithub" target="_blank">wgGithub</a>');
+\define('_AM_WGTRANSIFEX_MODULEIMAGES_GH_FOUND', 'You can directly download the current module images from Github');
+\define('_AM_WGTRANSIFEX_MODULEIMAGES_GH_DLOAD', 'Execute download');
+\define('_AM_WGTRANSIFEX_MODULEIMAGE_OVERWRITE', 'Overwrite existing images? (No = download only missing images)');
+\define('_AM_WGTRANSIFEX_MODULEIMAGE_IMAGE', 'Add new image');
+\define('_AM_WGGITHUB_THEREARENT_SETTINGS', 'There are no Github settings');
+\define('_AM_WGTRANSIFEX_MODULEIMAGE_READGH_SUCCESS', 'Files successfully downloaded from GitHub');
+\define('_AM_WGTRANSIFEX_MODULEIMAGE_READGH_ERROR_API', 'Error when downloading files from GitHub');
 // ---------------- Admin Others ----------------
 \define('_AM_WGTRANSIFEX_MAINTAINEDBY', ' is maintained by ');
 \define('_AM_WGTRANSIFEX_NO_CURL', 'This module needs PHP curl functions. Please activate otherwise download will not work!');

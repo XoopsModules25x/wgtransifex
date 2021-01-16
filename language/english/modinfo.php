@@ -38,6 +38,7 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_ADMENU10', 'Requests');
 \define('_MI_WGTRANSIFEX_ADMENU11', 'Permissions');
 \define('_MI_WGTRANSIFEX_ADMENU12', 'Bulk actions');
+\define('_MI_WGTRANSIFEX_ADMENU13', 'Module images');
 \define('_MI_WGTRANSIFEX_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
 \define('_MI_WGTRANSIFEX_ADMIN_PAGER', 'Admin pager');

@@ -62,6 +62,7 @@ $languagesHandler    = $helper->getHandler('Languages');
 $translationsHandler = $helper->getHandler('Translations');
 $packagesHandler     = $helper->getHandler('Packages');
 $requestsHandler     = $helper->getHandler('Requests');
+$moduleimagesHandler = $helper->getHandler('Moduleimages');
 
 $myts = MyTextSanitizer::getInstance();
 if (!isset($xoopsTpl) || !\is_object($xoopsTpl)) {
