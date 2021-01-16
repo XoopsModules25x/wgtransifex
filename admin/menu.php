@@ -81,6 +81,11 @@ if (is_object($helper) && $helper->getConfig('bulkactions')) {
     ];
 }
 $adminmenu[] = [
+    'title' => \_MI_WGTRANSIFEX_ADMENU13,
+    'link' => 'admin/moduleimages.php',
+    'icon' => 'assets/icons/32/moduleimages.png',
+];
+$adminmenu[] = [
     'title' => \_MI_WGTRANSIFEX_ADMENU7,
     'link' => 'admin/settings.php',
     'icon' => 'assets/icons/32/settings.png',
