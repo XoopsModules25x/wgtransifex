@@ -4,7 +4,7 @@
 	</div>
 	<div class='col-xs-12 col-sm-8 col-md-8 col-lg-8'>
 		<div class='package-line-'><{$smarty.const._MA_WGTRANSIFEX_PACKAGE_NAME}>: <{$packages.name}></div>
-		<{if $packages.desc}>
+		<{if $packages.desc|default:''}>
 			<div class='package-line-'><{$smarty.const._MA_WGTRANSIFEX_PACKAGE_DESC}>: <{$packages.desc}></div>
 		<{/if}>
 		<{foreach item=pkglang from=$packages.langs}>

@@ -1,11 +1,17 @@
 <{include file='db:wgtransifex_header.tpl' }>
 
-<{if $packagesCount > 0}>
+<{if $packagesCount|default:0 > 0}>
 	<div class='table-responsive'>
 		<table class='table table-<{$table_type}>'>
 			<thead>
 				<tr class='head'>
-					<th colspan='<{$divideby}>'><{$smarty.const._MA_WGTRANSIFEX_PACKAGES_TITLE}></th>
+					<th colspan='<{$divideby}>'>
+						<{if $packagesCount|default:0 > 1}>
+							<{$smarty.const._MA_WGTRANSIFEX_PACKAGES_TITLE}>
+						<{else}>
+							<{$smarty.const._MA_WGTRANSIFEX_PACKAGE_DETAILS}>
+						<{/if}>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -16,7 +22,7 @@
 							<{include file='db:wgtransifex_packages_item.tpl' }>
 						</div>
 					</td>
-					<{if $package.count is div by $divideby}>
+					<{if $package|@count is div by $divideby}>
 						</tr><tr>
 					<{/if}>
 					<{/foreach}>
@@ -25,7 +31,7 @@
 			<tfoot><tr><td>&nbsp;</td></tr></tfoot>
 		</table>
 	</div>
-	<{if $showRequest}>
+	<{if $showRequest|default:''}>
 		<div class='row'>
 			<div class='cols-xs-12 center'>
 				<h5><{$smarty.const._MA_WGTRANSIFEX_REQUEST_NEW_DESC}></h5>
@@ -34,10 +40,10 @@
 		</div>
 	<{/if}>
 <{/if}>
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{/if}>
-<{if $error}>
+<{if $error|default:''}>
 	<{$error}>
 <{/if}>
 

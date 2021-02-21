@@ -1,6 +1,6 @@
 <{include file='db:wgtransifex_header.tpl' }>
 
-<{if $languagesCount > 0}>
+<{if $languagesCount|default:0 > 0}>
 <h2><{$smarty.const._MA_WGTRANSIFEX_LANGUAGES_TITLE}></h2>
 <div class='table-responsive'>
 	<table class='table table-<{$table_type}>'>
@@ -23,7 +23,7 @@
 						<{include file='db:wgtransifex_languages_item.tpl' }>
 					</div>
 				</td>
-				<{if $language.count is div by $divideby}>
+				<{if $language|@count is div by $divideby}>
 					</tr><tr>
 				<{/if}>
 				<{/foreach}>
@@ -33,10 +33,10 @@
 	</table>
 </div>
 <{/if}>
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{/if}>
-<{if $error}>
+<{if $error|default:''}>
 	<{$error}>
 <{/if}>
 

@@ -1,5 +1,9 @@
 <{include file='db:wgtransifex_header.tpl' }>
 
+<{if $form|default:''}>
+	<{$form}>
+<{/if}>
+
 <!-- Start index list -->
 <table>
 	<thead>
@@ -20,16 +24,16 @@
 	<tfoot>
 		<tr class='center'>
 			<td class='bold pad5'>
-				<{if $adv}><{$adv}><{/if}>
+				<{if $adv|default:''}><{$adv}><{/if}>
 			</td>
 		</tr>
 	</tfoot>
 </table>
 <!-- End index list -->
 
-<{if $displaySingle}>
+<{if $displaySingle|default:''}>
 	<div class='wgtransifex-linetitle'><{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}></div>
-	<{if $packagesCount > 0}>
+	<{if $packagesCount|default:0 > 0}>
 		<!-- Start show new packages in index -->
 		<table class='table table-<{$table_type}>'>
 			<tr>
@@ -38,7 +42,7 @@
 					<td class='col_width<{$numb_col}> top center'>
 						<{include file='db:wgtransifex_packages_list.tpl' package=$packages[i]}>
 					</td>
-					<{if $packages[i].count is div by $divideby}>
+					<{if $packages[i]|@count is div by $divideby}>
 						</tr><tr>
 					<{/if}>
 				<{/section}>
@@ -48,9 +52,9 @@
 	<{/if}>
 <{/if}>
 
-<{if $displayCollection}>
+<{if $displayCollection|default:''}>
 	<div class='wgtransifex-linetitle'><{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}></div>
-	<{if $projectsCount > 0}>
+	<{if $projectsCount|default:0 > 0}>
 		<table class='table table-<{$table_type}>'>
 			<tr>
 				<!-- Start new link loop -->
@@ -58,7 +62,7 @@
 				<td class='col_width<{$numb_col}> top center'>
 					<{include file='db:wgtransifex_packages_prolist.tpl' packages=$packages}>
 				</td>
-				<{if $packages.count is div by $divideby}>
+				<{if $packages|@count is div by $divideby}>
 			</tr><tr>
 				<{/if}>
 				<{/foreach}>

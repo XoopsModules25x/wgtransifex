@@ -209,8 +209,8 @@ class Transifex
                 $resourcesObj->setVar('res_i18n_type', $item['i18n_type']);
                 $resourcesObj->setVar('res_priority', $item['priority']);
                 $resourcesObj->setVar('res_slug', $item['slug']);
-                $resourcesObj->setVar('res_categories', $item['categories']);
-                $resourcesObj->setVar('res_metadata', $item['metadata']);
+                $resourcesObj->setVar('res_categories', serialize($item['categories']));
+                $resourcesObj->setVar('res_metadata', serialize($item['metadata']));
                 $resourcesObj->setVar('res_pro_id', $proId);
                 $resourcesObj->setVar('res_status', Constants::STATUS_READTX);
                 $resourcesObj->setVar('res_date', \time());

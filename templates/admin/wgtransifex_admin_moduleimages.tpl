@@ -81,7 +81,7 @@
 	}
 </style>
 
-<{if $images_list}>
+<{if $images_list|default:''}>
 	<div class="wgt-admin-github">
 	<h4 class="wgt-admin-title"><{$smarty.const._AM_WGTRANSIFEX_MODULEIMAGES_GH_TITLE}></h4>
 	<p><{$smarty.const._AM_WGTRANSIFEX_MODULEIMAGES_GH_INFO}></p>
@@ -106,10 +106,10 @@
 
 <{/if}>
 
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{/if}>
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 

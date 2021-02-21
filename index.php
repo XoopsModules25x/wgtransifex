@@ -43,15 +43,18 @@ $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
 $GLOBALS['xoopsTpl']->assign('modPathIconFlags', WGTRANSIFEX_IMAGE_URL . '/flags/');
 
-$count = 1;
-
-
 $indexDisplay = $helper->getConfig('index_display');
 $start = Request::getInt('start', 0);
 $limit = Request::getInt('limit', $helper->getConfig('userpager'));
+
+$form = $packagesHandler->getFormSearchPackages();
+$GLOBALS['xoopsTpl']->assign('form', $form->render());
+
 switch ($indexDisplay) {
     case 'single':
     default:
+        $GLOBALS['xoopsTpl']->assign('isAdmin', is_object($xoopsUser) && $xoopsUser->isAdmin());
+        $count = 1;
         $packagesCount = $packagesHandler->getCountPackages();
         $GLOBALS['xoopsTpl']->assign('packagesCount', $packagesCount);
         if ($packagesCount > 0) {
@@ -75,9 +78,8 @@ switch ($indexDisplay) {
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
             $GLOBALS['xoopsTpl']->assign('lang_thereare', \sprintf(\_MA_WGTRANSIFEX_INDEX_THEREARE, $packagesCount));
-            $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
-            $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
         }
+        unset($count);
         break;
     case 'collection':
         $GLOBALS['xoopsTpl']->assign('displayCollection', true);
@@ -106,6 +108,9 @@ switch ($indexDisplay) {
                 $GLOBALS['xoopsTpl']->assign('packagesCount', $packagesCount);
                 $crPackages->setStart(0);
                 $crPackages->setLimit(1);
+                $pkgName = '';
+                $pkgLogo = '';
+                $pkgDesc = '';
                 $packagesAll = $packagesHandler->getAll($crPackages);
                 foreach (\array_keys($packagesAll) as $j) {
                     $package = $packagesAll[$j]->getValuesPackages();
@@ -153,16 +158,13 @@ switch ($indexDisplay) {
                     ];
             }
         }
-        var_dump($packagesList);
         $GLOBALS['xoopsTpl']->assign('packagesList', $packagesList);
-        $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
-        $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
-
         break;
 }
 
-unset($count);
 $GLOBALS['xoopsTpl']->assign('table_type', $helper->getConfig('table_type'));
+$GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
+$GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_INDEX];
 // Keywords
