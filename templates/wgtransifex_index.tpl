@@ -40,18 +40,16 @@
 </table>
 <!-- End index list -->
 
-<{if $pagenav|default:'' != ''}>
-	<div class="row wgt-filter-row">
-		<div class="col-sm-12">
-			<a id="toggleFormFilter" class='btn btn-default pull-right' href='#' title='<{$btnFormFilterLabel}>'><{$btnFormFilterLabel}></a>
-		</div>
-		<{if $formFilter|default:''}>
-		<div id="formFilter" class="wgt-formFilter" style="display:<{$displayFormFilter}>">
-			<div class="col-sm-12"><{$formFilter}></div>
-		</div>
-		<{/if}>
+<div class="row wgt-filter-row">
+	<div class="col-sm-12">
+		<a id="toggleFormFilter" class='btn btn-default pull-right' href='#' title='<{$btnFormFilterLabel}>'><{$btnFormFilterLabel}></a>
 	</div>
-<{/if}>
+	<{if $formFilter|default:''}>
+	<div id="formFilter" class="wgt-formFilter" style="display:<{$displayFormFilter}>">
+		<div class="col-sm-12"><{$formFilter}></div>
+	</div>
+	<{/if}>
+</div>
 
 <div class='wgtransifex-linetitle'>
 	<{if $pkgFilterText|default:''}>
