@@ -2,7 +2,7 @@
 <{include file='db:wgtransifex_admin_header.tpl' }>
 
 <h3><{$packages_result}></h3>
-<{if $packages_count}>
+<{if $packages_count|default:''}>
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
@@ -25,12 +25,12 @@
 		</tbody>
 	</table>
 	<div class='clear'>&nbsp;</div>
-	<{if $pagenav}>
+	<{if $pagenav|default:''}>
 		<div class='xo-pagenav floatright'><{$pagenav}></div>
 		<div class='clear spacer'></div>
 	<{/if}>
 <{else}>
-	<{if $nodataPackages}>
+	<{if $nodataPackages|default:''}>
 		<div>
 			<{$nodataPackages}><img src='<{xoModuleIcons32 button_ok.png}>' alt='packages'>
 		</div>
@@ -42,9 +42,8 @@
 <br>
 <br>
 <br>
-<{if $error}>
-	<div class='errorMsg'>
-<strong><{$error}></strong>	</div>
+<{if $error|default:''}>
+	<div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 
 <!-- Footer -->

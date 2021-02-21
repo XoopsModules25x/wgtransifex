@@ -1,10 +1,10 @@
 <!-- Header -->
 <{include file='db:wgtransifex_admin_header.tpl' }>
-<{if $formProject}>
+<{if $formProject|default:''}>
 	<{$formProject}>
 <{/if}>
 
-<{if $projects_list}>
+<{if $projects_list|default:''}>
 	<table class='table table-bordered'>
 		<thead>
 		<tr class='head'>
@@ -39,13 +39,13 @@
 		</tbody>
 	</table>
 	<div class="clear">&nbsp;</div>
-	<{if $pagenav}>
+	<{if $pagenav|default:''}>
 		<div class="xo-pagenav floatright"><{$pagenav}></div>
 		<div class="clear spacer"></div>
 	<{/if}>
 <{/if}>
 
-<{if $resources_list}>
+<{if $resources_list|default:''}>
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
@@ -64,7 +64,7 @@
 				<th class="center width5"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
 			</tr>
 		</thead>
-		<{if $resources_count}>
+		<{if $resources_count|default:''}>
 		<tbody>
 			<{foreach item=resource from=$resources_list}>
 			<tr class='<{cycle values='odd, even'}>'>
@@ -91,12 +91,12 @@
 		<{/if}>
 	</table>
 	<div class="clear">&nbsp;</div>
-	<{if $pagenav}>
+	<{if $pagenav|default:''}>
 		<div class="xo-pagenav floatright"><{$pagenav}></div>
 		<div class="clear spacer"></div>
 	<{/if}>
 <{/if}>
-<{if $uploadTxShow}>
+<{if $uploadTxShow|default:''}>
 	<h4><{$smarty.const._AM_WGTRANSIFEX_UPLOADTX_SUMMARY}></h4>
 	<p><{$smarty.const._AM_WGTRANSIFEX_UPLOADTX_SUCCESS}>: <{$uploadTxSuccess}></p>
 	<p><{$smarty.const._AM_WGTRANSIFEX_UPLOADTX_ERRORS}>: <{$uploadTxErrors}></p>
@@ -106,16 +106,16 @@
 			<img src="<{$modPathIcon16}><{$info.type}>.png" alt="<{$info.type}>"> <{$info.text}><br>
 		<{/foreach}>
 	</p>
-    <{if $uploadTxErrors == 0 && $uploadTxTest}>
+    <{if $uploadTxErrors|default:0 == 0 && $uploadTxTest|default:''}>
         <p><img src="<{$modPathIcon16}>ok.png" alt="<{$info.type}>"> <{$smarty.const._AM_WGTRANSIFEX_UPLOADTX_CHECK_NOERRORS}></p>
         <p><a href="resources.php?op=uploadtx&amp;res_pro_id=<{$proId}>" title="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_UPLOADTX}>"><img class="wgt-icon24" src="<{$modPathIcon32}>uploadtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_UPLOADTX}>"><{$smarty.const._AM_WGTRANSIFEX_RESOURCES_UPLOADTX}></a></p>
 
     <{/if}>
 <{/if}>
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{/if}>
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 

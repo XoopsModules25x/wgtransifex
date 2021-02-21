@@ -6,7 +6,7 @@
 	</div>
 	<div class='col-sm-9'>
 		<span class='package-line col-sm-9 justify'><{$smarty.const._MA_WGTRANSIFEX_PACKAGE_NAME}>: <{$package.name}></span>
-		<{if $package.desc}>
+		<{if $package.desc|default:''}>
 			<span class='package-line col-sm-9 justify'><{$smarty.const._MA_WGTRANSIFEX_PACKAGE_DESC}>: <{$package.desc}></span>
 		<{/if}>
 		<span class='package-line col-sm-9 justify'><{$smarty.const._MA_WGTRANSIFEX_PACKAGE_LANG_ID}>: <img src="<{$modPathIconFlags}><{$package.lang_flag}>" alt="<{$package.lang_id}>" title="<{$package.lang_id}>"></span>

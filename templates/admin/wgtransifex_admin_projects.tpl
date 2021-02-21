@@ -1,7 +1,7 @@
 <!-- Header -->
 <{include file='db:wgtransifex_admin_header.tpl' }>
 
-<{if $projects_list}>
+<{if $projects_list|default:''}>
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
@@ -23,7 +23,7 @@
 				<th class="center width10"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
 			</tr>
 		</thead>
-		<{if $projects_count}>
+		<{if $projects_count|default:''}>
 		<tbody>
 			<{foreach item=project from=$projects_list}>
 			<tr class='<{cycle values='odd, even'}>'>
@@ -39,7 +39,7 @@
 				<td class='center'><{$project.resources}></td>
 				<td class='center'><{$project.translations}></td>
 				<td class='center'><{$project.type_text}></td>
-				<td class='center'><img style="max-width:100px" src="<{$wgtransifex_upload_url}>/logos/<{$project.logo}>" alt="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_LOGO}> <{$package.name}>" title="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_LOGO}> <{$project.name}>"></td>
+				<td class='center'><img style="max-width:100px" src="<{$wgtransifex_upload_url}>/logos/<{$project.logo}>" alt="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_LOGO}> <{$project.name}>" title="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_LOGO}> <{$project.name}>"></td>
 				<td class='center'><{$project.date}></td>
 				<td class='center'><{$project.submitter}></td>
 				<td class="center  width5">
@@ -65,15 +65,15 @@
 		<{/if}>
 	</table>
 	<div class="clear">&nbsp;</div>
-	<{if $pagenav}>
+	<{if $pagenav|default:''}>
 		<div class="xo-pagenav floatright"><{$pagenav}></div>
 		<div class="clear spacer"></div>
 	<{/if}>
 <{/if}>
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{/if}>
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 

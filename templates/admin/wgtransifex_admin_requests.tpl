@@ -1,7 +1,7 @@
 <!-- Header -->
 <{include file='db:wgtransifex_admin_header.tpl' }>
 
-<{if $requests_list}>
+<{if $requests_list|default:''}>
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
@@ -17,7 +17,7 @@
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_FORM_ACTION}></th>
 			</tr>
 		</thead>
-		<{if $requests_count}>
+		<{if $requests_count|default:''}>
 		<tbody>
 			<{foreach item=request from=$requests_list}>
 			<tr class='<{cycle values='odd, even'}>'>
@@ -41,15 +41,15 @@
 		<{/if}>
 	</table>
 	<div class="clear">&nbsp;</div>
-	<{if $pagenav}>
+	<{if $pagenav|default:''}>
 		<div class="xo-pagenav floatright"><{$pagenav}></div>
 		<div class="clear spacer"></div>
 	<{/if}>
 <{/if}>
-<{if $form}>
+<{if $form|default:''}>
 	<{$form}>
 <{/if}>
-<{if $error}>
+<{if $error|default:''}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 

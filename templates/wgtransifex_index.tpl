@@ -1,5 +1,18 @@
 <{include file='db:wgtransifex_header.tpl' }>
 
+<script>
+	$(document).ready(function(){
+		$("#toggleFormFilter").click(function(){
+			$("#formFilter").toggle(1000);
+			if (document.getElementById("toggleFormFilter").innerText === "<{$smarty.const._MA_WGTRANSIFEX_FILTER_HIDE}>") {
+				document.getElementById("toggleFormFilter").innerText = "<{$smarty.const._MA_WGTRANSIFEX_FILTER_SHOW}>";
+			} else {
+				document.getElementById("toggleFormFilter").innerText = "<{$smarty.const._MA_WGTRANSIFEX_FILTER_HIDE}>";
+			}
+		});
+	});
+</script>
+
 <!-- Start index list -->
 <table>
 	<thead>
@@ -20,16 +33,36 @@
 	<tfoot>
 		<tr class='center'>
 			<td class='bold pad5'>
-				<{if $adv}><{$adv}><{/if}>
+				<{if $adv|default:''}><{$adv}><{/if}>
 			</td>
 		</tr>
 	</tfoot>
 </table>
 <!-- End index list -->
 
-<{if $displaySingle}>
-	<div class='wgtransifex-linetitle'><{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}></div>
-	<{if $packagesCount > 0}>
+<{if $pagenav|default:'' != ''}>
+	<div class="row wgt-filter-row">
+		<div class="col-sm-12">
+			<a id="toggleFormFilter" class='btn btn-default pull-right' href='#' title='<{$btnFormFilterLabel}>'><{$btnFormFilterLabel}></a>
+		</div>
+		<{if $formFilter|default:''}>
+		<div id="formFilter" class="wgt-formFilter" style="display:<{$displayFormFilter}>">
+			<div class="col-sm-12"><{$formFilter}></div>
+		</div>
+		<{/if}>
+	</div>
+<{/if}>
+
+<div class='wgtransifex-linetitle'>
+	<{if $pkgFilterText|default:''}>
+		<{$smarty.const._MA_WGTRANSIFEX_FILTER_RESULT}>:  <{$pkgFilterText}>
+	<{else}>
+		<{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}>
+	<{/if}>
+</div>
+
+<{if $displaySingle|default:''}>
+	<{if $packagesCount|default:0 > 0}>
 		<!-- Start show new packages in index -->
 		<table class='table table-<{$table_type}>'>
 			<tr>
@@ -38,7 +71,7 @@
 					<td class='col_width<{$numb_col}> top center'>
 						<{include file='db:wgtransifex_packages_list.tpl' package=$packages[i]}>
 					</td>
-					<{if $packages[i].count is div by $divideby}>
+					<{if $packages[i]|@count is div by $divideby}>
 						</tr><tr>
 					<{/if}>
 				<{/section}>
@@ -48,17 +81,16 @@
 	<{/if}>
 <{/if}>
 
-<{if $displayCollection}>
-	<div class='wgtransifex-linetitle'><{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}></div>
-	<{if $projectsCount > 0}>
+<{if $displayCollection|default:''}>
+	<{if $projectsCount|default:0 > 0}>
 		<table class='table table-<{$table_type}>'>
 			<tr>
 				<!-- Start new link loop -->
 				<{foreach item=packages from=$packagesList}>
-				<td class='col_width<{$numb_col}> top center'>
+				<td class='col_width<{$numb_col}> top'>
 					<{include file='db:wgtransifex_packages_prolist.tpl' packages=$packages}>
 				</td>
-				<{if $packages.count is div by $divideby}>
+				<{if $packages|@count is div by $divideby}>
 			</tr><tr>
 				<{/if}>
 				<{/foreach}>

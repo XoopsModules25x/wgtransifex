@@ -41,3 +41,19 @@ ul.menu > li + li:before {
 .wgt-icon24 {
 	height:24px;
 }
+.wgt-filter-row {
+	padding: 10px 0;
+}
+#formFilterIndex {
+	margin-bottom:50px;
+}
+.wgt-package-img {
+	padding: 0 10px  0 0 !important;
+}
+.wgt-package-img img{
+	margin-top: 15px !important;
+}
+.wgt-package-row {
+	border-bottom: 1px solid #cccccc;
+	padding: 10px 0 5px 0;
+}

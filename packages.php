@@ -66,6 +66,7 @@ switch ($op) {
         } else {
             $GLOBALS['xoopsTpl']->assign('link_list', 'packages.php');
         }
+        $GLOBALS['xoopsTpl']->assign('isAdmin', is_object($xoopsUser) && $xoopsUser->isAdmin());
 
         // Checking permissions
         $request_allowed = false;
@@ -107,6 +108,8 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
             $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
+            $GLOBALS['xoopsTpl']->assign('table_type', $helper->getConfig('table_type'));
+            $GLOBALS['xoopsTpl']->assign('panel_type', $helper->getConfig('panel_type'));
             $GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
             $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
         }
