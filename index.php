@@ -72,8 +72,8 @@ switch ($indexDisplay) {
         $crPackages = new \CriteriaCompo();
         if ('' !== $pkgFilterText) {
             $crPkgFilter = new \CriteriaCompo();
-            $crPkgFilter->add(new \Criteria('pkg_name', '*' . $pkgFilterText . '*', 'LIKE'));
-            $crPkgFilter->add(new \Criteria('pkg_desc', '*' . $pkgFilterText . '*', 'LIKE'), 'OR');
+            $crPkgFilter->add(new \Criteria('pkg_name', '%' . $pkgFilterText . '%', 'LIKE'));
+            $crPkgFilter->add(new \Criteria('pkg_desc', '%' . $pkgFilterText . '%', 'LIKE'), 'OR');
             $crPackages->add($crPkgFilter);
         }
         $packagesCount = $packagesHandler->getCount($crPackages);

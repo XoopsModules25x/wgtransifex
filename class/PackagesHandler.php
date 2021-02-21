@@ -177,7 +177,7 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
      * @public function getForm
      * @param bool|string $action
      * @param string      $pkgFilterText
-     * @return \XoopsThemeForm
+     * @return \XoopsSimpleForm
      */
     public function getFormFilterPackages($action = false, $pkgFilterText = '')
     {
