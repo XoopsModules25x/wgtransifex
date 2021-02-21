@@ -33,6 +33,9 @@ require_once __DIR__ . '/admin.php';
 \define('_MA_WGTRANSIFEX_NOPERM', 'You do not have the necessary permissions');
 \define('_MA_WGTRANSIFEX_FORM_OK', 'Successfully saved');
 \define('_MA_WGTRANSIFEX_FORM_SURE_BROKEN', "Are you sure to notify as broken: <b><span style='color : Red;'>%s </span></b>");
+\define('_MA_WGTRANSIFEX_FILTER_HIDE', 'Hide filter');
+\define('_MA_WGTRANSIFEX_FILTER_SHOW', 'Show filter');
+\define('_MA_WGTRANSIFEX_FILTER_RESULT', 'Result for filter');
 // ---------------- Contents ----------------
 // Project
 \define('_MA_WGTRANSIFEX_PROJECT', 'Project');
@@ -59,6 +62,8 @@ require_once __DIR__ . '/admin.php';
 \define('_MA_WGTRANSIFEX_PACKAGES_TITLE', 'List of available packages');
 \define('_MA_WGTRANSIFEX_PACKAGES_DESC', 'Packages description');
 \define('_MA_WGTRANSIFEX_PACKAGES_LIST', 'List of Packages');
+\define('_MA_WGTRANSIFEX_PACKAGE_DETAILS', 'Details of Package');
+\define('_AM_WGTRANSIFEX_PACKAGE_SEARCH', 'Search for Package');
 // Caption of Package
 \define('_MA_WGTRANSIFEX_PACKAGE_ID', 'Id');
 \define('_MA_WGTRANSIFEX_PACKAGE_NAME', 'Language Package Name');

@@ -47,19 +47,44 @@ $indexDisplay = $helper->getConfig('index_display');
 $start = Request::getInt('start', 0);
 $limit = Request::getInt('limit', $helper->getConfig('userpager'));
 
-$form = $packagesHandler->getFormSearchPackages();
-$GLOBALS['xoopsTpl']->assign('form', $form->render());
+//handle filter
+if (Request::hasVar('cancel', '')) {
+    $pkgFilterText = '';
+} else {
+    $pkgFilterText = Request::getString('pkgFilterText', '');
+}
+$form = $packagesHandler->getFormFilterPackages(false, $pkgFilterText);
+$GLOBALS['xoopsTpl']->assign('formFilter', $form->render());
+$GLOBALS['xoopsTpl']->assign('pkgFilterText', $pkgFilterText);
+if ('' === $pkgFilterText) {
+    $GLOBALS['xoopsTpl']->assign('displayFormFilter', 'none');
+    $GLOBALS['xoopsTpl']->assign('btnFormFilterLabel', \_MA_WGTRANSIFEX_FILTER_SHOW);
+} else {
+    $GLOBALS['xoopsTpl']->assign('displayFormFilter', 'block');
+    $GLOBALS['xoopsTpl']->assign('btnFormFilterLabel', \_MA_WGTRANSIFEX_FILTER_HIDE);
+}
 
 switch ($indexDisplay) {
     case 'single':
     default:
         $GLOBALS['xoopsTpl']->assign('isAdmin', is_object($xoopsUser) && $xoopsUser->isAdmin());
         $count = 1;
-        $packagesCount = $packagesHandler->getCountPackages();
+        $crPackages = new \CriteriaCompo();
+        if ('' !== $pkgFilterText) {
+            $crPkgFilter = new \CriteriaCompo();
+            $crPkgFilter->add(new \Criteria('pkg_name', '*' . $pkgFilterText . '*', 'LIKE'));
+            $crPkgFilter->add(new \Criteria('pkg_desc', '*' . $pkgFilterText . '*', 'LIKE'), 'OR');
+            $crPackages->add($crPkgFilter);
+        }
+        $packagesCount = $packagesHandler->getCount($crPackages);
         $GLOBALS['xoopsTpl']->assign('packagesCount', $packagesCount);
         if ($packagesCount > 0) {
             $GLOBALS['xoopsTpl']->assign('displaySingle', true);
-            $packagesAll = $packagesHandler->getAllPackages($start, $limit, 'pkg_date', 'DESC');
+            $crPackages->setStart($start);
+            $crPackages->setLimit($limit);
+            $crPackages->setSort('pkg_date');
+            $crPackages->setOrder('DESC');
+            $packagesAll = $packagesHandler->getAll($crPackages);
             // Get All Packages
             $packages = [];
             foreach (\array_keys($packagesAll) as $i) {
@@ -95,15 +120,24 @@ switch ($indexDisplay) {
         $projectsAll = $projectsHandler->getAll($crProjects);
         if ($projectsCount > 0) {
             $packagesList = [];
-            // Get All Projects
+            if ('' !== $pkgFilterText) {
+                $crPkgFilter = new \CriteriaCompo();
+                $crPkgFilter->add(new \Criteria('pkg_name', '%' . $pkgFilterText . '%', 'LIKE'));
+                $crPkgFilter->add(new \Criteria('pkg_desc', '%' . $pkgFilterText . '%', 'LIKE'), 'OR');
+            }
+            // Get All Project
             foreach (\array_keys($projectsAll) as $i) {
+                $pkgCounter = 0;
                 $languagesList = [];
                 //$projects[$i] = $projectsAll[$i]->getValuesProjects();
                 $proId = $projectsAll[$i]->getVar('pro_id');
-                //get list of packages
+                //get list of packages of primary language
                 $crPackages = new \CriteriaCompo();
                 $crPackages->add(new \Criteria('pkg_pro_id', $proId));
                 $crPackages->add(new \Criteria('pkg_lang_id', $langPrimary));
+                if ('' !== $pkgFilterText) {
+                    $crPackages->add($crPkgFilter);
+                }
                 $packagesCount = $packagesHandler->getCount($crPackages);
                 $GLOBALS['xoopsTpl']->assign('packagesCount', $packagesCount);
                 $crPackages->setStart(0);
@@ -126,11 +160,17 @@ switch ($indexDisplay) {
                         'traperc_text' => $package['traperc_text'],
                         'date' => $package['date'],
                     ];
+                    $pkgCounter++;
                 }
                 unset($crPackages);
+
+                //get list of packages of other languages
                 $crPackages = new \CriteriaCompo();
                 $crPackages->add(new \Criteria('pkg_pro_id', $proId));
                 $crPackages->add(new \Criteria('pkg_lang_id', $langPrimary, '<>'));
+                if ('' !== $pkgFilterText) {
+                    $crPackages->add($crPkgFilter);
+                }
                 $packagesCount = $packagesHandler->getCount($crPackages);
                 $GLOBALS['xoopsTpl']->assign('packagesCount', $packagesCount);
                 $packagesAll = $packagesHandler->getAll($crPackages);
@@ -145,18 +185,28 @@ switch ($indexDisplay) {
                         'traperc_text' => $package['traperc_text'],
                         'date' => $package['date'],
                     ];
+                    $pkgCounter++;
                 }
-                $primary  = array_column($languagesList, 'lang_primary');
-                $percentage = array_column($languagesList, 'traperc');
-                array_multisort($primary, SORT_DESC, $percentage, SORT_DESC, $languagesList);
+                if($pkgCounter > 0) {
+                    $primary = array_column($languagesList, 'lang_primary');
+                    $percentage = array_column($languagesList, 'traperc');
+                    array_multisort($primary, SORT_DESC, $percentage, SORT_DESC, $languagesList);
 
-                $packagesList[$proId] = [
+                    $packagesList[$proId] = [
                         'name' => $pkgName,
                         'logo' => $pkgLogo,
                         'desc' => $pkgDesc,
                         'langs' => $languagesList
                     ];
+                }
             }
+            // Display Navigation
+            if ($projectsCount > $limit) {
+                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+            }
+            $GLOBALS['xoopsTpl']->assign('lang_thereare', \sprintf(\_MA_WGTRANSIFEX_INDEX_THEREARE, $packagesCount));
         }
         $GLOBALS['xoopsTpl']->assign('packagesList', $packagesList);
         break;

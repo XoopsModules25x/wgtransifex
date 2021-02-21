@@ -1,8 +1,17 @@
 <{include file='db:wgtransifex_header.tpl' }>
 
-<{if $form|default:''}>
-	<{$form}>
-<{/if}>
+<script>
+	$(document).ready(function(){
+		$("#toggleFormFilter").click(function(){
+			$("#formFilter").toggle(1000);
+			if (document.getElementById("toggleFormFilter").innerText === "<{$smarty.const._MA_WGTRANSIFEX_FILTER_HIDE}>") {
+				document.getElementById("toggleFormFilter").innerText = "<{$smarty.const._MA_WGTRANSIFEX_FILTER_SHOW}>";
+			} else {
+				document.getElementById("toggleFormFilter").innerText = "<{$smarty.const._MA_WGTRANSIFEX_FILTER_HIDE}>";
+			}
+		});
+	});
+</script>
 
 <!-- Start index list -->
 <table>
@@ -31,8 +40,28 @@
 </table>
 <!-- End index list -->
 
+<{if $pagenav|default:'' != ''}>
+	<div class="row wgt-filter-row">
+		<div class="col-sm-12">
+			<a id="toggleFormFilter" class='btn btn-default pull-right' href='#' title='<{$btnFormFilterLabel}>'><{$btnFormFilterLabel}></a>
+		</div>
+		<{if $formFilter|default:''}>
+		<div id="formFilter" class="wgt-formFilter" style="display:<{$displayFormFilter}>">
+			<div class="col-sm-12"><{$formFilter}></div>
+		</div>
+		<{/if}>
+	</div>
+<{/if}>
+
+<div class='wgtransifex-linetitle'>
+	<{if $pkgFilterText|default:''}>
+		<{$smarty.const._MA_WGTRANSIFEX_FILTER_RESULT}>:  <{$pkgFilterText}>
+	<{else}>
+		<{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}>
+	<{/if}>
+</div>
+
 <{if $displaySingle|default:''}>
-	<div class='wgtransifex-linetitle'><{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}></div>
 	<{if $packagesCount|default:0 > 0}>
 		<!-- Start show new packages in index -->
 		<table class='table table-<{$table_type}>'>
@@ -53,13 +82,12 @@
 <{/if}>
 
 <{if $displayCollection|default:''}>
-	<div class='wgtransifex-linetitle'><{$smarty.const._MA_WGTRANSIFEX_INDEX_LATEST_LIST}></div>
 	<{if $projectsCount|default:0 > 0}>
 		<table class='table table-<{$table_type}>'>
 			<tr>
 				<!-- Start new link loop -->
 				<{foreach item=packages from=$packagesList}>
-				<td class='col_width<{$numb_col}> top center'>
+				<td class='col_width<{$numb_col}> top'>
 					<{include file='db:wgtransifex_packages_prolist.tpl' packages=$packages}>
 				</td>
 				<{if $packages|@count is div by $divideby}>

@@ -144,7 +144,6 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
         $form = new \XoopsThemeForm(\_AM_WGTRANSIFEX_PACKAGES_AUTOCREATE, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
 
-
         // Form Table projects
         $pkgProjectsSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_PACKAGE_PRO_ID, 'pkgProIds', 0, 10, true);
         $crProjects = new \CriteriaCompo();
@@ -170,6 +169,39 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save_all'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
+
+        return $form;
+    }
+
+    /**
+     * @public function getForm
+     * @param bool|string $action
+     * @param string      $pkgFilterText
+     * @return \XoopsThemeForm
+     */
+    public function getFormFilterPackages($action = false, $pkgFilterText = '')
+    {
+        $helper = Helper::getInstance();
+        $projectsHandler = $helper->getHandler('Projects');
+        //$resourcesHandler = $helper->getHandler('Resources');
+        $languagesHandler = $helper->getHandler('Languages');
+        if (!$action) {
+            $action = $_SERVER['REQUEST_URI'];
+        }
+
+        // Get Theme Form
+        \xoops_load('XoopsFormLoader');
+        $form = new \XoopsSimpleForm('', 'formFilterIndex', $action, 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        $searchTray = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_PACKAGE_SEARCH . ': ', '&nbsp;');
+        // Form Table projects
+        $searchTray->addElement(new \XoopsFormText('', 'pkgFilterText', 50, 255, $pkgFilterText), true);
+        $searchTray->addElement(new \XoopsFormButton('', 'submit', \_SEARCH, 'submit'));
+        $searchTray->addElement(new \XoopsFormButton('', 'cancel', \_CANCEL, 'submit'));
+        $form->addElement($searchTray);
+        // To Save
+        $form->addElement(new \XoopsFormHidden('op', 'search'));
+
 
         return $form;
     }
