@@ -114,11 +114,9 @@ switch ($indexDisplay) {
         $crProjects->add(new \Criteria('pro_translations', '0', '>'));
         $crProjects->add(new \Criteria('pro_status', Constants::STATUS_READTX, '>='));
         $projectsCount = $projectsHandler->getCount($crProjects);
-        $GLOBALS['xoopsTpl']->assign('projectsCount', $projectsCount);
-        $crProjects->setStart($start);
-        $crProjects->setLimit($limit);
-        $projectsAll = $projectsHandler->getAll($crProjects);
         if ($projectsCount > 0) {
+            $projectsCount = 0;
+            $projectsAll = $projectsHandler->getAll($crProjects);
             $packagesList = [];
             if ('' !== $pkgFilterText) {
                 $crPkgFilter = new \CriteriaCompo();
@@ -188,6 +186,7 @@ switch ($indexDisplay) {
                     $pkgCounter++;
                 }
                 if($pkgCounter > 0) {
+                    //sort array
                     $primary = array_column($languagesList, 'lang_primary');
                     $percentage = array_column($languagesList, 'traperc');
                     array_multisort($primary, SORT_DESC, $percentage, SORT_DESC, $languagesList);
@@ -198,8 +197,20 @@ switch ($indexDisplay) {
                         'desc' => $pkgDesc,
                         'langs' => $languagesList
                     ];
+                    //reduce to start/limit
+                    $i = 0;
+                    $projectsList = [];
+                    foreach ($packagesList as $key => $value) {
+                        $i++;
+                        if ($i > $start && $i <= ($start + $limit)) {
+                            $projectsList[$key] = $value;
+                        }
+                    }
+
                 }
             }
+            $projectsCount = \count($packagesList);
+            $GLOBALS['xoopsTpl']->assign('projectsCount', $projectsCount);
             // Display Navigation
             if ($projectsCount > $limit) {
                 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
@@ -208,7 +219,7 @@ switch ($indexDisplay) {
             }
             $GLOBALS['xoopsTpl']->assign('lang_thereare', \sprintf(\_MA_WGTRANSIFEX_INDEX_THEREARE, $packagesCount));
         }
-        $GLOBALS['xoopsTpl']->assign('packagesList', $packagesList);
+        $GLOBALS['xoopsTpl']->assign('packagesList', $projectsList);
         break;
 }
 
