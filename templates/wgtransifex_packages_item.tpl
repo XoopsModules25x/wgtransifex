@@ -15,7 +15,7 @@
 	</div>
 </div>
 <div class='panel-foot'>
-	<if class='col-sm-12 right'>
+	<div class='col-sm-12 right'>
 		<{if $showItem|default:''}>
 			<a class='btn btn-success right' href='<{$link_list}>?op=list<{if $lang_id}>&amp;lang_id=<{$lang_id}>#pkgId_<{$package.pkg_id}><{/if}>' title='<{$smarty.const._MA_WGTRANSIFEX_PACKAGES_LIST}>'><{$smarty.const._MA_WGTRANSIFEX_PACKAGES_LIST}></a>
 		<{else}>

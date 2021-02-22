@@ -76,7 +76,6 @@ class ModuleimagesHandler extends \XoopsPersistableObjectHandler
      */
     public function getFormDownloadGH($action = false)
     {
-        $helper = \XoopsModules\Wgtransifex\Helper::getInstance();
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
