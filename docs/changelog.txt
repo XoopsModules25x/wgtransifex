@@ -1,4 +1,10 @@
 ===================================================================
+2021/02/22 Version 1.05 RC1
+===================================================================
+ - fixed problem with display filter (goffy)
+ - fixed problems with display collections (goffy)
+ 
+===================================================================
 2020/12/13 Version 1.05 beta
 ===================================================================
  - added download of module images from GitHub (goffy)
@@ -6,9 +12,8 @@
  - added image size (goffy)
  - fixed smarty default problem (goffy)
  - fixed data type bug (array/string) (goffy)
- - fixed problem with display collections (goffy)
+ - fixed problems with display collections (goffy)
  - added search to index page (goffy)
- - fixed problem with display filter (goffy)
 
 ===================================================================
 2020/12/13 Version 1.05 alpha
