@@ -181,14 +181,9 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
      */
     public function getFormFilterPackages($action = false, $pkgFilterText = '')
     {
-        $helper = Helper::getInstance();
-        $projectsHandler = $helper->getHandler('Projects');
-        //$resourcesHandler = $helper->getHandler('Resources');
-        $languagesHandler = $helper->getHandler('Languages');
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsSimpleForm('', 'formFilterIndex', $action, 'post', true);
@@ -201,7 +196,6 @@ class PackagesHandler extends \XoopsPersistableObjectHandler
         $form->addElement($searchTray);
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'search'));
-
 
         return $form;
     }
