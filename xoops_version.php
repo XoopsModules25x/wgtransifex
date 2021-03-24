@@ -404,7 +404,7 @@ $modversion['config'][] = [
     'default' => 'default',
     'options' => ['default' => 'default', 'primary' => 'primary', 'success' => 'success', 'info' => 'info', 'warning' => 'warning', 'danger' => 'danger'],
 ];
-// Panel by
+// display type for index
 $modversion['config'][] = [
     'name' => 'index_display',
     'title' => '\_MI_WGTRANSIFEX_INDEX_DISPLAY',
@@ -413,6 +413,16 @@ $modversion['config'][] = [
     'valuetype' => 'text',
     'default' => 'single',
     'options' => [\_MI_WGTRANSIFEX_INDEX_DISPLAY_SINGLE => 'single', \_MI_WGTRANSIFEX_INDEX_DISPLAY_COLLECTION => 'collection'],
+];
+// Panel by
+$modversion['config'][] = [
+    'name' => 'download_type',
+    'title' => '\_MI_WGTRANSIFEX_DOWNLOAD_TYPE',
+    'description' => '\_MI_WGTRANSIFEX_DOWNLOAD_TYPE_DESC',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'default' => 'fpassthru',
+    'options' => [_MI_WGTRANSIFEX_DOWNLOAD_TYPE_FPASSTHRU => 'fpassthru', _MI_WGTRANSIFEX_DOWNLOAD_TYPE_REDIRECT => 'redirect'],
 ];
 // Make tab bulk visible?
 $modversion['config'][] = [

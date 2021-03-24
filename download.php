@@ -13,7 +13,7 @@ declare(strict_types=1);
 */
 
 /**
- * wgGallery module for xoops
+ * wgTransifex module for xoops
  *
  * @copyright      module for xoops
  * @license        GPL 2.0 or later
@@ -25,7 +25,8 @@ declare(strict_types=1);
 
 use Xmf\Request;
 use XoopsModules\Wgtransifex\{
-    PackagesHandler
+    PackagesHandler,
+    Helper
 };
 
 /** @var PackagesHandler $packagesHandler */
@@ -33,6 +34,9 @@ use XoopsModules\Wgtransifex\{
 require __DIR__ . '/header.php';
 $op = Request::getString('op', 'list');
 $pkgId = Request::getInt('pkg_id');
+
+$helper = Helper::getInstance();
+
 switch ($op) {
     case 'package':
     default:
@@ -43,12 +47,17 @@ switch ($op) {
         if ('' === $file) {
             \redirect_header('packages.php?op=list&amp;pkg_id=' . $pkgId, 3, \_MA_WGTRANSIFEX_DOWNLOAD_ERR_NOFILE);
         }
-        $fp = \fopen($file, 'rb');
-        \header('Content-type: application/zip');
-        \header('Content-Length: ' . filesize($file));
-        \header('Content-Disposition: attachment; filename=' . \basename($file));
-        \header('Content-Transfer-Encoding: binary');
-        \header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        \fpassthru($fp);
+        if ('fpassthru' === $helper->getConfig('download_type')) {
+            $fp = \fopen($file, 'rb');
+            \header('Content-type: application/zip');
+            \header('Content-Length: ' . filesize($file));
+            \header('Content-Disposition: attachment; filename=' . \basename($file));
+            \header('Content-Transfer-Encoding: binary');
+            \header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            \fpassthru($fp);
+        } else {
+            $file = str_replace(XOOPS_ROOT_PATH, XOOPS_URL, $file);
+            \redirect_header($file, 0, '');
+        }
         break;
 }
