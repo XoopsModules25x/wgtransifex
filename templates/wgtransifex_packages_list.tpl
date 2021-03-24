@@ -2,7 +2,7 @@
 </div>
 <div class='panel-body'>
 	<div class='col-sm-3'>
-		<img class='img-responsive' src="<{$wgtransifex_upload_url}>/logos/<{$package.logo}>" alt="<{$package.name}>" title="<{$package.name}>">
+		<img class='img-responsive img-fluid' src="<{$wgtransifex_upload_url}>/logos/<{$package.logo}>" alt="<{$package.name}>" title="<{$package.name}>">
 	</div>
 	<div class='col-sm-9'>
 		<span class='package-line col-sm-9 justify'><{$smarty.const._MA_WGTRANSIFEX_PACKAGE_NAME}>: <{$package.name}></span>

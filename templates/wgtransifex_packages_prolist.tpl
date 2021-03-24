@@ -1,6 +1,6 @@
 <div class='panel-body'>
 	<div class='col-xs-12 col-sm-3 col-md-3 col-lg-3 wgt-package-img'>
-		<img class='img-responsive' src="<{$wgtransifex_upload_url}>/logos/<{$packages.logo}>" alt="<{$packages.name}>" title="<{$packages.name}>">
+		<img class='img-responsive img-fluid' src="<{$wgtransifex_upload_url}>/logos/<{$packages.logo}>" alt="<{$packages.name}>" title="<{$packages.name}>">
 	</div>
 	<div class='col-xs-12 col-sm-8 col-md-8 col-lg-8'>
 		<div class="row wgt-package-row">
