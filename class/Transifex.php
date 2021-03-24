@@ -179,6 +179,10 @@ class Transifex
         $project = $projectsObj->getVar('pro_slug');
         $count_ok = 0;
         $count_err = 0;
+        //reset all existing resources to Constants::STATUS_OUTDATED
+        $crResources = new \CriteriaCompo();
+        $crResources->add(new \Criteria('res_pro_id', $proId));
+        $resourcesHandler->updateAll('res_status', Constants::STATUS_OUTDATED, $crResources, true);
         //request data from transifex
         $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib();
         $transifexLib->user = $setting['user'];
@@ -227,6 +231,11 @@ class Transifex
             return \_AM_WGTRANSIFEX_READTX_ERROR;
         }
         if ($count_ok > 0) {
+            //delete all existing resources with Constants::STATUS_OUTDATED
+            $crResources = new \CriteriaCompo();
+            $crResources->add(new \Criteria('res_pro_id', $proId));
+            $crResources->add(new \Criteria('res_status', Constants::STATUS_OUTDATED));
+            $resourcesHandler->deleteAll($crResources, true);
             return \_AM_WGTRANSIFEX_READTX_OK;
         }
 

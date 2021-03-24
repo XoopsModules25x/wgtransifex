@@ -215,22 +215,7 @@ class Resources extends \XoopsObject
         $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('res_submitter'));
         $status = $this->getVar('res_status');
         $ret['status'] = $status;
-        switch ($status) {
-            case Constants::STATUS_NONE:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
-                break;
-            case Constants::STATUS_READTX:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_READTX;
-                break;
-            case Constants::STATUS_SUBMITTED:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_SUBMITTED;
-                break;
-            case -1:
-            default:
-                $status_text = 'missing status text'; /* this should not be */
-                break;
-        }
-        $ret['status_text'] = $status_text;
+        $ret['status_text'] = Utility::getStatusText($status);
         $projectsHandler = $helper->getHandler('Projects');
         $projectsObj = $projectsHandler->get($this->getVar('res_pro_id'));
         $ret['pro_id'] = $projectsObj->getVar('pro_slug');
