@@ -215,20 +215,7 @@ class Packages extends \XoopsObject
         $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('pkg_submitter'));
         $status = $this->getVar('pkg_status');
         $ret['status'] = $status;
-        $status_text = '';
-        switch ($status) {
-            case Constants::STATUS_NONE:
-            default:
-                $status_text .= \_AM_WGTRANSIFEX_STATUS_NONE;
-                break;
-            case Constants::STATUS_CREATED:
-                $status_text .= \_AM_WGTRANSIFEX_STATUS_CREATED;
-                break;
-            case Constants::STATUS_BROKEN:
-                $status_text .= \_AM_WGTRANSIFEX_STATUS_BROKEN;
-                break;
-        }
-        $ret['status_text'] = $status_text;
+        $ret['status_text'] = Utility::getStatusText($status);
         $traperc = $this->getVar('pkg_traperc');
         $ret['traperc'] = $traperc;
         $ret['traperc_text'] = $traperc . '%';

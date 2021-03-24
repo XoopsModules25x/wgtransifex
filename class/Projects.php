@@ -261,40 +261,7 @@ class Projects extends \XoopsObject
         $ret['archived'] = $this->getVar('pro_archived');
         $status = $this->getVar('pro_status');
         $ret['status'] = $status;
-        switch ($status) {
-            case Constants::STATUS_NONE:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
-                break;
-            case Constants::STATUS_SUBMITTED:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_SUBMITTED;
-                break;
-            case Constants::STATUS_APPROVED:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_APPROVED;
-                break;
-            case Constants::STATUS_READTX:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_READTX;
-                break;
-            case Constants::STATUS_ARCHIVED:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_ARCHIVED;
-                break;
-            case Constants::STATUS_READTXNEW:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_READTXNEW;
-                break;
-            case Constants::STATUS_DELETEDTX:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_DELETEDTX;
-                break;
-            case Constants::STATUS_LOCAL:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_LOCAL;
-                break;
-            case Constants::STATUS_OUTDATED:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
-                break;
-            case -1:
-            default:
-                $status_text = 'missing status text'; /* this should not be */
-                break;
-        }
-        $ret['status_text'] = $status_text;
+        $ret['status_text'] = Utility::getStatusText($status);
         $type = $this->getVar('pro_type');
         $ret['type'] = $type;
         switch ($type) {

@@ -135,4 +135,54 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
 
         return $count;
     }
+
+    /**
+     * Get clean text of status
+     * @param $status
+     * @return string
+     */
+    public static function getStatusText($status)
+    {
+        switch ($status) {
+            case Constants::STATUS_OFFLINE:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_OFFLINE;
+                break;
+            case Constants::STATUS_NONE:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
+                break;
+            case Constants::STATUS_SUBMITTED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_SUBMITTED;
+                break;
+            case Constants::STATUS_READTX:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_READTX;
+                break;
+            case Constants::STATUS_READTXNEW:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_READTXNEW;
+                break;
+            case Constants::STATUS_ARCHIVED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_ARCHIVED;
+                break;
+            case Constants::STATUS_OUTDATED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
+                break;
+            case Constants::STATUS_BROKEN:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_BROKEN;
+                break;
+            case Constants::STATUS_APPROVED:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_APPROVED;
+                break;
+            case Constants::STATUS_LOCAL:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_LOCAL;
+                break;
+            case Constants::STATUS_DELETEDTX:
+                $status_text = \_AM_WGTRANSIFEX_STATUS_DELETEDTX;
+                break;
+            case -1:
+            default:
+                $status_text = 'missing status text'; /* this should not be */
+                break;
+        }
+
+        return $status_text;
+    }
 }

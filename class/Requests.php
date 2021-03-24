@@ -193,19 +193,7 @@ class Requests extends \XoopsObject
         $ret['info'] = $this->getVar('req_info');
         $status = $this->getVar('req_status');
         $ret['status'] = $status;
-        switch ($status) {
-            case Constants::STATUS_NONE:
-            default:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
-                break;
-            case Constants::STATUS_CREATED:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_CREATED;
-                break;
-            case Constants::STATUS_PENDING:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_PENDING;
-                break;
-        }
-        $ret['status_text'] = $status_text;
+        $ret['status_text'] = Utility::getStatusText($status);
         $ret['statusdate'] = \formatTimestamp($this->getVar('req_statusdate'), 'm');
         $ret['statusuid'] = \XoopsUser::getUnameFromId($this->getVar('req_statusuid'));
         $ret['date'] = \formatTimestamp($this->getVar('req_date'), 'm');

@@ -282,28 +282,7 @@ class Translations extends \XoopsObject
         $ret['local'] = $this->getVar('tra_local');
         $status = $this->getVar('tra_status');
         $ret['status'] = $status;
-        switch ($status) {
-            case Constants::STATUS_NONE:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_NONE;
-                break;
-            case Constants::STATUS_SUBMITTED:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_SUBMITTED;
-                break;
-            case Constants::STATUS_READTX:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_READTX;
-                break;
-            case Constants::STATUS_ARCHIVED:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_ARCHIVED;
-                break;
-            case Constants::STATUS_OUTDATED:
-                $status_text = \_AM_WGTRANSIFEX_STATUS_OUTDATED;
-                break;
-            case -1:
-            default:
-                $status_text = 'missing status text'; /* this should not be */
-                break;
-        }
-        $ret['status_text'] = $status_text;
+        $ret['status_text'] = Utility::getStatusText($status);
         $ret['date'] = \formatTimestamp($this->getVar('tra_date'), 'm');
         $ret['submitter'] = \XoopsUser::getUnameFromId($this->getVar('tra_submitter'));
         $ret['proofread'] = $this->getVar('tra_proofread');
