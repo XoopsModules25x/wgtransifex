@@ -3,6 +3,7 @@
 ===================================================================
  - fixed problem with display filter (goffy)
  - fixed problems with display collections (goffy)
+ - removed request add button as this is not foreseen for admin area (goffy)
 
 ===================================================================
 2020/12/13 Version 1.05 beta

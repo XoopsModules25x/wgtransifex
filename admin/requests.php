@@ -51,8 +51,6 @@ switch ($op) {
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wgtransifex_admin_requests.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('requests.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_ADD_REQUEST, 'requests.php?op=new', 'add');
-        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $requestsCount = $requestsHandler->getCountRequests();
         $requestsAll = $requestsHandler->getAllRequests($start, $limit);
         $GLOBALS['xoopsTpl']->assign('requests_count', $requestsCount);
@@ -74,16 +72,6 @@ switch ($op) {
         } else {
             $GLOBALS['xoopsTpl']->assign('error', _AM_WGTRANSIFEX_THEREARENT_REQUESTS);
         }
-        break;
-    case 'new':
-        $templateMain = 'wgtransifex_admin_requests.tpl';
-        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('requests.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_REQUESTS_LIST, 'requests.php', 'list');
-        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-        // Form Create
-        $requestsObj = $requestsHandler->create();
-        $form = $requestsObj->getFormRequests();
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'save':
         // Security Check
