@@ -143,6 +143,7 @@ class Packages extends \XoopsObject
         $imageTray = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_PACKAGE_LOGO, '<br>');
         $imageSelect = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_PACKAGE_LOGO_UPLOADS, ".{$imageDirectory}/"), 'pkg_logo', $pkgLogo, 5);
         $imageArray = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
+        \sort($imageArray,  SORT_NATURAL | SORT_FLAG_CASE  );
         foreach ($imageArray as $image1) {
             $imageSelect->addOption($image1, $image1);
         }
