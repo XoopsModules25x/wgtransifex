@@ -35,13 +35,13 @@ use XoopsModules\Wgtransifex\{
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_index.tpl';
-require_once XOOPS_ROOT_PATH . '/header.php';
+require_once \XOOPS_ROOT_PATH . '/header.php';
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
 $keywords = [];
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
-$GLOBALS['xoopsTpl']->assign('modPathIconFlags', WGTRANSIFEX_IMAGE_URL . '/flags/');
+$GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
+$GLOBALS['xoopsTpl']->assign('modPathIconFlags', \WGTRANSIFEX_IMAGE_URL . '/flags/');
 
 $indexDisplay = $helper->getConfig('index_display');
 $start = Request::getInt('start', 0);
@@ -67,7 +67,7 @@ if ('' === $pkgFilterText) {
 switch ($indexDisplay) {
     case 'single':
     default:
-        $GLOBALS['xoopsTpl']->assign('isAdmin', is_object($xoopsUser) && $xoopsUser->isAdmin());
+        $GLOBALS['xoopsTpl']->assign('isAdmin', \is_object($xoopsUser) && $xoopsUser->isAdmin());
         $count = 1;
         $crPackages = new \CriteriaCompo();
         if ('' !== $pkgFilterText) {
@@ -98,7 +98,7 @@ switch ($indexDisplay) {
             unset($packages);
             // Display Navigation
             if ($packagesCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -213,7 +213,7 @@ switch ($indexDisplay) {
             $GLOBALS['xoopsTpl']->assign('projectsCount', $projectsCount);
             // Display Navigation
             if ($projectsCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -233,7 +233,7 @@ Utility::metaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $key
 unset($keywords);
 // Description
 Utility::metaDescription(\_MA_WGTRANSIFEX_INDEX_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL . '/index.php');
+$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', \WGTRANSIFEX_URL . '/index.php');
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
+$GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
 require __DIR__ . '/footer.php';

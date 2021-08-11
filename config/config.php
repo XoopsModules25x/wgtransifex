@@ -28,23 +28,23 @@ return (object)[
     'name' => \mb_strtoupper($moduleDirName) . ' Module Configurator',
     'paths' => [
         'dirname' => $moduleDirName,
-        'admin' => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
-        'modPath' => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName,
-        'modUrl' => XOOPS_URL . '/modules/' . $moduleDirName,
-        'uploadPath' => XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
-        'uploadUrl' => XOOPS_UPLOAD_URL . '/' . $moduleDirName,
+        'admin' => \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
+        'modPath' => \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName,
+        'modUrl' => \XOOPS_URL . '/modules/' . $moduleDirName,
+        'uploadPath' => \XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
+        'uploadUrl' => \XOOPS_UPLOAD_URL . '/' . $moduleDirName,
     ],
     'uploadFolders' => [
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/translations',
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/logos',
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/temp',
+        \XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
+        \XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/translations',
+        \XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/logos',
+        \XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/temp',
     ],
     'copyBlankFiles' => [
-        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/logos',
+        \XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/logos',
     ],
     'copyTestFolders' => [
-        [XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/testdata/uploads', XOOPS_UPLOAD_PATH . '/' . $moduleDirName],
+        [\XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/testdata/uploads', \XOOPS_UPLOAD_PATH . '/' . $moduleDirName],
     ],
     'templateFolders' => [
         '/templates/',
@@ -53,5 +53,5 @@ return (object)[
     'oldFolders' => [],
     'renameTables' => [],
     'moduleStats' => [],
-    'modCopyright' => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'><img src='" . XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . "/assets/images/logo/logoModule.png' alt='XOOPS Project'></a>",
+    'modCopyright' => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'><img src='" . \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . "/assets/images/logo/logoModule.png' alt='XOOPS Project'></a>",
 ];

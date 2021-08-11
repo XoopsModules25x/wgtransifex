@@ -38,7 +38,7 @@ use XoopsModules\Wgtransifex\{
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_projects.tpl';
-require_once XOOPS_ROOT_PATH . '/header.php';
+require_once \XOOPS_ROOT_PATH . '/header.php';
 
 $op = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
@@ -49,7 +49,7 @@ $proId = Request::getInt('pro_id', 0);
 $GLOBALS['xoTheme']->addStylesheet($style, null);
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
+$GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
 
 $keywords = [];
 
@@ -57,9 +57,9 @@ $GLOBALS['xoopsTpl']->assign('showItem', 'show' == $op);
 
 // Checking permissions
 $request_allowed = false;
-$groups = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : \XOOPS_GROUP_ANONYMOUS;
 foreach ($groups as $group) {
-    if (XOOPS_GROUP_ADMIN == $group || \in_array($group, $helper->getConfig('groups_request'), true)) {
+    if (\XOOPS_GROUP_ADMIN == $group || \in_array($group, $helper->getConfig('groups_request'), true)) {
         $request_allowed = true;
         break;
     }
@@ -92,7 +92,7 @@ switch ($op) {
             unset($projects);
             // Display Navigation
             if ($projectsCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -105,7 +105,7 @@ switch ($op) {
         break;
     case 'refresh':
         if (!$request_allowed) {
-            \redirect_header(WGTRANSIFEX_URL . '/index.php', 2, _MA_WGTRANSIFEX_NOPERM);
+            \redirect_header(\WGTRANSIFEX_URL . '/index.php', 2, \_MA_WGTRANSIFEX_NOPERM);
         }
         $transifex = Transifex::getInstance();
         $result = $transifex->readProjects($proId, true);
@@ -122,7 +122,7 @@ unset($keywords);
 
 // Description
 Utility::metaDescription(\_MA_WGTRANSIFEX_PROJECTS_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', WGTRANSIFEX_URL . '/projects.php');
-$GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
+$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', \WGTRANSIFEX_URL . '/projects.php');
+$GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
 
 require __DIR__ . '/footer.php';

@@ -91,7 +91,7 @@ switch ($op) {
                 $result1 = $xoopsDB->query($sql);
                 while (list($traProId) = $xoopsDB->fetchRow($result1)) {
                     $projectObj = $projectsHandler->get($traProId);
-                    if (is_object($projectObj)) {
+                    if (\is_object($projectObj)) {
                         $project = $projectObj->getValuesProjects();
                         $languages = [];
                         $result2 = $xoopsDB->query('SELECT `tra_pro_id`, `tra_lang_id`, `tra_status` FROM ' . $xoopsDB->prefix('wgtransifex_translations') . ' WHERE `tra_pro_id`=' . $traProId . ' GROUP BY `tra_pro_id`, `tra_lang_id`, `tra_status`');
@@ -110,7 +110,7 @@ switch ($op) {
                 }
                 // Display Navigation
                 if ($translationsCount > $limit) {
-                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($translationsCount, $limit, $start_pro, 'start_pro', 'op=list&limit=' . $limit);
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
@@ -126,8 +126,8 @@ switch ($op) {
             $translationsCount = $translationsHandler->getCount($crTranslations);
             $translationsAll = $translationsHandler->getAll($crTranslations);
             $GLOBALS['xoopsTpl']->assign('translations_count', $translationsCount);
-            $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
-            $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
+            $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
+            $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
             // Table view translations
             if ($translationsCount > 0) {
                 foreach (\array_keys($translationsAll) as $i) {
@@ -137,7 +137,7 @@ switch ($op) {
                 }
                 // Display Navigation
                 if ($translationsCount > $limit) {
-                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($translationsCount, $limit, $start_tra, 'start_tra', 'op=list&limit=' . $limit . '&tra_pro_id=' . $proId . '&tra_lang_id=' . $langId);
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }

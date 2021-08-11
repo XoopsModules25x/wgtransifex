@@ -54,13 +54,13 @@ class ModuleimagesHandler extends \XoopsPersistableObjectHandler
 		$form = new \XoopsThemeForm(\_AM_WGTRANSIFEX_ADD_MODULEIMAGES, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Form Image mimgImage
-		$imageTray = new \XoopsFormElementTray(_AM_WGTRANSIFEX_MODULEIMAGE_IMAGE, '<br>');
+		$imageTray = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_MODULEIMAGE_IMAGE, '<br>');
         // Form Image mimgImage: Upload new image
         $maxsize = $helper->getConfig('maxsize_image');
-        $imageTray->addElement(new \XoopsFormFile('<br>' . _AM_WGTRANSIFEX_FORM_UPLOAD_NEW, 'mimg_image', $maxsize));
-        $imageTray->addElement(new \XoopsFormLabel(_AM_WGTRANSIFEX_FORM_UPLOAD_SIZE, ($maxsize / 1048576) . ' '  . _AM_WGTRANSIFEX_FORM_UPLOAD_SIZE_MB));
-        $imageTray->addElement(new \XoopsFormLabel(_AM_WGTRANSIFEX_FORM_UPLOAD_IMG_WIDTH, $helper->getConfig('maxwidth_image') . ' px'));
-        $imageTray->addElement(new \XoopsFormLabel(_AM_WGTRANSIFEX_FORM_UPLOAD_IMG_HEIGHT, $helper->getConfig('maxheight_image') . ' px'));
+        $imageTray->addElement(new \XoopsFormFile('<br>' . \_AM_WGTRANSIFEX_FORM_UPLOAD_NEW, 'mimg_image', $maxsize));
+        $imageTray->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_FORM_UPLOAD_SIZE, ($maxsize / 1048576) . ' '  . \_AM_WGTRANSIFEX_FORM_UPLOAD_SIZE_MB));
+        $imageTray->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_FORM_UPLOAD_IMG_WIDTH, $helper->getConfig('maxwidth_image') . ' px'));
+        $imageTray->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_FORM_UPLOAD_IMG_HEIGHT, $helper->getConfig('maxheight_image') . ' px'));
 
 		$form->addElement($imageTray);
 		// To Save
@@ -84,7 +84,7 @@ class ModuleimagesHandler extends \XoopsPersistableObjectHandler
         $form = new \XoopsThemeForm(\_AM_WGTRANSIFEX_ADD_MODULEIMAGES, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         // Form Radio Yes/No mimgOverwrite
-        $form->addElement(new \XoopsFormRadioYN(_AM_WGTRANSIFEX_MODULEIMAGE_OVERWRITE, 'overwrite', 0));
+        $form->addElement(new \XoopsFormRadioYN(\_AM_WGTRANSIFEX_MODULEIMAGE_OVERWRITE, 'overwrite', 0));
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'download'));
         $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));

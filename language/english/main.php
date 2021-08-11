@@ -93,5 +93,5 @@ require_once __DIR__ . '/admin.php';
 \define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST1', 'Request already exist! Please wait until language package is released!');
 \define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST2', 'Language package already exist! Please check list of language packages!');
 // Admin link
-\define('_MA_WGTRANSIFEX_ADMIN', 'Admin');
+\define('_MA_\WGTRANSIFEX_ADMIN', 'Admin');
 // ---------------- End ----------------

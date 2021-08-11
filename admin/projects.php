@@ -62,8 +62,8 @@ switch ($op) {
         $projectsCount = $projectsHandler->getCountProjects();
         $projectsAll = $projectsHandler->getAllProjects($start, $limit, 'pro_id', 'DESC');
         $GLOBALS['xoopsTpl']->assign('projects_count', $projectsCount);
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
         // Table view projects
         if ($projectsCount > 0) {
             foreach (\array_keys($projectsAll) as $i) {
@@ -73,7 +73,7 @@ switch ($op) {
             }
             // Display Navigation
             if ($projectsCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -151,7 +151,7 @@ switch ($op) {
         $projectsObj->setVar('pro_type', Request::getInt('pro_type', 0));
 
         // Set Var pro_logo
-        require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        require_once \XOOPS_ROOT_PATH . '/class/uploader.php';
         $filename = $_FILES['pro_logo']['name'];
         $imgMimetype = $_FILES['pro_logo']['type'];
         $imgNameDef = Request::getString('pro_name');

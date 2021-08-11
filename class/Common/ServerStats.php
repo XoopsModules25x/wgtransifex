@@ -63,7 +63,7 @@ trait ServerStats
         $html .= '<li>' . \constant('CO_' . $moduleDirNameUpper . '_MEMORYLIMIT') . ' <b><span style="color: #0000ff;">' . \ini_get('memory_limit') . '</span></b>';
         $html .= '</ul>';
         $html .= '<ul>';
-        $html .= '<li>' . \constant('CO_' . $moduleDirNameUpper . '_SERVERPATH') . ' <b>' . XOOPS_ROOT_PATH . '</b>';
+        $html .= '<li>' . \constant('CO_' . $moduleDirNameUpper . '_SERVERPATH') . ' <b>' . \XOOPS_ROOT_PATH . '</b>';
         $html .= '</ul>';
         $html .= '<br>';
         $html .= \constant('CO_' . $moduleDirNameUpper . '_UPLOADPATHDSC') . '';

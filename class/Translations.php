@@ -54,7 +54,7 @@ class Translations extends \XoopsObject
         $this->initVar('tra_reviewed_percentage', \XOBJ_DTYPE_INT);
         $this->initVar('tra_completed', \XOBJ_DTYPE_INT);
         $this->initVar('tra_untranslated_words', \XOBJ_DTYPE_INT);
-        //$this->initVar('tra_last_commiter', XOBJ_DTYPE_TXTBOX);
+        //$this->initVar('tra_last_commiter', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('tra_reviewed', \XOBJ_DTYPE_INT);
         $this->initVar('tra_translated_entities', \XOBJ_DTYPE_INT);
         $this->initVar('tra_translated_words', \XOBJ_DTYPE_INT);
@@ -135,7 +135,7 @@ class Translations extends \XoopsObject
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED_PERC, 'tra_reviewed_percentage', 50, 255, $this->getVar('tra_reviewed_percentage')));
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_COMPLETED, 'tra_completed', 50, 255, $this->getVar('tra_completed')));
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_WORDS, 'tra_untranslated_words', 50, 255, $this->getVar('tra_untranslated_words')));
-        //$form->addElement(new \XoopsFormText( _AM_WGTRANSIFEX_TRANSLATION_LAST_COMMITER, 'tra_last_commiter', 50, 255, $this->getVar('tra_last_commiter') ) );
+        //$form->addElement(new \XoopsFormText( \_AM_WGTRANSIFEX_TRANSLATION_LAST_COMMITER, 'tra_last_commiter', 50, 255, $this->getVar('tra_last_commiter') ) );
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_TRANSLATED_WORDS, 'tra_translated_words', 50, 255, $this->getVar('tra_translated_words')));
         $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_ENT, 'tra_untranslated_entities', 50, 255, $this->getVar('tra_untranslated_entities')));
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_TRANSLATION_LAST_UPDATE, 'tra_last_update', '', $this->getVar('tra_last_update')));

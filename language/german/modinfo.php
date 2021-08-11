@@ -41,8 +41,8 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_ADMENU13', 'Modulbilder');
 \define('_MI_WGTRANSIFEX_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
-\define('_MI_WGTRANSIFEX_ADMIN_PAGER', 'Admin Listenzeilen');
-\define('_MI_WGTRANSIFEX_ADMIN_PAGER_DESC', 'Anzahl der Zeilen für Listen im Admin-Bereich');
+\define('_MI_\WGTRANSIFEX_ADMIN_PAGER', 'Admin Listenzeilen');
+\define('_MI_\WGTRANSIFEX_ADMIN_PAGER_DESC', 'Anzahl der Zeilen für Listen im Admin-Bereich');
 // User
 \define('_MI_WGTRANSIFEX_USER_PAGER', 'User Listenzeilen');
 \define('_MI_WGTRANSIFEX_USER_PAGER_DESC', 'Anzahl der Zeilen für Listen im Mitglieder-Bereich');

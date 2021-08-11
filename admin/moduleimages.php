@@ -48,14 +48,14 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('activeWgGithub', $activeWgGithub);
 
         // Table view packages
-        $logosDirectory = WGTRANSIFEX_UPLOAD_PATH . '/logos/';
+        $logosDirectory = \WGTRANSIFEX_UPLOAD_PATH . '/logos/';
         $images_list = XoopsLists::getImgListAsArray($logosDirectory);
 
         if (\count($images_list) > 0) {
             natcasesort($images_list);
             foreach ($images_list as $logo) {
                 if ('blank.gif' !== $logo && 'blank.png' !== $logo ) {
-                    list($width, $height, $type, $attr) = getimagesize($logosDirectory . $logo);
+                    list($width, $height, $type, $attr) = \getimagesize($logosDirectory . $logo);
                     $image = ['name' => $logo, 'src' => $logo, 'width' => $width, 'height' => $height];
                     $GLOBALS['xoopsTpl']->append('images_list', $image);
                 }
@@ -79,10 +79,10 @@ switch ($op) {
             \redirect_header('moduleimages.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         // Set Var mimg_image
-        include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        include_once \XOOPS_ROOT_PATH . '/class/uploader.php';
         $filename       = $_FILES['mimg_image']['name'];
         $imgMimetype    = $_FILES['mimg_image']['type'];
-        $logosDirectory = WGTRANSIFEX_UPLOAD_PATH . '/logos/';
+        $logosDirectory = \WGTRANSIFEX_UPLOAD_PATH . '/logos/';
         $uploaderErrors = '';
         $uploader = new \XoopsMediaUploader($logosDirectory,
             $helper->getConfig('mimetypes_image'),
@@ -111,7 +111,7 @@ switch ($op) {
         if ('' !== $uploaderErrors) {
             \redirect_header('moduleimages.php?op=edit&mimg_id=' . $mimgId, 5, $uploaderErrors);
         } else {
-            \redirect_header('moduleimages.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('moduleimages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         break;
     case 'delete':
@@ -149,7 +149,7 @@ switch ($op) {
     case 'download':
         $githubClient = XoopsModules\Wggithub\Github\GithubClient::getInstance();
         $files = $githubClient->getRepositoryContent('XoopsModules25x', 'moduleimages');
-        $logosDirectory = WGTRANSIFEX_UPLOAD_PATH . '/logos/';
+        $logosDirectory = \WGTRANSIFEX_UPLOAD_PATH . '/logos/';
         $overwrite = Request::getBool('overwrite');
         if (!$overwrite) {
             $images_list = XoopsLists::getImgListAsArray(\WGTRANSIFEX_UPLOAD_PATH . '/logos/');

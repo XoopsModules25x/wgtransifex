@@ -25,7 +25,7 @@ use XoopsModules\Wgtransifex\{
     Utility
 };
 
-require dirname(__DIR__, 3) . '/include/cp_header.php';
+require \dirname(__DIR__, 3) . '/include/cp_header.php';
 require \dirname(__DIR__) . '/preloads/autoloader.php';
 $op = Request::getCmd('op', '');
 $moduleDirName = \basename(\dirname(__DIR__));
@@ -77,7 +77,7 @@ function loadSampleData()
     loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
     //  ---  COPY test folder files ---------------
     if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
-        //        $file =  dirname(__DIR__) . '/testdata/images/';
+        //        $file =  \dirname(__DIR__) . '/testdata/images/';
         foreach (\array_keys($configurator->copyTestFolders) as $i) {
             $src = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];
@@ -220,51 +220,51 @@ function wgLoadSampleData()
                 // process the line read.
                 $lines++;
                 if ("-\n" == $line) {
-                    if (count($values) > 0) {
+                    if (\count($values) > 0) {
                         //store previous values
                         $sql = 'INSERT INTO `' . $GLOBALS['xoopsDB']->prefix($table) . '` (';
-                        $sql .= implode(', ', $columns);
+                        $sql .= \implode(', ', $columns);
                         $sql .= ') VALUE ';
-                        $sql .= '( ' . implode(', ', $values) . '),';
-                        $sql = substr($sql, 0, - 1) . ';';
+                        $sql .= '( ' . \implode(', ', $values) . '),';
+                        $sql = \substr($sql, 0, - 1) . ';';
                         $result = $GLOBALS['xoopsDB']->queryF($sql);
                         $fields = 1;
                     }
                     //reset for next
                     $values = [];
                 } else {
-                    $posDelimiter = strpos($line, ':');
+                    $posDelimiter = \strpos($line, ':');
                     if (0 == $fields) {
-                        $columns[] = trim(substr($line, 1, $posDelimiter - 1));
+                        $columns[] = \trim(\substr($line, 1, $posDelimiter - 1));
                     }
-                    $value = trim(substr($line, $posDelimiter + 2), "\t\n");
+                    $value = \trim(\substr($line, $posDelimiter + 2), "\t\n");
                     //remove existing quotes
-                    if ("'" == substr($value, 0, 1) || '"' == substr($value, 0, 1)) {
-                        $value = substr($value, 1, - 1);
+                    if ("'" == \substr($value, 0, 1) || '"' == \substr($value, 0, 1)) {
+                        $value = \substr($value, 1, - 1);
                     }
 
-                    $value = str_replace("''", "'", $value);
-                    if (0 == strpos($value, "'")) {
+                    $value = \str_replace("''", "'", $value);
+                    if (0 == \strpos($value, "'")) {
                         $value = "'" . $value . "'";
-                    } elseif (0 == strpos($value, '"')) {
+                    } elseif (0 == \strpos($value, '"')) {
                         $value = '"' . $value . '"';
-                    } elseif (strpos($value, '\"') > 0) {
+                    } elseif (\strpos($value, '\"') > 0) {
                         $value = '"' . $value . '"';
-                    } elseif (strpos($value, '"') > 0) {
-                        $value = str_replace('"', '\"', $value);
-                        if (strpos($value, "\'") > 0) {
-                            $value = str_replace("'", "\'", $value);
+                    } elseif (\strpos($value, '"') > 0) {
+                        $value = \str_replace('"', '\"', $value);
+                        if (\strpos($value, "\'") > 0) {
+                            $value = \str_replace("'", "\'", $value);
                         }
                         $value = '"' . $value . '"';
-                    } elseif (strpos($value, "\'") > 0) {
-                        $value = str_replace("'", "\'", $value);
+                    } elseif (\strpos($value, "\'") > 0) {
+                        $value = \str_replace("'", "\'", $value);
                         $value = "'" . $value . "'";
-                    } elseif (strpos($value, '"') > 0) {
-                        if (0 == strpos($value, "\'")) {
-                            $value = str_replace("'", "\'", $value);
+                    } elseif (\strpos($value, '"') > 0) {
+                        if (0 == \strpos($value, "\'")) {
+                            $value = \str_replace("'", "\'", $value);
                         }
                         $value = "'" . $value . "'";
-                    } elseif (strpos($value, "'") > 0) {
+                    } elseif (\strpos($value, "'") > 0) {
                         $value = '"' . $value . '"';
                     } else {
                         $value = "'" . $value . "'";
@@ -277,13 +277,13 @@ function wgLoadSampleData()
             echo 'error opening the file';
         }
         //add last item
-        if ($lines > 1 && count($values) > 0) {
+        if ($lines > 1 && \count($values) > 0) {
             //store previous values
             $sql = 'INSERT INTO `' . $GLOBALS['xoopsDB']->prefix($table) . '` (';
-            $sql .= implode(', ', $columns);
+            $sql .= \implode(', ', $columns);
             $sql .= ') VALUE ';
-            $sql .= '( ' . implode(', ', $values) . '),';
-            $sql = substr($sql, 0, - 1) . ';';
+            $sql .= '( ' . \implode(', ', $values) . '),';
+            $sql = \substr($sql, 0, - 1) . ';';
             $result = $GLOBALS['xoopsDB']->queryF($sql);
         }
     }
@@ -294,7 +294,7 @@ function wgLoadSampleData()
     loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
     //  ---  COPY test folder files ---------------
     if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
-        //        $file =  dirname(__DIR__) . '/testdata/images/';
+        //        $file =  \dirname(__DIR__) . '/testdata/images/';
         foreach (\array_keys($configurator->copyTestFolders) as $i) {
             $src = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];

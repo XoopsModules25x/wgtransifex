@@ -88,12 +88,12 @@ switch ($op) {
                 });
                 $iterator = new \RecursiveIteratorIterator($filter);
                 $files = array();
-                $len = strlen($dirStart);
+                $len = \strlen($dirStart);
                 foreach ($iterator as $info) {
                     $file = $info->getPathname();
-                    $name = substr($info->getPathname(), $len, 255);
-                    if (strpos($name, '\\') > 0) {
-                        $subfolders = str_replace('\\', '-', substr($name, 0, strpos($name, '\\')));
+                    $name = \substr($info->getPathname(), $len, 255);
+                    if (\strpos($name, '\\') > 0) {
+                        $subfolders = \str_replace('\\', '-', \substr($name, 0, \strpos($name, '\\')));
                         $res_name = '[' . $subfolders . ']' . $info->getFilename();
                     } else {
                         $res_name = $name;
@@ -101,7 +101,7 @@ switch ($op) {
                     if ('common.php' == $name || 'feedback.php' == $name) {
                         $i18n_type = 'TXT';
                     } else {
-                        switch (pathinfo($file, PATHINFO_EXTENSION)) {
+                        switch (\pathinfo($file, PATHINFO_EXTENSION)) {
                             case 'php':
                                 $i18n_type = 'PHP_DEFINE';
                                 break;
@@ -115,11 +115,11 @@ switch ($op) {
                         }
                     }
                     // replace non letter or digits by -
-                    $slug = preg_replace('~[^\pL\d]+~u', '', $res_name);
+                    $slug = \preg_replace('~[^\pL\d]+~u', '', $res_name);
                     // transliterate
                     $slug = iconv('utf-8', 'us-ascii//TRANSLIT', $slug);
                     // remove unwanted characters
-                    $slug = preg_replace('~[^-\w]+~', '', $slug);
+                    $slug = \preg_replace('~[^-\w]+~', '', $slug);
                     // lowercase
                     $slug = strtolower($slug);
                     $files[] = ['file' => $file, 'name' => $name,'res_name' => $res_name,  'i18n_type' => $i18n_type, 'slug' => $slug];
@@ -130,7 +130,7 @@ switch ($op) {
                     $resourcesObj->setVar('res_i18n_type', $i18n_type);
                     $resourcesObj->setVar('res_slug', $slug);
                     $resourcesObj->setVar('res_metadata', '');
-                    $resourcesObj->setVar('res_date', time());
+                    $resourcesObj->setVar('res_date', \time());
                     $resourcesObj->setVar('res_submitter', $GLOBALS['xoopsUser']->getVar('uid'));
                     $resourcesObj->setVar('res_status', Constants::STATUS_LOCAL);
                     $resourcesObj->setVar('res_pro_id', $proId);
@@ -169,7 +169,7 @@ switch ($op) {
             }
         }
         if (Constants::PROTYPE_CORE === $proType) {
-            $dirStart = XOOPS_ROOT_PATH . '/';
+            $dirStart = \XOOPS_ROOT_PATH . '/';
         }
         if ('' !== $dirStart) {
             if (\is_dir($dirStart)) {
@@ -208,8 +208,8 @@ switch ($op) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCE_ADD, 'resources.php?op=new', 'add');
         }
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
         $start_pro = Request::getInt('start_pro', 0);
         $start_res = Request::getInt('start_res', 0);
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
@@ -229,7 +229,7 @@ switch ($op) {
                 }
                 // Display Navigation
                 if ($projectsCount > $limit) {
-                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($projectsCount, $limit, $start_pro, 'start_pro', 'op=list&limit=' . $limit);
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }
@@ -255,7 +255,7 @@ switch ($op) {
                 }
                 // Display Navigation
                 if ($resourcesCount > $limit) {
-                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($resourcesCount, $limit, $start_res, 'start_res', 'op=list&limit=' . $limit . '&res_pro_id=' . $proId);
                     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
                 }

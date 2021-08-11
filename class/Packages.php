@@ -142,14 +142,14 @@ class Packages extends \XoopsObject
         $imageDirectory = '/uploads/wgtransifex/logos';
         $imageTray = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_PACKAGE_LOGO, '<br>');
         $imageSelect = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_PACKAGE_LOGO_UPLOADS, ".{$imageDirectory}/"), 'pkg_logo', $pkgLogo, 5);
-        $imageArray = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
+        $imageArray = \XoopsLists::getImgListAsArray(\XOOPS_ROOT_PATH . $imageDirectory);
         \sort($imageArray,  SORT_NATURAL | SORT_FLAG_CASE  );
         foreach ($imageArray as $image1) {
             $imageSelect->addOption($image1, $image1);
         }
-        $imageSelect->setExtra("onchange='showImgSelected(\"imglabel_pkg_logo\", \"pkg_logo\", \"" . $imageDirectory . '", "", "' . XOOPS_URL . "\")'");
+        $imageSelect->setExtra("onchange='showImgSelected(\"imglabel_pkg_logo\", \"pkg_logo\", \"" . $imageDirectory . '", "", "' . \XOOPS_URL . "\")'");
         $imageTray->addElement($imageSelect, false);
-        $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $imageDirectory . '/' . $pkgLogo . "' id='imglabel_pkg_logo' alt='' style='max-width:100px'>"));
+        $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . \XOOPS_URL . '/' . $imageDirectory . '/' . $pkgLogo . "' id='imglabel_pkg_logo' alt='' style='max-width:100px'>"));
         // Form Frameworks Images langFlag: Upload new image
         $fileSelectTray = new \XoopsFormElementTray('', '<br>');
         $fileSelectTray->addElement(new \XoopsFormFile(\_AM_WGTRANSIFEX_FORM_UPLOAD_NEW, 'pkg_logo', $helper->getConfig('maxsize_image')));

@@ -61,7 +61,7 @@ if ($packagesCount > 0) {
     }
     // Display Navigation
     if ($packagesCount > $limit) {
-        require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+        require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
         $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'startPackages', 'op=list&limitPackages=' . $limit);
         $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
     }

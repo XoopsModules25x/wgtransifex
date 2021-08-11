@@ -185,7 +185,7 @@ class Requests extends \XoopsObject
             $projectsObj = $projectsHandler->get($this->getVar('req_pro_id'));
             $ret['project'] = $projectsObj->getVar('pro_slug');
         } else {
-            $ret['project'] = _AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST;
+            $ret['project'] = \_AM_WGTRANSIFEX_REQUEST_PROJECT_NOTINLIST;
         }
         $languagesHandler = $helper->getHandler('Languages');
         $languagesObj = $languagesHandler->get($this->getVar('req_lang_id'));

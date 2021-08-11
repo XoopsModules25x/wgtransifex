@@ -108,7 +108,7 @@ class Transifex
                     $projectsObj->setVar('pro_slug', $project['slug']);
                     $projectsObj->setVar('pro_name', $project['name']);
                     $projectsObj->setVar('pro_txresources', \count($project['resources']));
-                    if (is_string($project['last_updated'])) {
+                    if (\is_string($project['last_updated'])) {
                         if (Constants::STATUS_READTX == $proStatus && $proLastUpdated < \strtotime($project['last_updated'])) {
                             $proStatus = Constants::STATUS_OUTDATED;
                         }
@@ -342,7 +342,7 @@ class Transifex
                         $translationsObj->setVar('tra_translated_entities', $stats['translated_entities']);
                         $translationsObj->setVar('tra_translated_words', $stats['translated_words']);
                         $translationsObj->setVar('tra_untranslated_entities', $stats['untranslated_entities']);
-                        if (is_string($stats['last_update'])) {
+                        if (\is_string($stats['last_update'])) {
                             $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
                         }
                         $translationsObj->setVar('tra_local', $this->getLocal($resName, $langFolder, $langShort));
@@ -503,7 +503,7 @@ class Transifex
                 $resources[$i]['slug'] = $resourcesAll[$i]->getVar('res_slug');
                 $resources[$i]['i18n_type'] = $resourcesAll[$i]->getVar('res_i18n_type');
                 $resources[$i]['file'] = $dirStart . $this->getLocal($resources[$i]['name'], 'english', 'en');
-                if (file_exists($resources[$i]['file'])) {
+                if (\file_exists($resources[$i]['file'])) {
                     $infos[] = ['type' => 'ok', 'text' => 'File found: ' .  $resources[$i]['file']];
                     $resources[$i]['local'] = true;
                     //check whether resource already exists
@@ -607,7 +607,7 @@ class Transifex
         $ret = \str_replace('yourshortlang', $langShort, $ret);
 
         //replace/add directory seperator
-        $pos = strpos($ret, ']');
+        $pos = \strpos($ret, ']');
         if ($pos > 0) {
             $part1 =  substr ( $ret , 0 , $pos + 1 );
             $part2 =  substr ( $ret , $pos + 1 , 255);

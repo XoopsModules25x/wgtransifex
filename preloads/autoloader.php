@@ -10,9 +10,9 @@ spl_autoload_register(
         // project-specific namespace prefix
         $prefix = 'XoopsModules\\' . \ucfirst(\basename(\dirname(__DIR__)));
         // base directory for the namespace prefix
-        $baseDir = dirname(__DIR__) . '/class/';
+        $baseDir = \dirname(__DIR__) . '/class/';
         // does the class use the namespace prefix?
-        $len = mb_strlen($prefix);
+        $len = \mb_strlen($prefix);
         if (0 !== \strncmp($prefix, $class, $len)) {
             return;
         }
