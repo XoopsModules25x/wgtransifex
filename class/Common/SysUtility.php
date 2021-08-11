@@ -152,7 +152,7 @@ class SysUtility
      *
      * @return mixed
      */
-    public static function cloneRec\ord($tableName, $id_field, $id)
+    public static function cloneRecord($tableName, $id_field, $id)
     {
         $new_id = false;
         $table  = $GLOBALS['xoopsDB']->prefix($tableName);
