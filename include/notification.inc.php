@@ -35,8 +35,8 @@ function wgtransifex_notify_iteminfo($category, $item_id)
 {
     global $xoopsDB;
 
-    if (!\defined('WGTRANSIFEX_URL')) {
-        \define('WGTRANSIFEX_URL', XOOPS_URL . '/modules/wgtransifex');
+    if (!\defined('\WGTRANSIFEX_URL')) {
+        \define('\WGTRANSIFEX_URL', \XOOPS_URL . '/modules/wgtransifex');
     }
 
     switch ($category) {
@@ -51,7 +51,7 @@ function wgtransifex_notify_iteminfo($category, $item_id)
             $result = $xoopsDB->query($sql);
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['pkg_name'];
-            $item['url'] = WGTRANSIFEX_URL . '/packages.php?pkg_id=' . $item_id;
+            $item['url'] = \WGTRANSIFEX_URL . '/packages.php?pkg_id=' . $item_id;
 
             return $item;
             break;
@@ -60,7 +60,7 @@ function wgtransifex_notify_iteminfo($category, $item_id)
             $result = $xoopsDB->query($sql);
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['req_project'];
-            $item['url'] = WGTRANSIFEX_URL . '/requests.php?pkg_id=' . $item_id;
+            $item['url'] = \WGTRANSIFEX_URL . '/requests.php?pkg_id=' . $item_id;
 
             return $item;
             break;

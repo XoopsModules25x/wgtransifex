@@ -24,12 +24,12 @@ declare(strict_types=1);
 
 use XoopsModules\Wgtransifex\Helper;
 
-require dirname(__DIR__, 2) . '/mainfile.php';
+require \dirname(__DIR__, 2) . '/mainfile.php';
 require __DIR__ . '/include/common.php';
 $moduleDirName = \basename(__DIR__);
 // Breadcrumbs
 $xoBreadcrumbs = [];
-$xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_TITLE, 'link' => WGTRANSIFEX_URL . '/'];
+$xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_TITLE, 'link' => \WGTRANSIFEX_URL . '/'];
 // Get instance of module
 $helper = Helper::getInstance();
 $projectsHandler = $helper->getHandler('Projects');
@@ -41,7 +41,7 @@ $packagesHandler = $helper->getHandler('Packages');
 $requestsHandler = $helper->getHandler('Requests');
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style
-$style = WGTRANSIFEX_URL . '/assets/css/style.css';
+$style = \WGTRANSIFEX_URL . '/assets/css/style.css';
 // Smarty Default
 $sysPathIcon16 = $GLOBALS['xoopsModule']->getInfo('sysicons16');
 $sysPathIcon32 = $GLOBALS['xoopsModule']->getInfo('sysicons32');

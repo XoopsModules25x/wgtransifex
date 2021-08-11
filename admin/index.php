@@ -43,7 +43,7 @@ use XoopsModules\Wgtransifex\{
 /** @var LanguagesHandler $languagesHandler */
 /** @var RequestsHandler $requestsHandler */
 
-$moduleDirName = \basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 require __DIR__ . '/header.php';
@@ -65,7 +65,7 @@ $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_PROJ
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_RESOURCES . '</label>', $countResources));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_PACKAGES . '</label>', $countPackages));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_TRANSLATIONS . '</label>', $countTranslations));
-$adminObject->addInfoBoxLine(\sprintf('<label>' . _AM_WGTRANSIFEX_THEREARE_REQUESTS . '</label>', $countRequests));
+$adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_REQUESTS . '</label>', $countRequests));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_SETTINGS . '</label>', $countSettings));
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_LANGUAGES . '</label>', $countLanguages));
 // Upload Folders

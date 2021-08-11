@@ -56,7 +56,7 @@ switch ($op) {
             \header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
             \fpassthru($fp);
         } else {
-            $file = str_replace(XOOPS_ROOT_PATH, XOOPS_URL, $file);
+            $file = \str_replace(\XOOPS_ROOT_PATH, \XOOPS_URL, $file);
             \redirect_header($file, 0, '');
         }
         break;

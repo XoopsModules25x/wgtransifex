@@ -38,7 +38,7 @@ use XoopsModules\Wgtransifex\{
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_requests.tpl';
-require_once XOOPS_ROOT_PATH . '/header.php';
+require_once \XOOPS_ROOT_PATH . '/header.php';
 
 $op = Request::getCmd('op', 'new');
 $proId = Request::getInt('req_pro_id');
@@ -48,20 +48,20 @@ $langId = Request::getInt('req_lang_id');
 $GLOBALS['xoTheme']->addStylesheet($style, null);
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
+$GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
 
 // Checking permissions
 $request_allowed = false;
 
-$groups = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
+$groups = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : [\XOOPS_GROUP_ANONYMOUS];
 foreach ($groups as $group) {
-    if (XOOPS_GROUP_ADMIN == $group || \in_array($group, $helper->getConfig('groups_request'), true)) {
+    if (\XOOPS_GROUP_ADMIN == $group || \in_array($group, $helper->getConfig('groups_request'), true)) {
         $request_allowed = true;
         break;
     }
 }
 if (!$request_allowed) {
-    \redirect_header(WGTRANSIFEX_URL . '/index.php', 2, _MA_WGTRANSIFEX_NOPERM);
+    \redirect_header(\WGTRANSIFEX_URL . '/index.php', 2, \_MA_WGTRANSIFEX_NOPERM);
 }
 
 switch ($op) {
@@ -89,7 +89,7 @@ switch ($op) {
                 \redirect_header('requests.php', 3, \_MA_WGTRANSIFEX_REQUEST_ERR_EXIST2);
             }
         }
-        $uid = isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
+        $uid = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         $requestsObj = $requestsHandler->create();
 
         $requestsObj->setVar('req_pro_id', Request::getInt('req_pro_id', 0));
@@ -115,7 +115,7 @@ switch ($op) {
             /** @var \XoopsNotificationHandler $notificationHandler */
             $notificationHandler->triggerEvent('global', 0, 'request_new', $tags);
             // redirect after insert
-            \redirect_header('index.php', 2, _MA_WGTRANSIFEX_FORM_OK);
+            \redirect_header('index.php', 2, \_MA_WGTRANSIFEX_FORM_OK);
         }
         // Get Form Error
         $GLOBALS['xoopsTpl']->assign('error', $requestsObj->getHtmlErrors());
@@ -131,6 +131,6 @@ switch ($op) {
 }
 
 // Breadcrumbs
-$xoBreadcrumbs[] = ['title' => _MA_WGTRANSIFEX_REQUESTS];
+$xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_REQUESTS];
 
 require __DIR__ . '/footer.php';

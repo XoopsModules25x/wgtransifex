@@ -21,5 +21,5 @@ declare(strict_types=1);
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
  */
-require dirname(__DIR__, 2) . '/mainfile.php';
-require XOOPS_ROOT_PATH . '/include/notification_update.php';
+require \dirname(__DIR__, 2) . '/mainfile.php';
+require \XOOPS_ROOT_PATH . '/include/notification_update.php';

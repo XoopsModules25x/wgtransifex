@@ -149,7 +149,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
                 $resourcesObj->setVar('res_slug', $resourcesAll[$i]->getVar('res_slug'));
                 $resourcesObj->setVar('res_categories', $resourcesAll[$i]->getVar('res_categories'));
                 $resourcesObj->setVar('res_metadata', $resourcesAll[$i]->getVar('res_metadata'));
-                $resourcesObj->setVar('res_date', time());
+                $resourcesObj->setVar('res_date', \time());
                 $uid = $xoopsUser instanceof \XoopsUser ? $xoopsUser->id() : 0;
                 $resourcesObj->setVar('res_submitter', $uid);
                 $resourcesObj->setVar('res_status', Constants::STATUS_LOCAL);
@@ -172,11 +172,11 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      */
     public function getFormResourcesModules($op, $action = false)
     {
-        $dir = XOOPS_ROOT_PATH . '/modules/';
+        $dir = \XOOPS_ROOT_PATH . '/modules/';
         $cdir = \scandir($dir);
         foreach ($cdir as $key => $value) {
-            if (!in_array($value,array('.','..'))) {
-                if (is_dir($dir . $value)) {
+            if (!\in_array($value,array('.','..'))) {
+                if (\is_dir($dir . $value)) {
                     $modules[$dir . $value . '/'] = $value;
                 }
             }

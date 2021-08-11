@@ -8,6 +8,7 @@
  - fixed bug with fpassthru (cesagonchu/goffy)
  - added sort for image list (goffy)
  - replaced index.html by index.php (goffy)
+ - added missing function qualifiers (goffy)
 
 ===================================================================
 2020/12/13 Version 1.05 beta

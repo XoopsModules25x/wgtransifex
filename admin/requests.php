@@ -54,8 +54,8 @@ switch ($op) {
         $requestsCount = $requestsHandler->getCountRequests();
         $requestsAll = $requestsHandler->getAllRequests($start, $limit);
         $GLOBALS['xoopsTpl']->assign('requests_count', $requestsCount);
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
         // Table view requests
         if ($requestsCount > 0) {
             foreach (\array_keys($requestsAll) as $i) {
@@ -65,12 +65,12 @@ switch ($op) {
             }
             // Display Navigation
             if ($requestsCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($requestsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_WGTRANSIFEX_THEREARENT_REQUESTS);
+            $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_REQUESTS);
         }
         break;
     case 'save':
@@ -102,7 +102,7 @@ switch ($op) {
         $requestsObj->setVar('req_submitter', Request::getInt('req_submitter', 0));
         // Insert Data
         if ($requestsHandler->insert($requestsObj)) {
-            \redirect_header('requests.php?op=list', 2, _AM_WGTRANSIFEX_FORM_OK);
+            \redirect_header('requests.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
         }
         // Get Form
         $GLOBALS['xoopsTpl']->assign('error', $requestsObj->getHtmlErrors());
@@ -112,7 +112,7 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wgtransifex_admin_requests.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('requests.php'));
-        $adminObject->addItemButton(_AM_WGTRANSIFEX_REQUESTS_LIST, 'requests.php', 'list');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_REQUESTS_LIST, 'requests.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $requestsObj = $requestsHandler->get($reqId);
@@ -129,7 +129,7 @@ switch ($op) {
                 \redirect_header('requests.php', 3, \implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($requestsHandler->delete($requestsObj)) {
-                \redirect_header('requests.php', 3, _AM_WGTRANSIFEX_FORM_DELETE_OK);
+                \redirect_header('requests.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_OK);
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', $requestsObj->getHtmlErrors());
             }
@@ -142,7 +142,7 @@ switch ($op) {
             $xoopsconfirm = new Common\XoopsConfirm(
                 ['ok' => 1, 'req_id' => $reqId, 'op' => 'delete'],
                 $_SERVER['REQUEST_URI'],
-                \sprintf(_AM_WGTRANSIFEX_FORM_SURE_DELETE, $confirmInfo)
+                \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $confirmInfo)
             );
             $form = $xoopsconfirm->getFormXoopsConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());

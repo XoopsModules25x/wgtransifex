@@ -66,8 +66,8 @@ switch ($op) {
         $settingsCount = $settingsHandler->getCountSettings();
         $settingsAll = $settingsHandler->getAllSettings($start, $limit);
         $GLOBALS['xoopsTpl']->assign('settings_count', $settingsCount);
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', WGTRANSIFEX_UPLOAD_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
         // Table view settings
         if ($settingsCount > 0) {
             foreach (\array_keys($settingsAll) as $i) {
@@ -77,7 +77,7 @@ switch ($op) {
             }
             // Display Navigation
             if ($settingsCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($settingsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }

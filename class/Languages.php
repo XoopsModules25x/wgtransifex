@@ -108,13 +108,13 @@ class Languages extends \XoopsObject
         $imageDirectory = '/modules/wgtransifex/assets/images/flags';
         $imageTray = new \XoopsFormElementTray(\_AM_WGTRANSIFEX_LANGUAGE_FLAG, '<br>');
         $imageSelect = new \XoopsFormSelect(\sprintf(\_AM_WGTRANSIFEX_LANGUAGE_FLAG_UPLOADS, ".{$imageDirectory}/"), 'lang_flag', $langFlag, 5);
-        $imageArray = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $imageDirectory);
+        $imageArray = \XoopsLists::getImgListAsArray(\XOOPS_ROOT_PATH . $imageDirectory);
         foreach ($imageArray as $image1) {
             $imageSelect->addOption($image1, $image1);
         }
-        $imageSelect->setExtra("onchange='showImgSelected(\"imglabel_lang_flag\", \"lang_flag\", \"" . $imageDirectory . '", "", "' . XOOPS_URL . "\")'");
+        $imageSelect->setExtra("onchange='showImgSelected(\"imglabel_lang_flag\", \"lang_flag\", \"" . $imageDirectory . '", "", "' . \XOOPS_URL . "\")'");
         $imageTray->addElement($imageSelect, false);
-        $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $imageDirectory . '/' . $langFlag . "' id='imglabel_lang_flag' alt='' style='max-width:100px'>"));
+        $imageTray->addElement(new \XoopsFormLabel('', "<br><img src='" . \XOOPS_URL . '/' . $imageDirectory . '/' . $langFlag . "' id='imglabel_lang_flag' alt='' style='max-width:100px'>"));
         // Form Frameworks Images langFlag: Upload new image
         $fileSelectTray = new \XoopsFormElementTray('', '<br>');
         $fileSelectTray->addElement(new \XoopsFormFile(\_AM_WGTRANSIFEX_FORM_UPLOAD_NEW, 'lang_flag', $helper->getConfig('maxsize_image')));

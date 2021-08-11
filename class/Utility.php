@@ -88,10 +88,10 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
         }
         $aboutRes = '';
         $istart   = mb_strpos($about, $paypalform[0], 1);
-        $iend     = mb_strpos($about, $paypalform[5], $istart + 1) + mb_strlen($paypalform[5]) - 1;
+        $iend     = mb_strpos($about, $paypalform[5], $istart + 1) + \mb_strlen($paypalform[5]) - 1;
         $aboutRes .= mb_substr($about, 0, $istart - 1);
         $aboutRes .= \implode("\n", $donationform);
-        $aboutRes .= mb_substr($about, $iend + 1, mb_strlen($about) - $iend - 1);
+        $aboutRes .= mb_substr($about, $iend + 1, \mb_strlen($about) - $iend - 1);
 
         return $aboutRes;
     }

@@ -30,6 +30,6 @@ if (\count($xoBreadcrumbs) > 1) {
 $GLOBALS['xoopsTpl']->assign('adv', $helper->getConfig('advertise'));
 $GLOBALS['xoopsTpl']->assign('bookmarks', $helper->getConfig('bookmarks'));
 $GLOBALS['xoopsTpl']->assign('fbcomments', $helper->getConfig('fbcomments'));
-$GLOBALS['xoopsTpl']->assign('admin', WGTRANSIFEX_ADMIN);
+$GLOBALS['xoopsTpl']->assign('admin', \WGTRANSIFEX_ADMIN);
 $GLOBALS['xoopsTpl']->assign('copyright', $copyright);
-require_once XOOPS_ROOT_PATH . '/footer.php';
+require_once \XOOPS_ROOT_PATH . '/footer.php';

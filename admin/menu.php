@@ -73,7 +73,7 @@ $adminmenu[] = [
     'link' => 'admin/languages.php',
     'icon' => 'assets/icons/32/languages.png',
 ];
-if (is_object($helper) && $helper->getConfig('bulkactions')) {
+if (\is_object($helper) && $helper->getConfig('bulkactions')) {
     $adminmenu[] = [
         'title' => \_MI_WGTRANSIFEX_ADMENU12,
         'link' => 'admin/bulkactions.php',

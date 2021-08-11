@@ -44,15 +44,15 @@ use XoopsModules\Wgtransifex\{Common,
 /** @var LanguagesHandler $languagesHandler */
 /** @var RequestsHandler $requestsHandler */
 
-require dirname(__DIR__) . '/preloads/autoloader.php';
+require \dirname(__DIR__) . '/preloads/autoloader.php';
 
-require dirname(__DIR__, 3) . '/include/cp_header.php';
+require \dirname(__DIR__, 3) . '/include/cp_header.php';
 require_once \dirname(__DIR__) . '/include/common.php';
 $sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
 $sysPathIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16   = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
-$modPathIcon32   = WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
+$modPathIcon16   = \WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
+$modPathIcon32   = \WGTRANSIFEX_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
 // Get instance of module
 $helper              = Helper::getInstance();
 $projectsHandler     = $helper->getHandler('Projects');
@@ -66,7 +66,7 @@ $moduleimagesHandler = $helper->getHandler('Moduleimages');
 
 $myts = MyTextSanitizer::getInstance();
 if (!isset($xoopsTpl) || !\is_object($xoopsTpl)) {
-    require_once XOOPS_ROOT_PATH . '/class/template.php';
+    require_once \XOOPS_ROOT_PATH . '/class/template.php';
     $xoopsTpl = new \XoopsTpl();
 }
 // Load languages
@@ -81,4 +81,4 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 
 $adminObject = Admin::getInstance();
-$style       = WGTRANSIFEX_URL . '/assets/css/admin/style.css';
+$style       = \WGTRANSIFEX_URL . '/assets/css/admin/style.css';

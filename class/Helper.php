@@ -82,4 +82,4 @@ class Helper extends \Xmf\Module\Helper
         return $ret;
     }
 }
-//require  dirname(dirname(__DIR__)) . '/mainfile.php';
+//require  \dirname(\dirname(__DIR__)) . '/mainfile.php';

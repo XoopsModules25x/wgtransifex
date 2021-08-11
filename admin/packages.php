@@ -63,7 +63,7 @@ switch ($op) {
         $packagesCount = $packagesHandler->getCountPackages();
         $packagesAll = $packagesHandler->getAllPackages($start, $limit, 'pkg_id', 'DESC');
         $GLOBALS['xoopsTpl']->assign('packages_count', $packagesCount);
-        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', WGTRANSIFEX_URL);
+        $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
         // Table view packages
         if ($packagesCount > 0) {
@@ -89,7 +89,7 @@ switch ($op) {
 
             // Display Navigation
             if ($packagesCount > $limit) {
-                require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
@@ -157,12 +157,12 @@ switch ($op) {
         // Make the destination directory if not exist
         $pkg_path = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName;
         if (!\is_dir($pkg_path) && !\mkdir($pkg_path)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+            throw new \RuntimeException(\sprintf('Directory "%s" was not created', $pkg_path));
         }
         $pkg_path .= '/' . $langFolder;
         \clearDir($pkg_path);
         if (!\is_dir($pkg_path) && !\mkdir($pkg_path)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+            throw new \RuntimeException(\sprintf('Directory "%s" was not created', $pkg_path));
         }
 
         $count_ok = 0;
@@ -193,8 +193,8 @@ switch ($op) {
                         \file_put_contents($dst_file, $content);
                     } else {
                         $dst_path .= '/' . $files[$f];
-                        if (!mkdir($dst_path) && !is_dir($dst_path)) {
-                            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dst_path));
+                        if (!\mkdir($dst_path) && !\is_dir($dst_path)) {
+                            throw new \RuntimeException(\sprintf('Directory "%s" was not created', $dst_path));
                         }
                         chmod($dst_path, 0777);
                     }
@@ -229,7 +229,7 @@ switch ($op) {
         $packagesObj->setVar('pkg_status', Constants::STATUS_CREATED);
         $packagesObj->setVar('pkg_traperc', $traPercentage);
         // Set Var pkg_logo
-        require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        require_once \XOOPS_ROOT_PATH . '/class/uploader.php';
         $filename = $_FILES['pkg_logo']['name'];
         $imgMimetype = $_FILES['pkg_logo']['type'];
         $imgNameDef = Request::getString('pkg_name');
@@ -349,12 +349,12 @@ switch ($op) {
                         // Make the destination directory if not exist
                         $pkg_path = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName;
                         if (!\is_dir($pkg_path) && !\mkdir($pkg_path)) {
-                            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+                            throw new \RuntimeException(\sprintf('Directory "%s" was not created', $pkg_path));
                         }
                         $pkg_path .= '/' . $langFolder;
                         \clearDir($pkg_path);
                         if (!\is_dir($pkg_path) && !\mkdir($pkg_path)) {
-                            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pkg_path));
+                            throw new \RuntimeException(\sprintf('Directory "%s" was not created', $pkg_path));
                         }
 
                         $count_ok = 0;
@@ -381,8 +381,8 @@ switch ($op) {
                                         \file_put_contents($dst_file, $content);
                                     } else {
                                         $dst_path .= '/' . $files[$f];
-                                        if (!mkdir($dst_path) && !is_dir($dst_path)) {
-                                            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dst_path));
+                                        if (!\mkdir($dst_path) && !\is_dir($dst_path)) {
+                                            throw new \RuntimeException(\sprintf('Directory "%s" was not created', $dst_path));
                                         }
                                         chmod($dst_path, 0777);
                                     }

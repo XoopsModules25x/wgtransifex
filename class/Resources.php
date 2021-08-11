@@ -140,7 +140,7 @@ class Resources extends \XoopsObject
         $form->addElement($resStatusSelect);
         // Form Text resTranslations
         //$resTranslations = $this->isNew() ? 0 : $this->getVar('res_translations');
-        //$form->addElement(new \XoopsFormText( _AM_WGTRANSIFEX_RESOURCE_TRANSLATIONS, 'res_translations', 50, 255, $resTranslations ) );
+        //$form->addElement(new \XoopsFormText( \_AM_WGTRANSIFEX_RESOURCE_TRANSLATIONS, 'res_translations', 50, 255, $resTranslations ) );
         // Form Text Date Select resDate
         $resDate = $this->isNew() ? 0 : $this->getVar('res_date');
         $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_RESOURCE_DATE, 'res_date', '', $resDate));
