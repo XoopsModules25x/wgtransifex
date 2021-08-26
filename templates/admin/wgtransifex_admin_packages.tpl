@@ -5,8 +5,20 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
-				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_ID}></th>
-				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_NAME}></th>
+				<th class="center">
+					<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_ID}>
+					<a href="packages.php?op=list&amp;sortby=pkg_id&amp;order=desc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>"></a>
+					<a href="packages.php?op=list&amp;sortby=pkg_id&amp;order=asc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>"></a>
+				</th>
+				<th class="center">
+					<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_NAME}>
+					<a href="packages.php?op=list&amp;sortby=pkg_name&amp;order=desc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>"></a>
+					<a href="packages.php?op=list&amp;sortby=pkg_name&amp;order=asc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>"></a>
+				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_PRO_ID}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LANG_ID}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}></th>

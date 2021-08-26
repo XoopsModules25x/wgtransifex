@@ -41,8 +41,8 @@ require_once __DIR__ . '/common.php';
 \define('_MI_WGTRANSIFEX_ADMENU13', 'Module images');
 \define('_MI_WGTRANSIFEX_ABOUT', 'About');
 // ---------------- Admin Nav ----------------
-\define('_MI_\WGTRANSIFEX_ADMIN_PAGER', 'Admin pager');
-\define('_MI_\WGTRANSIFEX_ADMIN_PAGER_DESC', 'Admin per page list');
+\define('_MI_WGTRANSIFEX_ADMIN_PAGER', 'Admin pager');
+\define('_MI_WGTRANSIFEX_ADMIN_PAGER_DESC', 'Admin per page list');
 // User
 \define('_MI_WGTRANSIFEX_USER_PAGER', 'User pager');
 \define('_MI_WGTRANSIFEX_USER_PAGER_DESC', 'User per page list');

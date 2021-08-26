@@ -9,6 +9,8 @@
  - added sort for image list (goffy)
  - replaced index.html by index.php (goffy)
  - added missing function qualifiers (goffy)
+ - added sorting in admin area (goffy)
+ - fixed bug in lang files (cesagonchu/goffy)
 
 ===================================================================
 2020/12/13 Version 1.05 beta

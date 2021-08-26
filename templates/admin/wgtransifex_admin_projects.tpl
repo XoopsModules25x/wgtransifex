@@ -5,13 +5,31 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
-				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_ID}></th>
+				<th class="center" style="min-width:50px">
+					<{$smarty.const._AM_WGTRANSIFEX_PROJECT_ID}><br>
+					<a href="projects.php?op=list&amp;sortby=pro_id&amp;order=desc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>"></a>
+					<a href="projects.php?op=list&amp;sortby=pro_id&amp;order=asc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>"></a>
+				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_DESCRIPTION}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_SOURCE_LANGUAGE_CODE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_SLUG}></th>
-				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_NAME}></th>
+				<th class="center">
+					<{$smarty.const._AM_WGTRANSIFEX_PROJECT_NAME}><br>
+					<a href="projects.php?op=list&amp;sortby=pro_name&amp;order=desc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>"></a>
+					<a href="projects.php?op=list&amp;sortby=pro_name&amp;order=asc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>"></a>
+				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_TXRESOURCES}></th>
-				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_LAST_UPDATED}></th>
+				<th class="center">
+					<{$smarty.const._AM_WGTRANSIFEX_PROJECT_LAST_UPDATED}>
+					<a href="projects.php?op=list&amp;sortby=pro_last_updated&amp;order=desc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>"></a>
+					<a href="projects.php?op=list&amp;sortby=pro_last_updated&amp;order=asc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>"></a>
+				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_TEAMS}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_STATUS}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_LOCRES}></th>
@@ -43,19 +61,19 @@
 				<td class='center'><{$project.date}></td>
 				<td class='center'><{$project.submitter}></td>
 				<td class="center  width5">
-					<{if $project.archived == 0}>
+					<{if $project.archived|default:0 == 0}>
 						<a href="projects.php?op=savetx&amp;pro_id=<{$project.id}><{$op_params}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_PROJECT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>readtx.png" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_PROJECT}>"></a>
 					<{/if}>
 					<a href="projects.php?op=edit&amp;pro_id=<{$project.id}><{$op_params}>" title="<{$smarty.const._EDIT}>"><img class="wgt-icon24" src="<{$modPathIcon32}>edit.png" alt="<{$smarty.const._EDIT}>"></a>
 					<a href="projects.php?op=delete&amp;pro_id=<{$project.id}><{$op_params}>" title="<{$smarty.const._DELETE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>delete.png" alt="<{$smarty.const._DELETE}>"></a>
-					<{if $project.resources > 0 && $displayTxAdmin}>
+					<{if $project.resources|default:0 > 0 && $displayTxAdmin|default:false}>
 						<a href="projects.php?op=clone&amp;pro_id=<{$project.id}><{$op_params}>" title="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_CLONE}>"><img class="wgt-icon24" src="<{$modPathIcon32}>clone.png" alt="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_CLONE}>"></a>
 						<a href="projects.php?op=clonenew&amp;pro_id=<{$project.id}><{$op_params}>" title="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_CLONENEW}>"><img class="wgt-icon24" src="<{$modPathIcon32}>clonenew.png" alt="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_CLONENEW}>"></a>
 					<{/if}>
-					<{if $project.resources == 0 && $project.type == $typeModule}>
+					<{if $project.resources|default:0 == 0 && $project.type|default:'' == $typeModule|default:0}>
 						<a href="resources.php?op=read_res&amp;res_pro_id=<{$project.id}><{$op_params}>" title="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_READM}>"><img class="wgt-icon24" src="<{$modPathIcon32}>resources_read.png" alt="<{$smarty.const._AM_WGTRANSIFEX_RESOURCES_READM}>"></a>
 					<{/if}>
-					<{if $project.archived == 0 && $project.txresources > 0}>
+					<{if $project.archived|default:0 == 0 && $project.txresources|default:0 > 0}>
 						<a href="resources.php?op=savetx&amp;res_pro_id=<{$project.id}><{$op_params}>" title="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCES}>"><img class="wgt-icon24" src="<{$modPathIcon32}>resourcestx.png"" alt="<{$smarty.const._AM_WGTRANSIFEX_READTX_RESOURCES}>"></a>
 					<{/if}>
 				</td>
