@@ -349,8 +349,8 @@ $modversion['config'][] = [
 // Admin pager
 $modversion['config'][] = [
     'name' => 'adminpager',
-    'title' => '_MI_\WGTRANSIFEX_ADMIN_PAGER',
-    'description' => '_MI_\WGTRANSIFEX_ADMIN_PAGER_DESC',
+    'title' => '_MI_WGTRANSIFEX_ADMIN_PAGER',
+    'description' => '_MI_WGTRANSIFEX_ADMIN_PAGER_DESC',
     'formtype' => 'textbox',
     'valuetype' => 'int',
     'default' => 10,

@@ -45,7 +45,7 @@ use XoopsModules\Wgtransifex\{
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
-$op = Request::getCmd('op', 'list');
+$op    = Request::getCmd('op', 'list');
 $pkgId = Request::getInt('pkg_id');
 
 switch ($op) {
@@ -53,15 +53,22 @@ switch ($op) {
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
-        $start = Request::getInt('start', 0);
-        $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $start  = Request::getInt('start', 0);
+        $limit  = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $sortby = Request::getString('sortby', 'pkg_id');
+        $order  = Request::getString('order', 'DESC');
         $templateMain = 'wgtransifex_admin_packages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
         //$adminObject->addItemButton(\_AM_WGTRANSIFEX_PACKAGES_AUTOCREATE, 'packages.php?op=auto_create', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        $crPackages = new \CriteriaCompo();
+        $crPackages->setSort($sortby);
+        $crPackages->setOrder($order);
+        $crPackages->setStart($start);
+        $crPackages->setLimit($limit);
         $packagesCount = $packagesHandler->getCountPackages();
-        $packagesAll = $packagesHandler->getAllPackages($start, $limit, 'pkg_id', 'DESC');
+        $packagesAll = $packagesHandler->getAll($crPackages);
         $GLOBALS['xoopsTpl']->assign('packages_count', $packagesCount);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);

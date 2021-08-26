@@ -47,8 +47,10 @@ switch ($op) {
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
-        $start = Request::getInt('start', 0);
-        $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $start  = Request::getInt('start', 0);
+        $limit  = Request::getInt('limit', $helper->getConfig('adminpager'));
+        $sortby = Request::getString('sortby', 'pro_id');
+        $order  = Request::getString('order', 'DESC');
         $displayTxAdmin = (bool)$helper->getConfig('displayTxAdmin');
         $templateMain = 'wgtransifex_admin_projects.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('projects.php'));
@@ -59,8 +61,13 @@ switch ($op) {
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_PROJECTS, 'projects.php?op=savetx', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $GLOBALS['xoopsTpl']->assign('displayTxAdmin', $displayTxAdmin);
+        $crProjects = new \CriteriaCompo();
+        $crProjects->setSort($sortby);
+        $crProjects->setOrder($order);
+        $crProjects->setStart($start);
+        $crProjects->setLimit($limit);
         $projectsCount = $projectsHandler->getCountProjects();
-        $projectsAll = $projectsHandler->getAllProjects($start, $limit, 'pro_id', 'DESC');
+        $projectsAll = $projectsHandler->getAll($crProjects);
         $GLOBALS['xoopsTpl']->assign('projects_count', $projectsCount);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);

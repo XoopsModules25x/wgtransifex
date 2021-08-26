@@ -93,5 +93,5 @@ require_once __DIR__ . '/admin.php';
 \define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST1', 'Anfrage exisitert bereits! Bitte warte bis das Sprachpaket zur Verfügung gestellt wurde!');
 \define('_MA_WGTRANSIFEX_REQUEST_ERR_EXIST2', 'Sprachpaket exisitert bereits! Bitte überprüfe die Liste der Sprachpakete!');
 // Admin link
-\define('_MA_\WGTRANSIFEX_ADMIN', 'Administrator');
+\define('_MA_WGTRANSIFEX_ADMIN', 'Administrator');
 // ---------------- End ----------------
