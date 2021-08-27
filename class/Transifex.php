@@ -99,38 +99,40 @@ class Transifex
                 $proStatus = Constants::STATUS_READTXNEW;
             }
             if (\is_object($projectsObj)) {
-                $project = $transifexLib->getProject($item['slug'], true);
-                $archived = (bool)$project['archived'];
-                if (!$archived || ($archived && $oldProject)) {
-                    // Set Vars
-                    $projectsObj->setVar('pro_description', $project['description']);
-                    $projectsObj->setVar('pro_source_language_code', $project['source_language_code']);
-                    $projectsObj->setVar('pro_slug', $project['slug']);
-                    $projectsObj->setVar('pro_name', $project['name']);
-                    $projectsObj->setVar('pro_txresources', \count($project['resources']));
-                    if (\is_string($project['last_updated'])) {
-                        if (Constants::STATUS_READTX == $proStatus && $proLastUpdated < \strtotime($project['last_updated'])) {
-                            $proStatus = Constants::STATUS_OUTDATED;
+                $project = $transifexLib->getProject($item['slug'], true, true);
+                if (false !== $project) {
+                    $archived = (bool)$project['archived'];
+                    if (!$archived || ($archived && $oldProject)) {
+                        // Set Vars
+                        $projectsObj->setVar('pro_description', $project['description']);
+                        $projectsObj->setVar('pro_source_language_code', $project['source_language_code']);
+                        $projectsObj->setVar('pro_slug', $project['slug']);
+                        $projectsObj->setVar('pro_name', $project['name']);
+                        $projectsObj->setVar('pro_txresources', \count($project['resources']));
+                        if (\is_string($project['last_updated'])) {
+                            if (Constants::STATUS_READTX == $proStatus && $proLastUpdated < \strtotime($project['last_updated'])) {
+                                $proStatus = Constants::STATUS_OUTDATED;
+                            }
+                            $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
                         }
-                        $projectsObj->setVar('pro_last_updated', \strtotime($project['last_updated']));
-                    }
-                    $teams = \json_encode($project['teams'], \JSON_HEX_TAG | \JSON_HEX_APOS | \JSON_HEX_QUOT | \JSON_HEX_AMP | \JSON_UNESCAPED_UNICODE);
-                    //\str_replace(']', '', $teams);
-                    $projectsObj->setVar('pro_teams', $teams);
-                    if ($archived) {
-                        $projectsObj->setVar('pro_status', Constants::STATUS_ARCHIVED);
-                        $projectsObj->setVar('pro_archived', 1);
-                    } else {
-                        $projectsObj->setVar('pro_status', $proStatus);
-                        $projectsObj->setVar('pro_archived', 0);
-                    }
-                    $projectsObj->setVar('pro_date', \time());
-                    $projectsObj->setVar('pro_submitter', $xoopsUser->getVar('uid'));
-                    // Insert Data
-                    if ($projectsHandler->insert($projectsObj)) {
-                        $count_ok++;
-                    } else {
-                        $count_err++;
+                        $teams = \json_encode($project['teams'], \JSON_HEX_TAG | \JSON_HEX_APOS | \JSON_HEX_QUOT | \JSON_HEX_AMP | \JSON_UNESCAPED_UNICODE);
+                        //\str_replace(']', '', $teams);
+                        $projectsObj->setVar('pro_teams', $teams);
+                        if ($archived) {
+                            $projectsObj->setVar('pro_status', Constants::STATUS_ARCHIVED);
+                            $projectsObj->setVar('pro_archived', 1);
+                        } else {
+                            $projectsObj->setVar('pro_status', $proStatus);
+                            $projectsObj->setVar('pro_archived', 0);
+                        }
+                        $projectsObj->setVar('pro_date', \time());
+                        $projectsObj->setVar('pro_submitter', $xoopsUser->getVar('uid'));
+                        // Insert Data
+                        if ($projectsHandler->insert($projectsObj)) {
+                            $count_ok++;
+                        } else {
+                            $count_err++;
+                        }
                     }
                 }
             }
