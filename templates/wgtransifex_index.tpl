@@ -24,8 +24,8 @@
 		<tr class='center'>
 			<td class='bold pad5'>
 				<ul class='menu text-center'>
-					<li><a href='<{$wgtransifex_url}>'><{$smarty.const._MA_WGTRANSIFEX_INDEX}></a></li>
-					<li><a href='<{$wgtransifex_url}>/packages.php'><{$smarty.const._MA_WGTRANSIFEX_PACKAGES}></a></li>
+					<li><a class="text-secondary" href='<{$wgtransifex_url}>'><{$smarty.const._MA_WGTRANSIFEX_INDEX}></a></li>
+					<li><a class="text-secondary" href='<{$wgtransifex_url}>/packages.php'><{$smarty.const._MA_WGTRANSIFEX_PACKAGES}></a></li>
 				</ul>
 			</td>
 		</tr>
