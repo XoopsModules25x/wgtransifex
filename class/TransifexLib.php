@@ -66,14 +66,14 @@ class TransifexLib
      * @param bool $details
      * @return array
      */
-    public function getProject($project, $details = false)
+    public function getProject($project, $details = false, $skipMissing = false)
     {
         $url = static::BASE_URL . 'project/' . $project . '/';
         if ($details) {
             $url .= '?details';
         }
 
-        return $this->_get($url);
+        return $this->_get($url, false, $skipMissing);
     }
 
     /**
@@ -359,6 +359,10 @@ class TransifexLib
                     throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_401 . '"');
                     break;
                 case 403:
+                    if ($skipMissing) {
+                        return false;
+                        break;
+                    }
                     throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_403 . '"');
                     break;
                 case 404:
