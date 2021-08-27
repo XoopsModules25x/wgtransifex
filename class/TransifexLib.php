@@ -64,6 +64,7 @@ class TransifexLib
      *
      * @param      $project
      * @param bool $details
+     * @param bool $skipMissing
      * @return array
      */
     public function getProject($project, $details = false, $skipMissing = false)
