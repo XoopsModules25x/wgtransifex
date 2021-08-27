@@ -12,7 +12,8 @@
  - added sorting in admin area (goffy)
  - fixed bug in lang files (cesagonchu/goffy)
  - fixed bug caused by reading archived projects (alain/goffy)
- 
+ - fixed problem with invisible links (cesagonchu/alain)
+
 ===================================================================
 2020/12/13 Version 1.05 beta
 ===================================================================
