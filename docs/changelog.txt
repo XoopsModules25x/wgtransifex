@@ -13,6 +13,7 @@
  - fixed bug in lang files (cesagonchu/goffy)
  - fixed bug caused by reading archived projects (alain/goffy)
  - fixed problem with invisible links (cesagonchu/alain)
+ - changed field attributes in table packages (goffy)
 
 ===================================================================
 2020/12/13 Version 1.05 beta

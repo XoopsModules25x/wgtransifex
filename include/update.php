@@ -299,5 +299,45 @@ function wgtransifex_check_db($module)
     $sql = "ALTER TABLE `$table` CHANGE `tra_content` `tra_content` MEDIUMTEXT NOT NULL;";
     $result = $GLOBALS['xoopsDB']->queryF($sql);
 
+    // update table (change field attributes)
+    $table = $GLOBALS['xoopsDB']->prefix('wgtransifex_packages');
+    $field = 'pkg_pro_id';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if ($numRows) {
+        $sql = "ALTER TABLE `$table` CHANGE `$field` `$field` INT(8) NOT NULL DEFAULT '0';";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when changing field attributes '$field'.");
+            $ret = false;
+        }
+    }
+    // update table (change field attributes)
+    $table = $GLOBALS['xoopsDB']->prefix('wgtransifex_packages');
+    $field = 'pkg_status';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if ($numRows) {
+        $sql = "ALTER TABLE `$table` CHANGE `$field` `$field` INT(8) NOT NULL DEFAULT '0';";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when changing field attributes '$field'.");
+            $ret = false;
+        }
+    }
+    // update table (change field attributes)
+    $table = $GLOBALS['xoopsDB']->prefix('wgtransifex_packages');
+    $field = 'pkg_lang_id';
+    $check = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM `' . $table . "` LIKE '" . $field . "'");
+    $numRows = $GLOBALS['xoopsDB']->getRowsNum($check);
+    if ($numRows) {
+        $sql = "ALTER TABLE `$table` CHANGE `$field` `$field` INT(8) NOT NULL DEFAULT '0';";
+        if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+            xoops_error($GLOBALS['xoopsDB']->error() . '<br>' . $sql);
+            $module->setErrors("Error when changing field attributes '$field'.");
+            $ret = false;
+        }
+    }
+
     return $ret;
 }
