@@ -7,23 +7,52 @@
 			<tr class='head'>
 				<th class="center">
 					<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_ID}>
-					<a href="packages.php?op=list&amp;sortby=pkg_id&amp;order=desc" title="<{$smarty.const._DESCENDING}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._DESCENDING}>"></a>
-					<a href="packages.php?op=list&amp;sortby=pkg_id&amp;order=asc" title="<{$smarty.const._ASCENDING}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._ASCENDING}>"></a>
+                    <{if $sortby_curr|default:'' == 'pkg_id_desc'}>
+                        <img class="wgt-icon16" src="<{$modPathIcon16}>desc_inactive.png" alt="<{$smarty.const._DESCENDING}>">
+                    <{else}>
+                        <a href="packages.php?op=list&amp;sortby=pkg_id&amp;order=desc" title="<{$smarty.const._DESCENDING}>">
+                            <img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._DESCENDING}>"></a>
+                    <{/if}>
+                    <{if $sortby_curr|default:'' == 'pkg_id_asc'}>
+                        <img class="wgt-icon16" src="<{$modPathIcon16}>asc_inactive.png" alt="<{$smarty.const._DESCENDING}>">
+                    <{else}>
+                        <a href="packages.php?op=list&amp;sortby=pkg_id&amp;order=asc" title="<{$smarty.const._ASCENDING}>">
+                            <img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._ASCENDING}>"></a>
+                    <{/if}>
 				</th>
 				<th class="center">
-					<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_NAME}>
-					<a href="packages.php?op=list&amp;sortby=pkg_name&amp;order=desc" title="<{$smarty.const._DESCENDING}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._DESCENDING}>"></a>
-					<a href="packages.php?op=list&amp;sortby=pkg_name&amp;order=asc" title="<{$smarty.const._ASCENDING}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._ASCENDING}>"></a>
+                    <{if $sortby_curr|default:'' == 'pkg_name_desc'}>
+                        <img class="wgt-icon16" src="<{$modPathIcon16}>desc_inactive.png" alt="<{$smarty.const._DESCENDING}>">
+                    <{else}>
+                        <a href="packages.php?op=list&amp;sortby=pkg_name&amp;order=desc" title="<{$smarty.const._DESCENDING}>">
+                            <img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._DESCENDING}>"></a>
+                    <{/if}>
+                    <{if $sortby_curr|default:'' == 'pkg_name_asc'}>
+                        <img class="wgt-icon16" src="<{$modPathIcon16}>asc_inactive.png" alt="<{$smarty.const._DESCENDING}>">
+                    <{else}>
+                        <a href="packages.php?op=list&amp;sortby=pkg_name&amp;order=asc" title="<{$smarty.const._ASCENDING}>">
+                            <img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._ASCENDING}>"></a>
+                    <{/if}>    
 				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_PRO_ID}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LANG_ID}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_LOGO}></th>
 				<th class="center"><{$smarty.const._MA_WGTRANSIFEX_PACKAGE_TRAPERC}></th>
-				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_DATE}></th>
+                <th class="center">
+					<{$smarty.const._AM_WGTRANSIFEX_PACKAGE_DATE}>
+                    <{if $sortby_curr|default:'' == 'pkg_date_desc'}>
+                        <img class="wgt-icon16" src="<{$modPathIcon16}>desc_inactive.png" alt="<{$smarty.const._DESCENDING}>">
+                    <{else}>
+                        <a href="packages.php?op=list&amp;sortby=pkg_date&amp;order=desc" title="<{$smarty.const._DESCENDING}>">
+                            <img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._DESCENDING}>"></a>
+                    <{/if}>
+                    <{if $sortby_curr|default:'' == 'pkg_date_asc'}>
+                        <img class="wgt-icon16" src="<{$modPathIcon16}>asc_inactive.png" alt="<{$smarty.const._DESCENDING}>">
+                    <{else}>
+                        <a href="packages.php?op=list&amp;sortby=pkg_date&amp;order=asc" title="<{$smarty.const._ASCENDING}>">
+                            <img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._ASCENDING}>"></a>
+                    <{/if}>
+				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_SUBMITTER}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_STATUS}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PACKAGE_VERSION}></th>
