@@ -55,8 +55,8 @@ switch ($op) {
         $GLOBALS['xoTheme']->addStylesheet($style, null);
         $start  = Request::getInt('start', 0);
         $limit  = Request::getInt('limit', $helper->getConfig('adminpager'));
-        $sortby = Request::getString('sortby', 'pkg_id');
-        $order  = Request::getString('order', 'DESC');
+        $sortby = Request::getString('sortby', 'pkg_date');
+        $order  = Request::getString('order', 'desc');
         $templateMain = 'wgtransifex_admin_packages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
@@ -93,6 +93,8 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->append('packages_list', $package);
                 unset($package);
             }
+            
+            $GLOBALS['xoopsTpl']->assign('sortby_curr', $sortby . '_' . $order);
 
             // Display Navigation
             if ($packagesCount > $limit) {
