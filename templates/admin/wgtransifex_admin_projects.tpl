@@ -7,28 +7,28 @@
 			<tr class='head'>
 				<th class="center" style="min-width:50px">
 					<{$smarty.const._AM_WGTRANSIFEX_PROJECT_ID}><br>
-					<a href="projects.php?op=list&amp;sortby=pro_id&amp;order=desc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>"></a>
-					<a href="projects.php?op=list&amp;sortby=pro_id&amp;order=asc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>"></a>
+					<a href="projects.php?op=list&amp;sortby=pro_id&amp;order=desc" title="<{$smarty.const._DESCENDING}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._DESCENDING}>"></a>
+					<a href="projects.php?op=list&amp;sortby=pro_id&amp;order=asc" title="<{$smarty.const._ASCENDING}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._ASCENDING}>"></a>
 				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_DESCRIPTION}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_SOURCE_LANGUAGE_CODE}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_SLUG}></th>
 				<th class="center">
 					<{$smarty.const._AM_WGTRANSIFEX_PROJECT_NAME}><br>
-					<a href="projects.php?op=list&amp;sortby=pro_name&amp;order=desc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>"></a>
-					<a href="projects.php?op=list&amp;sortby=pro_name&amp;order=asc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>"></a>
+					<a href="projects.php?op=list&amp;sortby=pro_name&amp;order=desc" title="<{$smarty.const._DESCENDING}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._DESCENDING}>"></a>
+					<a href="projects.php?op=list&amp;sortby=pro_name&amp;order=asc" title="<{$smarty.const._ASCENDING}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._ASCENDING}>"></a>
 				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_TXRESOURCES}></th>
 				<th class="center">
 					<{$smarty.const._AM_WGTRANSIFEX_PROJECT_LAST_UPDATED}>
-					<a href="projects.php?op=list&amp;sortby=pro_last_updated&amp;order=desc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTDESC}>"></a>
-					<a href="projects.php?op=list&amp;sortby=pro_last_updated&amp;order=asc" title="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>">
-						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._MA_WGTRANSIFEX_SORTASC}>"></a>
+					<a href="projects.php?op=list&amp;sortby=pro_last_updated&amp;order=desc" title="<{$smarty.const._DESCENDING}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>desc.png" alt="<{$smarty.const._DESCENDING}>"></a>
+					<a href="projects.php?op=list&amp;sortby=pro_last_updated&amp;order=asc" title="<{$smarty.const._ASCENDING}>">
+						<img class="wgt-icon16" src="<{$modPathIcon16}>asc.png" alt="<{$smarty.const._ASCENDING}>"></a>
 				</th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_TEAMS}></th>
 				<th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_STATUS}></th>
