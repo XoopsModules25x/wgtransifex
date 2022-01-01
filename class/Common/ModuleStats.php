@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace XoopsModules\Wgtransifex\Common;
 
 /*
@@ -18,14 +16,14 @@ namespace XoopsModules\Wgtransifex\Common;
  * Feedback plugin for xoops modules
  *
  * @copyright      XOOPS Project  (https://xoops.org)
- * @license        GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license        GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author         Michael Beck <mambax7@gmailc.com>
  */
 trait ModuleStats
 {
     /**
      * @param \XoopsModules\Wgtransifex\Common\Configurator $configurator
-     * @param array                                         $moduleStats
+     * @param array                                           $moduleStats
      * @return array
      */
     public static function getModuleStats($configurator, $moduleStats)

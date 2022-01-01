@@ -38,10 +38,10 @@
 <div class="clear">&nbsp;</div>
 
 <{if $form|default:''}>
-	<{$form}>
+    <{$form}>
 <{/if}>
 <{if $error|default:''}>
-	<div class="errorMsg"><strong><{$error}></strong></div>
+    <div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 
 <!-- Footer -->

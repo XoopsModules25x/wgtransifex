@@ -175,7 +175,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
         $dir = \XOOPS_ROOT_PATH . '/modules/';
         $cdir = \scandir($dir);
         foreach ($cdir as $key => $value) {
-            if (!\in_array($value,array('.','..'))) {
+            if (!\in_array($value,['.','..'])) {
                 if (\is_dir($dir . $value)) {
                     $modules[$dir . $value . '/'] = $value;
                 }

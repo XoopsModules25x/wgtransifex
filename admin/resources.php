@@ -87,7 +87,7 @@ switch ($op) {
                     return $current->getFilename();
                 });
                 $iterator = new \RecursiveIteratorIterator($filter);
-                $files = array();
+                $files = [];
                 $len = \strlen($dirStart);
                 foreach ($iterator as $info) {
                     $file = $info->getPathname();
