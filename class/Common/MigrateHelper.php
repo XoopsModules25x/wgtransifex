@@ -106,7 +106,7 @@ class MigrateHelper
                         // get options
                         $this->getOptions($line, $options);
                         $tables[$tableName]['options'] = $options;
-                    } elseif ('ENGINE ' === \mb_strtoupper(\substr($line, 0, 7))) {
+                    } elseif ('ENGINE' === \mb_strtoupper(\substr($line, 0, 6))) {
                         $this->getOptions($line, $options);
                         $tables[$tableName]['options'] = $options;
                     } elseif ('DEFAULT CHARSET ' === \mb_strtoupper(\substr($line, 0, 16))) {
