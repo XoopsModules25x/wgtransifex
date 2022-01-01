@@ -41,9 +41,9 @@ $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_projects.tpl';
 require_once \XOOPS_ROOT_PATH . '/header.php';
 
 $op = Request::getCmd('op', 'list');
-$start = Request::getInt('start', 0);
+$start = Request::getInt('start');
 $limit = Request::getInt('limit', $helper->getConfig('userpager'));
-$proId = Request::getInt('pro_id', 0);
+$proId = Request::getInt('pro_id');
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
@@ -94,7 +94,7 @@ switch ($op) {
             if ($projectsCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
             $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
             $GLOBALS['xoopsTpl']->assign('table_type', $helper->getConfig('table_type'));

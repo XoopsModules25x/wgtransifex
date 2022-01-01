@@ -175,9 +175,6 @@ switch ($op) {
             if (\is_dir($dirStart)) {
                 $transifex = Transifex::getInstance();
                 $result = $transifex->uploadResources($proId, $dirStart, true, $uploadTest);
-
-                $GLOBALS['xoTheme']->addStylesheet($style, null);
-                $templateMain = 'wgtransifex_admin_resources.tpl';
                 $GLOBALS['xoopsTpl']->assign('uploadTxShow', true);
                 $GLOBALS['xoopsTpl']->assign('uploadTxErrors', $result['errors']);
                 $GLOBALS['xoopsTpl']->assign('uploadTxSuccess', $result['success']);
@@ -202,16 +199,16 @@ switch ($op) {
         if ($proId > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCES_LIST, 'resources.php?op=list', 'list');
         }
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES, 'resources.php?op=readtx', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES, 'resources.php?op=readtx');
         //$adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_RESOURCES_ALL, 'resources.php?op=savetxall', 'add');
         if ($displayTxAdmin) {
-            $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCE_ADD, 'resources.php?op=new', 'add');
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_RESOURCE_ADD, 'resources.php?op=new');
         }
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
         $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
-        $start_pro = Request::getInt('start_pro', 0);
-        $start_res = Request::getInt('start_res', 0);
+        $start_pro = Request::getInt('start_pro');
+        $start_res = Request::getInt('start_res');
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         if (0 == $proId) {
             $crProjects = new \CriteriaCompo();
@@ -231,7 +228,7 @@ switch ($op) {
                 if ($projectsCount > $limit) {
                     require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($projectsCount, $limit, $start_pro, 'start_pro', 'op=list&limit=' . $limit);
-                    $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                    $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
                 }
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_RESOURCES);
@@ -257,7 +254,7 @@ switch ($op) {
                 if ($resourcesCount > $limit) {
                     require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $pagenav = new \XoopsPageNav($resourcesCount, $limit, $start_res, 'start_res', 'op=list&limit=' . $limit . '&res_pro_id=' . $proId);
-                    $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                    $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
                 }
             } else {
                 $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_RESOURCES);
@@ -337,17 +334,17 @@ switch ($op) {
             $resourcesObj = $resourcesHandler->create();
         }
         // Set Vars
-        $resourcesObj->setVar('res_source_language_code', Request::getString('res_source_language_code', ''));
-        $resourcesObj->setVar('res_name', Request::getString('res_name', ''));
-        $resourcesObj->setVar('res_i18n_type', Request::getString('res_i18n_type', ''));
-        $resourcesObj->setVar('res_priority', Request::getString('res_priority', ''));
-        $resourcesObj->setVar('res_slug', Request::getString('res_slug', ''));
-        $resourcesObj->setVar('res_categories', Request::getString('res_categories', ''));
-        $resourcesObj->setVar('res_metadata', Request::getString('res_metadata', ''));
+        $resourcesObj->setVar('res_source_language_code', Request::getString('res_source_language_code'));
+        $resourcesObj->setVar('res_name', Request::getString('res_name'));
+        $resourcesObj->setVar('res_i18n_type', Request::getString('res_i18n_type'));
+        $resourcesObj->setVar('res_priority', Request::getString('res_priority'));
+        $resourcesObj->setVar('res_slug', Request::getString('res_slug'));
+        $resourcesObj->setVar('res_categories', Request::getString('res_categories'));
+        $resourcesObj->setVar('res_metadata', Request::getString('res_metadata'));
         $resourcesObj->setVar('res_date', \DateTime::createFromFormat(_SHORTDATESTRING, Request::getString('res_date')));
-        $resourcesObj->setVar('res_submitter', Request::getInt('res_submitter', 0));
-        $resourcesObj->setVar('res_status', Request::getInt('res_status', 0));
-        $resProId = Request::getInt('res_pro_id', 0);
+        $resourcesObj->setVar('res_submitter', Request::getInt('res_submitter'));
+        $resourcesObj->setVar('res_status', Request::getInt('res_status'));
+        $resProId = Request::getInt('res_pro_id');
         $resourcesObj->setVar('res_pro_id', $resProId);
         // Insert Data
         if ($resourcesHandler->insert($resourcesObj)) {

@@ -5,7 +5,7 @@
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](LICENSE)
 
 
-These images are 1280×640px for GitHub settings
+These images are 1280x640px for GitHub settings
 
 Please visit us on **https://xoops.org**
 

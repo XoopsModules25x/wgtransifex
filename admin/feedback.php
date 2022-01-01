@@ -51,11 +51,11 @@ switch ($op) {
             \redirect_header('index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('feedback.php'));
-        $your_name = Request::getString('your_name', '');
-        $your_site = Request::getString('your_site', '');
-        $your_mail = Request::getString('your_mail', '');
-        $fb_type = Request::getString('fb_type', '');
-        $fb_content = Request::getText('fb_content', '');
+        $your_name = Request::getString('your_name');
+        $your_site = Request::getString('your_site');
+        $your_mail = Request::getString('your_mail');
+        $fb_type = Request::getString('fb_type');
+        $fb_content = Request::getText('fb_content');
         $fb_content = \str_replace(["\r\n", "\n", "\r"], '<br>', $fb_content); //clean line break from dhtmltextarea
         $title = \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_SEND_FOR') . $GLOBALS['xoopsModule']->getVar('dirname');
         $body = \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_NAME') . ': ' . $your_name . '<br>';
@@ -70,7 +70,7 @@ switch ($op) {
         $xoopsMailer->setFromEmail($your_mail);
         $xoopsMailer->setFromName($your_name);
         $xoopsMailer->setSubject($title);
-        $xoopsMailer->multimailer->isHTML(true);
+        $xoopsMailer->multimailer->isHTML();
         $xoopsMailer->setBody($body);
         $ret = $xoopsMailer->send();
         if ($ret) {

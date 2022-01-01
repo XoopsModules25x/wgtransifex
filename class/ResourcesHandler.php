@@ -56,7 +56,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      *
      * @param null|int       $i field id
      * @param null|mixed $fields
-     * @return mixed reference to the {@link Get} object
+     * @return \XoopsObject|null reference to the {@link Get} object
      */
     public function get($i = null, $fields = null)
     {
@@ -113,7 +113,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      * @param int            $limit
      * @param string         $sort
      * @param string         $order
-     * @return \CriteriaCompo|int
+     * @return \CriteriaCompo
      */
     private function getResourcesCriteria($crResources, $start, $limit, $sort, $order)
     {
@@ -129,7 +129,7 @@ class ResourcesHandler extends \XoopsPersistableObjectHandler
      * Clone resources from one project to another one
      * @param int    $proIdOld
      * @param int    $proIdNew
-     * @return bool
+     * @return int
      */
     public function cloneByProject($proIdOld, $proIdNew)
     {

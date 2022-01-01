@@ -90,7 +90,7 @@ class Packages extends \XoopsObject
         }
         $isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
         // Title
-        $title = $this->isNew() ? \sprintf(\_AM_WGTRANSIFEX_PACKAGE_ADD) : \sprintf(\_AM_WGTRANSIFEX_PACKAGE_EDIT);
+        $title = $this->isNew() ? \_AM_WGTRANSIFEX_PACKAGE_ADD : \_AM_WGTRANSIFEX_PACKAGE_EDIT;
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);

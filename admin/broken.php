@@ -40,7 +40,7 @@ $GLOBALS['xoTheme']->addStylesheet($style, null);
 $templateMain = 'wgtransifex_admin_broken.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('broken.php'));
 // Check table packages
-$start = Request::getInt('startPackages', 0);
+$start = Request::getInt('startPackages');
 $limit = Request::getInt('limitPackages', $helper->getConfig('adminpager'));
 $crPackages = new \CriteriaCompo();
 $crPackages->add(new \Criteria('pkg_status', Constants::STATUS_BROKEN));
@@ -63,7 +63,7 @@ if ($packagesCount > 0) {
     if ($packagesCount > $limit) {
         require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
         $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'startPackages', 'op=list&limitPackages=' . $limit);
-        $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+        $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
     }
 } else {
     $GLOBALS['xoopsTpl']->assign('nodataPackages', \sprintf(\_AM_WGTRANSIFEX_BROKEN_NODATA, 'Packages'));

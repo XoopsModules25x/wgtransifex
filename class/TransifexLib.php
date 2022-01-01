@@ -362,7 +362,6 @@ class TransifexLib
                 case 403:
                     if ($skipMissing) {
                         return false;
-                        break;
                     }
                     throw new \RuntimeException('"' . \_AM_WGTRANSIFEX_READTX_ERROR_API_403 . '"');
                     break;

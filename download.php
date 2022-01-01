@@ -57,7 +57,7 @@ switch ($op) {
             \fpassthru($fp);
         } else {
             $file = \str_replace(\XOOPS_ROOT_PATH, \XOOPS_URL, $file);
-            \redirect_header($file, 0, '');
+            \redirect_header($file, 0);
         }
         break;
 }

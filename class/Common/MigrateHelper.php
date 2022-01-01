@@ -231,10 +231,10 @@ class MigrateHelper
      * Extract options of table from given line
      *
      * @param string $line
-     * @param string $line
-     * @return string
+     * @param string $options
+     * @return void
      */
-    private function getOptions (string $line, string &$options): string
+    private function getOptions (string $line, string &$options): void
     {
 
         $lineText = \trim(\str_replace([')', ';'], '', $line));
@@ -245,15 +245,13 @@ class MigrateHelper
         }
         $options = "'" . $options . $lineText . "'";
 
-        return true;
-
     }
 
     /**
      * Extract keys of table from given line
      *
      * @param string $line
-     * @return array|bool
+     * @return array
      */
     private function getKey (string $line)
     {

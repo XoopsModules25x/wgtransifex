@@ -88,7 +88,7 @@ class Resources extends \XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         // Title
-        $title = $this->isNew() ? \sprintf(\_AM_WGTRANSIFEX_RESOURCE_ADD) : \sprintf(\_AM_WGTRANSIFEX_RESOURCE_EDIT);
+        $title = $this->isNew() ? \_AM_WGTRANSIFEX_RESOURCE_ADD : \_AM_WGTRANSIFEX_RESOURCE_EDIT;
         // Get Theme Form
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);

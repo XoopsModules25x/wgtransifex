@@ -41,10 +41,10 @@ $GLOBALS['xoopsOption']['template_main'] = 'wgtransifex_packages.tpl';
 require_once \XOOPS_ROOT_PATH . '/header.php';
 
 $op = Request::getCmd('op', 'list');
-$start = Request::getInt('start', 0);
+$start = Request::getInt('start');
 $limit = Request::getInt('limit', $helper->getConfig('userpager'));
-$pkgId = Request::getInt('pkg_id', 0);
-$langId = Request::getInt('lang_id', 0);
+$pkgId = Request::getInt('pkg_id');
+$langId = Request::getInt('lang_id');
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet($style, null);
@@ -105,7 +105,7 @@ switch ($op) {
             if ($packagesCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
             $GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
             $GLOBALS['xoopsTpl']->assign('table_type', $helper->getConfig('table_type'));

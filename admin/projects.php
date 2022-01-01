@@ -47,7 +47,7 @@ switch ($op) {
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
-        $start  = Request::getInt('start', 0);
+        $start  = Request::getInt('start');
         $limit  = Request::getInt('limit', $helper->getConfig('adminpager'));
         $sortby = Request::getString('sortby', 'pro_id');
         $order  = Request::getString('order', 'DESC');
@@ -55,10 +55,10 @@ switch ($op) {
         $templateMain = 'wgtransifex_admin_projects.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('projects.php'));
         if ($displayTxAdmin) {
-            $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PROJECT, 'projects.php?op=new', 'add');
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PROJECT, 'projects.php?op=new');
             $GLOBALS['xoopsTpl']->assign('typeModule', Constants::PROTYPE_MODULE);
         }
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_PROJECTS, 'projects.php?op=savetx', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_PROJECTS, 'projects.php?op=savetx');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $GLOBALS['xoopsTpl']->assign('displayTxAdmin', $displayTxAdmin);
         $crProjects = new \CriteriaCompo();
@@ -82,7 +82,7 @@ switch ($op) {
             if ($projectsCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
             $op_params = '&amp;start=' . $start . '&amp;limit=' . $limit;
             $GLOBALS['xoopsTpl']->assign('op_params', $op_params);
@@ -135,7 +135,7 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             \redirect_header('projects.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        $start = Request::getInt('start', 0);
+        $start = Request::getInt('start');
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         if ($proId > 0) {
             $projectsObj = $projectsHandler->get($proId);
@@ -143,19 +143,19 @@ switch ($op) {
             $projectsObj = $projectsHandler->create();
         }
         // Set Vars
-        $projectsObj->setVar('pro_description', Request::getString('pro_description', ''));
-        $projectsObj->setVar('pro_source_language_code', Request::getString('pro_source_language_code', ''));
-        $projectsObj->setVar('pro_slug', Request::getString('pro_slug', ''));
-        $projectsObj->setVar('pro_name', Request::getString('pro_name', ''));
-        $projectsObj->setVar('pro_txresources', Request::getInt('pro_txresources', 0));
+        $projectsObj->setVar('pro_description', Request::getString('pro_description'));
+        $projectsObj->setVar('pro_source_language_code', Request::getString('pro_source_language_code'));
+        $projectsObj->setVar('pro_slug', Request::getString('pro_slug'));
+        $projectsObj->setVar('pro_name', Request::getString('pro_name'));
+        $projectsObj->setVar('pro_txresources', Request::getInt('pro_txresources'));
         $projectLastupdatedArr = Request::getArray('pro_last_updated');
         $projectLastupdatedObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectLastupdatedArr['date']);
-        $projectLastupdatedObj->setTime(0, 0, 0);
+        $projectLastupdatedObj->setTime(0, 0);
         $projectLastupdated = $projectLastupdatedObj->getTimestamp() + (int)$projectLastupdatedArr['time'];
         $projectsObj->setVar('pro_last_updated', $projectLastupdated);
-        $projectsObj->setVar('pro_teams', Request::getString('pro_teams', ''));
-        $projectsObj->setVar('pro_archived', Request::getInt('pro_archived', 0));
-        $projectsObj->setVar('pro_type', Request::getInt('pro_type', 0));
+        $projectsObj->setVar('pro_teams', Request::getString('pro_teams'));
+        $projectsObj->setVar('pro_archived', Request::getInt('pro_archived'));
+        $projectsObj->setVar('pro_type', Request::getInt('pro_type'));
 
         // Set Var pro_logo
         require_once \XOOPS_ROOT_PATH . '/class/uploader.php';
@@ -201,14 +201,14 @@ switch ($op) {
         }
         $projectDateArr = Request::getArray('pro_date');
         $projectDateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $projectDateArr['date']);
-        $projectDateObj->setTime(0, 0, 0);
+        $projectDateObj->setTime(0, 0);
         $projectDate = $projectDateObj->getTimestamp() + (int)$projectDateArr['time'];
         $projectsObj->setVar('pro_date', $projectDate);
-        $projectsObj->setVar('pro_submitter', Request::getInt('pro_submitter', 0));
+        $projectsObj->setVar('pro_submitter', Request::getInt('pro_submitter'));
         if (Request::getInt('clonePro') > 0) {
             $projectsObj->setVar('pro_status', Constants::STATUS_SUBMITTED);
         } else {
-            $projectsObj->setVar('pro_status', Request::getInt('pro_status', 0));
+            $projectsObj->setVar('pro_status', Request::getInt('pro_status'));
         }
         // Insert Data
         if ($projectsHandler->insert($projectsObj)) {
@@ -259,7 +259,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form
         $projectsObj = $projectsHandler->get($proId);
-        $projectsObj->start = Request::getInt('start', 0);
+        $projectsObj->start = Request::getInt('start');
         $projectsObj->limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         $form = $projectsObj->getFormProjects();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());

@@ -38,7 +38,7 @@ require __DIR__ . '/header.php';
 
 $op     = Request::getCmd('op', 'list');
 $langId = Request::getInt('lang_id');
-$start  = Request::getInt('start', 0);
+$start  = Request::getInt('start');
 $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
 
 switch ($op) {
@@ -50,7 +50,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('limit', $limit);
         $templateMain = 'wgtransifex_admin_languages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('languages.php'));
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_LANGUAGE, 'languages.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_LANGUAGE, 'languages.php?op=new');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         /** @var LanguagesHandler $languagesHandler */
         $languagesCount = $languagesHandler->getCountLanguages();
@@ -70,7 +70,7 @@ switch ($op) {
             if ($languagesCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($languagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
         } else {
             $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_LANGUAGES);
@@ -97,19 +97,19 @@ switch ($op) {
             $languagesObj = $languagesHandler->create();
         }
         // Set Vars
-        $languagesObj->setVar('lang_name', Request::getString('lang_name', ''));
-        $languagesObj->setVar('lang_code', Request::getString('lang_code', ''));
-        $languagesObj->setVar('lang_folder', \mb_strtolower(Request::getString('lang_folder', '')));
-        $languagesObj->setVar('lang_iso_639_1', Request::getString('lang_iso_639_1', ''));
-        $languagesObj->setVar('lang_iso_639_2', Request::getString('lang_iso_639_2', ''));
-        $langPrimary = Request::getInt('lang_primary', 0);
+        $languagesObj->setVar('lang_name', Request::getString('lang_name'));
+        $languagesObj->setVar('lang_code', Request::getString('lang_code'));
+        $languagesObj->setVar('lang_folder', \mb_strtolower(Request::getString('lang_folder')));
+        $languagesObj->setVar('lang_iso_639_1', Request::getString('lang_iso_639_1'));
+        $languagesObj->setVar('lang_iso_639_2', Request::getString('lang_iso_639_2'));
+        $langPrimary = Request::getInt('lang_primary');
         if ($langPrimary > 0) {
             $languagesHandler->resetPrimary();
             $languagesObj->setVar('lang_primary', 1);
         } else {
             $languagesObj->setVar('lang_primary', 0);
         }
-        $languagesObj->setVar('lang_online', Request::getInt('lang_online', 0));
+        $languagesObj->setVar('lang_online', Request::getInt('lang_online'));
         // Set Var lang_flag
         require_once \XOOPS_ROOT_PATH . '/class/uploader.php';
         $uploader = new \XoopsMediaUploader(
@@ -129,7 +129,7 @@ switch ($op) {
         }
         $languageDate = \date_create_from_format(\_SHORTDATESTRING, Request::getString('lang_date'));
         $languagesObj->setVar('lang_date', $languageDate->getTimestamp());
-        $languagesObj->setVar('lang_submitter', Request::getInt('lang_submitter', 0));
+        $languagesObj->setVar('lang_submitter', Request::getInt('lang_submitter'));
         // Insert Data
         if ($languagesHandler->insert($languagesObj)) {
             \redirect_header('languages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
@@ -179,7 +179,7 @@ switch ($op) {
             \redirect_header('languages.php', 3, \_AM_WGTRANSIFEX_INVALID_PARAM);
         }
         // Set Vars
-        $languagesObj->setVar('lang_online', Request::getInt('lang_online', 0));
+        $languagesObj->setVar('lang_online', Request::getInt('lang_online'));
         // Insert Data
         if ($languagesHandler->insert($languagesObj)) {
             \redirect_header('languages.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
@@ -187,7 +187,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('error', $languagesObj->getHtmlErrors());
         break;
     case 'setonlineall':
-        $langOnline   = Request::getInt('lang_online', 0);
+        $langOnline   = Request::getInt('lang_online');
         $languagesAll = $languagesHandler->getAllLanguages($start, $limit);
         foreach (\array_keys($languagesAll) as $i) {
             $languagesObj = $languagesHandler->get($languagesAll[$i]->getVar('lang_id'));

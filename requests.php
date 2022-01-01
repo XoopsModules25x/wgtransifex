@@ -92,8 +92,8 @@ switch ($op) {
         $uid = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
         $requestsObj = $requestsHandler->create();
 
-        $requestsObj->setVar('req_pro_id', Request::getInt('req_pro_id', 0));
-        $requestsObj->setVar('req_lang_id', Request::getInt('req_lang_id', 0));
+        $requestsObj->setVar('req_pro_id', Request::getInt('req_pro_id'));
+        $requestsObj->setVar('req_lang_id', Request::getInt('req_lang_id'));
         $requestsObj->setVar('req_info', Request::getString('req_info'));
         $requestsObj->setVar('req_date', \time());
         $requestsObj->setVar('req_submitter', $uid);

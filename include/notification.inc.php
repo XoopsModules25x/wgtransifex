@@ -45,7 +45,6 @@ function wgtransifex_notify_iteminfo($category, $item_id)
             $item['url'] = '';
 
             return $item;
-            break;
         case 'packages':
             $sql = 'SELECT pkg_name FROM ' . $xoopsDB->prefix('wgtransifex_packages') . ' WHERE pkg_id = ' . $item_id;
             $result = $xoopsDB->query($sql);
@@ -54,7 +53,6 @@ function wgtransifex_notify_iteminfo($category, $item_id)
             $item['url'] = \WGTRANSIFEX_URL . '/packages.php?pkg_id=' . $item_id;
 
             return $item;
-            break;
         case 'requests':
             $sql = 'SELECT req_project FROM ' . $xoopsDB->prefix('wgtransifex_requests') . ' WHERE req_id = ' . $item_id;
             $result = $xoopsDB->query($sql);
@@ -63,7 +61,6 @@ function wgtransifex_notify_iteminfo($category, $item_id)
             $item['url'] = \WGTRANSIFEX_URL . '/requests.php?pkg_id=' . $item_id;
 
             return $item;
-            break;
     }
 
     return null;
