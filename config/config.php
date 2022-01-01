@@ -52,6 +52,7 @@ return (object)[
     'oldFiles' => [],
     'oldFolders' => [],
     'renameTables' => [],
+    'renameColumns' => [],
     'moduleStats' => [],
     'modCopyright' => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'><img src='" . \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . "/assets/images/logo/logoModule.png' alt='XOOPS Project'></a>",
 ];

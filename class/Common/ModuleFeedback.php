@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace XoopsModules\Wgtransifex\Common;
 
 /*
@@ -13,15 +11,17 @@ namespace XoopsModules\Wgtransifex\Common;
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Feedback plugin for xoops modules
  *
  * @copyright      XOOPS Project  (https://xoops.org)
- * @license        GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license        GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author         Michael Beck <mambax7@gmailc.com>
  * @author         Wedega - Email:<webmaster@wedega.com>
  * @author         Fernando Santos (topet05) <fernando@mastop.com.br>
  */
+\defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Object ModuleFeedback
@@ -69,6 +69,7 @@ class ModuleFeedback extends \XoopsObject
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_FORM_TITLE'), 'formfeedback', 'feedback.php', 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
+
         $recipient = new \XoopsFormText(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_RECIPIENT'), 'recipient', 50, 255, $GLOBALS['xoopsModule']->getInfo('author_mail'));
         $recipient->setExtra('disabled="disabled"');
         $form->addElement($recipient);
@@ -81,14 +82,16 @@ class ModuleFeedback extends \XoopsObject
         $your_mail = new \XoopsFormText(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_MAIL'), 'your_mail', 50, 255, $this->email);
         $your_mail->setExtra('placeholder="' . \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_MAIL_PLACEHOLER') . '"');
         $form->addElement($your_mail);
+
         $fbtypeSelect = new \XoopsFormSelect(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE'), 'fb_type', $this->type);
-        $fbtypeSelect->addOption('', '');
+        $fbtypeSelect->addOption('');
         $fbtypeSelect->addOption(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_SUGGESTION'), \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_SUGGESTION'));
         $fbtypeSelect->addOption(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_BUGS'), \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_BUGS'));
         $fbtypeSelect->addOption(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_TESTIMONIAL'), \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_TESTIMONIAL'));
         $fbtypeSelect->addOption(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_FEATURES'), \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_FEATURES'));
         $fbtypeSelect->addOption(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_OTHERS'), \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_OTHERS'));
         $form->addElement($fbtypeSelect, true);
+
         $editorConfigs           = [];
         $editorConfigs['name']   = 'fb_content';
         $editorConfigs['value']  = $this->content;
@@ -96,15 +99,14 @@ class ModuleFeedback extends \XoopsObject
         $editorConfigs['cols']   = 40;
         $editorConfigs['width']  = '100%';
         $editorConfigs['height'] = '400px';
-        /** @var \XoopsModuleHandler $moduleHandler */
-        $moduleHandler = \xoops_getHandler('module');
-        $module        = $moduleHandler->getByDirname('system');
-        /** @var \XoopsConfigHandler $configHandler */
+        $moduleHandler           = \xoops_getHandler('module');
+        $module                  = $moduleHandler->getByDirname('system');
         $configHandler           = \xoops_getHandler('config');
         $config                  = &$configHandler->getConfigsByCat(0, $module->getVar('mid'));
         $editorConfigs['editor'] = $config['general_editor'];
         $editor                  = new \XoopsFormEditor(\constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_CONTENT'), 'fb_content', $editorConfigs);
         $form->addElement($editor, true);
+
         $form->addElement(new \XoopsFormHidden('op', 'send'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
 

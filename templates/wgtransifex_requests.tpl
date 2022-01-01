@@ -1,10 +1,10 @@
 <{include file='db:wgtransifex_header.tpl' }>
 
 <{if $form|default:''}>
-	<{$form}>
+    <{$form}>
 <{/if}>
 <{if $error|default:''}>
-	<{$error}>
+    <{$error}>
 <{/if}>
 
 <{include file='db:wgtransifex_footer.tpl' }>

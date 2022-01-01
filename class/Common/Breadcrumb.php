@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace XoopsModules\Wgtransifex\Common;
 
 /*
@@ -17,7 +15,7 @@ namespace XoopsModules\Wgtransifex\Common;
 /**
  * Breadcrumb Class
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (https://xoops.org)
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author      lucio <lucio.rota@gmail.com>
  * @package     Wgtransifex
@@ -30,13 +28,18 @@ namespace XoopsModules\Wgtransifex\Common;
  * echo $breadcrumb->render();
  */
 
+use XoopsModules\Wgtransifex;
+use XoopsModules\Wgtransifex\Common;
+
+\defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
+
 /**
  * Class Breadcrumb
  */
 class Breadcrumb
 {
-    public $dirname;
-    private $bread = [];
+    public string $dirname;
+    private array $bread = [];
 
     public function __construct()
     {
@@ -52,7 +55,7 @@ class Breadcrumb
     public function addLink($title = '', $link = '')
     {
         $this->bread[] = [
-            'link' => $link,
+            'link'  => $link,
             'title' => $title,
         ];
     }
@@ -66,6 +69,7 @@ class Breadcrumb
             require $GLOBALS['xoops']->path('class/theme.php');
             $GLOBALS['xoTheme'] = new \xos_opal_Theme();
         }
+
         require $GLOBALS['xoops']->path('class/template.php');
         $breadcrumbTpl = new \XoopsTpl();
         $breadcrumbTpl->assign('breadcrumb', $this->bread);

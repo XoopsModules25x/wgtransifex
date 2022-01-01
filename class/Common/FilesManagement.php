@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace XoopsModules\Wgtransifex\Common;
 
 /*
@@ -22,22 +20,24 @@ namespace XoopsModules\Wgtransifex\Common;
 trait FilesManagement
 {
     /**
-     * Function responsible for checking if a directory exists, we can also write in and create an index.html file
+     * Function responsible for checking if a directory exists, we can also write in and create an index.php file
      *
      * @param string $folder The full path of the directory to check
      *
+     * @return void
      * @throws \RuntimeException
      */
     public static function createFolder($folder)
     {
         try {
-            if (!\is_dir($folder)) {
+            if (!\file_exists($folder)) {
                 if (!\is_dir($folder) && !\mkdir($folder) && !\is_dir($folder)) {
                     throw new \RuntimeException(\sprintf('Unable to create the %s directory', $folder));
                 }
-                file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
+
+                \file_put_contents($folder . '/index.php', "<?php\nheader('HTTP/1.0 404 Not Found');");
             }
-        } catch (\Throwable $e) {
+        } catch (\Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), '<br>';
         }
     }
@@ -90,16 +90,19 @@ trait FilesManagement
         if (\is_link($source)) {
             return \symlink(\readlink($source), $dest);
         }
+
         // Simple copy for a file
         if (\is_file($source)) {
             return \copy($source, $dest);
         }
+
         // Make destination directory
         if (!\is_dir($dest)) {
             if (!\mkdir($dest) && !\is_dir($dest)) {
                 throw new \RuntimeException(\sprintf('Directory "%s" was not created', $dest));
             }
         }
+
         // Loop through the folder
         $dir = \dir($source);
         if (@\is_dir($dir)) {
@@ -134,6 +137,7 @@ trait FilesManagement
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
+
         $success = true;
         // remove old files
         $dirInfo = new \SplFileInfo($src);
@@ -147,9 +151,12 @@ trait FilesManagement
                     if (!$success = self::deleteDirectory($fileInfo->getRealPath())) {
                         break;
                     }
-                } elseif (!($success = \unlink($fileInfo->getRealPath()))) {
+                } else {
+                    // delete the file
+                    if (!($success = \unlink($fileInfo->getRealPath()))) {
                         break;
                     }
+                }
             }
             // now delete this (sub)directory if all the files are gone
             if ($success) {
@@ -178,17 +185,20 @@ trait FilesManagement
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
+
         // If source is not a directory stop processing
         if (!\is_dir($src)) {
             return false;
         }
+
         $success = true;
+
         // Open the source directory to read in files
         $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
                 $filename = $fObj->getPathname();
-                $fObj = null; // clear this iterator object to close the file
+                $fObj     = null; // clear this iterator object to close the file
                 if (!\unlink($filename)) {
                     return false; // couldn't delete the file
                 }
@@ -215,14 +225,17 @@ trait FilesManagement
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
+
         // If source is not a directory stop processing
         if (!\is_dir($src)) {
             return false;
         }
+
         // If the destination directory does not exist and could not be created stop processing
         if (!\is_dir($dest) && !\mkdir($dest) && !\is_dir($dest)) {
             return false;
         }
+
         // Open the source directory to read in files
         $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
@@ -255,14 +268,17 @@ trait FilesManagement
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
             return false;
         }
+
         // If source is not a directory stop processing
         if (!\is_dir($src)) {
             return false;
         }
+
         // If the destination directory does not exist and could not be created stop processing
         if (!\is_dir($dest) && !\mkdir($dest) && !\is_dir($dest)) {
             return false;
         }
+
         // Open the source directory to read in files
         $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
