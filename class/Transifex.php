@@ -59,7 +59,7 @@ class Transifex
      *
      * @param $proId
      * @param bool $user
-     * @return bool|string
+     * @return string
      */
     public function readProjects($proId = 0, $user = false)
     {
@@ -168,7 +168,7 @@ class Transifex
      *
      * @param $resId
      * @param $proId
-     * @return bool|string
+     * @return string
      */
     public function readResources($resId, $proId)
     {
@@ -257,9 +257,7 @@ class Transifex
         $transifexLib = new \XoopsModules\Wgtransifex\TransifexLib();
         $transifexLib->user = $setting['user'];
         $transifexLib->password = $setting['pwd'];
-        $langs = $transifexLib->getLanguages($proSlug);
-
-        return $langs;
+        return $transifexLib->getLanguages($proSlug);
     }
 
     /**
@@ -271,7 +269,7 @@ class Transifex
      * @param bool $reviewedOnly
      * @param bool $skipMissing
      * @param int  $resId
-     * @return bool|string
+     * @return string
      */
     public function readTranslations($traId, $proId, $langId, $reviewedOnly = false, $skipMissing = false, $resId = 0)
     {
@@ -307,7 +305,7 @@ class Transifex
                 $resource = $resourcesAll[$i]->getVar('res_slug');
                 $resName = $resourcesAll[$i]->getVar('res_name');
                 $resSourceLang = $resourcesAll[$i]->getVar('res_source_language_code');
-                $item = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang, $reviewedOnly, $skipMissing);
+                $item = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang, $reviewedOnly);
                 $translationsObj = null;
                 $crTranslations = new \CriteriaCompo();
                 $crTranslations->add(new \Criteria('tra_res_id', $resId));
@@ -374,7 +372,7 @@ class Transifex
     /**
      * Check all existing translation whether there is a new translation on transifex
      *
-     * @return bool|string
+     * @return string
      */
     public function checkTranslations()
     {
@@ -549,9 +547,7 @@ class Transifex
             }
         }
 
-        $ret = ['success' => $count_ok, 'errors' => $count_err, 'skipped' => $count_skip, 'infos' => $infos];
-
-        return $ret;
+        return ['success' => $count_ok, 'errors' => $count_err, 'skipped' => $count_skip, 'infos' => $infos];
     }
 
     /**
@@ -583,7 +579,7 @@ class Transifex
      * @param $toConvert
      * @param $langFolder
      * @param $langShort
-     * @return bool|string
+     * @return array|string|string[]
      */
     private function getLocal($toConvert, $langFolder, $langShort)
     {

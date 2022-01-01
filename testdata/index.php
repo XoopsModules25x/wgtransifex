@@ -27,7 +27,7 @@ use XoopsModules\Wgtransifex\{
 
 require \dirname(__DIR__, 3) . '/include/cp_header.php';
 require \dirname(__DIR__) . '/preloads/autoloader.php';
-$op = Request::getCmd('op', '');
+$op = Request::getCmd('op');
 $moduleDirName = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 $helper = Helper::getInstance();
@@ -42,7 +42,7 @@ switch ($op) {
             wgLoadSampleData();
         } else {
             xoops_cp_header();
-            xoops_confirm(['ok' => 1, 'op' => 'load'], 'index.php', \sprintf(\constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA_OK')), \constant('CO_' . $moduleDirNameUpper . '_' . 'CONFIRM'), true);
+            xoops_confirm(['ok' => 1, 'op' => 'load'], 'index.php', \constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA_OK'), \constant('CO_' . $moduleDirNameUpper . '_' . 'CONFIRM'));
             xoops_cp_footer();
         }
         break;

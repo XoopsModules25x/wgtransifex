@@ -32,7 +32,7 @@ use XoopsModules\Wgtransifex\Helper;
  * @param $limit
  * @param $offset
  * @param $userid
- * @return mixed
+ * @return array
  */
 function wgtransifex_search($queryarray, $andor, $limit, $offset, $userid)
 {
@@ -64,10 +64,10 @@ function wgtransifex_search($queryarray, $andor, $limit, $offset, $userid)
     }
     $crSearch = new \CriteriaCompo();
     if (isset($crKeywords)) {
-        $crSearch->add($crKeywords, 'AND');
+        $crSearch->add($crKeywords);
     }
     if (isset($crUser)) {
-        $crSearch->add($crUser, 'AND');
+        $crSearch->add($crUser);
     }
     $crSearch->setStart($offset);
     $crSearch->setLimit($limit);

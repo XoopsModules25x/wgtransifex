@@ -35,7 +35,6 @@ use XoopsModules\Wgtransifex\{
 function xoops_module_pre_install_wgtransifex(\XoopsModule $module)
 {
     require \dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Utility $utility */
     $utility = new Utility();
     //check for minimum XOOPS version
     $xoopsSuccess = $utility::checkVerXoops($module);
@@ -53,7 +52,7 @@ function xoops_module_pre_install_wgtransifex(\XoopsModule $module)
 
 /**
  * @param XoopsModule $module
- * @return bool|string
+ * @return bool
  */
 function xoops_module_install_wgtransifex(\XoopsModule $module)
 {

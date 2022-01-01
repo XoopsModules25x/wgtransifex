@@ -55,7 +55,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
      *
      * @param null|int       $i field id
      * @param null|mixed $fields
-     * @return mixed reference to the {@link Get} object
+     * @return \XoopsObject|null reference to the {@link Get} object
      */
     public function get($i = null, $fields = null)
     {
@@ -112,7 +112,7 @@ class RequestsHandler extends \XoopsPersistableObjectHandler
      * @param int            $limit
      * @param string         $sort
      * @param string         $order
-     * @return \CriteriaCompo|int
+     * @return \CriteriaCompo
      */
     private function getRequestsCriteria($crRequests, $start, $limit, $sort, $order)
     {

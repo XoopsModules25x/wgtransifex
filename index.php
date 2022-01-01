@@ -44,14 +44,14 @@ $GLOBALS['xoopsTpl']->assign('wgtransifex_url', \WGTRANSIFEX_URL);
 $GLOBALS['xoopsTpl']->assign('modPathIconFlags', \WGTRANSIFEX_IMAGE_URL . '/flags/');
 
 $indexDisplay = $helper->getConfig('index_display');
-$start = Request::getInt('start', 0);
+$start = Request::getInt('start');
 $limit = Request::getInt('limit', $helper->getConfig('userpager'));
 
 //handle filter
 if (Request::hasVar('cancel', '')) {
     $pkgFilterText = '';
 } else {
-    $pkgFilterText = Request::getString('pkgFilterText', '');
+    $pkgFilterText = Request::getString('pkgFilterText');
 }
 $form = $packagesHandler->getFormFilterPackages(false, $pkgFilterText);
 $GLOBALS['xoopsTpl']->assign('formFilter', $form->render());
@@ -100,7 +100,7 @@ switch ($indexDisplay) {
             if ($packagesCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
             $GLOBALS['xoopsTpl']->assign('lang_thereare', \sprintf(\_MA_WGTRANSIFEX_INDEX_THEREARE, $packagesCount));
         }
@@ -138,7 +138,7 @@ switch ($indexDisplay) {
                 }
                 $packagesCount = $packagesHandler->getCount($crPackages);
                 $GLOBALS['xoopsTpl']->assign('packagesCount', $packagesCount);
-                $crPackages->setStart(0);
+                $crPackages->setStart();
                 $crPackages->setLimit(1);
                 $pkgName = '';
                 $pkgLogo = '';
@@ -215,7 +215,7 @@ switch ($indexDisplay) {
             if ($projectsCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($projectsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
             $GLOBALS['xoopsTpl']->assign('lang_thereare', \sprintf(\_MA_WGTRANSIFEX_INDEX_THEREARE, $packagesCount));
         }

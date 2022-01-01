@@ -53,13 +53,13 @@ switch ($op) {
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
-        $start  = Request::getInt('start', 0);
+        $start  = Request::getInt('start');
         $limit  = Request::getInt('limit', $helper->getConfig('adminpager'));
         $sortby = Request::getString('sortby', 'pkg_date');
         $order  = Request::getString('order', 'desc');
         $templateMain = 'wgtransifex_admin_packages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new');
         //$adminObject->addItemButton(\_AM_WGTRANSIFEX_PACKAGES_AUTOCREATE, 'packages.php?op=auto_create', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $crPackages = new \CriteriaCompo();
@@ -100,7 +100,7 @@ switch ($op) {
             if ($packagesCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($packagesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
         } else {
             $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_PACKAGES);
@@ -127,9 +127,9 @@ switch ($op) {
             \redirect_header('packages.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $pkgName = Request::getString('pkg_name');
-        $pkgProId = Request::getInt('pkg_pro_id', 0);
-        $pkgLangId = Request::getInt('pkg_lang_id', 0);
-        $pkgDownload = Request::getInt('pkg_download', 0);
+        $pkgProId = Request::getInt('pkg_pro_id');
+        $pkgLangId = Request::getInt('pkg_lang_id');
+        $pkgDownload = Request::getInt('pkg_download');
 
         $projectsHandler = $helper->getHandler('Projects');
         $resourcesHandler = $helper->getHandler('Resources');
@@ -216,7 +216,7 @@ switch ($op) {
 
         $zipcreate = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $pkgName . '_' . $langFolder . '.zip';
         \unlink($zipcreate);
-        if (1 == Request::getInt('pkg_zipfile', 0)) {
+        if (1 == Request::getInt('pkg_zipfile')) {
             $pkg_path = \WGTRANSIFEX_UPLOAD_TRANS_PATH . '/' . $pkgName . '/' . $langFolder;
             zipFiles($pkg_path, $zipcreate);
         }
@@ -229,12 +229,12 @@ switch ($op) {
         }
         // Set Vars
         $packagesObj->setVar('pkg_name', $pkgName);
-        $packagesObj->setVar('pkg_desc', Request::getText('pkg_desc', ''));
+        $packagesObj->setVar('pkg_desc', Request::getText('pkg_desc'));
         $packagesObj->setVar('pkg_pro_id', $pkgProId);
         $packagesObj->setVar('pkg_lang_id', $pkgLangId);
         $packagesObj->setVar('pkg_zip', $zipcreate);
         $packagesObj->setVar('pkg_date', \time());
-        $packagesObj->setVar('pkg_submitter', Request::getInt('pkg_submitter', 0));
+        $packagesObj->setVar('pkg_submitter', Request::getInt('pkg_submitter'));
         $packagesObj->setVar('pkg_status', Constants::STATUS_CREATED);
         $packagesObj->setVar('pkg_traperc', $traPercentage);
         // Set Var pkg_logo
@@ -419,7 +419,7 @@ switch ($op) {
                             unset($crPackages,$packagesAll);
                             if ($pkgId > 0) {
                                 $packagesObj = $packagesHandler->get($pkgId);
-                                $pkgDesc = Request::getText('pkg_desc', '');
+                                $pkgDesc = Request::getText('pkg_desc');
                             } else {
                                 $packagesObj = $packagesHandler->create();
                                 $pkgDesc = '';
@@ -443,15 +443,13 @@ switch ($op) {
                                 $crRequests->add(new \Criteria('req_pro_id', $pkgProId));
                                 $crRequests->add(new \Criteria('req_lang_id', $pkgLangId));
                                 $requestsCount = $requestsHandler->getCount($crRequests);
-                                if ($translationsCount > 0) {
-                                    $requestsAll = $requestsHandler->getAll($crRequests);
-                                    foreach (\array_keys($requestsAll) as $i) {
-                                        $requestsObj = $requestsHandler->get($requestsAll[$i]->getVar('req_id'));
-                                        $requestsObj->setVar('req_status', Constants::STATUS_CREATED);
-                                        $requestsObj->setVar('req_statusdate', \time());
-                                        $requestsObj->setVar('req_statusuid', $GLOBALS['xoopsUser']->getVar('uid'));
-                                        $requestsHandler->insert($requestsObj);
-                                    }
+                                $requestsAll = $requestsHandler->getAll($crRequests);
+                                foreach (\array_keys($requestsAll) as $i) {
+                                    $requestsObj = $requestsHandler->get($requestsAll[$i]->getVar('req_id'));
+                                    $requestsObj->setVar('req_status', Constants::STATUS_CREATED);
+                                    $requestsObj->setVar('req_statusdate', \time());
+                                    $requestsObj->setVar('req_statusuid', $GLOBALS['xoopsUser']->getVar('uid'));
+                                    $requestsHandler->insert($requestsObj);
                                 }
                                 if (0 == $pkgId) {
                                     // Handle notification
@@ -490,7 +488,7 @@ switch ($op) {
     case 'edit':
         $templateMain = 'wgtransifex_admin_packages.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('packages.php'));
-        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new', 'add');
+        $adminObject->addItemButton(\_AM_WGTRANSIFEX_ADD_PACKAGE, 'packages.php?op=new');
         $adminObject->addItemButton(\_AM_WGTRANSIFEX_PACKAGES_LIST, 'packages.php', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         // Get Form

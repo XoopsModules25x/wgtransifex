@@ -47,7 +47,7 @@ switch ($op) {
     default:
         // Define Stylesheet
         $GLOBALS['xoTheme']->addStylesheet($style, null);
-        $start = Request::getInt('start', 0);
+        $start = Request::getInt('start');
         $limit = Request::getInt('limit', $helper->getConfig('adminpager'));
         $templateMain = 'wgtransifex_admin_requests.tpl';
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('requests.php'));
@@ -67,7 +67,7 @@ switch ($op) {
             if ($requestsCount > $limit) {
                 require_once \XOOPS_ROOT_PATH . '/class/pagenav.php';
                 $pagenav = new \XoopsPageNav($requestsCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
+                $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav());
             }
         } else {
             $GLOBALS['xoopsTpl']->assign('error', \_AM_WGTRANSIFEX_THEREARENT_REQUESTS);
@@ -84,22 +84,22 @@ switch ($op) {
             $requestsObj = $requestsHandler->create();
         }
         // Set Vars
-        $requestsObj->setVar('req_pro_id', Request::getInt('req_pro_id', 0));
-        $requestsObj->setVar('req_lang_id', Request::getInt('req_lang_id', 0));
-        $requestsObj->setVar('req_info', Request::getString('req_info', ''));
-        $requestsObj->setVar('req_status', Request::getInt('req_status', 0));
+        $requestsObj->setVar('req_pro_id', Request::getInt('req_pro_id'));
+        $requestsObj->setVar('req_lang_id', Request::getInt('req_lang_id'));
+        $requestsObj->setVar('req_info', Request::getString('req_info'));
+        $requestsObj->setVar('req_status', Request::getInt('req_status'));
         $requestStatusdateArr = Request::getArray('req_statusdate');
         $requestStatusdateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $requestStatusdateArr['date']);
-        $requestStatusdateObj->setTime(0, 0, 0);
+        $requestStatusdateObj->setTime(0, 0);
         $requestStatusdate = $requestStatusdateObj->getTimestamp() + (int)$requestStatusdateArr['time'];
         $requestsObj->setVar('req_statusdate', $requestStatusdate);
-        $requestsObj->setVar('req_statusuid', Request::getInt('req_statusuid', 0));
+        $requestsObj->setVar('req_statusuid', Request::getInt('req_statusuid'));
         $requestDateArr = Request::getArray('req_date');
         $requestDateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $requestDateArr['date']);
-        $requestDateObj->setTime(0, 0, 0);
+        $requestDateObj->setTime(0, 0);
         $requestDate = $requestDateObj->getTimestamp() + (int)$requestDateArr['time'];
         $requestsObj->setVar('req_date', $requestDate);
-        $requestsObj->setVar('req_submitter', Request::getInt('req_submitter', 0));
+        $requestsObj->setVar('req_submitter', Request::getInt('req_submitter'));
         // Insert Data
         if ($requestsHandler->insert($requestsObj)) {
             \redirect_header('requests.php?op=list', 2, \_AM_WGTRANSIFEX_FORM_OK);
