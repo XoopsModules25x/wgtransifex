@@ -140,12 +140,12 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('error', $packagesObj->getHtmlErrors());
             }
         } else {
-            $xoopsconfirm = new Common\XoopsConfirm(
+            $customConfirm = new Common\Confirm(
                 ['ok' => 1, 'pkg_id' => $pkgId, 'op' => 'broken'],
                 $_SERVER['REQUEST_URI'],
                 \sprintf(\_MA_WGTRANSIFEX_FORM_SURE_BROKEN, $packagesObj->getVar('pkg_name'))
             );
-            $form = $xoopsconfirm->getFormXoopsConfirm();
+            $form = $customConfirm->getFormConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;

@@ -337,12 +337,12 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('error', $translationsObj->getHtmlErrors());
             }
         } else {
-            $xoopsconfirm = new Common\XoopsConfirm(
+            $customConfirm = new Common\Confirm(
                 ['ok' => 1, 'tra_id' => $traId, 'op' => 'delete'],
                 $_SERVER['REQUEST_URI'],
                 \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $translationsObj->getVar('tra_pro_id'))
             );
-            $form = $xoopsconfirm->getFormXoopsConfirm();
+            $form = $customConfirm->getFormConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
@@ -366,12 +366,12 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('error', $translationsObj->getHtmlErrors());
             }
         } else {
-            $xoopsconfirm = new Common\XoopsConfirm(
+            $customConfirm = new Common\Confirm(
                 ['ok' => 1, 'tra_pro_id' => $proId, 'op' => 'deleteall'],
                 $_SERVER['REQUEST_URI'],
                 \sprintf(\_AM_WGTRANSIFEX_TRANSLATIONS_DELETE_SURE, $proName)
             );
-            $form = $xoopsconfirm->getFormXoopsConfirm();
+            $form = $customConfirm->getFormConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;

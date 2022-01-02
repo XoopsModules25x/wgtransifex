@@ -1,4 +1,10 @@
 ===================================================================
+2021/02/22 Version 1.1.0 RC1
+===================================================================
+ - replaced Common/XoopsConfirm by Common/Confirm(mamba/goffy)
+ - semantic versioning(mamba/goffy)
+ 
+===================================================================
 2021/02/22 Version 1.05 RC1
 ===================================================================
  - fixed problem with display filter (goffy)
@@ -14,7 +20,7 @@
  - fixed bug caused by reading archived projects (alain/goffy)
  - fixed problem with invisible links (cesagonchu/alain)
  - changed field attributes in table packages (goffy)
-
+ 
 ===================================================================
 2020/12/13 Version 1.05 beta
 ===================================================================

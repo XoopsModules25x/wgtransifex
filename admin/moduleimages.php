@@ -128,12 +128,12 @@ switch ($op) {
                 \redirect_header('moduleimages.php', 3, \_AM_WGTRANSIFEX_FORM_DELETE_ERROR);
             }
         } else {
-            $xoopsconfirm = new Common\XoopsConfirm(
+            $customConfirm = new Common\Confirm(
                 ['ok' => 1, 'name' => $imageName, 'op' => 'delete'],
                 $_SERVER['REQUEST_URI'],
                 \sprintf(\_AM_WGTRANSIFEX_FORM_SURE_DELETE, $imageName)
             );
-            $form = $xoopsconfirm->getFormXoopsConfirm();
+            $form = $customConfirm->getFormConfirm();
             $GLOBALS['xoopsTpl']->assign('form', $form->render());
         }
         break;
