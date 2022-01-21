@@ -1,8 +1,9 @@
 ===================================================================
 2021/02/22 Version 1.1.0 RC1
 ===================================================================
- - replaced Common/XoopsConfirm by Common/Confirm(mamba/goffy)
+ - replaced Common/XoopsConfirm by Common/Confirm (mamba/goffy)
  - semantic versioning(mamba/goffy)
+ - uninstall with bak-file creation (mamba/goffy)
  
 ===================================================================
 2021/02/22 Version 1.05 RC1
