@@ -78,8 +78,9 @@ function xoops_module_update_wgtransifex($module, $prev_version = null)
     //$migrate->setDefinitionFile('update_' . $moduleDirName);
     //} catch (\Exception $e) {
     // as long as this is not done default file has to be created
-    $moduleVersion = $module->getInfo('version');
-    $fileYaml = \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . "/sql/{$moduleDirName}_{$moduleVersion}_migrate.yml";
+    $moduleVersionOld = $module->getInfo('version');
+    $moduleVersionNew = \str_replace(['.', '-'], '_', $moduleVersionOld);
+    $fileYaml = \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . "/sql/{$moduleDirName}_{$moduleVersionNew}_migrate.yml";
     //}
 
     // create a schema file based on sql/mysql.sql
@@ -88,6 +89,10 @@ function xoops_module_update_wgtransifex($module, $prev_version = null)
         \xoops_error('Error: creation schema file failed!');
         return false;
     }
+
+    //create copy for XOOPS 2.5.11 Beta 1 and older versions
+    $fileYaml2 = \XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . "/sql/{$moduleDirName}_{$moduleVersionOld}_migrate.yml";
+    \copy($fileYaml, $fileYaml2);
 
     // run standard procedure for db migration
     $migrate->synchronizeSchema();
