@@ -229,10 +229,10 @@ $GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => \_MA_WGTRANSIFEX_INDEX];
 // Keywords
-wgtransifexMetaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
+Utility::metaKeywords($helper->getConfig('keywords') . ', ' . \implode(',', $keywords));
 unset($keywords);
 // Description
-wgtransifexMetaDescription(\_MA_WGTRANSIFEX_INDEX_DESC);
+Utility::metaDescription(\_MA_WGTRANSIFEX_INDEX_DESC);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', \WGTRANSIFEX_URL . '/index.php');
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);

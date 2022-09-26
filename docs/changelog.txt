@@ -7,7 +7,7 @@
  - adapted update due to new semantic versioning (goffy)
  - fixed bug in MigrateHelper (goffy)
  - fixed bug Utility::metaKeywords (cesagonchu/goffy)
- 
+
 
 ===================================================================
 2021/02/22 Version 1.05 RC1
