@@ -185,4 +185,36 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
 
         return $status_text;
     }
+
+    /**
+     * Add content as meta tag to template
+     * @param $content
+     */
+    public static function metaKeywords($content)
+    {
+        global $xoopsTpl, $xoTheme;
+        $myts    = \MyTextSanitizer::getInstance();
+        $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
+        if (isset($xoTheme) && \is_object($xoTheme)) {
+            $xoTheme->addMeta('meta', 'keywords', \strip_tags($content));
+        } else {    // Compatibility for old Xoops versions
+            $xoopsTpl->assign('xoops_meta_keywords', \strip_tags($content));
+        }
+    }
+
+    /**
+     * Add content as meta description to template
+     * @param $content
+     */
+    public static function metaDescription($content)
+    {
+        global $xoopsTpl, $xoTheme;
+        $myts    = \MyTextSanitizer::getInstance();
+        $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
+        if (isset($xoTheme) && \is_object($xoTheme)) {
+            $xoTheme->addMeta('meta', 'description', \strip_tags($content));
+        } else {    // Compatibility for old Xoops versions
+            $xoopsTpl->assign('xoops_meta_description', \strip_tags($content));
+        }
+    }
 }
