@@ -167,7 +167,6 @@ INSERT INTO `wgtransifex_languages` (`lang_id`, `lang_name`, `lang_code`, `lang_
 (43, 'Ukrainian', 'uk_UA', 'ukrainian', 'uk', '', 'ua.png', 0, 1, 1593430174, 1),
 (44, 'Urdu (Pakistan)', 'ur_PK', 'urdu', 'ur', '', 'pk.png', 0, 1, 1593423595, 1),
 (45, 'Bosnian', 'bs', 'bosnian', '', '', 'bs.png', 0, 1, 1606987753, 1),
-(46, 'French', 'fr', 'french', '', '', 'fr.png', 0, 1, 1606988036, 1),
 (47, 'Russian', 'ru', 'russian', '', '', 'ru.png', 0, 1, 1606988728, 1);
 
 #
