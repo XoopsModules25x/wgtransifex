@@ -539,18 +539,6 @@
     lang_date: '1606987753'
     lang_submitter: '1'
 -
-    lang_id: '46'
-    lang_name: French
-    lang_code: fr
-    lang_folder: french
-    lang_iso_639_1: ''
-    lang_iso_639_2: ''
-    lang_flag: fr.png
-    lang_primary: '0'
-    lang_online: '1'
-    lang_date: '1606996168'
-    lang_submitter: '1'
--
     lang_id: '47'
     lang_name: Russian
     lang_code: ru

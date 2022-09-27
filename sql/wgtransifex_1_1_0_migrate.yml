@@ -1,0 +1,313 @@
+wgtransifex_projects:
+    options: 'ENGINE = InnoDB'
+    columns: 
+        -
+            name: pro_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: pro_description
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: pro_source_language_code
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: pro_slug
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: pro_name
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: pro_txresources
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: pro_last_updated
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: pro_teams
+            attributes: ' TEXT            NOT NULL '
+        -
+            name: pro_resources
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: pro_translations
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: pro_archived
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: pro_status
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: pro_type
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: pro_logo
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: pro_date
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: pro_submitter
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: pro_id
+            unique: true
+wgtransifex_resources:
+    options: 'ENGINE = InnoDB'
+    columns: 
+        -
+            name: res_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: res_source_language_code
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: res_name
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: res_i18n_type
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: res_priority
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: res_slug
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: res_categories
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: res_metadata
+            attributes: ' TEXT            NOT NULL '
+        -
+            name: res_translations
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: res_date
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: res_submitter
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: res_status
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: res_pro_id
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: res_id
+            unique: true
+wgtransifex_translations:
+    options: 'ENGINE = MyISAM DEFAULT CHARSET = utf8'
+    columns: 
+        -
+            name: tra_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: tra_pro_id
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_res_id
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_lang_id
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_content
+            attributes: ' MEDIUMTEXT      NOT NULL '
+        -
+            name: tra_mimetype
+            attributes: ' VARCHAR(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: tra_proofread
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_proofread_percentage
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_reviewed_percentage
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_completed
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_untranslated_words
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_last_commiter
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_reviewed
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_translated_entities
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_translated_words
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_untranslated_entities
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_last_update
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_local
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: tra_status
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_date
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: tra_submitter
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: tra_id
+            unique: true
+wgtransifex_settings:
+    options: 'ENGINE = InnoDB'
+    columns: 
+        -
+            name: set_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: set_username
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: set_password
+            attributes: ' VARCHAR(50)     NOT NULL DEFAULT '''''''' '
+        -
+            name: set_primary
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: set_request
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: set_date
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: set_submitter
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: set_id
+            unique: true
+wgtransifex_languages:
+    options: 'ENGINE = InnoDB'
+    columns: 
+        -
+            name: lang_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: lang_name
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: lang_code
+            attributes: ' VARCHAR(10)     NOT NULL DEFAULT '''''''' '
+        -
+            name: lang_folder
+            attributes: ' VARCHAR(100)    NOT NULL DEFAULT '''''''' '
+        -
+            name: lang_iso_639_1
+            attributes: ' VARCHAR(2)      NOT NULL DEFAULT '''''''' '
+        -
+            name: lang_iso_639_2
+            attributes: ' VARCHAR(3)      NOT NULL DEFAULT '''''''' '
+        -
+            name: lang_flag
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: lang_primary
+            attributes: ' INT(1)         NOT NULL DEFAULT ''0'' '
+        -
+            name: lang_online
+            attributes: ' INT(1)         NOT NULL DEFAULT ''0'' '
+        -
+            name: lang_date
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: lang_submitter
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: lang_id
+            unique: true
+wgtransifex_packages:
+    options: 'ENGINE = InnoDB'
+    columns: 
+        -
+            name: pkg_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: pkg_name
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: pkg_desc
+            attributes: ' TEXT            NULL '
+        -
+            name: pkg_pro_id
+            attributes: ' int(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: pkg_lang_id
+            attributes: ' int(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: pkg_status
+            attributes: ' INT(8)          NOT NULL DEFAULT ''0'' '
+        -
+            name: pkg_zip
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: pkg_logo
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: pkg_traperc
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: pkg_date
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: pkg_submitter
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: pkg_id
+            unique: true
+wgtransifex_requests:
+    options: 'ENGINE=InnoDB'
+    columns: 
+        -
+            name: req_id
+            attributes: ' INT(8) UNSIGNED NOT NULL AUTO_INCREMENT '
+        -
+            name: req_pro_id
+            attributes: ' INT(0)          NOT NULL DEFAULT ''0'' '
+        -
+            name: req_lang_id
+            attributes: ' INT(0)          NOT NULL DEFAULT ''0'' '
+        -
+            name: req_info
+            attributes: ' VARCHAR(255)    NOT NULL DEFAULT '''''''' '
+        -
+            name: req_date
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: req_submitter
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+        -
+            name: req_status
+            attributes: ' INT(1)          NOT NULL DEFAULT ''0'' '
+        -
+            name: req_statusdate
+            attributes: ' INT(11)         NOT NULL DEFAULT ''0'' '
+        -
+            name: req_statusuid
+            attributes: ' INT(10)         NOT NULL DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: req_id
+            unique: true

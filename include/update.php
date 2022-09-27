@@ -60,7 +60,7 @@ function xoops_module_update_wgtransifex($module, $prev_version = null)
 
     $moduleDirName = $module->dirname();
 
-    //wgtransifex_check_db($module); // currently not needed
+    wgtransifex_check_db($module);
 
     //check upload directory
     require_once __DIR__ . '/install.php';
@@ -111,9 +111,18 @@ function xoops_module_update_wgtransifex($module, $prev_version = null)
  *
  * @return bool
  */
-/*
 function wgtransifex_check_db($module)
 {
+    $sql = 'DELETE FROM `' . $GLOBALS['xoopsDB']->prefix('wgtransifex_languages') . '` WHERE `' . $GLOBALS['xoopsDB']->prefix('wgtransifex_languages') . '`.`lang_id` = 46 AND `' . $GLOBALS['xoopsDB']->prefix('wgtransifex_languages') . "`.`lang_name` = 'French'";
+    if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
+        xoops_error($GLOBALS['xoopsDB']->error() . '<br />' . $sql);
+        $module->setErrors(
+            "Error when deleting language 'fr'"
+        );
+
+        return false;
+    }
+    
     return true;
 }
-*/
+
