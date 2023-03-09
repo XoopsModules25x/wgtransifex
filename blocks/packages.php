@@ -34,8 +34,6 @@ require_once \XOOPS_ROOT_PATH . '/modules/wgtransifex/include/common.php';
 function b_wgtransifex_packages_show($options)
 {
     //$myts = \MyTextSanitizer::getInstance();
-    $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
-    $GLOBALS['xoopsTpl']->assign('modPathIconFlags', \WGTRANSIFEX_IMAGE_URL . '/flags/');
     $block = [];
     $typeBlock = $options[0];
     $limit = $options[1];
@@ -46,6 +44,10 @@ function b_wgtransifex_packages_show($options)
     \array_shift($options);
     \array_shift($options);
     \array_shift($options);
+
+    $GLOBALS['xoopsTpl']->assign('table_type', $helper->getConfig('table_type'));
+    $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
+    $GLOBALS['xoopsTpl']->assign('modPathIconFlags', \WGTRANSIFEX_IMAGE_URL . '/flags/');
 
     $crPackages = new \CriteriaCompo();
     switch ($typeBlock) {
