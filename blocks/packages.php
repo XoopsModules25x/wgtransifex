@@ -34,8 +34,6 @@ require_once \XOOPS_ROOT_PATH . '/modules/wgtransifex/include/common.php';
 function b_wgtransifex_packages_show($options)
 {
     //$myts = \MyTextSanitizer::getInstance();
-    $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
-    $GLOBALS['xoopsTpl']->assign('modPathIconFlags', \WGTRANSIFEX_IMAGE_URL . '/flags/');
     $block = [];
     $typeBlock = $options[0];
     $limit = $options[1];
@@ -47,6 +45,10 @@ function b_wgtransifex_packages_show($options)
     \array_shift($options);
     \array_shift($options);
 
+    $GLOBALS['xoopsTpl']->assign('table_type', $helper->getConfig('table_type'));
+    $GLOBALS['xoopsTpl']->assign('wgtransifex_upload_url', \WGTRANSIFEX_UPLOAD_URL);
+    $GLOBALS['xoopsTpl']->assign('modPathIconFlags', \WGTRANSIFEX_IMAGE_URL . '/flags/');
+
     $crPackages = new \CriteriaCompo();
     switch ($typeBlock) {
         case 'last':
@@ -57,19 +59,9 @@ function b_wgtransifex_packages_show($options)
             break;
         case 'new':
             // For the block: packages new
-            $crPackages->add(new \Criteria('', \DateTime::createFromFormat(_SHORTDATESTRING, (string)$_SERVER['REQUEST_TIME']), '>='));
-            $crPackages->add(new \Criteria('', \DateTime::createFromFormat(_SHORTDATESTRING, (string)$_SERVER['REQUEST_TIME']) + 86400, '<='));
+            $crPackages->add(new \Criteria('pkg_date', \DateTime::createFromFormat(_SHORTDATESTRING, (string)$_SERVER['REQUEST_TIME']), '>='));
+            $crPackages->add(new \Criteria('pkg_date', \DateTime::createFromFormat(_SHORTDATESTRING, (string)$_SERVER['REQUEST_TIME']) + 86400, '<='));
             $crPackages->setSort('pkg_date');
-            $crPackages->setOrder('ASC');
-            break;
-        case 'hits':
-            // For the block: packages hits
-            $crPackages->setSort('pkg_hits');
-            $crPackages->setOrder('DESC');
-            break;
-        case 'top':
-            // For the block: packages top
-            $crPackages->setSort('pkg_top');
             $crPackages->setOrder('ASC');
             break;
         case 'random':
