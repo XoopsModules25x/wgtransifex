@@ -59,19 +59,9 @@ function b_wgtransifex_packages_show($options)
             break;
         case 'new':
             // For the block: packages new
-            $crPackages->add(new \Criteria('', \DateTime::createFromFormat(_SHORTDATESTRING, (string)$_SERVER['REQUEST_TIME']), '>='));
-            $crPackages->add(new \Criteria('', \DateTime::createFromFormat(_SHORTDATESTRING, (string)$_SERVER['REQUEST_TIME']) + 86400, '<='));
+            $crPackages->add(new \Criteria('pkg_date', \DateTime::createFromFormat(_SHORTDATESTRING, (string)$_SERVER['REQUEST_TIME']), '>='));
+            $crPackages->add(new \Criteria('pkg_date', \DateTime::createFromFormat(_SHORTDATESTRING, (string)$_SERVER['REQUEST_TIME']) + 86400, '<='));
             $crPackages->setSort('pkg_date');
-            $crPackages->setOrder('ASC');
-            break;
-        case 'hits':
-            // For the block: packages hits
-            $crPackages->setSort('pkg_hits');
-            $crPackages->setOrder('DESC');
-            break;
-        case 'top':
-            // For the block: packages top
-            $crPackages->setSort('pkg_top');
             $crPackages->setOrder('ASC');
             break;
         case 'random':
