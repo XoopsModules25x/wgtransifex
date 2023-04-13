@@ -98,7 +98,7 @@
                 onclick="onClick(this)" class="modal-hover-opacity" alt="<{$image.name}>">
         <p><{$image.name}></p>
         <p>
-            <{$image.width}> x <{$image.height}><a href="moduleimages.php?op=delete&img_name=<{$image.name}>" title="<{$smarty.const._DELETE}>"><img class="pull-right" src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._DELETE}>"></a>
+            <{$image.width}> x <{$image.height}><a href="moduleimages.php?op=delete&img_name=<{$image.name}>" title="<{$smarty.const._DELETE}>"><img class="pull-right" src="<{xoModuleIcons16 'delete.png'}>" alt="<{$smarty.const._DELETE}>"></a>
         </p>
 
     </div>
@@ -106,10 +106,10 @@
 
 <{/if}>
 
-<{if $form|default:''}>
+<{if !empty($form)}>
     <{$form}>
 <{/if}>
-<{if $error|default:''}>
+<{if !empty($error)}>
     <div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 

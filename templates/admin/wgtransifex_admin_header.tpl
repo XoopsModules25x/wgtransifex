@@ -1,6 +1,6 @@
 <div class='top'>
     <span class='left'><{$navigation|default:''}></span>
-    <{if $buttons|default:''}>
+    <{if isset($buttons)}>
         <span class='left'><{$buttons}></span>
     <{/if}>
 </div>

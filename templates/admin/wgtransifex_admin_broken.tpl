@@ -25,14 +25,14 @@
         </tbody>
     </table>
     <div class='clear'>&nbsp;</div>
-    <{if $pagenav|default:''}>
+    <{if !empty($pagenav)}>
         <div class='xo-pagenav floatright'><{$pagenav}></div>
         <div class='clear spacer'></div>
     <{/if}>
 <{else}>
     <{if $nodataPackages|default:''}>
         <div>
-            <{$nodataPackages}><img src='<{xoModuleIcons32 button_ok.png}>' alt='packages'>
+            <{$nodataPackages}><img src='<{xoModuleIcons32 'button_ok.png'}>' alt='packages'>
         </div>
         <div class='clear spacer'></div>
         <br>
@@ -42,7 +42,7 @@
 <br>
 <br>
 <br>
-<{if $error|default:''}>
+<{if !empty($error)}>
     <div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 

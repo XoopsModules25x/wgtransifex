@@ -1,7 +1,7 @@
 <div id="help-template" class="outer">
     <h1 class="head">Hilfe:
 <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/wgtransifex/admin/index.php"
-Tutel= "Zurück zur Verwaltung von wgTransifex"> wgTransifex<img src="<{xoAdminIcons home.png}>"
+Tutel= "Zurück zur Verwaltung von wgTransifex"> wgTransifex<img src="<{xoAdminIcons 'home.png'}>"
 alt = "Zurück zur Administration von wgTransifex">
         </a></h1>
     <!-- -----Help Content ---------- -->
