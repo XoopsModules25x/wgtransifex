@@ -33,10 +33,10 @@
         </div>
     <{/if}>
 <{/if}>
-<{if $form|default:''}>
+<{if !empty($form)}>
     <{$form}>
 <{/if}>
-<{if $error|default:''}>
+<{if !empty($error)}>
     <{$error}>
 <{/if}>
 

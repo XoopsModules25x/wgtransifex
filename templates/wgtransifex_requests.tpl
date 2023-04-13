@@ -1,9 +1,9 @@
 <{include file='db:wgtransifex_header.tpl' }>
 
-<{if $form|default:''}>
+<{if !empty($form)}>
     <{$form}>
 <{/if}>
-<{if $error|default:''}>
+<{if !empty($error)}>
     <{$error}>
 <{/if}>
 

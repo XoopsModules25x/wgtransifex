@@ -3,6 +3,7 @@
 ==============================================================
  - fixed missing default value smarty (goffy)
  - removed unused block types (goffy)
+ - updates smarty 3 (goffy)
 
 ==============================================================
 2023/02/28 1.1.0 Stable

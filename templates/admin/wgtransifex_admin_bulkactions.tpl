@@ -37,10 +37,10 @@
 </table>
 <div class="clear">&nbsp;</div>
 
-<{if $form|default:''}>
+<{if !empty($form)}>
     <{$form}>
 <{/if}>
-<{if $error|default:''}>
+<{if !empty($error)}>
     <div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
 
