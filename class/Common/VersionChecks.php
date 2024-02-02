@@ -44,7 +44,7 @@ trait VersionChecks
         }
         $success = true;
 
-        if (\version_compare($currentVer, $requiredVer, '<')) {
+        if ($module->versionCompare($currentVer, $requiredVer, '<')) {
             $success = false;
             $module->setErrors(\sprintf(\constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_XOOPS'), $requiredVer, $currentVer));
         }
