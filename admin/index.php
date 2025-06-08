@@ -97,5 +97,76 @@ if ($helper->getConfig('displaySampleButton')) {
 }
 $GLOBALS['xoopsTpl']->assign('index', $adminObject->displayIndex());
 
+
+// Deine Transifex-Daten
+$apiToken = '1/3a7de1a0e9d23d49d3ebad7fee347f8b2c47cb08';
+$organizationSlug = 'xoops';
+$projectSlug = 'xoopstube';
+$resourceSlug = 'adminphp'; // z. B. 'messages'
+$languageCode = 'de_DE'; // Sprache, die du herunterladen willst
+$password='Xoops@Germany!01';
+$user='XoopsGermany';
+// URL für den Download
+////    https://rest.api.transifex.com/resource_translations
+$url = "https://rest.api.transifex.com/resource_translations/o:$organizationSlug:p:$projectSlug:r:$resourceSlug:l:$languageCode/content/";
+$url = "https://rest.api.transifex.com/resource_translations/o:$organizationSlug:p:$projectSlug:r:$resourceSlug:s:2e354ef120752c67afa1b6855aa80c52:l:$languageCode";
+echo $url . '<br>';
+// cURL-Session initialisieren
+$ch = curl_init();
+
+\curl_setopt($ch, \CURLOPT_URL, $url);
+// Setze Header für Authentifizierung
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Authorization: Bearer $apiToken",
+    "Content-Type: application/vnd.api+json"
+]);
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+
+
+
+\curl_setopt($ch, \CURLOPT_USERPWD, $user . ':' . $password);
+\curl_setopt($ch, \CURLOPT_CUSTOMREQUEST, 'GET');
+\curl_setopt($ch, \CURLOPT_RETURNTRANSFER, true);
+\curl_setopt($ch, \CURLOPT_CONNECTTIMEOUT, 25);
+\curl_setopt($ch, \CURLOPT_TIMEOUT, 25);
+if ($debug) {
+    \curl_setopt($ch, \CURLOPT_VERBOSE, true);
+}
+\curl_setopt($ch, \CURLOPT_SSL_VERIFYHOST, false);
+\curl_setopt($ch, \CURLOPT_SSL_VERIFYPEER, false);
+\curl_setopt($ch, \CURLOPT_POST, 1);
+
+
+
+
+// Anfrage ausführen
+$response = curl_exec($ch);
+
+// Fehlerprüfung
+if (curl_errno($ch)) {
+    echo 'Fehler: ' . curl_error($ch);
+    exit;
+}
+
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+// Antwort prüfen
+if ($httpCode === 200) {
+    $data = json_decode($response, true);
+    $content = base64_decode($data['data']['attributes']['content']);
+
+    // Speichere die Datei lokal
+    $filePath = $languageCode . '_' . $resourceSlug . '.po';
+    file_put_contents($filePath, $content);
+    echo "Übersetzung erfolgreich heruntergeladen: $filePath\n";
+} else {
+    echo "Fehler beim Abrufen der Übersetzung. HTTP-Code: $httpCode\n";
+    echo $response;
+}
+
+
 // End Test Data
 require __DIR__ . '/footer.php';
