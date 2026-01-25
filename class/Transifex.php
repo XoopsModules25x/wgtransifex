@@ -76,6 +76,12 @@ class Transifex
         $items = $transifexLib->getProjects();
         foreach ($items as $item) {
             $txprojects[] = $item['slug'];
+            if ($proId > 0) {
+                $projectsObj = $projectsHandler->get($proId);
+                if (is_object($projectsObj) && $item['slug'] != $projectsObj->getVar('pro_slug')) {
+                    continue;
+                }
+            }
             $projectsObj = null;
             $oldProject = false;
             $crProjects = new \CriteriaCompo();
@@ -126,6 +132,7 @@ class Transifex
                         }
                         $projectsObj->setVar('pro_date', \time());
                         $projectsObj->setVar('pro_submitter', $xoopsUser->getVar('uid'));
+
                         // Insert Data
                         if ($projectsHandler->insert($projectsObj)) {
                             $count_ok++;
@@ -137,8 +144,13 @@ class Transifex
             }
             unset($projectsObj);
         }
+
+        $crProjects = new \CriteriaCompo();
+        if ($proId > 0) {
+            $crProjects->add(new \Criteria('pro_id', $proId));
+        }
         //check whether all items from table projects have been in current download
-        $projectsAll = $projectsHandler->getAll();
+        $projectsAll = $projectsHandler->getAll($crProjects);
         foreach (\array_keys($projectsAll) as $i) {
             if (!\in_array($projectsAll[$i]->getVar('pro_slug'), $txprojects, true)) {
                 $projectsObj = $projectsHandler->get($projectsAll[$i]->getVar('pro_id'));
@@ -152,6 +164,7 @@ class Transifex
             $GLOBALS['xoopsTpl']->append('projects_list', $project);
             unset($project);
         }
+
         if ($count_err > 0) {
             return \_AM_WGTRANSIFEX_READTX_ERROR;
         }
@@ -213,8 +226,8 @@ class Transifex
                 $resourcesObj->setVar('res_i18n_type', $item['i18n_type']);
                 $resourcesObj->setVar('res_priority', $item['priority']);
                 $resourcesObj->setVar('res_slug', $item['slug']);
-                $resourcesObj->setVar('res_categories', serialize($item['categories']));
-                $resourcesObj->setVar('res_metadata', serialize($item['metadata']));
+                //$resourcesObj->setVar('res_categories', serialize($item['categories'])); //not supported anymore
+                //$resourcesObj->setVar('res_metadata', serialize($item['metadata'])); //not supported anymore
                 $resourcesObj->setVar('res_pro_id', $proId);
                 $resourcesObj->setVar('res_status', Constants::STATUS_READTX);
                 $resourcesObj->setVar('res_date', \time());
@@ -264,12 +277,10 @@ class Transifex
      * @param      $traId
      * @param      $proId
      * @param      $langId
-     * @param bool $reviewedOnly
-     * @param bool $skipMissing
      * @param int  $resId
      * @return string
      */
-    public function readTranslations($traId, $proId, $langId, $reviewedOnly = false, $skipMissing = false, $resId = 0)
+    public function readTranslations($traId, $proId, $langId, $resId = 0)
     {
         $setting = $this->getSetting();
         global $xoopsUser;
@@ -301,8 +312,9 @@ class Transifex
                 $resId = $resourcesAll[$i]->getVar('res_id');
                 $resource = $resourcesAll[$i]->getVar('res_slug');
                 $resName = $resourcesAll[$i]->getVar('res_name');
-                $resSourceLang = $resourcesAll[$i]->getVar('res_source_language_code');
-                $item = $transifexLib->getTranslation($project, $resource, $language, $resSourceLang, $reviewedOnly);
+                //$resSourceLang = $resourcesAll[$i]->getVar('res_source_language_code');
+                $resI18nType = $resourcesAll[$i]->getVar('res_i18n_type');
+                $item = $transifexLib->getTranslation($project, $resource, $language, $resI18nType);
                 $translationsObj = null;
                 $crTranslations = new \CriteriaCompo();
                 $crTranslations->add(new \Criteria('tra_res_id', $resId));
@@ -644,6 +656,14 @@ class Transifex
             $part1 = \str_replace(']', '/', $part1);
             $part1 = \str_replace('-', '/', $part1);
             $ret = $part1 . $part2;
+        }
+        $pos = \strpos($ret, '-');
+        if ($pos > 0) {
+            $ret = \str_replace('-', '/', $ret);
+        }
+        //manual fix of names for files of XOOPS 2.5.12
+        if ('2512/' === substr($ret, 0, 5) ) {
+            $ret = \str_replace('2512/', '', $ret);
         }
 
         return $ret;

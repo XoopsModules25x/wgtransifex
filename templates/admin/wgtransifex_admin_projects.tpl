@@ -44,7 +44,7 @@
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_STATUS}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_LOCRES}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_TRANSLATIONS_NB}></th>
-                <th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_TYPE}></th>
+                <!--th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_TYPE}></th-->
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_LOGO}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_DATE}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_PROJECT_SUBMITTER}></th>
@@ -66,7 +66,7 @@
                 <td class='center'><img src="<{$modPathIcon32}>status<{$project.status}>.png" alt="<{$project.status_text}>" title="<{$project.status_text}>"></td>
                 <td class='center'><{$project.resources}></td>
                 <td class='center'><{$project.translations}></td>
-                <td class='center'><{$project.type_text}></td>
+                <!--td class='center'><{$project.type_text}></td-->
                 <td class='center'><img style="max-width:100px" src="<{$wgtransifex_upload_url}>/logos/<{$project.logo}>" alt="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_LOGO}> <{$project.name}>" title="<{$smarty.const._AM_WGTRANSIFEX_PROJECT_LOGO}> <{$project.name}>"></td>
                 <td class='center'><{$project.date}></td>
                 <td class='center'><{$project.submitter}></td>

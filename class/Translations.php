@@ -104,54 +104,122 @@ class Translations extends \XoopsObject
         \xoops_load('XoopsFormLoader');
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
-        // Form Table projects
-        $traPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_PRO_ID, 'tra_pro_id', $this->getVar('tra_pro_id'));
-        $traPro_idSelect->addOptionArray($projectsHandler->getList());
-        $form->addElement($traPro_idSelect, true);
-        // Form Table resources
-        $traRes_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_RES_ID, 'tra_res_id', $this->getVar('tra_res_id'));
-        $traRes_idSelect->addOptionArray($resourcesHandler->getList());
-        $form->addElement($traRes_idSelect, true);
-        // Form Table languages
-        $langId = $this->isNew() ? $languagesHandler->getPrimaryLang() : $this->getVar('tra_lang_id');
-        $traLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'tra_lang_id', $langId);
-        $crLanguages = new \CriteriaCompo();
-        $crLanguages->add(new \Criteria('lang_online', 1));
-        $crLanguages->setSort('lang_name');
-        $traLang_idSelect->addOptionArray($languagesHandler->getList($crLanguages));
-        $form->addElement($traLang_idSelect);
-        // Form Editor TextArea traContent
-        $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_TRANSLATION_CONTENT, 'tra_content', $this->getVar('tra_content', 'e'), 20, 47));
-        // Form Text traMimetype
-        // $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_MIMETYPE, 'tra_mimetype', 50, 255, $this->getVar('tra_mimetype')));
-        $form->addElement(new \XoopsFormHidden('tra_mimetype', $this->getVar('tra_mimetype')));
-        // Form Text traMimetype
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_LOCAL, 'tra_local', 50, 255, $this->getVar('tra_local')));
-        //$form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD, 'tra_proofread', 50, 255, $this->getVar('tra_proofread')));
-        $form->addElement(new \XoopsFormHidden('tra_proofread', $this->getVar('tra_proofread')));
-        //$form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD_PERC, 'tra_proofread_percentage', 50, 255, $this->getVar('tra_proofread_percentage')));
-        $form->addElement(new \XoopsFormHidden('tra_proofread_percentage', $this->getVar('tra_proofread_percentage')));
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED, 'tra_reviewed', 50, 255, $this->getVar('tra_reviewed')));
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED_PERC, 'tra_reviewed_percentage', 50, 255, $this->getVar('tra_reviewed_percentage')));
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_COMPLETED, 'tra_completed', 50, 255, $this->getVar('tra_completed')));
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_WORDS, 'tra_untranslated_words', 50, 255, $this->getVar('tra_untranslated_words')));
-        //$form->addElement(new \XoopsFormText( \_AM_WGTRANSIFEX_TRANSLATION_LAST_COMMITER, 'tra_last_commiter', 50, 255, $this->getVar('tra_last_commiter') ) );
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_TRANSLATED_WORDS, 'tra_translated_words', 50, 255, $this->getVar('tra_translated_words')));
-        $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_ENT, 'tra_untranslated_entities', 50, 255, $this->getVar('tra_untranslated_entities')));
-        $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_TRANSLATION_LAST_UPDATE, 'tra_last_update', '', $this->getVar('tra_last_update')));
-        // Form Select Status traStatus
-        $traStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_STATUS, 'tra_status', $this->getVar('tra_status'));
-        $traStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
-        $traStatusSelect->addOption(Constants::STATUS_SUBMITTED, \_AM_WGTRANSIFEX_STATUS_SUBMITTED);
-        $traStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
-        $traStatusSelect->addOption(Constants::STATUS_OUTDATED, \_AM_WGTRANSIFEX_STATUS_OUTDATED);
-        $form->addElement($traStatusSelect, true);
-        // Form Text Date Select traDate
-        $traDate = $this->isNew() ? 0 : $this->getVar('tra_date');
-        $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_TRANSLATION_DATE, 'tra_date', '', $traDate));
-        // Form Select User traSubmitter
-        $traSubmitter = $this->isNew() ? $GLOBALS['xoopsUser']->getVar('uid') : $this->getVar('tra_submitter');
-        $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_TRANSLATION_SUBMITTER, 'tra_submitter', false, $traSubmitter));
+
+        if ($this->isNew()) {
+            // Form Table projects
+            $traPro_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_PRO_ID, 'tra_pro_id', $this->getVar('tra_pro_id'));
+            $traPro_idSelect->addOptionArray($projectsHandler->getList());
+            $form->addElement($traPro_idSelect, true);
+            // Form Table resources
+            $traRes_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_RES_ID, 'tra_res_id', $this->getVar('tra_res_id'));
+            $traRes_idSelect->addOptionArray($resourcesHandler->getList());
+            $form->addElement($traRes_idSelect, true);
+            // Form Table languages
+            $langId = $this->isNew() ? $languagesHandler->getPrimaryLang() : $this->getVar('tra_lang_id');
+            $traLang_idSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, 'tra_lang_id', $langId);
+            $crLanguages = new \CriteriaCompo();
+            $crLanguages->add(new \Criteria('lang_online', 1));
+            $crLanguages->setSort('lang_name');
+            $traLang_idSelect->addOptionArray($languagesHandler->getList($crLanguages));
+            $form->addElement($traLang_idSelect);
+            // Form Editor TextArea traContent
+            $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_TRANSLATION_CONTENT, 'tra_content', $this->getVar('tra_content', 'e'), 20, 47));
+            // Form Text traMimetype
+            // $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_MIMETYPE, 'tra_mimetype', 50, 255, $this->getVar('tra_mimetype')));
+            $form->addElement(new \XoopsFormHidden('tra_mimetype', $this->getVar('tra_mimetype')));
+            // Form Text traLocal
+            $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_LOCAL, 'tra_local', 50, 255, $this->getVar('tra_local')));
+            //$form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD, 'tra_proofread', 50, 255, $this->getVar('tra_proofread')));
+            $form->addElement(new \XoopsFormHidden('tra_proofread', $this->getVar('tra_proofread')));
+            //$form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_PROOFREAD_PERC, 'tra_proofread_percentage', 50, 255, $this->getVar('tra_proofread_percentage')));
+            $form->addElement(new \XoopsFormHidden('tra_proofread_percentage', $this->getVar('tra_proofread_percentage')));
+            $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED, 'tra_reviewed', 50, 255, $this->getVar('tra_reviewed')));
+            $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED_PERC, 'tra_reviewed_percentage', 50, 255, $this->getVar('tra_reviewed_percentage')));
+            $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_COMPLETED, 'tra_completed', 50, 255, $this->getVar('tra_completed')));
+            $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_WORDS, 'tra_untranslated_words', 50, 255, $this->getVar('tra_untranslated_words')));
+            //$form->addElement(new \XoopsFormText( \_AM_WGTRANSIFEX_TRANSLATION_LAST_COMMITER, 'tra_last_commiter', 50, 255, $this->getVar('tra_last_commiter') ) );
+            $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_TRANSLATED_WORDS, 'tra_translated_words', 50, 255, $this->getVar('tra_translated_words')));
+            $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_ENT, 'tra_untranslated_entities', 50, 255, $this->getVar('tra_untranslated_entities')));
+            $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_TRANSLATION_LAST_UPDATE, 'tra_last_update', '', $this->getVar('tra_last_update')));
+            // Form Select Status traStatus
+            $traStatusSelect = new \XoopsFormSelect(\_AM_WGTRANSIFEX_TRANSLATION_STATUS, 'tra_status', $this->getVar('tra_status'));
+            $traStatusSelect->addOption(Constants::STATUS_NONE, \_AM_WGTRANSIFEX_STATUS_NONE);
+            $traStatusSelect->addOption(Constants::STATUS_SUBMITTED, \_AM_WGTRANSIFEX_STATUS_SUBMITTED);
+            $traStatusSelect->addOption(Constants::STATUS_READTX, \_AM_WGTRANSIFEX_STATUS_READTX);
+            $traStatusSelect->addOption(Constants::STATUS_OUTDATED, \_AM_WGTRANSIFEX_STATUS_OUTDATED);
+            $form->addElement($traStatusSelect, true);
+            // Form Text Date Select traDate
+            $form->addElement(new \XoopsFormDateTime(\_AM_WGTRANSIFEX_TRANSLATION_DATE, 'tra_date', '', 0));
+            // Form Select User traSubmitter
+            $form->addElement(new \XoopsFormSelectUser(\_AM_WGTRANSIFEX_TRANSLATION_SUBMITTER, 'tra_submitter', false, $GLOBALS['xoopsUser']->getVar('uid')));
+        } else {
+            // Form Table projects
+            $proSlug = $projectsHandler->get($this->getVar('tra_pro_id'))->getVar('pro_slug');
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_PRO_ID, $proSlug));
+            $form->addElement(new \XoopsFormHidden('tra_pro_id', $this->getVar('tra_pro_id')));
+            // Form Table resources
+            $resSlug = $resourcesHandler->get($this->getVar('tra_res_id'))->getVar('res_slug');
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_RES_ID, $resSlug));
+            $form->addElement(new \XoopsFormHidden('tra_res_id', $this->getVar('tra_res_id')));
+            // Form Table languages
+            $langName = $languagesHandler->get($this->getVar('tra_lang_id'))->getVar('lang_name');
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_LANG_ID, $langName));
+            $form->addElement(new \XoopsFormHidden('tra_lang_id', $this->getVar('tra_lang_id')));
+            // Form Editor TextArea traContent
+            $traContent = $this->getVar('tra_content', 'e');
+            $form->addElement(new \XoopsFormTextArea(\_AM_WGTRANSIFEX_TRANSLATION_CONTENT, 'tra_content', $traContent, 20, 47));
+            $form->addElement(new \XoopsFormHidden('tra_content_old', $traContent));
+            // Form Text traMimetype
+            // $form->addElement(new \XoopsFormText(\_AM_WGTRANSIFEX_TRANSLATION_MIMETYPE, 'tra_mimetype', 50, 255, $this->getVar('tra_mimetype')));
+            $form->addElement(new \XoopsFormHidden('tra_mimetype', $this->getVar('tra_mimetype')));
+            // Form Text traLocal
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_LOCAL,  $this->getVar('tra_local')));
+            $form->addElement(new \XoopsFormHidden('tra_local', $this->getVar('tra_local')));
+            $form->addElement(new \XoopsFormHidden('tra_proofread', $this->getVar('tra_proofread')));
+            $form->addElement(new \XoopsFormHidden('tra_proofread_percentage', $this->getVar('tra_proofread_percentage')));
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED,  $this->getVar('tra_reviewed')));
+            $form->addElement(new \XoopsFormHidden('tra_reviewed', $this->getVar('tra_reviewed')));
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_REVIEWED_PERC,  $this->getVar('tra_reviewed_percentage')));
+            $form->addElement(new \XoopsFormHidden('tra_reviewed_percentage', $this->getVar('tra_reviewed_percentage')));
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_COMPLETED,  $this->getVar('tra_completed')));
+            $form->addElement(new \XoopsFormHidden('tra_completed', $this->getVar('tra_completed')));
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_WORDS,  $this->getVar('tra_untranslated_words')));
+            $form->addElement(new \XoopsFormHidden('tra_untranslated_words', $this->getVar('tra_untranslated_words')));
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_TRANSLATED_WORDS,  $this->getVar('tra_translated_words')));
+            $form->addElement(new \XoopsFormHidden('tra_translated_words', $this->getVar('tra_translated_words')));
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_UNTRANSLATED_ENT,  $this->getVar('tra_untranslated_entities')));
+            $form->addElement(new \XoopsFormHidden('tra_untranslated_entities', $this->getVar('tra_untranslated_entities')));
+            $traLastUpdate = $this->getVar('tra_last_update');
+            $traLastUpdateText = '';
+            if ($traLastUpdate > 0) {
+                $traLastUpdateText = formatTimestamp($traLastUpdate, 'm');
+            }
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_LAST_UPDATE,  $traLastUpdateText));
+            $form->addElement(new \XoopsFormHidden('tra_last_update', $traLastUpdate));
+            // Form Select Status traStatus
+            $traStatusText = Utility::getStatusText($this->getVar('tra_status'));
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_STATUS,  $traStatusText));
+
+
+
+
+
+
+
+
+            // Form Text Date Select traDate
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_DATE,  formatTimestamp($this->getVar('tra_date'), 'm')));
+            // Form Select User traSubmitter
+            $traSubmitter = '';
+            $memberHandler = xoops_getHandler('member');
+            $user = $memberHandler->getUser($this->getVar('tra_submitter'));
+            if ($user instanceof \XoopsUser) {
+                $traSubmitter = $user->getVar('uname');
+            }
+            $form->addElement(new \XoopsFormLabel(\_AM_WGTRANSIFEX_TRANSLATION_SUBMITTER,  $traSubmitter));
+        }
+
+
         // To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', '', false));
@@ -271,7 +339,11 @@ class Translations extends \XoopsObject
         }
         $resourcesHandler = $helper->getHandler('Resources');
         $resourcesObj = $resourcesHandler->get($this->getVar('tra_res_id'));
-        $ret['res_id'] = $resourcesObj->getVar('res_slug');
+        $resSlug = '';
+        if (\is_object($resourcesObj)) {
+            $resSlug = $resourcesObj->getVar('res_slug');
+        }
+        $ret['res_id'] = $resSlug;
         $languagesHandler = $helper->getHandler('Languages');
         $languagesObj = $languagesHandler->get($this->getVar('tra_lang_id'));
         $ret['lang_id'] = $languagesObj->getVar('lang_name');

@@ -51,13 +51,10 @@
             <tr class='head'>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_ID}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_PRO_ID}></th>
-                <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_SOURCE_LANGUAGE_CODE}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_NAME}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_I18N_TYPE}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_SLUG}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_PRIORITY}></th>
-                <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_CATEGORIES}></th>
-                <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_METADATA}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_STATUS}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_DATE}></th>
                 <th class="center"><{$smarty.const._AM_WGTRANSIFEX_RESOURCE_SUBMITTER}></th>
@@ -70,13 +67,10 @@
             <tr class='<{cycle values='odd, even'}>'>
                 <td class='center'><{$resource.id}></td>
                 <td class='center'><{$resource.pro_id}></td>
-                <td class='center'><{$resource.source_language_code}></td>
                 <td class='center'><{$resource.name}></td>
                 <td class='center'><{$resource.i18n_type}></td>
                 <td class='center'><{$resource.slug}></td>
                 <td class='center'><{$resource.priority}></td>
-                <td class='center'><{$resource.categories}></td>
-                <td class='center'><{$resource.metadata_short}></td>
                 <td class='center'><img src="<{$modPathIcon32}>status<{$resource.status}>.png" alt="<{$resource.status_text}>" title="<{$resource.status_text}>"></td>
                 <td class='center'><{$resource.date}></td>
                 <td class='center'><{$resource.submitter}></td>

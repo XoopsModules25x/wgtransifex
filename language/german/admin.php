@@ -341,3 +341,5 @@ Die Idee dahinter ist, dass man die selben Logos z.B. für News, Blogs oder eben
 \define('_AM_WGTRANSIFEX_CHECKTX_TRANSLATION_SKIPPED', 'Folgende Überprüfungen wurden übersprungen:');
 \define('_AM_WGTRANSIFEX_CHECKTX_PROJECTS_DELETED_1', 'Folgende Projekte sind auf Transifex nicht mehr vorhanden:');
 \define('_AM_WGTRANSIFEX_CHECKTX_PROJECTS_DELETED_2', 'Bitte löschen Sie diese Projekte da sonst unerwartete Fehler auftreten können!');
+\define('_AM_WGTRANSIFEX_READTX_PROJECT_TRANSLATIONS_ALL', 'Alle übersetzten Dateien dieses Projekts herunterladen');
+\define('_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ERROR_SOURCELANG', 'Die gewählte Sprache %s (%s) ist die Quellsprache des Projektes und kann daher nicht als Übersetzung heruntergeladen werden!');

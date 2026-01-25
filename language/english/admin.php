@@ -341,3 +341,5 @@ The idea is to use the same logos e.g. in news, blogs or to illustrate the trans
 \define('_AM_WGTRANSIFEX_CHECKTX_TRANSLATION_SKIPPED', 'Following checks have been skipped:');
 \define('_AM_WGTRANSIFEX_CHECKTX_PROJECTS_DELETED_1', 'Following projects are not available on Transifex anymore:');
 \define('_AM_WGTRANSIFEX_CHECKTX_PROJECTS_DELETED_2', 'Please delete them otherwise unexpected errors can occur!');
+\define('_AM_WGTRANSIFEX_READTX_PROJECT_TRANSLATIONS_ALL', 'Download all translation files of this project');
+\define('_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ERROR_SOURCELANG', 'The selected language %s (%s) is the source language of the project and therefore it cannot be used for download translations!');

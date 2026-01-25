@@ -153,10 +153,13 @@ switch ($op) {
         if (0 == $proId && $resourcesCount > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS, 'translations.php?op=readtx');
         }
-        //$adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ALL, 'translations.php?op=readtxall', 'add');
         if ($translationsCount > 0) {
             $adminObject->addItemButton(\_AM_WGTRANSIFEX_CHECKTX_TRANSLATIONS, 'translations.php?op=checktx', 'addlink');
         }
+        if ($proId > 0) {
+            $adminObject->addItemButton(\_AM_WGTRANSIFEX_READTX_PROJECT_TRANSLATIONS_ALL, 'translations.php?op=savetx&amp;tra_id=0&amp;tra_pro_id=' .  $proId . '&amp;tra_lang_id=' . $langId, 'add');
+        }
+
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         break;
     case 'readtx':
@@ -180,9 +183,23 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     case 'savetx':
+        $resId  = Request::getInt('tra_res_id');
+        $projectsObj = $projectsHandler->get($proId);
+        if (is_object($projectsObj) && $langId > 0) {
+            $sourceLanguage = $projectsObj->getVar('pro_source_language_code');
+            $languagesObj = $languagesHandler->get($langId);
+            if (is_object($languagesObj)) {
+                if ((string)$languagesObj->getVar('lang_code') === $sourceLanguage) {
+                    \redirect_header('translations.php?op=list', 3,
+                        sprintf(_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ERROR_SOURCELANG,
+                            $languagesObj->getVar('lang_name'),
+                            $sourceLanguage));
+                }
+            }
+        }
         //read translations
         $transifex = Transifex::getInstance();
-        $result = $transifex->readTranslations($traId, $proId, $langId);
+        $result = $transifex->readTranslations($traId, $proId, $langId, $resId);
         //update table projects
         $projectsHandler->updateProjectTranslations($proId);
         $resourcesHandler->updateResourceTranslations($proId);
@@ -223,7 +240,7 @@ switch ($op) {
                         $crTranslations->add(new \Criteria('tra_lang_id', $langId));
                         $translationsCount = $translationsHandler->getCount($crTranslations);
                         if (Constants::READTYPE_ALL == $readType || 0 == $translationsCount) {
-                            $result = $transifex->readTranslations(0, $proId, $langId, false, true, $resId);
+                            $result = $transifex->readTranslations(0, $proId, $langId, $resId);
                             if (\_AM_WGTRANSIFEX_READTX_OK == $result) {
                                 //update table projects
                                 if (!$projectsHandler->updateProjectTranslations($proId)) {
@@ -278,7 +295,7 @@ switch ($op) {
         $translationsObj->setVar('tra_lang_id', Request::getInt('tra_lang_id'));
         $translationsObj->setVar('tra_content', Request::getString('tra_content'));
         $translationsObj->setVar('tra_mimetype', Request::getString('tra_mimetype'));
-        $translationsObj->setVar('tra_status', Request::getInt('tra_status'));
+        $translationsObj->setVar('tra_status', Constants::STATUS_LOCAL);
         $translationsObj->setVar('tra_local', Request::getString('tra_local'));
         $translationsObj->setVar('tra_proofread', Request::getInt('tra_proofread'));
         $translationsObj->setVar('tra_proofread_percentage', Request::getInt('tra_proofread_percentage'));
@@ -291,12 +308,9 @@ switch ($op) {
         $translationsObj->setVar('tra_translated_words', Request::getInt('tra_translated_words'));
         $translationsObj->setVar('tra_untranslated_entities', Request::getInt('tra_untranslated_entities'));
         $translationsObj->setVar('tra_last_update', Request::getInt('tra_last_update'));
-        $translationDateArr = Request::getArray('tra_date');
-        $translationDateObj = \DateTime::createFromFormat(_SHORTDATESTRING, $translationDateArr['date']);
-        $translationDateObj->setTime(0, 0);
-        $translationDate = $translationDateObj->getTimestamp() + (int)$translationDateArr['time'];
-        $translationsObj->setVar('tra_date', $translationDate);
-        $translationsObj->setVar('tra_submitter', Request::getInt('tra_submitter'));
+        $translationsObj->setVar('tra_date', time());
+        $traSubmitter = isset($GLOBALS['xoopsUser']) && \is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getVar('uid') : 0;
+        $translationsObj->setVar('tra_submitter', $traSubmitter);
         // Insert Data
         if ($translationsHandler->insert($translationsObj)) {
             $projectsHandler->updateProjectTranslations($proId);
