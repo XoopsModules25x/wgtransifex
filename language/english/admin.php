@@ -343,3 +343,5 @@ The idea is to use the same logos e.g. in news, blogs or to illustrate the trans
 \define('_AM_WGTRANSIFEX_CHECKTX_PROJECTS_DELETED_2', 'Please delete them otherwise unexpected errors can occur!');
 \define('_AM_WGTRANSIFEX_READTX_PROJECT_TRANSLATIONS_ALL', 'Download all translation files of this project');
 \define('_AM_WGTRANSIFEX_READTX_TRANSLATIONS_ERROR_SOURCELANG', 'The selected language %s (%s) is the source language of the project and therefore it cannot be used for download translations!');
+\define('_AM_WGTRANSIFEX_TRANSIFEX_INFO_TITLE', 'Important Information');
+\define('_AM_WGTRANSIFEX_TRANSIFEX_INFO_TEXT', 'Since the download via the Transifex API interface only provides the actually translated parts, it is no longer possible to create complete translation files with this information.<br>Therefore, the original English files are used as a template, and the translated parts are replaced within the file.<br>It is therefore essential that all English language files in the current XOOPS installation are in their latest version, otherwise, corrupted files may be created!');

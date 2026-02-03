@@ -20,6 +20,8 @@ namespace XoopsModules\Wgtransifex;
  * @author       Goffy - XOOPS Development Team
  */
 
+use XoopsModules\Wgtransifex\TransifexBuilder;
+
 /**
  * Transifex API wrapper class.
  */
@@ -298,6 +300,7 @@ class TransifexLib
      * @param string $resource
      * @param string $language
      * @param string $resI18nType
+     * @param string $traLocal
      *
      * @return array{content:string, mimetype:string}
      */
@@ -305,7 +308,9 @@ class TransifexLib
         string $project,
         string $resource,
         string $language,
-        string $resI18nType
+        string $resI18nType,
+        string $traLocal,
+        string $langFolder
     ): array {
         $this->ensureConfigured();
 
@@ -352,8 +357,48 @@ class TransifexLib
         $content  = '';
         $mimetype = 'text/plain';
         if ('PHP_DEFINE' === $resI18nType) {
-            $content = $this->generateDefines($response);
+
+            // if target file is php then take old file in order to keep all comments
+            // Transifex API 3 provides only the lines with translation
+
+            // get local english file as template, if available
+            $localTemplatePath = XOOPS_ROOT_PATH . '/' . str_replace($langFolder, 'english', $traLocal);
+            if (!file_exists($localTemplatePath)) {
+                $moduleDirName = \basename(\dirname(__DIR__));
+                $localTemplatePath = \XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/english/transifex_tpl/default.php";
+            }
+
+            $builder = new TransifexBuilder();
+            $content = $builder->buildPHP(
+                $response,
+                $localTemplatePath
+            );
             $mimetype = 'application/x-httpd-php';
+        } else if ('TXT_PHP' === $resI18nType || 'TXT_HTML' === $resI18nType) {
+            $localTemplatePath = XOOPS_ROOT_PATH . '/' . str_replace($langFolder, 'english', $traLocal);
+            if (file_exists($localTemplatePath)) {
+                $builder = new TransifexBuilder();
+                $content = $builder->buildByKey(
+                    $response,
+                    $localTemplatePath
+                );
+            } else {
+                $content = $this->generatePlainText($response);
+            }
+            $mimetype = 'application/x-httpd-php';
+        } else if ('TXT_JS' === $resI18nType) {
+            $localTemplatePath = str_replace('de.js', 'en.js', $traLocal);
+            $localTemplatePath = str_replace('de_dlg.js', 'en_dlg.js', $localTemplatePath);
+            $localTemplatePath = XOOPS_ROOT_PATH . '/' . $localTemplatePath;
+            if (file_exists($localTemplatePath)) {
+                $builder = new TransifexBuilder();
+                $content = $builder->buildByKey(
+                    $response,
+                    $localTemplatePath
+                );
+            } else {
+                $content = $this->generatePlainText($response);
+            }
         } else {
             $content = $this->generatePlainText($response);
         }
@@ -419,7 +464,6 @@ class TransifexLib
 
         return implode("\n", $lines);
     }
-
 
     /**
      * @param             $project
@@ -766,11 +810,25 @@ class TransifexLib
     private function normalizeResource(array $resource, string $projectSlug): array
     {
         $attributes = $resource['attributes'] ?? [];
-
+        $i18n_type  = $attributes['i18n_type'];
+        $name       = $attributes['name'];
+        if ('TXT' === $i18n_type) {
+            if ('.js.txt' === substr($name, -7)) {
+                $i18n_type = 'TXT_JS';
+            } elseif ('.php.txt' === substr($name, -8)) {
+                $i18n_type = 'TXT_PHP';
+            } elseif ('.sql.txt' === substr($name, -8)) {
+                $i18n_type = 'TXT_SQL';
+            } elseif ('.tpl.txt' === substr($name, -8)) {
+                $i18n_type = 'TXT_TPL';
+            } elseif ('.html.txt' === substr($name, -9)) {
+                $i18n_type = 'TXT_HTML';
+            }
+        }
         return [
             'slug' => $attributes['slug'] ?? $this->extractSlugFromId($resource['id'] ?? '', 'r'),
-            'name' => $attributes['name'] ?? '',
-            'i18n_type' => $attributes['i18n_type'] ?? '',
+            'name' => $name,
+            'i18n_type' => $i18n_type,
             'priority' => (int)($attributes['priority'] ?? 0),
             'source_language_code' => '', // not available anymore
             /* categories and metadata are not supported anymore

@@ -314,7 +314,7 @@ class Transifex
                 $resName = $resourcesAll[$i]->getVar('res_name');
                 //$resSourceLang = $resourcesAll[$i]->getVar('res_source_language_code');
                 $resI18nType = $resourcesAll[$i]->getVar('res_i18n_type');
-                $item = $transifexLib->getTranslation($project, $resource, $language, $resI18nType);
+
                 $translationsObj = null;
                 $crTranslations = new \CriteriaCompo();
                 $crTranslations->add(new \Criteria('tra_res_id', $resId));
@@ -332,6 +332,10 @@ class Transifex
                 } else {
                     $translationsObj = $translationsHandler->create();
                 }
+
+                $traLocal = $this->getLocal($resName, $langFolder, $langShort);
+                $item = $transifexLib->getTranslation($project, $resource, $language, $resI18nType, $traLocal, $langFolder);
+
                 if (\is_object($translationsObj)) {
                     $stats = $transifexLib->getStats($project, $resource, $language);
                     if (\count($stats) > 0) {
@@ -354,7 +358,7 @@ class Transifex
                         if (\is_string($stats['last_update'])) {
                             $translationsObj->setVar('tra_last_update', \strtotime($stats['last_update']));
                         }
-                        $translationsObj->setVar('tra_local', $this->getLocal($resName, $langFolder, $langShort));
+                        $translationsObj->setVar('tra_local', $traLocal);
                         $translationsObj->setVar('tra_status', Constants::STATUS_READTX);
                         $translationsObj->setVar('tra_date', \time());
                         $translationsObj->setVar('tra_submitter', $xoopsUser->getVar('uid'));

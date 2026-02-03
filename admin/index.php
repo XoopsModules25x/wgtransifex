@@ -57,8 +57,12 @@ $countTranslations = $translationsHandler->getCount();
 $countSettings = $settingsHandler->getCount();
 $countLanguages = $languagesHandler->getCount();
 $countRequests = $requestsHandler->getCount();
+
+
 // InfoBox Statistics
 /** @var \Xmf\Module\Admin $adminObject */
+$adminObject->addInfoBox(\_AM_WGTRANSIFEX_TRANSIFEX_INFO_TITLE);
+$adminObject->addInfoBoxLine('<span class="wgt-transifex-info">' . \_AM_WGTRANSIFEX_TRANSIFEX_INFO_TEXT . '</span>');
 $adminObject->addInfoBox(\_AM_WGTRANSIFEX_STATISTICS);
 // Info elements
 $adminObject->addInfoBoxLine(\sprintf('<label>' . \_AM_WGTRANSIFEX_THEREARE_PROJECTS . '</label>', $countProjects));
@@ -96,5 +100,7 @@ if ($helper->getConfig('displaySampleButton')) {
     $adminObject->displayButton('left');
 }
 $GLOBALS['xoopsTpl']->assign('index', $adminObject->displayIndex());
+
+$GLOBALS['xoTheme']->addStylesheet($style, null);
 
 require __DIR__ . '/footer.php';

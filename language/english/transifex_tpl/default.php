@@ -1,4 +1,7 @@
-@charset "UTF-8";
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -10,28 +13,10 @@
 */
 
 /**
- * wgTransifex module for xoops
+ * default php template for wgTransifex TransifexBuilder
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2026 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
- * @package        wgtransifex
- * @since          1.0
- * @min_xoops      2.5.9
- * @author         TDM XOOPS - Email:<info@email.com> - Website:<http://xoops.org>
+ * @author         Goffy - Email:<webmaster@wedega.com> - Website:<https://wedega.com> / <https://xoops.org>
  */
-
-.wgt-icon24 {
-	height:24px;
-}
-.wgt-error-info {
-    color:red;
-    border: 1px solid red;
-    margin-bottom:50px;
-    padding:15px;
-}
-
-.wgt-transifex-info {
-    color:red;
-    font-weight: bold;
-}
-
+ 

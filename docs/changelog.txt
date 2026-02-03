@@ -8,6 +8,7 @@
 - updated form for editing translation (goffy)
 - added new button for download all translations of one project (goffy)
 - remove information which are not supported anymore (goffy)
+- added workaround for fixing problems with incomplete downloads of translations (goffy)
 
 ==============================================================
 2023/02/28 1.1.1 RC1
